@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="root" style="-fx-background-color: #312e2b;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.application.start.StartController">
+	<HBox alignment="CENTER_LEFT" spacing="10">
+		<VBox.margin>
+			<Insets bottom="0.0" left="25.0" right="25.0" top="10.0" />
+		</VBox.margin>
+		<Label text="Name:" textFill="WHITE">
+			<font>
+				<Font name="Verdana" size="12.0" />
+			</font></Label>
+		<TextField fx:id="player1Field" promptText="Player 1" styleClass="textField" />
+		<Region HBox.hgrow="ALWAYS" />
+		<Label text="plays:" textFill="WHITE">
+			<font>
+				<Font name="Verdana" size="12.0" />
+			</font></Label>
+		<ComboBox fx:id="colorPlayer1" onAction="#colorComboBoxAction">
+			<items>
+				<FXCollections fx:factory="observableArrayList">
+					<String fx:value="White" />
+					<String fx:value="Black" />
+				</FXCollections>
+			</items>
+		</ComboBox>
+	</HBox>
+	<HBox alignment="CENTER_LEFT" spacing="10">
+		<VBox.margin>
+			<Insets bottom="0.0" left="25.0" right="25.0" top="5.0" />
+		</VBox.margin>
+		<Label text="Name:" textFill="WHITE">
+			<font>
+				<Font name="Verdana" size="12.0" />
+			</font></Label>
+		<TextField fx:id="player2Field" promptText="Player 2" styleClass="textField" />
+		<Region HBox.hgrow="ALWAYS" />
+		<Label text="plays:" textFill="WHITE">
+			<font>
+				<Font name="Verdana" size="12.0" />
+			</font></Label>
+		<ComboBox fx:id="colorPlayer2" onAction="#colorComboBoxAction">
+			<items>
+				<FXCollections fx:factory="observableArrayList">
+					<String fx:value="White" />
+					<String fx:value="Black" />
+				</FXCollections>
+			</items>
+		</ComboBox>
+	</HBox>
+	<HBox alignment="CENTER_LEFT" spacing="18">
+		<VBox.margin>
+			<Insets bottom="0.0" left="25.0" right="25.0" top="5.0" />
+		</VBox.margin>
+		<Label text="Pieces at bottom of board:" textFill="WHITE">
+			<font>
+				<Font name="Verdana" size="12.0" />
+			</font></Label>
+		<Region HBox.hgrow="ALWAYS" />
+		<ComboBox fx:id="colorPiecesAtBottom">
+			<items>
+				<FXCollections fx:factory="observableArrayList">
+					<String fx:value="White" />
+					<String fx:value="Black" />
+				</FXCollections>
+			</items>
+		</ComboBox>
+	</HBox>
+	<HBox alignment="CENTER_LEFT" spacing="18">
+		<VBox.margin>
+			<Insets bottom="0.0" left="25.0" right="25.0" top="5.0" />
+		</VBox.margin>
+		<Label text="Time:" textFill="WHITE">
+			<font>
+				<Font name="Verdana" size="12.0" />
+			</font></Label>
+		<CheckBox fx:id="time" />
+		<Region HBox.hgrow="ALWAYS" />
+		<Label fx:id="hoursLabel" disable="${! time.selected}" text="hours:" textFill="WHITE" />
+		<TextField fx:id="hoursField" disable="${! time.selected}" prefHeight="25.0" prefWidth="42.0" promptText="0-10" styleClass="textField" />
+		<Region prefWidth="1.0" />
+		<Label fx:id="minutesLabel" disable="${ ! time.selected}" text="minutes:" textFill="WHITE" />
+		<TextField fx:id="minutesField" disable="${! time.selected}" prefHeight="25.0" prefWidth="41.0" promptText="1-59" styleClass="textField" />
+	</HBox>
+	<BorderPane>
+		<VBox.margin>
+			<Insets bottom="10.0" left="25.0" right="25.0" top="20.0" />
+		</VBox.margin>
+		<left>
+			<Button fx:id="cancelButton" onAction="#cancelButtonAction" styleClass="actionButton" text="Cancel" />
+		</left>
+		<right>
+			<Button fx:id="acceptButton" onAction="#acceptButtonAction" styleClass="actionButton" text="Accept" />
+		</right>
+	</BorderPane>
+	<stylesheets>
+		<URL value="@StartLayout.css" />
+	</stylesheets>
+</VBox>

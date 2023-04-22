@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" prefWidth="700.0" vgap="10" xmlns="http://javafx.com/javafx/16"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints/>
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints/>
+   </rowConstraints>
+   <AnchorPane fx:id="parent" prefHeight="570.0" prefWidth="700.0" styleClass="parent" stylesheets="@styles.css">
+      <Button layoutX="648.0" layoutY="-2.0" mnemonicParsing="false" onAction="#close" prefHeight="33.0"
+              prefWidth="52.0" styleClass="closeButton" text="X" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Microsoft Sans Serif" size="16.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Button>
+      <Label layoutX="48.0" layoutY="9.0" styleClass="title" text="Hangman" textFill="WHITE">
+         <font>
+            <Font size="15.0"/>
+         </font>
+      </Label>
+      <Button layoutX="596.0" layoutY="-2.0" mnemonicParsing="false" onAction="#minimize" prefHeight="33.0"
+              prefWidth="52.0" styleClass="minimizeButton" text="─" textFill="WHITE">
+         <font>
+            <Font size="14.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Button>
+      <ImageView fitHeight="30.0" fitWidth="38.0" layoutX="10.0" layoutY="7.0" pickOnBounds="true"
+                 preserveRatio="true" styleClass="photo">
+         <Image url="@../hangman.png"/>
+      </ImageView>
+      <Line endX="100.0" layoutX="571.0" layoutY="373.0" startX="-100.0" stroke="WHITE"/>
+      <Line endY="67.5" layoutX="571.0" layoutY="305.0" startX="-0.5" startY="-208.5" stroke="WHITE"/>
+      <Line endX="100.0" layoutX="470.0" layoutY="97.0" startX="-67.0" stroke="WHITE"/>
+      <Line endY="-131.0" layoutX="402.0" layoutY="266.0" startY="-169.5" stroke="WHITE"/>
+      <Circle fx:id="head" fill="#f7f7f700" layoutX="403.0" layoutY="162.0" radius="26.0" stroke="WHITE"
+              strokeType="INSIDE"/>
+      <Line fx:id="body" endX="-30.0" endY="-26.0" layoutX="433.0" layoutY="268.0" startX="-30.0" startY="-80.0"
+            stroke="WHITE"/>
+      <Line fx:id="leftLeg" endX="-27.0" endY="-57.0" layoutX="408.0" layoutY="345.0" startX="-5.5" startY="-102.5"
+            stroke="WHITE"/>
+      <Line fx:id="rightLeg" endX="-13.0" endY="-70.0" layoutX="436.0" layoutY="358.0" startX="-32.5" startY="-115.5"
+            stroke="WHITE"/>
+      <Line fx:id="rightArm" endX="-27.0" endY="-56.0" layoutX="430.0" layoutY="271.0" startX="10.0" startY="-80.0"
+            stroke="WHITE"/>
+      <Line fx:id="leftArm" endX="-27.0" endY="-75.0" layoutX="392.0" layoutY="267.0" startX="9.5" startY="-52.0"
+            stroke="WHITE"/>
+      <Label fx:id="letterA" layoutX="30.0" layoutY="435.0" onMouseClicked="#change" text="A" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterB" layoutX="80.0" layoutY="435.0" onMouseClicked="#change" text="B" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterC" layoutX="130.0" layoutY="435.0" onMouseClicked="#change" text="C" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterD" layoutX="180.0" layoutY="435.0" onMouseClicked="#change" text="D" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterE" layoutX="230.0" layoutY="435.0" onMouseClicked="#change" text="E" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterF" layoutX="280.0" layoutY="435.0" onMouseClicked="#change" text="F" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterK" layoutX="530.0" layoutY="435.0" onMouseClicked="#change" text="K" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterP" layoutX="130.0" layoutY="499.0" onMouseClicked="#change" text="P" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterU" layoutX="380.0" layoutY="499.0" onMouseClicked="#change" text="U" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterG" layoutX="325.0" layoutY="435.0" onMouseClicked="#change" text="G" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterH" layoutX="380.0" layoutY="435.0" onMouseClicked="#change" text="H" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterI" layoutX="436.0" layoutY="435.0" onMouseClicked="#change" text="I" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterJ" layoutX="485.0" layoutY="435.0" onMouseClicked="#change" text="J" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterL" layoutX="580.0" layoutY="435.0" onMouseClicked="#change" text="L" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterM" layoutX="630.0" layoutY="435.0" onMouseClicked="#change" text="M" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterN" layoutX="30.0" layoutY="499.0" onMouseClicked="#change" text="N" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterO" layoutX="80.0" layoutY="499.0" onMouseClicked="#change" text="O" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterQ" layoutX="180.0" layoutY="499.0" onMouseClicked="#change" text="Q" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterV" layoutX="430.0" layoutY="499.0" onMouseClicked="#change" text="V" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterR" layoutX="230.0" layoutY="499.0" onMouseClicked="#change" text="R" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterW" layoutX="472.0" layoutY="499.0" onMouseClicked="#change" text="W" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterS" layoutX="280.0" layoutY="499.0" onMouseClicked="#change" text="S" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterT" layoutX="330.0" layoutY="499.0" onMouseClicked="#change" text="T" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterY" layoutX="580.0" layoutY="499.0" onMouseClicked="#change" text="Y" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterX" layoutX="530.0" layoutY="499.0" onMouseClicked="#change" text="X" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <Label fx:id="letterZ" layoutX="635.0" layoutY="499.0" onMouseClicked="#change" text="Z" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="45.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+      <AnchorPane layoutX="-2.0" layoutY="185.0" prefHeight="98.0" prefWidth="366.0">
+         <Label fx:id="wordLabel" prefHeight="98.0" prefWidth="366.0" text="******************" textFill="WHITE">
+            <font>
+               <Font name="Bell MT" size="40.0"/>
+            </font>
+         </Label>
+      </AnchorPane>
+      <Label fx:id="wordLength" layoutX="36.0" layoutY="67.0" prefHeight="98.0" prefWidth="168.0" text="10 letters"
+             textFill="WHITE" underline="true">
+         <font>
+            <Font name="Bell MT" size="40.0"/>
+         </font>
+      </Label>
+      <Button layoutX="544.0" layoutY="-3.0" mnemonicParsing="false" onAction="#refresh" prefHeight="33.0"
+              prefWidth="52.0" styleClass="minimizeButton" text="⟳" textFill="WHITE">
+         <font>
+            <Font size="18.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Button>
+      <Label fx:id="gameStatus" layoutX="394.0" layoutY="35.0" prefHeight="47.0" prefWidth="201.0" text="Game won!"
+             textFill="WHITE" underline="true">
+         <font>
+            <Font name="Bell MT" size="40.0"/>
+         </font>
+      </Label>
+   </AnchorPane>
+</GridPane>

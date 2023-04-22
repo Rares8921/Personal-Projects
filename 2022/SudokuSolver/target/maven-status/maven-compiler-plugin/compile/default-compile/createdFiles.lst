@@ -1,0 +1,6 @@
+com\sudokusolver\views\SecondaryView.class
+com\sudokusolver\DrawerManager.class
+com\sudokusolver\Sudoku.class
+com\sudokusolver\views\PrimaryView.class
+com\sudokusolver\PopUp.class
+com\sudokusolver\SudokuSolver.class

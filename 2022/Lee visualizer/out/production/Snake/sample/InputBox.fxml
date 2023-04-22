@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="box" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #393939;" stylesheets="@lee.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ErrorBox">
+   <children>
+      <Label fx:id="Title" layoutX="15.0" layoutY="8.0" text="Error" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Consolas" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="close" layoutX="254.0" layoutY="1.0" mnemonicParsing="false" onAction="#closeBox" prefHeight="33.0" prefWidth="46.0" styleClass="closeButton" text="X" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Microsoft Sans Serif" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label fx:id="Title1" layoutX="68.0" layoutY="42.0" text="Invalid input for lee!" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

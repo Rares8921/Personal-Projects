@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="287.0" styleClass="parent" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <Button layoutY="249.0" mnemonicParsing="false" onAction="#seven" prefHeight="51.0" prefWidth="72.0" styleClass="blackButtons" text="7" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="72.0" layoutY="249.0" mnemonicParsing="false" onAction="#eight" prefHeight="51.0" prefWidth="72.0" styleClass="blackButtons" text="8" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutY="298.0" mnemonicParsing="false" onAction="#four" prefHeight="49.0" prefWidth="72.0" styleClass="blackButtons" text="4" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="143.0" layoutY="249.0" mnemonicParsing="false" onAction="#nine" prefHeight="51.0" prefWidth="72.0" styleClass="blackButtons" text="9" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="72.0" layoutY="300.0" mnemonicParsing="false" onAction="#five" prefHeight="49.0" prefWidth="72.0" styleClass="blackButtons" text="5" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="143.0" layoutY="300.0" mnemonicParsing="false" onAction="#six" prefHeight="49.0" prefWidth="72.0" styleClass="blackButtons" text="6" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutY="347.0" mnemonicParsing="false" onAction="#one" prefHeight="49.0" prefWidth="72.0" styleClass="blackButtons" text="1" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="72.0" layoutY="347.0" mnemonicParsing="false" onAction="#two" prefHeight="49.0" prefWidth="72.0" styleClass="blackButtons" text="2" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="143.0" layoutY="347.0" mnemonicParsing="false" onAction="#three" prefHeight="49.0" prefWidth="72.0" styleClass="blackButtons" text="3" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutY="396.0" mnemonicParsing="false" onAction="#zero" prefHeight="49.0" prefWidth="72.0" styleClass="blackButtons" text="0" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="143.0" layoutY="396.0" mnemonicParsing="false" onAction="#percentage" prefHeight="49.0" prefWidth="72.0" styleClass="blackButtons" text="\%" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="72.0" layoutY="396.0" mnemonicParsing="false" onAction="#makeRational" prefHeight="49.0" prefWidth="72.0" styleClass="blackButtons" text="," textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="215.0" layoutY="396.0" mnemonicParsing="false" onAction="#answer" prefHeight="49.0" prefWidth="72.0" styleClass="equalButton" text="=" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="215.0" layoutY="249.0" mnemonicParsing="false" onAction="#multiplication" prefHeight="49.0" prefWidth="72.0" styleClass="darkGrayButtons" text="X" textFill="WHITE">
+         <font>
+            <Font name="Microsoft Sans Serif" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="215.0" layoutY="298.0" mnemonicParsing="false" onAction="#addition" prefHeight="49.0" prefWidth="72.0" styleClass="darkGrayButtons" text="+" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="215.0" layoutY="347.0" mnemonicParsing="false" onAction="#subtraction" prefHeight="49.0" prefWidth="72.0" styleClass="darkGrayButtons" text="-" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="215.0" layoutY="201.0" mnemonicParsing="false" onAction="#division" prefHeight="49.0" prefWidth="72.0" styleClass="darkGrayButtons" text="/" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="143.0" layoutY="151.0" mnemonicParsing="false" onAction="#squareRootYthBase" prefHeight="51.0" prefWidth="72.0" styleClass="lightGrayButtons" text="y√x" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="215.0" layoutY="151.0" mnemonicParsing="false" onAction="#deleteLastCharacter" prefHeight="50.0" prefWidth="72.0" styleClass="lightGrayButtons" text="🠔" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutY="201.0" mnemonicParsing="false" onAction="#clearEntry" prefHeight="49.0" prefWidth="72.0" styleClass="darkGrayButtons" text="CE" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="72.0" layoutY="201.0" mnemonicParsing="false" onAction="#powerOf2" prefHeight="49.0" prefWidth="72.0" styleClass="darkGrayButtons" text="^2" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutY="151.0" mnemonicParsing="false" onAction="#clear" prefHeight="50.0" prefWidth="72.0" styleClass="lightGrayButtons" text="C" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="72.0" layoutY="151.0" mnemonicParsing="false" onAction="#powerOfX" prefHeight="50.0" prefWidth="72.0" styleClass="lightGrayButtons" text="^x" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <TextField fx:id="inputField" alignment="CENTER_RIGHT" layoutX="-1.0" layoutY="69.0" onAction="#validate" onInputMethodTextChanged="#makeRational" onKeyTyped="#validate" onMouseClicked="#lastPosition" onMouseEntered="#lastPosition" onMouseExited="#lastPosition" onMousePressed="#lastPosition" onMouseReleased="#lastPosition" prefHeight="72.0" prefWidth="288.0" promptText="0" style="-fx-background-color: #5e5e5e; -fx-background-radius: 0; -fx-text-fill: #ffffff; -fx-font-size: 20px; -fx-accent: #878787;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
+      <Button layoutX="143.0" layoutY="202.0" mnemonicParsing="false" onAction="#squareRoot" prefHeight="48.0" prefWidth="72.0" styleClass="darkGrayButtons" text="√x" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="history" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutY="35.0" prefHeight="34.0" prefWidth="278.0" style="-fx-background-color: #5e5e5e; -fx-background-radius: 0;" textAlignment="RIGHT" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="7.0" prefHeight="21.0" prefWidth="72.0" styleClass="title" text="Calculator" textFill="WHITE" underline="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </Label>
+      <Button fx:id="closeButton" layoutX="241.0" mnemonicParsing="false" onAction="#close" prefHeight="33.0" prefWidth="46.0" styleClass="closeButton" text="X" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Microsoft Sans Serif" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="minimizeButton" layoutX="189.0" mnemonicParsing="false" onAction="#minimize" prefHeight="33.0" prefWidth="52.0" styleClass="minimizeButton" text="─" textFill="WHITE">
+         <font>
+            <Font name="Microsoft Sans Serif" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="5.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" styleClass="photo">
+         <image>
+            <Image url="@../calc.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="5.0" layoutY="119.0" mnemonicParsing="false" onAction="#changeSign" prefHeight="30.0" prefWidth="34.0" styleClass="changeButton" text="±" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</AnchorPane>

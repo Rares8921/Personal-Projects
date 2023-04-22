@@ -1,0 +1,108 @@
+.parent {
+    -fx-background-color: #5e5e5e;
+    -fx-background-radius: 0;
+}
+
+/* BUTTONS */
+
+.blackButtons {
+    -fx-background-color: #1e1e1e;
+    -fx-background-radius: 0;
+}
+
+.blackButtons:hover {
+    -fx-background-color: #363636;
+}
+
+.darkGrayButtons {
+    -fx-background-radius: 0;
+    -fx-background-color: #393939;
+}
+
+.darkGrayButtons:hover {
+    -fx-background-color: #595858;
+}
+
+.lightGrayButtons {
+    -fx-background-radius: 0;
+    -fx-background-color: #464646;
+}
+
+.lightGrayButtons:hover {
+    -fx-background-color: #5c5c5c;
+}
+
+.equalButton {
+    -fx-background-radius: 0;
+    -fx-background-color: #464646;
+}
+
+.equalButton:hover {
+    -fx-background-color: #5e5e5e;
+}
+
+/* TITLE BAR */
+
+.title {
+    -fx-font-style: none;
+}
+
+.title:hover {
+    -fx-font-style: italic;
+}
+
+.minimizeButton {
+    -fx-background-radius: 0;
+    -fx-background-color: #5e5e5e;
+}
+
+.minimizeButton:hover {
+    -fx-background-color: #707070;
+}
+
+.closeButton {
+    -fx-background-radius: 0;
+    -fx-background-color: #5e5e5e;
+}
+
+.closeButton:hover {
+    -fx-background-color: red;
+}
+
+.checkButton {
+    -fx-background-radius: 0;
+    -fx-background-color: #595858;
+}
+
+.checkButton:hover {
+    -fx-background-color: #707070;
+}
+
+.closeBoxButton {
+    -fx-background-radius: 0;
+    -fx-background-color: #595858;
+}
+
+.closeBoxButton:hover {
+    -fx-background-color: red;
+}
+
+.changeButton {
+    -fx-background-radius: 25px;
+    -fx-background-color: #5e5e5e;
+}
+
+.changeButton:hover {
+    -fx-background-color: #757575;
+}
+
+.photo {
+    -fx-width: 25px;
+    -fx-height: 25px;
+}
+
+.photo:hover {
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+    -fx-scale-z: 1.15;
+}

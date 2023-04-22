@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ro_RO">
+<head>
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+<title>Corpuri geometrice rotunde</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<link rel="icon" href="5.png">
+<style>
+        body {
+        background-color: white;
+    }
+
+.icon-bar {
+  width: 100%;
+  background-color: #555;
+  overflow: auto;
+}
+
+.icon-bar a {
+  float: left;
+  width: 20%;
+  text-align: center;
+  padding: 12px 0;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 36px;
+}
+
+.icon-bar a:hover {
+  background-color: #000;
+}
+
+.active {
+  background-color: #96d1ba; 
+}
+
+.imagine {
+    margin-left: 17%;
+    margin-top : 6%;
+}
+
+.text {
+  font-size: 45px;
+  text-decoration: underline;
+  position: absolute;
+  margin-left: 38%;
+  margin-top: 8%;
+}
+
+.ceva {
+    margin-left: 16.5%;
+}
+
+.formule {
+    font-size: 24px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-left: 55%;
+    margin-top: -30%;
+}
+
+.butoane {
+    margin-left: 75%;
+    margin-top: -2.8%;
+    cursor: pointer;
+}
+
+.but {
+    margin-top: -13%;
+    margin-left: 25%;
+}
+
+button {
+    background-color: transparent; /*#dadee5 */
+    border-radius: 5px;
+    font-weight: bold;
+    border: none;
+    font-size: 30px;
+}
+
+button:hover {
+    background-color: #dadee5;
+}
+
+button:active {
+  background-color: #dadee5;
+
+  transform: translateY(4px);
+}
+</style>
+<body>
+
+        <div class="icon-bar">
+                <a href="index.html"><i class="fa fa-home"></i></a> 
+                <a href="index1.html"><i class="fa fa-cube"></i></a> 
+                <a href="index2.html"><i class="fda"></i>&#9650;</a> 
+                <a class="active"  href="index3.html"><i class="fa fa-circle"></i></a>
+                <a href="https://www.google.com"><i class="fa fa-close"></i></a> 
+              </div>
+
+              
+              <div class="text">
+                <p id="cuv">Cilindrul circular drept</p>
+            </div>
+            
+            <div class="imagine">
+              <img id="poza" src="cilindru.png">
+          </div> 
+          <div class="formule">
+          <p id="a">G = H</p>
+          <p id="a1">L cerc = 2πR</p>
+          <p id="a2">Arie disc = π * R^2</p>
+          <p id="a3">Arie laterala = 2πRG</p>
+          <p id="a4">Arie totala = 2πR(R + G)</p>
+          <p id="a5">Volum: π * R^2 * H</p>
+          <p id="a6">Raza: D/2</p>
+        </div>
+    
+              <div class="but">
+                <button id="one" onclick="triunghi()" aria-placeholder="Alt corp" disabled>&#8592;</button>
+          </div>
+          <div class="butoane">
+            
+             <button id="one1" onclick="patrat()" aria-placeholder="Alt corp">&#8594;</button>
+          </div>
+
+          <script>
+
+            function patrat() {
+               document.getElementById("one").disabled = false;
+               document.getElementById("one1").disabled = false;
+               document.getElementById("cuv").innerHTML = "Con circular drept";
+          
+               document.getElementById("poza").src = "conul.png";
+               document.getElementById("a").style.marginTop = "6%";
+               document.getElementById("one").style.marginTop = "-14.5%";
+               
+               document.getElementById("a").innerHTML = "G != H";
+               document.getElementById("a1").innerHTML = "L cerc = 2πR";
+               document.getElementById("a2").innerHTML = "Arie disc = π * R^2";
+               document.getElementById("a3").innerHTML = "Arie laterala = πRG";
+               document.getElementById("a4").innerHTML = "Arie totala = πR(R + G)";
+               document.getElementById("a5").innerHTML = "Volum: (π * R^2 * H)/3";
+               document.getElementById("a6").innerHTML = "Raza: D/2";
+            }
+          
+            function triunghi() {
+               document.getElementById("one").disabled = true;
+               document.getElementById("one1").disabled = false;
+               document.getElementById("cuv").innerHTML = "Cilindrul circular drept";
+          
+               document.getElementById("poza").src = "cilindru.png";
+               //document.getElementById("poza").style.marginTop = "0%";
+               document.getElementById("a").style.marginTop = "0%";
+               document.getElementById("a").innerHTML = "G = H";
+               document.getElementById("a1").innerHTML = "L cerc = 2πR";
+               document.getElementById("a2").innerHTML = "Arie disc = π * R^2";
+               document.getElementById("a3").innerHTML = "Arie laterala = 2πRG";
+               document.getElementById("a4").innerHTML = "Arie totala = 2πR(R + G)";
+               document.getElementById("a5").innerHTML = "Volum: π * R^2 * H";
+               document.getElementById("a6").innerHTML = "Raza: D/2";
+            }
+            </script>
+
+</body>
+</html>

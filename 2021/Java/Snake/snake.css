@@ -1,0 +1,36 @@
+.title {
+    -fx-font-style: none;
+}
+
+.title:hover {
+    -fx-font-style: italic;
+}
+
+.minimizeButton {
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.minimizeButton:hover {
+    -fx-background-color: #707070;
+}
+
+.closeButton {
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.closeButton:hover {
+    -fx-background-color: red;
+}
+
+.photo {
+    -fx-width: 35px;
+    -fx-height: 35px;
+}
+
+.photo:hover {
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+    -fx-scale-z: 1.15;
+}

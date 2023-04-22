@@ -1,0 +1,219 @@
+Label {
+    -fx-text-fill: white;
+}
+
+.parent {
+    -fx-background-color: #121212;
+    -fx-background-radius: 0;
+}
+
+.upper {
+    -fx-background-image: url("background.jpeg");
+    -fx-background-radius: 0;
+}
+
+.body {
+    -fx-background-color: #1f1f20;
+    -fx-background-radius: 7px;
+    -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 5);
+}
+
+.axis:top {
+    -fx-border-color: transparent;
+    -fx-tick-label-fill: white;
+}
+
+.axis:right {
+    -fx-border-color: transparent;
+    -fx-tick-label-fill: white;
+}
+
+.axis:bottom {
+    -fx-border-color: transparent;
+    -fx-tick-label-fill: white;
+}
+
+.axis:left {
+    -fx-border-color: transparent;
+    -fx-tick-label-fill: white;
+}
+
+.chart-content {
+    -fx-text-fill: white;
+}
+
+.chart-area-symbol {
+    -fx-background-color: #00a2dd;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 4px; /* makes sure this remains circular */
+    -fx-padding: 3px;
+}
+
+.chart-series-area-line {
+    -fx-stroke: #00a2dd;
+    -fx-stroke-width: 3px;
+}
+
+.chart-series-area-fill {
+    -fx-stroke: null;
+    -fx-fill: #007ddd;
+    -fx-opacity: 0.35;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke-dash-array: null;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke-dash-array: null;
+    -fx-opacity: 0.2;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+}
+
+.combo-box {
+    -fx-min-width: 28px;
+    -fx-min-height: 42px;
+
+    -fx-max-height: 50px;
+
+    -fx-font-size: 16px;
+    -fx-background-radius: 0;
+
+    -fx-background-color: transparent;
+    -fx-border-width: 1px;
+    -fx-border-radius: 7px;
+    -fx-border-color: #ffffff;
+    -fx-mark-color: white;
+}
+
+.combo-box .list-cell {
+    -fx-font-family: Consolas;
+    -fx-text-fill: white;
+    -fx-background-color: #1f1f20;
+	-fx-background-radius: 7px;
+}
+
+.combo-box .list-view {
+    -fx-max-height: 500px;
+    -fx-background-color: #1f1f20;
+    -fx-text-fill: white;
+    -fx-cursor: HAND;
+}
+
+.combo-box .list-view .list-cell > .label {
+    -fx-text-fill: white;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #012078;
+}
+
+.combo-box .list-view .list-cell:focused {
+    -fx-background-color: #01185b;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #3c3b3d;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0.0em;
+    -fx-border-radius: 2.0em;
+}
+
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: #3c3b3d;
+    -fx-background-radius: 0.0em;
+    -fx-padding: 0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow {
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color :derive(black, 90.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color :derive(#4D4C4F, 10.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+
+TextField {
+    -fx-font-family: Consolas;
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-border-width: 1px;
+    -fx-border-radius: 7px;
+    -fx-border-color: #ffffff;
+}
+
+Button {
+    -fx-font-family: Consolas;
+    -fx-font-size: 15px;
+    -fx-background-radius: 7px;
+    -fx-background-color: transparent;
+}
+
+/* TITLE BAR */
+
+.title {
+    -fx-font-style: none;
+}
+
+.title:hover {
+    -fx-font-style: italic;
+}
+
+.minimizeButton {
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.minimizeButton:hover {
+    -fx-background-color: #707070;
+}
+
+.closeButton {
+    -fx-font-size: 16px;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.closeButton:hover {
+    -fx-background-color: red;
+}
+
+.photo {
+    -fx-width: 35px;
+    -fx-height: 35px;
+}
+
+.photo:hover {
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+    -fx-scale-z: 1.15;
+}
