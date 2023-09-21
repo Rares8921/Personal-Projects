@@ -16,7 +16,7 @@ Therefore, the overall time complexity is O(1), as well as the space complexity.
 
 Game won:
 
-![image](https://raw.githubusercontent.com/Rares8921/Projects/master/2019/Python/Guess%20the%20number/gamelost.jpg?token=GHSAT0AAAAAACHZJ2SSPFRL7EBDVDLP6TOEZIMF6IQ)
+![image](https://raw.githubusercontent.com/Rares8921/Projects/master/2019/Python/Guess%20the%20number/gamewon.jpg?token=GHSAT0AAAAAACHZJ2SSHFYHILBWO7SISDOEZIMGAZA)
 
 Game lost:
 
