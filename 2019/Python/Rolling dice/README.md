@@ -18,12 +18,12 @@ Therefore, the overall time complexity is O(1), as well as the space complexity.
 
 Game won:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Python/Rolling%20dice/gamewon.jpg?raw=true)
 
 Game lost:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Python/Rolling%20dice/gamelost.jpg?raw=true)
 
 Game drawn:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Python/Rolling%20dice/gamedrawn.jpg?raw=true)
