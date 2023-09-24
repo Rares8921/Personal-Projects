@@ -9,7 +9,7 @@ The content was drawn in a table, which contains the month, the week days (start
 Moreover, there are 2 buttons that allow the sure to change between months, going forwards or backwards.
 
 ## Requirements
-Java JRE 8
+Java JRE 8 or a later version installed.
 
 ## Illustrations
 
