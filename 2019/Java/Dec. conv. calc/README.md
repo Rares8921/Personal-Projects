@@ -31,8 +31,8 @@ Binary conversion:
 
 Base-8 conversion:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Dec.%20conv.%20calc/octal.jpg?raw=true)
 
 Hex. conversion:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Dec.%20conv.%20calc/hexadicemal.jpg?raw=true)
