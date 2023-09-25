@@ -11,7 +11,7 @@ In the information scene, there are 2 buttons, one that allows the user to go to
 
 ## Requirement(s)
 Mandatory: Java JRE 8 or a later version installed. <br/>
-Optional: Internet connection (when user visits the wikipedia page) <br/>
+Optional: Internet connection (when the user visits the wikipedia page). <br/>
 
 ## Illustration(s)
 
