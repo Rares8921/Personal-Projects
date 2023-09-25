@@ -13,4 +13,4 @@ Optional: Internet connection (when user press the external links) <br/>
 
 ## Illustation(s)
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Status/status.jpg?raw=true)
