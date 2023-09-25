@@ -15,6 +15,10 @@ Optional: Internet connection (when user visits the wikipedia page) <br/>
 
 ## Illustration(s)
 
-![image]()
+Main scene:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Info%20Java/scene1.jpg?raw=true)
+
+Information scene:
+
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Info%20Java/scene2.jpg?raw=true)
