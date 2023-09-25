@@ -23,11 +23,11 @@ Java JRE 8 or a later version installed.
 
 Main page:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Dec.%20conv.%20calc/main.jpg?raw=true)
 
 Binary conversion:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Dec.%20conv.%20calc/binary.jpg?raw=true)
 
 Base-8 conversion:
 
