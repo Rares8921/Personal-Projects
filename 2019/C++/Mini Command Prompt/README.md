@@ -23,4 +23,6 @@ Optional: Administrator properties(for !ip and !ping) and internet connection(fo
 
 ## Illustration(s)
 
-![image]()
+List of commands:
+
+![image](https://github.com/Rares8921/Projects/blob/master/2019/C++/Mini%20Command%20Prompt/prompt.jpg?raw=true)
