@@ -1,0 +1,33 @@
+# depslib dependency file v1.0
+1695735494 source:g:\2022\2019\c++\minicmd\minicmd\main.cpp
+	<iostream>
+	<string>
+	<cstdlib>
+	<math.h>
+	<time.h>
+	<fstream>
+	<sstream>
+	<cstdio>
+	<windows.h>
+	<unistd.h>
+	<algorithm>
+	<stdio.h>
+	<GL/gl.h>
+	<intrin.h>
+
+1696161059 source:c:\users\dumra\onedrive\desktop\c++\minicmd\minicmd\main.cpp
+	<iostream>
+	<string>
+	<cstdlib>
+	<math.h>
+	<time.h>
+	<fstream>
+	<sstream>
+	<cstdio>
+	<windows.h>
+	<unistd.h>
+	<algorithm>
+	<stdio.h>
+	<GL/gl.h>
+	<intrin.h>
+
