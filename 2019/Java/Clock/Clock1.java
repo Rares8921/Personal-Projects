@@ -132,45 +132,46 @@ class ClockDial extends JPanel{
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.WHITE);
-        g.fillOval(5, 5,480,480);
+        g.fillOval(5, 5, 480, 480);
         g.setColor(Color.BLACK);
-        g.fillOval(10, 10,470,470);
+        g.fillOval(10, 10, 470, 470);
         g.setColor(Color.WHITE);
-        g.fillOval(237,237,15,15);
-        g.setFont(g.getFont().deriveFont(Font.BOLD,32));
+        g.fillOval(237, 237, 15, 15);
+        g.setFont(g.getFont().deriveFont(Font.BOLD, 32));
 
-        for(int i=1;i<=12;i++)
-            g.drawString(Integer.toString(i),240-(i/12)*11+(int)(210*Math.sin(i*Math.PI/6)),253-(int)(210*Math.cos(i*Math.PI/6)));
-
-        double minsecdeg=Math.PI/30;
-        double hrdeg=Math.PI/6;
-        int tx,ty;
-        int xpoints[]=new int[3];
-        int ypoints[]=new int[3];
+        for(int i = 1; i <= 12; i++) {
+            g.drawString(Integer.toString(i), 240 - (i / 12) * 11 + (int)(210 * Math.sin(i * Math.PI / 6)), 253 - (int)(210 * Math.cos(i * Math.PI / 6)));
+        }
+        
+        double minsecdeg = Math.PI / 30;
+        double hrdeg = Math.PI / 6;
+        int tx, ty;
+        int xpoints[] = new int[3];
+        int ypoints[] = new int[3];
 
         //second hand
-        tx=245+(int)(210*Math.sin(parent.sec*minsecdeg));
-        ty=245-(int)(210*Math.cos(parent.sec*minsecdeg));
-        g.drawLine(245,245,tx,ty);
+        tx = 245 + (int) (210 * Math.sin(parent.sec * minsecdeg));
+        ty = 245 - (int) (210 * Math.cos(parent.sec * minsecdeg));
+        g.drawLine(245, 245, tx, ty);
 
         //minute hand
-        tx=245+(int)(190*Math.sin(parent.min*minsecdeg));
-        ty=245-(int)(190*Math.cos(parent.min*minsecdeg));
-        xpoints[0]=245;
-        xpoints[1]=tx+2;
-        xpoints[2]=tx-2;
-        ypoints[0]=245;
-        ypoints[1]=ty+2;
-        ypoints[2]=ty-2;
-        g.fillPolygon(xpoints, ypoints,3);
+        tx = 245 + (int) (190 * Math.sin(parent.min * minsecdeg));
+        ty = 245 - (int) (190 * Math.cos(parent.min * minsecdeg));
+        xpoints[0] = 245;
+        xpoints[1] = tx + 2;
+        xpoints[2] = tx - 2;
+        ypoints[0] = 245;
+        ypoints[1] = ty + 2;
+        ypoints[2] = ty - 2;
+        g.fillPolygon(xpoints, ypoints, 3);
 
         //hour hand
-        tx=245+(int)(160*Math.sin(parent.hour*hrdeg+parent.min*Math.PI/360));
-        ty=245-(int)(160*Math.cos(parent.hour*hrdeg+parent.min*Math.PI/360));
-        xpoints[1]=tx+4;
-        xpoints[2]=tx-4;
-        ypoints[1]=ty-4;
-        ypoints[2]=ty+4;
+        tx = 245 + (int) (160 * Math.sin(parent.hour * hrdeg + parent.min * Math.PI / 360));
+        ty = 245 - (int) (160 * Math.cos(parent.hour * hrdeg + parent.min * Math.PI / 360));
+        xpoints[1] = tx + 4;
+        xpoints[2] = tx - 4;
+        ypoints[1] = ty - 4;
+        ypoints[2] = ty + 4;
         g.fillPolygon(xpoints, ypoints, 3);
 
     }
