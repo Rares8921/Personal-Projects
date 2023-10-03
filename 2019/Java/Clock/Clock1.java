@@ -26,10 +26,10 @@ public class Clock1 extends JFrame {
         UIManager.put("Menu.selectionForeground", Color.WHITE);
         ImageIcon icon = new ImageIcon("C:\\Users\\user\\Downloads\\alarm.png");
         setIconImage(icon.getImage());
-        String time= date.toString();
-        hour=Integer.parseInt(time.substring(11,13));
-        min=Integer.parseInt(time.substring(14,16));
-        sec=Integer.parseInt(time.substring(17,19));
+        String time = date.toString();
+        hour = Integer.parseInt(time.substring(11, 13));
+        min = Integer.parseInt(time.substring(14, 16));
+        sec = Integer.parseInt(time.substring(17, 19));
         cd = new ClockDial(this);
         add(cd);
         Thread clockEngine = new Thread() {
@@ -98,7 +98,7 @@ public class Clock1 extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int height = screenSize.height;
         int width = screenSize.width;
-        gui.setLocation(width/2-gui.getSize().width/2, height/2-gui.getSize().height/2);
+        gui.setLocation(width / 2 - gui.getSize().width / 2, height / 2 - gui.getSize().height / 2);
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (UnsupportedLookAndFeelException e) { e.printStackTrace(); } catch (ClassNotFoundException e) { e.printStackTrace(); } catch (InstantiationException e) { e.printStackTrace(); } catch (IllegalAccessException e) { e.printStackTrace(); }
@@ -121,9 +121,9 @@ public class Clock1 extends JFrame {
 class ClockDial extends JPanel{
 
     private Clock1 parent;
-    private ClockDial(Clock1 pt){
-        setSize(520,530);
-        parent=pt;
+    private ClockDial(Clock1 pt) {
+        setSize(520, 530);
+        parent = pt;
     }
 
 
