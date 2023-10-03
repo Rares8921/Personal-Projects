@@ -1,4 +1,4 @@
-# Height Convertor
+# Height Converter
 
 A desktop application that allows the user to convert from american units (inches and feets) to european units(centimeters).
 
