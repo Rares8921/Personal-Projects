@@ -51,11 +51,11 @@ public class Clock1 extends JFrame {
                 }
             }
         };
-        clockEngine.setPriority(clockEngine.getPriority()+3);
+        clockEngine.setPriority(clockEngine.getPriority() + 3);
         clockEngine.start();
         toolkit = Toolkit.getDefaultToolkit();
         timer = new Timer();
-        timer.schedule(new RemindTask(), 0,1000);
+        timer.schedule(new RemindTask(), 0, 1000);
         JMenuBar bar = new JMenuBar();
         bar.setForeground(Color.WHITE);
         bar.setBackground(Color.BLACK);
