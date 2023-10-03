@@ -17,7 +17,7 @@ public class Main extends JFrame{
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 
 		UIManager.put("Menu.selectionBackground", Color.WHITE);
-        UIManager.put("Menu.selectionForeground", Color.BLACK);
+        	UIManager.put("Menu.selectionForeground", Color.BLACK);
 
 		JLabel space = new JLabel("                     ");
 		add(space);
@@ -286,11 +286,11 @@ public class Main extends JFrame{
     	gui.setTitle("Height converter");
     	gui.setResizable(false);
     	gui.setLocale(Locale.ENGLISH);
-    	gui.setSize(400,420);
+    	gui.setSize(400, 420);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int height = screenSize.height;
 		int width = screenSize.width;
-		gui.setLocation(width/2-gui.getSize().width/2, height/2-gui.getSize().height/2);
+		gui.setLocation(width / 2 - gui.getSize().width / 2, height / 2 - gui.getSize().height / 2);
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //com.sun.java.swing.plaf.windows.WindowsLookAndFeel
 		}
