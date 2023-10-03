@@ -16,4 +16,4 @@ Java JRE 8 or a later version installed.
 
 The animation:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Digital%20Clock/clockAnimation.gif?raw=true)
