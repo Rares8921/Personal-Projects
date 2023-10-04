@@ -77,71 +77,57 @@ public class Main extends JFrame {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-                int key = e.getKeyCode();
-                if(key == KeyEvent.VK_ENTER) {
-                	String cmd = command.getText();
-                	if(cmd.equals("!prime")) {
-                	Queue<Integer> prime = new LinkedList<>();
-						for (int i = 1; i <= 100; i++)
-						{
-							int counter=0;
-							for(int num =i; num>=1; num--)
-							{
-								if(i%num==0)
-								{
-									counter = counter + 1;
+                		int key = e.getKeyCode();
+                		if(key == KeyEvent.VK_ENTER) {
+                			String cmd = command.getText();
+                			if(cmd.equals("!prime")) {
+                				Queue<Integer> prime = new LinkedList<>();
+						for (int i = 1; i <= 100; i++) {
+							int counter = 0;
+							for(int num = i; num >= 1; num--) {
+								if(i % num == 0) {
+									counter++;
 								}
 							}
-							if (counter ==2)
-							{
+							if (counter == 2) {
 								//Adding numbers.
 								prime.add(i);
 							}
 						}
-                	JOptionPane.showMessageDialog(null, "The prime numbers from 1 to 100 are:\n" + prime, "Prime numbers", JOptionPane.INFORMATION_MESSAGE);
+                				JOptionPane.showMessageDialog(null, "The prime numbers from 1 to 100 are:\n" + prime, "Prime numbers", JOptionPane.INFORMATION_MESSAGE);
 
 						InetAddress ip;
 						try {
-
 							ip = InetAddress.getLocalHost();
 							System.out.println("(" + ANSI_BLUE + "!" + ANSI_RESET + ") Command '" + ANSI_BLUE + "!prime" + ANSI_RESET + "' was executed by " + ANSI_BLUE + ip.getHostAddress() + ANSI_RESET);
-
 						} catch (UnknownHostException m) {
-
 							m.printStackTrace();
-
 						}
-				} else if(cmd.equals("!java")) {
+					} else if(cmd.equals("!java")) {
 
-                		HashMap<String, String> java = new HashMap<>();
+                				HashMap<String, String> java = new HashMap<>();
 
-                		String version = System.getProperty("java.version");
-                		String runtime_version = System.getProperty("java.runtime.version");
-                		String home = System.getProperty("java.home");
-                		String vendor = System.getProperty("java.vendor");
-                		String vendor_url = System.getProperty("java.vendor.url");
+                				String version = System.getProperty("java.version");
+                				String runtime_version = System.getProperty("java.runtime.version");
+                				String home = System.getProperty("java.home");
+		                		String vendor = System.getProperty("java.vendor");
+		                		String vendor_url = System.getProperty("java.vendor.url");
 
-                		java.put("version", version);
+                				java.put("version", version);
 						java.put("runtime_version", runtime_version);
 						java.put("home", home);
 						java.put("vendor", vendor);
 						java.put("vendor_url", vendor_url);
 
 						JOptionPane.showMessageDialog(null, "Java version: " + java.get("version") + "\nJava runtime version: " + java.get("runtime_version") + "\nJava home: " + java.get("home") + "\nJava vendor: " + java.get("vendor") + "\nJava vendor url: " + java.get("vendor_url"), "Java Information", JOptionPane.INFORMATION_MESSAGE);
-
-
 						InetAddress ip;
 						try {
-
 							ip = InetAddress.getLocalHost();
 							System.out.println("(" + ANSI_BLUE + "!" + ANSI_RESET + ") Command '" + ANSI_BLUE + "!java" + ANSI_RESET + "' was executed by " + ANSI_BLUE + ip.getHostAddress() + ANSI_RESET);
-
 						} catch (UnknownHostException m) {
-
 							m.printStackTrace();
-
 						}
-                	} else if(cmd.equals("!print")) {
+                			} else if(cmd.equals("!print")) {
 
 
 						  LinkedList<String> print = new LinkedList<>();
@@ -192,11 +178,11 @@ public class Main extends JFrame {
 						}
 
 					} else if(cmd.equals("!url")) {
-                         ArrayList<String> link = new ArrayList<>();
+                         			ArrayList<String> link = new ArrayList<>();
 
-                         String url = JOptionPane.showInputDialog(null, "Enter an url: (https://`url`) ", "Link to browser", JOptionPane.INFORMATION_MESSAGE);
+                         			String url = JOptionPane.showInputDialog(null, "Enter an url: (https://`url`) ", "Link to browser", JOptionPane.INFORMATION_MESSAGE);
 
-                         if((url != null) && (url.length() > 0)) {
+                         			if((url != null) && (url.length() > 0)) {
 							 try {
 								 Desktop.getDesktop().browse(new URI(url));
 							 } catch (URISyntaxException | IOException ex) {
@@ -234,17 +220,17 @@ public class Main extends JFrame {
 
 
 					} else if(cmd.equals("!date")) {
-                		Stack<Integer> date = new Stack<>();
+                				Stack<Integer> date = new Stack<>();
 						LocalDate data = LocalDate.now();
-                		int year = data.getYear();
-                		int month = data.getMonthValue();
-                		int day = data.getDayOfMonth();
+                				int year = data.getYear();
+                				int month = data.getMonthValue();
+                				int day = data.getDayOfMonth();
 
 						date.push(day);
 						date.push(month);
-                		date.push(year);
+                				date.push(year);
 
-                		JOptionPane.showMessageDialog(null, "The current date is: \n" + date.get(0) + "." + date.get(1) + "." + date.get(2), "Date", JOptionPane.INFORMATION_MESSAGE);
+                				JOptionPane.showMessageDialog(null, "The current date is: \n" + date.get(0) + "." + date.get(1) + "." + date.get(2), "Date", JOptionPane.INFORMATION_MESSAGE);
 
 						InetAddress ip;
 						try {
@@ -273,24 +259,22 @@ public class Main extends JFrame {
 						}
 
                 		System.exit(0);
+				} else {
+	                		JOptionPane.showMessageDialog(null, "You've entered a wrong command", "Wrong command", JOptionPane.ERROR_MESSAGE);
+					InetAddress ip;
+					try {
+						ip = InetAddress.getLocalHost();
+						System.out.println("(" + ANSI_BLUE + "!" + ANSI_RESET + ") Unknown command '" + ANSI_BLUE + command.getText() + ANSI_RESET + "' was executed by " + ANSI_BLUE + ip.getHostAddress() + ANSI_RESET + ". Link used: ");
+	
+					} catch (UnknownHostException m) {
+	
+						m.printStackTrace();
+	
 					}
-                	else {
-                		JOptionPane.showMessageDialog(null, "You've entered a wrong command", "Wrong command", JOptionPane.ERROR_MESSAGE);
-						InetAddress ip;
-						try {
-
-							ip = InetAddress.getLocalHost();
-							System.out.println("(" + ANSI_BLUE + "!" + ANSI_RESET + ") Unknown command '" + ANSI_BLUE + command.getText() + ANSI_RESET + "' was executed by " + ANSI_BLUE + ip.getHostAddress() + ANSI_RESET + ". Link used: ");
-
-						} catch (UnknownHostException m) {
-
-							m.printStackTrace();
-
-						}
-
-					}
+	
 				}
 			}
+		}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -309,7 +293,7 @@ public class Main extends JFrame {
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = screenSize.height;
 	int width = screenSize.width;
-	gui.setLocation(width/2-gui.getSize().width/2, height/2-gui.getSize().height/2);
+	gui.setLocation(width / 2 - gui.getSize().width / 2, height / 2 - gui.getSize().height / 2);
 	gui.setSize(560, 290);
 	gui.getContentPane().setBackground(Color.BLACK);
     }
