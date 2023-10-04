@@ -20,24 +20,24 @@ Optional: Internet connection (for url command).
 
 Main stage:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/mainFrame.png?raw=true)
 
 Java info:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/javaInfoCommand.png?raw=true)
 
 Url command:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/urlCommand.png?raw=true)
 
 Prime numbers:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/primeNumbersCommand.png?raw=true)
 
 Date command:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/errorMessage.png?raw=true)
 
 Error message:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/errorMessage.png?raw=true)
