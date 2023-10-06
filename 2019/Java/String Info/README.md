@@ -14,7 +14,7 @@ Let s be the string input.
 The replaceAll function for textfield(regex) - O(|s|) time complexity. <br/>
 The vowelCount function - O(|s|) time complexity. <br/>
 The program contains a few variables for the app components, and a string for input: s. That results in O(|s|) space complexity. <br/>
-To sum everything up: O(|S|) space and time complexity.
+To sum everything up: O(|s|) space and time complexity.
 
 ## Requirement(s)
 Java JRE 8 or a later version installed.
@@ -23,28 +23,28 @@ Java JRE 8 or a later version installed.
 
 Normal text:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/text.png?raw=true)
 
 Number:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/number.png?raw=true)
 
 History menu:
 
-![image]()
-![image]()
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/historyMenu.png?raw=true)
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/historyMenudelete.png?raw=true)
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/historyMenuSuccesulClear.png?raw=true)
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/historyMenuError.png?raw=true)
 
 Help menu:
 
-![image]()
-![image]()
-![image]()
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/helpMenu.png?raw=true)
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/helpMenuInfo.png?raw=true)
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/helpMenuSpecialCharacters.png?raw=true)
 
 File menu:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/fileMenu.png?raw=true)
 
 Exception message:
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/exceptionMessage.png?raw=true)
