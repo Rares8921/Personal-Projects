@@ -47,4 +47,5 @@ File menu:
 ![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/fileMenu.png?raw=true)
 
 Exception message:
+
 ![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/String%20Info/exceptionMessage.png?raw=true)
