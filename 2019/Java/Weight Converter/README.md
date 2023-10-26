@@ -20,12 +20,12 @@ To sum everything up: time complexity - O(1), space complexity O(1). <br/>
 
 Convert to kg:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Weight%20Converter/lbsToKg.png?raw=true)
 
 Convert to lbs:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Weight%20Converter/kgToLbs.png?raw=true)
 
 Error message:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Weight%20Converter/errorMessage.png?raw=true)
