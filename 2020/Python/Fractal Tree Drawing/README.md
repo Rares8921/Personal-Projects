@@ -11,4 +11,4 @@ The program contains a recursive function which simulates the form of an fractal
 
 The animation:
 
-![image](https://github.com/Rares8921/Projects/blob/master/2020/Python/Abstract%20Drawing/circle.gif?raw=true)
+![image](https://github.com/Rares8921/Projects/blob/master/2020/Python/Fractal%20Tree%20Drawing/Fractal%20Tree.gif?raw=true)
