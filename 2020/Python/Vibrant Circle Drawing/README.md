@@ -11,4 +11,4 @@ The program contains a single "Thread" that stops when the drawing is finished, 
 
 The animation:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2020/Python/Vibrant%20Circle%20Drawing/Vibrant%20Circle.gif?raw=true)
