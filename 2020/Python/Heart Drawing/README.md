@@ -11,4 +11,4 @@ The program uses an iterative approach to draw two curves in order to complete t
 
 The animation:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2020/Python/Heart%20Drawing/Heart.gif?raw=true)
