@@ -11,4 +11,4 @@ The program contains a single "Thread" that stops when the drawing is finished, 
 
 The animation:
 
-![image](https://github.com/Rares8921/Projects/blob/master/2020/Python/Abstract%20Drawing/circle.gif?raw=true)
+![image](https://github.com/Rares8921/Projects/blob/master/2020/Python/Circle%20Drawing/circle.gif?raw=true)
