@@ -11,4 +11,4 @@ The program uses an iterative approach to draw a few octagons in order to create
 
 The animation:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2020/Python/Octagon%20Drawing/Octagon.gif?raw=true)
