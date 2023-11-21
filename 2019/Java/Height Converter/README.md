@@ -17,7 +17,7 @@ In terms of space utilised, the program contains simple variables used to store 
 To sum everything up: time complexity - O(1), space complexity O(1). <br/>
 
 ## Requirement(s):
-Java 8 or higher versions.
+Java JRE 8 or a later version installed.
 
 ## Illustration(s)
 
