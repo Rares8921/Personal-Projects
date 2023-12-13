@@ -10,7 +10,7 @@ The user can select an option or set a cell in the matrix by pressing left click
 The start button beggins to simulate the algorithm if all the given input was correct. <br/>
 The clear button removes the numbers from all fields. <br/>
 Firstly, the user has to give input for the algorithm and if the input is correct the animation will start, else the app will give an error </br>
-Secondly, if the input is correct, the algorithm fills the matrix (matr in Main.class) with certain symbols to distinguish if a cell is an obstacle, a portal etc. <br/>
+Secondly, if the input is correct, the algorithm fills the matrix (matr in [a link](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/src/sample/Main.java)Main.class) with certain symbols to distinguish if a cell is an obstacle, a portal etc. <br/>
 Coding: An <ins>ostable cell</ins> is marked as 'X'; a <ins>portal</ins> is marked with 'O'; a <ins>laser</ins> is marked with '+' and a <ins>laser with portals</ins> is marked as '/' <br/>
 Then, both the animation algorithm and lee's algorithm are executed 'simoultaniously'(In practice the lee's algorithm works faster so the animation will not crash), in order to complete the grid in the same time as the algorithm is ran so that the user will not wait for the algorithm to finish and then get the animation. <br/>
 More conditions about buttons are found in <ins>Controller.java</ins> 
