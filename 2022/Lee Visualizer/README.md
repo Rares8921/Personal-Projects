@@ -41,4 +41,5 @@ Lasers with tps(portals) animation:
 Only with knight moves:
 
 Error message:
+
 ![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/errorMessage.png?raw=true)
