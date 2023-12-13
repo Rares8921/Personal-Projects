@@ -29,15 +29,16 @@ Help menu:
 
 ![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/helpMenu.png?raw=true)
 
-Obstacles animation:
-
 Lasers animation:
 ![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/Lasers.gif?raw=true)
 
 Portals' animation:
+![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/lasersAndTps.gif?raw=true)
 
-Lasers as tps(portals) animation:
+Lasers with tps(portals) animation:
+![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/lasersWithTps.gif?raw=true)
 
 Only with knight moves:
 
 Error message:
+![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/errorMessage.png?raw=true)
