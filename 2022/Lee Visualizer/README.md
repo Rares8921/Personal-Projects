@@ -1,4 +1,4 @@
-# Lee Visualizer
+<ins># Lee Visualizer</ins>
 
 A java desktop application that simulates a variety of lee's algorihtm version: with obstacles, with portals etc.
 
