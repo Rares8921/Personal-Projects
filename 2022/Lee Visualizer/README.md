@@ -32,7 +32,7 @@ Help menu:
 Obstacles animation:
 
 Lasers animation:
-![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/Lasers.mkv)
+![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/Lasers.gif?raw=true)
 
 Portals' animation:
 
