@@ -2,7 +2,7 @@
 
 A java desktop application that simulates a variety of lee's algorihtm version: with obstacles, with portals etc.
 
-## Code summary
+## <ins>Code summary</ins>
 The application was created using JavaFX 15. <br/>
 The components of the app are: the grid where the algorithm is simulated, the option buttons, the action buttons(start and clear) and the help menu. <br/>
 The help menu contains all the necessary explanation about the application and how to use it correctly.<br/>
@@ -16,14 +16,14 @@ Then, both the animation algorithm and lee's algorithm are executed 'simoultanio
 More conditions about buttons are found in [Controller.java](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/src/sample/Controller.java) 
 
 
-## Complexity analysis
+## <ins>Complexity analysis</ins>
 The well-known lee's algorithm has a time-space complexity of ~O(n*m) where n is the number of lines and m is the number of columns. <br/>
 The grid animation algorithm and the clear action have both, as well, a time complexity of O(n*m)<br/>
 
-## Requirement(s):
+## <ins>Requirement(s)</ins>
 Java JRE 15 or a later version installed.
 
-## Illustration(s)
+## <ins>Illustration(s)</ins>
 
 Help menu:
 
@@ -32,6 +32,7 @@ Help menu:
 Obstacles animation:
 
 Lasers animation:
+![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/Lasers.mkv)
 
 Portals' animation:
 
