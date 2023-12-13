@@ -26,6 +26,7 @@ Java JRE 15 or a later version installed.
 ## Illustration(s)
 
 Help menu:
+[!image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/helpMenu.png?raw=true)
 
 Obstacles animation:
 
