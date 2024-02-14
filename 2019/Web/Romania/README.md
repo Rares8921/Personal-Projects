@@ -6,20 +6,20 @@ There is an html document for each page of the web, 5 in total. Each file contai
 ## Illustration(s)
 Home page:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Web/Romania/home.png?raw=true)
 
 Attractions:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Web/Romania/attractions.png?raw=true)
 
 Food:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Web/Romania/food.png?raw=true)
 
 Traditions:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Web/Romania/traditions.png?raw=true)
 
 Sport:
 
-![image]()
+![image](https://github.com/Rares8921/Projects/blob/master/2019/Web/Romania/sport.png?raw=true)
