@@ -1,7 +1,7 @@
 # Welcome to My GitHub Repository! 
 
 👋 **Greetings!**  
-I'm Rares8921, and I welcome you to explore my GitHub profile. I am a passionate and detail-oriented software developer, with a strong focus on writing clean, efficient, and maintainable code. Over the years, I have accumulated experience across various domains, including artificial intelligence, system programming, game development, and web technologies.  
+I'm Rares, and I welcome you to explore my GitHub profile. I am a passionate and detail-oriented software developer, with a strong focus on writing clean, efficient, and maintainable code. Over the years, I have accumulated experience across various domains, including artificial intelligence, system programming, game development, and web technologies.  
 
 ## 🔍 Overview
 
@@ -34,7 +34,6 @@ Here, you'll find a collection of my personal projects, ranging from intricate A
 In these projects, I applied various advanced programming and software engineering principles, such as:
 
 - **Object-Oriented Programming (OOP)**: Used extensively in projects like **Ethereal Eclipse** and the **Chess game**, encapsulating game logic into reusable components.
-- **Design Patterns**: Applied patterns such as Factory, Singleton, and Observer to optimize game structure and ensure maintainability.
 - **Modular Design**: Decomposing functionality into independent, reusable modules.
 - **MVC Architecture**: Utilized in larger projects to separate the user interface from the game logic and data management.
 - **Memory Management**: Extensive use of manual memory management in C++ to handle object lifecycles and optimize performance.
