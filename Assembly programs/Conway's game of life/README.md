@@ -1,3 +1,5 @@
+# Problem Statement
+
 ## Formulation
 
 Conway’s Game of Life is a two-dimensional zero-player game invented by mathematician John Horton Conway in 1970. The purpose of this game is to observe the evolution of a cell system, starting from an initial configuration, by introducing rules regarding the death and creation of new cells in the system. This evolutionary system is Turing-complete.
