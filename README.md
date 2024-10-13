@@ -43,7 +43,7 @@ In these projects, I applied various advanced programming and software engineeri
 ## Project Count  
 - C++ Projects: **3**  
 - Java Projects: **X**  
-- Python Scripts: **X**  
+- Python Scripts: **14**  
 - Web Development: **4**  
 - Assembly Programs: **1**  
 - Artificial Intelligence: **1**
