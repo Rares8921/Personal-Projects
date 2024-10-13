@@ -9,7 +9,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 const app = express();
-const apiKey = "25d460cf30347f90078e0781c3b5084c";
+const apiKey = "";
 const PORT = 4000; // Port pentru https
 const bcrypt = require("bcrypt") // Modulul pentru criptare, pentru register/log-in system
 const flash = require("express-flash")
