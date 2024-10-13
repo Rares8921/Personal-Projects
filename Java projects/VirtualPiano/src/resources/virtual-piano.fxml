@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="438.0" prefWidth="1480.0" styleClass="parent" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+    <children>
+        <Button fx:id="E1" layoutX="100.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="C1" layoutX="20.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="D1" layoutX="60.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="F1" layoutX="140.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="G1" layoutX="180.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="A2" layoutX="220.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="B2" layoutX="260.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="C2" layoutX="300.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="D2" layoutX="340.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="E2" layoutX="380.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="F2" layoutX="420.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="G2" layoutX="460.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="A3" layoutX="500.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="B3" layoutX="540.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="C3" layoutX="580.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="D3" layoutX="620.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="E3" layoutX="660.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="F3" layoutX="700.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="G3" layoutX="740.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="A4" layoutX="780.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="B4" layoutX="820.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="C4" layoutX="860.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="D4" layoutX="900.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="E4" layoutX="940.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="F4" layoutX="980.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="G4" layoutX="1020.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="A5" layoutX="1060.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="B5" layoutX="1100.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="C5" layoutX="1140.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="D5" layoutX="1180.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="E5" layoutX="1220.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+        <Button fx:id="F5" layoutX="1260.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+      <Button fx:id="Db1" layoutX="45.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="!" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font></Button>
+      <Button fx:id="Eb1" layoutX="85.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="\@" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font></Button>
+        <Button fx:id="Gb1" layoutX="165.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="\$" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Bb2" layoutX="245.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="^" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Ab2" layoutX="205.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="\%" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Eb2" layoutX="365.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="(" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Db2" layoutX="325.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="*" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Bb3" layoutX="525.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="E" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Ab3" layoutX="485.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="W" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Gb2" layoutX="445.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="Q" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Eb3" layoutX="645.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="Y" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Db3" layoutX="605.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="T" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Bb4" layoutX="805.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="P" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Ab4" layoutX="765.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="O" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Gb3" layoutX="725.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="I" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Eb4" layoutX="925.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="D" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Db4" layoutX="885.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="S" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Bb5" layoutX="1085.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="J" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Ab5" layoutX="1045.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="H" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+        <Button fx:id="Gb4" layoutX="1004.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="G" textFill="WHITE" wrapText="true"><font><Font name="Consolas" size="16.0" /></font></Button>
+
+        <Button fx:id="G5" layoutX="1300.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+      <Button fx:id="C6" layoutX="1420.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+      <Button fx:id="B6" layoutX="1380.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+      <Button fx:id="A6" layoutX="1340.0" layoutY="199.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="40.0" styleClass="whiteKeyButton" />
+      <Button fx:id="Eb5" layoutX="1205.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="Z" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font></Button>
+      <Button fx:id="Db5" layoutX="1165.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="L" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font></Button>
+      <Button fx:id="Bb6" layoutX="1365.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="B" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font></Button>
+      <Button fx:id="Ab6" layoutX="1325.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="V" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font></Button>
+      <Button fx:id="Gb5" layoutX="1285.0" layoutY="200.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="30.0" styleClass="blackKeyButton" text="C" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font></Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#313131" height="17.0" layoutX="20.0" layoutY="197.0" stroke="#313131" strokeType="INSIDE" width="1440.0" />
+      <Label layoutX="63.0" layoutY="15.0" styleClass="title" text="Virtual Piano" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="44.0" fitWidth="52.0" layoutX="12.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" styleClass="photo">
+         <image>
+            <Image url="@icon.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="1435.0" mnemonicParsing="false" onAction="#close" prefHeight="36.0" prefWidth="44.0" styleClass="closeButton" text="X" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Consolas" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="1401.0" mnemonicParsing="false" onAction="#minimize" styleClass="minimizeButton" text="-" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="20.0" />
+         </font>
+      </Button>
+      <AnchorPane disable="true" layoutX="21.0" layoutY="340.0" prefHeight="71.0" prefWidth="1440.0">
+         <children>
+            <Label fx:id="labelC1" layoutX="7.0" layoutY="27.0" prefWidth="26.4" text="1" textAlignment="CENTER">
+               <font>
+                  <Font name="Consolas" size="16.0" />
+               </font>
+            </Label>
+             <Label fx:id="labelD1" layoutX="46.0" layoutY="27.0" prefWidth="26.4" text="2" textAlignment="CENTER">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelE1" layoutX="85.0" layoutY="27.0" prefWidth="26.4" text="3">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelF1" layoutX="126.0" layoutY="27.0" prefWidth="26.4" text="4">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelG1" layoutX="161.0" layoutY="27.0" prefWidth="35.0" text="5" textAlignment="CENTER">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelA2" layoutX="207.0" layoutY="27.0" prefWidth="26.4" text="6">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelB2" layoutX="247.0" layoutY="27.0" prefWidth="26.4" text="7">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelC2" layoutX="287.0" layoutY="27.0" prefWidth="26.4" text="8">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelD2" layoutX="327.0" layoutY="27.0" prefWidth="26.4" text="9">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelE2" layoutX="367.0" layoutY="27.0" prefWidth="26.4" text="0">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelF2" layoutX="407.0" layoutY="27.0" prefWidth="26.4" text="q">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelG2" layoutX="441.0" layoutY="27.0" prefWidth="35.0" text="w">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelA3" layoutX="487.0" layoutY="27.0" prefWidth="26.4" text="e">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelB3" layoutX="527.0" layoutY="27.0" prefWidth="26.4" text="r">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelC3" layoutX="567.0" layoutY="27.0" prefWidth="26.4" text="t">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelD3" layoutX="607.0" layoutY="27.0" prefWidth="26.4" text="y">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelE3" layoutX="647.0" layoutY="27.0" prefWidth="26.4" text="u">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelF3" layoutX="687.0" layoutY="27.0" prefWidth="26.4" text="i">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelG3" layoutX="721.0" layoutY="27.0" prefWidth="35.0" text="o">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelA4" layoutX="767.0" layoutY="27.0" prefWidth="26.4" text="p">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelB4" layoutX="807.0" layoutY="27.0" prefWidth="26.4" text="a">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelC4" layoutX="847.0" layoutY="27.0" prefWidth="26.4" text="s">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelD4" layoutX="887.0" layoutY="27.0" prefWidth="26.4" text="d">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelE4" layoutX="927.0" layoutY="27.0" prefWidth="26.4" text="f">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelF4" layoutX="967.0" layoutY="27.0" prefWidth="26.4" text="g">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelG4" layoutX="1001.0" layoutY="27.0" prefWidth="35.0" text="h">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelA5" layoutX="1047.0" layoutY="27.0" prefWidth="26.4" text="j">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelB5" layoutX="1087.0" layoutY="27.0" prefWidth="26.4" text="k">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelC5" layoutX="1127.0" layoutY="27.0" prefWidth="26.4" text="l">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelD5" layoutX="1167.0" layoutY="27.0" prefWidth="26.4" text="z">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelE5" layoutX="1207.0" layoutY="27.0" prefWidth="26.4" text="x">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelF5" layoutX="1247.0" layoutY="27.0" prefWidth="26.4" text="c">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelG5" layoutX="1281.0" layoutY="27.0" prefWidth="35.0" text="v">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelA6" layoutX="1327.0" layoutY="27.0" prefWidth="26.4" text="b">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelB6" layoutX="1367.0" layoutY="27.0" prefWidth="26.4" text="n">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+             <Label fx:id="labelC6" layoutX="1407.0" layoutY="27.0" prefWidth="26.4" text="m">
+                 <font>
+                     <Font name="Consolas" size="16.0" />
+                 </font>
+             </Label>
+         </children></AnchorPane>
+      <AnchorPane layoutX="21.0" layoutY="162.0" prefHeight="44.0" prefWidth="1440.0" styleClass="menuBox">
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </DropShadow>
+         </effect>
+         <children>
+            <Button fx:id="playNotesButton" layoutX="367.0" layoutY="7.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="83.0" styleClass="menuButtons" text="Play" textFill="WHITE">
+               <font>
+                  <Font name="Consolas" size="16.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+            <Button fx:id="keyAssistButton" layoutX="435.0" layoutY="7.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="162.0" styleClass="menuButtons" text="Key assist" textFill="WHITE">
+               <font>
+                  <Font name="Consolas" size="16.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+            <Button fx:id="recordButton" layoutX="594.0" layoutY="7.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="92.0" styleClass="menuButtons" text="Record" textFill="WHITE">
+               <font>
+                  <Font name="Consolas" size="16.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+            <Button fx:id="metronomeButton" layoutX="817.0" layoutY="7.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="134.0" styleClass="menuButtons" text="Metronome" textFill="WHITE">
+               <font>
+                  <Font name="Consolas" size="16.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+            <Button fx:id="semanticsListButton" layoutX="691.0" layoutY="7.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" styleClass="menuButtons" text="Semantics" textFill="WHITE">
+               <font>
+                  <Font name="Consolas" size="16.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+            <Button fx:id="volumeButton" layoutX="951.0" layoutY="7.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" styleClass="menuButtons" text="Volume" textFill="WHITE">
+               <font>
+                  <Font name="Consolas" size="16.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="108.0" fitWidth="200.0" layoutX="20.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 1;">
+         <image>
+            <Image url="@test.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="108.0" fitWidth="200.0" layoutX="1270.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 1;">
+         <image>
+            <Image url="@test.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="108.0" fitWidth="200.0" layoutX="1137.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 1;">
+         <image>
+            <Image url="@test.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="108.0" fitWidth="200.0" layoutX="153.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 1;">
+         <image>
+            <Image url="@test.png" />
+         </image>
+      </ImageView>
+      <TextArea fx:id="lettersFields" layoutX="466.0" layoutY="51.0" prefHeight="98.0" prefWidth="665.0" styleClass="letterField" wrapText="true">
+         <font>
+            <Font name="Consolas" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextArea>
+      <TextField fx:id="notesField" alignment="CENTER" editable="false" layoutX="366.0" layoutY="51.0" prefHeight="98.0" prefWidth="99.0" styleClass="notesField">
+         <font>
+            <Font name="Consolas" size="25.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
+      <Line endX="-100.0" endY="98.39999389648438" layoutX="566.0" layoutY="51.0" startX="-100.0" stroke="#555555" />
+    </children>
+</AnchorPane>

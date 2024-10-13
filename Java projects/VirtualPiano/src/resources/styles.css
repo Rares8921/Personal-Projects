@@ -1,0 +1,153 @@
+.parent {
+    -fx-background-color: linear-gradient(to top, #121212, #141414, #323232, #323232);
+    /*-fx-background-color: #323232;*/
+    -fx-background-radius: 10px;
+}
+
+.label {
+    -fx-opacity: 1.0;
+}
+
+.title {
+    -fx-cursor: hand;
+    -fx-font-style: none;
+}
+
+.title:hover {
+    -fx-font-style: italic;
+}
+
+.minimizeButton {
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.minimizeButton:hover {
+    -fx-background-color: #707070;
+}
+
+.closeButton {
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.closeButton:hover {
+    -fx-background-color: red;
+}
+
+.photo {
+    -fx-cursor: hand;
+    -fx-width: 35px;
+    -fx-height: 35px;
+}
+
+.photo:hover {
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+    -fx-scale-z: 1.15;
+}
+
+
+.whiteKeyButton {
+    -fx-cursor: hand;
+    -fx-background-radius: 12.5px;
+    -fx-background-color: white;
+    -fx-border-style: solid solid none solid;
+    -fx-border-width: 1;
+    -fx-border-color: #1f1e1e;
+}
+
+.whiteKeyButton:hover {
+    -fx-background-color: #d9d9d9;
+    -fx-background-radius: 12.5px;
+    -fx-border-style: solid solid none solid;
+    -fx-border-width: 1;
+    -fx-border-color: #1f1e1e;
+}
+
+.blackKeyButton {
+    -fx-cursor: hand;
+    -fx-background-color: #292929;
+    -fx-background-radius: 14.5px;
+}
+
+.blackKeyButton:hover {
+    -fx-background-color: #1a1a1a;
+    -fx-background-radius: 14.5px;
+}
+
+.menuBox {
+    -fx-background-color: #1f1f1f;
+    -fx-background-radius: 5px;
+}
+
+.notesField {
+    -fx-background-color: #1f1f1f;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+}
+
+.notesField:focused {
+    -fx-highlight-fill: #323232;
+}
+
+.letterField {
+    -fx-focus-color: transparent;
+    -fx-text-box-border: transparent;
+    -fx-text-fill: white;
+}
+
+.letterField .scroll-pane {
+    -fx-background-color: #1f1f1f;
+    -fx-background-radius: 5px;
+}
+
+.letterField .scroll-pane .viewport {
+    -fx-background-color: #1f1f1f;
+}
+
+.letterField .scroll-pane .content {
+    -fx-background-color: #1f1f1f;
+}
+
+.letterField:focused {
+    -fx-highlight-fill: #323232;
+}
+
+.scroll-pane {
+    -fx-background-color: black;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #474747;
+    -fx-background-radius: 80px;
+}
+
+.menuButtons {
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+    -fx-underline: false;
+    -fx-text-fill: #AAA;
+}
+
+.menuButtons:hover {
+    -fx-text-fill: white;
+}

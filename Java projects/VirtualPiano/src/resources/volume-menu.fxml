@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="104.0" prefWidth="266.0" styleClass="parent" stylesheets="@applicationMenu.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.VolumeController">
+   <children>
+      <Label layoutX="19.0" layoutY="75.0" text="0" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </Label>
+      <Slider fx:id="volumeSlider" layoutX="19.0" layoutY="59.0" prefHeight="14.0" prefWidth="224.0" value="80.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Slider>
+      <Label layoutX="122.0" layoutY="75.0" text="50" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </Label>
+      <Label layoutX="229.0" layoutY="75.0" text="100" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </Label>
+      <Button fx:id="closeButton" layoutX="234.0" mnemonicParsing="false" onAction="#close" styleClass="closeButton" text="X" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="28.0" layoutY="26.0" text="Current volume:" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </Label>
+      <Label layoutX="171.0" layoutY="27.0" text="Label" />
+      <Label fx:id="volumeLabel" layoutX="166.0" layoutY="26.0" prefHeight="18.0" prefWidth="26.0" text="80" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </Label>
+   </children>
+</AnchorPane>

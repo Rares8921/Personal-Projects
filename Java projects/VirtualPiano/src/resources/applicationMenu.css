@@ -1,0 +1,42 @@
+.parent {
+    -fx-background-color: linear-gradient(to top, #121212, #141414, #323232, #323232);
+    -fx-background-radius: 10px;
+}
+
+.hBox {
+    -fx-background-color: linear-gradient(to top, #323232, #141414, #121212, #323232);
+    -fx-background-radius: 5px;
+}
+
+.closeButton {
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.closeButton:hover {
+    -fx-background-color: red;
+}
+
+.onButton {
+    -fx-background-color: #2e5b0d;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+}
+
+.offButton {
+    -fx-background-color: #500000;
+    -fx-text-fill: #999999;
+    -fx-background-radius: 5px;
+}
+
+.actionButton {
+    -fx-background-radius: 5px;
+    -fx-background-color: transparent;
+}
+
+.actionButton:hover {
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+    -fx-scale-z: 1.15;
+}
