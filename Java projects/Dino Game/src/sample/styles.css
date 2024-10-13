@@ -1,0 +1,54 @@
+.parent {
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 0;
+}
+/* TITLE BAR */
+
+.title {
+    -fx-font-style: none;
+}
+
+.title:hover {
+    -fx-font-style: italic;
+}
+
+.minimizeButton {
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.minimizeButton:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #777777;
+}
+
+.closeButton {
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.closeButton:hover {
+    -fx-text-fill: white;
+    -fx-background-color: red;
+}
+
+.startButton {
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.startButton:hover {
+    -fx-background-radius: 7px;
+    -fx-background-color: #ebebeb;
+}
+
+.photo {
+    -fx-width: 35px;
+    -fx-height: 35px;
+}
+
+.photo:hover {
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+    -fx-scale-z: 1.15;
+}
