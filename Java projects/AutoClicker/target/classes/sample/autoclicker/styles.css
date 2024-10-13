@@ -1,0 +1,26 @@
+.slider .track{
+    -fx-background-color: linear-gradient(to right, #363553, #E8458B);
+}
+
+.slider .thumb {
+    -fx-background-color: #903775;
+}
+
+.title {
+    -fx-font-style: none;
+}
+
+.title:hover {
+    -fx-font-style: italic;
+}
+
+
+.closeButton {
+    -fx-font-size: 16px;
+    -fx-underline: false;
+    -fx-background-color: transparent;
+}
+
+.closeButton:hover {
+    -fx-underline: true;
+}
