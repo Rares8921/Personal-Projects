@@ -1,0 +1,836 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700");
+
+body {
+    font-family: "Roboto Slab", serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Setez cum sa fie calculat tot width-ul si height-ul */
+    /* Cu border box nu permit elementului child sa treaca de offset-urile parintelui */
+    background-color: #1c1c1c; /*#f0f1f6*/
+    overflow-x: hidden;
+    margin: 0;
+}
+
+*:before, *:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Popins', sans-serif;
+}
+
+.reviewContent {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    z-index: 5;
+    min-width: 200px;
+    margin-top: 10px;
+}
+
+.reviewContent:hover .dropdown {
+    display: block;
+}
+
+.progressBar {
+    background-color: #232323;
+    position: fixed; /* Mereu sa fie in partea de sus a site-ului */
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    z-index: 9999; /* O valoarea mare pentru ca progress bar-ul sa dea overlap la restul site-ului intotdeauna */ 
+}
+
+.searchWrapper::before, .loadMore::before {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    content: "";
+    width: 20px;
+    height: 20px;
+    border: 3px solid white;
+    border-radius: 24px;
+    /* Border inline seteaza border-ul paralel cu modul de a scrie */
+    border-inline-end-color: transparent; /* Se seteaza culoarea doar pentru border-ul din directia scrisului*/
+    animation: loading 10ms linear infinite;
+}
+
+.searchWrapper.searching::before {
+    display: inline;
+}
+
+.searchWrapper::before {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+
+.toggleButton {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.toggleButton .bar1, .toggleButton .bar2, .toggleButton .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0;
+    margin-left: 25%;
+    transition: 0.4s;
+}
+
+
+.toggleButtonChange .bar1 {
+    /* Transform 2d prin width si heigth */
+    transform: translate(0, 5.5px) rotate(-45deg);
+}
+
+.toggleButtonChange .bar2 {
+    display: none;
+}
+
+.toggleButtonChange .bar3 {
+    transform: translate(0, -5.5px) rotate(45deg);
+}
+
+.navBar {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    color: white;
+    padding: 20px;
+    margin-top: 20px;
+    z-index: 999;
+    -webkit-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.menu-logo {
+    line-height: 0;
+    margin: 0 10px;
+    margin-left: 50px;
+}
+
+.menu-logo img {
+    max-height: 40px;
+    max-width: 100px;
+    flex-shrink: 0;
+}
+
+.navBar a {
+    text-decoration: none;
+    color: #232323;
+    transition: color 0.3s linear;
+    font-size: 22px;
+    position: relative;
+}
+
+.navBar a:after, .sideNav p:after{
+    content: '';
+    position: absolute;
+    background-color: var(--navBarForeground);
+    height: 4px;
+    width: 0;
+    left: 0;
+    bottom: -10px;
+    transition: 0.4s ease;
+    border-radius: 25px;
+}
+
+.navBar a:hover:after, .sideNav p:hover:after {
+    width: 100%;
+    /* Numar variabil de umbre */
+    /* Primul argument reprezinta marging-left */
+    /* Al doilea reprezinta margin-top */
+    /* Al treilea e "raza" umbrei */
+    box-shadow: 0 0 5px var(--navBarForeground),
+    0 0 25px var(--navBarForeground),
+    0 0 50px var(--navBarForeground),
+    0 0 100px var(--navBarForeground),
+    0 0 200px var(--navBarForeground);
+}
+
+.navBar input[type="checkbox"] {
+    display: block;
+    width: 35px;
+    height: 25px;
+    margin: 0;
+    position: absolute;
+    cursor: pointer;
+    visibility: hidden;
+    z-index: 2; 
+    -webkit-touch-callout: none;
+}
+
+.navSearchBar input[type="text"], .navSearchBar input[type="text"]:active, .navSearchBar input[type="text"]:focus {
+    border: none;
+    outline: none;
+}
+
+.navBar span {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #cdcdcd;
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                opacity 0.55s ease;
+}
+
+.navBar span:first-child {
+    transform-origin: 0% 0%;
+}
+
+.navBar span:nth-child(3) {
+    transform-origin: 0% 100%;
+}
+
+.navBar input[type="checkbox"]:checked ~ span {
+    opacity: 1;
+    transform: rotate(45deg) translate(3px,-1px);
+    background: #232323;
+}
+
+.navBar input[type="checkbox"]:checked ~ span:nth-child(4) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+.navBar input[type="checkbox"]:checked ~ span:nth-child(3) {
+    transform: rotate(-45deg) translate(-5px,11px);
+}
+
+.menu ul {
+    list-style: none;
+}
+
+.menu li {
+    padding: 10px 0;
+    font-size: 22px;
+}
+  
+/* mobile styles */
+ @media only screen and (max-width: 767px) { 
+    .navBar {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .menu-logo {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .menu-logo img {
+        max-height: 30px;
+    }
+
+    .menu {
+        position: absolute;
+        box-sizing: border-box;
+        width: 300px;
+        right: -300px;
+        top: 0;
+        margin: -20px;
+        padding: 75px 50px 50px;
+        background: #cdcdcd;
+        -webkit-font-smoothing: antialiased;
+        transform-origin: 0% 0%;
+        transform: translateX(0%);
+        transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    }
+
+    .navBar input[type="checkbox"]:checked ~ .menu {
+        transform: translateX(-100%);
+    }
+} 
+  
+/* desktop styles */
+@media only screen and (min-width: 768px) { 
+    .navBar {
+        width: 100%;
+    }
+
+    .navBar a {
+        color: #cdcdcd;
+    }
+
+    .navBar input[type="checkbox"] {
+        display: none;
+    }
+
+    .navBar span {
+        display: none;
+    }
+
+    .menu {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .menu ul {
+        display: flex;
+        padding: 0;
+    }
+
+    .menu li {
+        padding: 0 20px;
+    }
+}
+
+.sideNav {
+    height: 95%;
+    width: 0;
+    position: fixed;
+    margin-top: 90px;
+    z-index: 999;
+    color: white;
+    left: 0;
+    background-color: transparent;
+    overflow-x: hidden; /* Fara scrollbar orizontal*/
+    -ms-overflow-style: none; /* Internet Explorer, Edge */
+    scrollbar-width: none; /* Firefox */
+    overflow-y: initial;
+    transition: 0.5s linear;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: row;
+}
+
+.sideNav::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.sideNav p {
+    font-family: "Roboto Slab", sans-serif;
+    font-size: 25px;
+    transition: color 0.3s linear;
+    position: relative;
+    display: inline-flex;
+    flex-direction: row;
+    left: 50%;
+    /* transform: translate(-50%, 0%); */
+}
+  
+.sideNav a {
+    break-after: always;
+    padding: 8px;
+    margin-left: 22px;
+    font-size: 20px;
+    color: rgb(210, 208, 208);
+    transition: 0.3s linear;
+    background-color: transparent;
+    position: relative;
+    text-decoration: none;
+}
+
+.sideNav a:after {
+    content: '';
+    position: absolute;
+    background-color: var(--navBarForeground);
+    height: 4px;
+    width: 0;
+    left: 0;
+    bottom: -2px;
+    transition: 0.4s ease;
+    border-radius: 25px;
+}
+
+.sideNav a:hover:after {
+    width: 100%;
+    /* Numar variabil de umbre */
+    /* Primul argument reprezinta marging-left */
+    /* Al doilea reprezinta margin-top */
+    /* Al treilea e "raza" umbrei */
+    box-shadow: 0 0 5px var(--navBarForeground),
+    0 0 25px var(--navBarForeground),
+    0 0 50px var(--navBarForeground),
+    0 0 100px var(--navBarForeground),
+    0 0 200px var(--navBarForeground);
+}
+
+.sidebarList {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+#homePageMain {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+    .sideNav {padding-top: 15px;}
+    .sideNav a {font-size: 18px;}
+}
+
+.title {
+    font-size: 65px;
+    font-weight: 350;
+    letter-spacing: 0.5px;
+}
+
+.movieHeading {
+    color: var(--headingColor);
+    font-size: var(--headingSize);
+    font-weight: var(--headingWeight);
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+}
+
+.imageCover {
+    /* width: 100%;
+    height: 100%;*/
+    object-fit: cover; 
+}
+
+.titleWrapper {
+    margin-block-end: 24px;
+}
+
+.sliderList {
+    margin-inline: -20px;
+    overflow-x: overlay;
+    padding-block-end: 16px;
+    margin-block-end: -16px;
+}
+
+.sliderList::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.sliderList:is(:hover, :focus-within)::-webkit-scrollbar-thumb {
+    background-color: green;
+}
+
+.sliderList::-webkit-scrollbar-button {
+    width: 20px;
+}
+
+.sliderList .sliderInner {
+    position: relative;
+    display: flex;
+    gap: 16px;
+}
+
+.sliderList .sliderInner::before, .sliderList .sliderInner::after {
+    content: "";
+    min-width: 4px;
+}
+
+.movieListTitle {
+    font-size: 55px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sliderButton {
+    color: white;
+    font-size: 25px;
+    /* font-weight: 250; */
+    max-width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-block: 12px;
+    padding-inline: 20px 24px;
+    border-radius: 12px;
+    transition: 0.4s ease-in-out;
+}
+
+.cardBadge {
+    background-color: rgba(41, 40, 40, 0.5);
+    color: white;
+    font-size: 20px;
+    font-weight: 300;
+    padding-inline: 6px;
+    border-radius: 4px;
+    font-family: Helvetica, sans-serif;
+}
+
+.movieContainer {
+    position: relative;
+    background-color: rgba(41, 41, 41, 0.5);
+    color: white;
+    padding: 24px 20px 48px;
+    height: calc(100vh - 96px);
+    overflow-y: overlay;
+    z-index: 1; 
+}
+
+.searchModal {
+    color: white;
+}
+
+.movieContainer::after, .searchModal::after {
+    content: "";
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    /* background-image: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,7,29,1) 34%, rgba(255,0,0,1) 49%, rgba(198,6,13,1) 59%, rgba(244,6,6,1) 70%, rgba(121,9,27,1) 100%); */
+    z-index: 1;
+    pointer-events: none; /* Event-ul care se intampla cand target-ul pointer-ului ajunge la acest element*/
+}
+
+.movieBanner {
+    position: relative;
+    height: 900px;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.sliderBanner .sliderItem {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 100%;
+    height: 100%;
+    background-color: #1d1c1c;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 5s;
+}
+
+.sliderBanner .sliderItem .bannerContent {
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -10%);
+    overflow: scroll;
+}
+
+.sliderBanner .sliderItem .imageCover {
+    margin: auto;
+    display: block;
+}
+
+.sliderBanner .sliderItem::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    object-fit: contain;
+    background-position: center;
+    background-repeat: no-repeat; 
+    opacity: 0.55;
+}
+
+.sliderBanner .active {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+.bannerContent {
+    position: absolute;
+    left: 15%;
+    right: 24px;
+    bottom: 206px;
+    z-index: 1;
+    padding-left: 3.5%;
+    color: white;
+}
+.movieBanner .movieHeading {
+    -webkit-line-clamp: 10; /* Trunchiez textul la numarul specificat de linii */
+    margin-block-end: 16px;
+}
+
+.metaList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+}
+
+.movieBanner .genre {
+    margin-block: 12px;
+}
+
+.movieDescription {
+    box-sizing: border-box;
+    -webkit-line-clamp: 2;
+    margin-block-end: 24px;
+}
+
+.sliderButton {
+    margin-top: 25%;
+    background-color: #9054a0;
+}
+
+.sliderButton:is(:hover, :focus-visible) {
+    box-shadow: 5px 7px 8px #533a59;
+}
+
+.sliderControl {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 0;
+    border-radius: 16px 0 0 16px;
+    user-select: none; /* Setez ca user-ul sa nu poata selecta acest text */
+    padding: 4px 0 4px 4px;
+    overflow-x: auto;
+}
+
+.sliderControl::-webkit-scrollbar { 
+    display: none;
+}
+
+.innerControl {
+    display: flex;
+    gap: 12px;
+}
+
+.innerControl::after {
+    content: "";
+    min-width: 12px;
+}
+
+.sliderControl .sliderItem {
+    width: 100px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    filter: brightness(0.4);
+    color: white;
+}
+
+.sliderControl .active {
+    filter: brightness(0.7);
+    box-shadow: 5px 7px 8px #313131;
+}
+
+.posterBox, .videoCard {
+    background-repeat: no-repeat;
+    aspect-ratio: 2 / 3;
+    background-size: cover;
+    background-color: #313131;
+    background-position: center;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.posterBox .cardBanner {
+    background-image: url('/imgs/puss-in-boots-banner.jpg');
+    position: relative;
+    display: block;
+}
+
+.movieCard .movieTitle, .movieCard .metaList {
+    margin-left: 25%;
+}
+
+.movieList {
+    padding-block-start: 16px;
+}
+
+.movieCard {
+    position: relative;
+    min-width: 200px;
+}
+
+.movieCard .cardBanner {
+    /* min-width: 100%; */
+    width: 200px;
+}
+
+.movieCard .movieTitle {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-block: 8px 4px;
+}
+
+.movieCard .metaList {
+    justify-content: space-between;
+}
+
+.movieCard .cardButton {
+    position: absolute;
+    inset: 0;
+}
+
+.metaSeparator {
+    width: 4px;
+    height: 4px;
+    background-color: #7f7f7f;
+    border-radius: 8px;
+}
+
+.videoCard {
+    background-image: url('/imgs/movieTrailer.jpeg');
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
+    max-width: 500px;
+    width: calc(100% - 40px);
+}
+
+.navSearchBar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0.5rem;
+    padding-top: 7px;
+    margin-top: -12px;
+    border-radius: 3rem;
+    background-color: transparent;
+    opacity: 0.7;
+}
+
+.searchBar {
+    z-index: 99999;
+    font-size: 2rem;
+    color: white;
+    background-color: #454545;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+.searching {
+    color: white;
+}
+
+/* Variabile */
+:root {
+    --pageFont: "Roboto Slab", serif;
+    --navBarColor: transparent;
+    --navBarForeground: #9054a0;
+    --headingColor: white;
+    --banner-overlay: 90deg, hsl(220, 17%, 7%), hsla(220, 17%, 7%, 0), 100%;
+    --headingSize: 45px;
+    --headingWeight: 300;
+    --textColor: white;
+    --textSize: 25px;
+    --textWeight: 150;
+    --element-width: 150px;
+}
+
+/* Responsive pentru item-urile mai mari decat 575px 
+@media (min-width: 575px) {
+     Main page 
+    .bannerContent {
+        right: auto;
+        max-width: 500px;
+    }
+    .sliderControl {
+        left: calc(100% - 400px);
+    }
+     Detail page 
+    .detailContent {
+        max-width: 750px;
+    }
+}
+
+ Responsive pentru item-urile mai mari decat 768px 
+@media (min-width: 768px) {
+    :root {
+        --banner-overlay: 90deg, hsl(220, 17%, 7%), hsla(220, 17%, 7%, 0), 100%;
+        --headingSize: 5.4rem; 
+    }
+    .container {
+        padding-inline: 24px;
+    }
+    .sliderList {
+        margin-inline: -24px;
+    }
+    .searchButton {
+        display: none;
+    }
+    .searchBox {
+        all: unset;
+        display: block;
+        width: 360px;
+    }
+    .movieBanner {
+        height: 500px;
+    }
+    .bannerContent {
+        bottom: 50%;
+        transform: translateY(50%);
+        left: 50px;
+    }
+    .movieDetail {
+        display: flex;
+        align-items: flex-start;
+        gap: 40px;
+    }
+    .movieDetail .detailBox {
+        flex-grow: 1;
+    }
+    .movieDetail .moviePoster {
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
+    }
+    .movieDetail .sliderList {
+        margin-inline-start: 0;
+        border-radius: 16px 0 0 16px;
+    }
+    .movieDetail .sliderInner::before {
+        display: none;
+    }
+}
+
+ Pentru latime de minim 1200px 
+@media (min-width: 1200px) {
+    .header {
+        padding: 28px 56px;
+    }
+    .logo img {
+        width: 160px;
+    }
+    .menuButton, .overlay {
+        display: none;
+    }
+    .sideNav {
+        position: static;
+        visibility: visible;
+        border-block-start: 0;
+        height: calc(100vh - 104px);
+    }
+    .sideNav.active {
+        transform: none;
+    }
+    .sideNav footer, .sidebarList {
+        padding-inline: 56px;
+    }
+    .container {
+        height: calc(100vh - 104px);
+        border-top-left-radius: 36px;
+    }
+    .backdropImage {
+        border-top-left-radius: 36px;
+    }
+    .bannerContent {
+        left: 100px;
+    }
+} 
+
+
+/* Imaginea si chestii, watch, recenzii, istoric, pagina de vizionare */

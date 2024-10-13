@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stil/style.css">
+    <link rel="stylesheet" type="text/css" href="/stil/notFoundPage.css">
+    <link rel="icon" href="/imgs/streampulseLogo.png" type="image/x-icon">
+    <title>Unexistent page</title>
+</head>
+<body>
+    <div id="sideNavBar" class="sideNav">
+        <!-- Codul este in sidebar.js -->
+    </div>
+    <nav class="navBar">
+      <div class="toggleButton" onclick="updateSideNav()" id="sidebarToggleButton">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+      </div>
+      <input type="checkbox" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    
+      <!-- logo -->
+      <a href="./" class="menu-logo"><img id="navTitle" alt="StreamPulse" src="/imgs/streampulseLogo.png"></a>
+    
+      <!-- menu items -->
+      <div class="menu">
+        <ul>
+          <li><a href="./movielist">Movie lists</a></li>
+          <li><a href="./detail">Detail page</a></li>
+          <li class="reviewContent">
+              <a id="reviewParagraph">Reviews</a>
+              <div class="dropdown">
+                  <a href="./reviews">External reviews</a>
+                  <a href="./reviews">Users reviews</a>
+              </div>
+          </li>
+          <li><a href="./watchlist">Watchlist</a></li>
+        </ul>
+        <ul>
+          <li><a href="./account">Account</a></li>
+        </ul>
+      </div>
+  </nav>
+    
+    <div id="homePageMain">
+      <div class="particleContainer"></div>
+      <div class="errorText">404 - Sorry, the page you requested could not be found. Make sure you are typing the URL correctly and try again.</div>
+    </div>
+    <script src="/js/animatii.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/notfound.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body {
+    background-color: #1c1c1c;
+    height: 100vh;
+    overflow: hidden;
+}
+  
+.navBar, .sideNav {
+    background-color: #1c1c1c;
+}
+
+.particleContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+  
+.errorText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+  
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: white;
+    border-radius: 50%;
+    animation: particle-fly linear infinite;
+    opacity: 0.8;
+}
+  
+@keyframes particle-fly {
+    from {
+        transform: translate(0, 0);
+        color: white;
+    }
+    to {
+        transform: translate(200px, 200px);
+        opacity: 0;
+        color: yellow;
+    }
+}
+  

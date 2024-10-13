@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1717795904843",
+    "fullname": "Test",
+    "username": "Triggered",
+    "email": "test@example.com",
+    "password": "$2b$10$gMLmbmuiEmDW8HLJll6PW.M/TEX7KcsoCyHvYM9SuE0pBj8YYe5nq",
+    "reviews": [],
+    "watchlish": []
+  },
+  {
+    "id": "1717950927842",
+    "fullname": "Rares",
+    "username": "Rares8921",
+    "email": "dumrares1@gmail.com",
+    "password": "$2b$10$iJFuVBEACr5HQ2nvMHw8mOSN9Rz1ELZQnm.Cbz0eVW3SHnTaZm4iW",
+    "reviews": [],
+    "watchlist": []
+  },
+  {
+    "id": "1717952429235",
+    "fullname": "ab",
+    "username": "ab",
+    "email": "ab@c.com",
+    "password": "$2b$10$vl892cLG1zAeXKtCIgYE7OevUW69FMfRhlO3iHae36lOEESx8KqR2",
+    "reviews": [],
+    "watchlist": [
+      "1089398",
+      "976555"
+    ]
+  }
+]

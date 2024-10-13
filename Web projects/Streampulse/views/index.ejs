@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamPulse - home page</title>
+    <link rel="stylesheet" type="text/css" href="/stil/style.css">
+    <link rel="icon" href="/imgs/streampulseLogo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <div id="sideNavBar" class="sideNav">
+        <!-- Codul este in sidebar.js -->
+    </div>
+
+    <div class="progressBar" id="progressBar"></div>
+    <header></header>
+    <nav class="navBar">
+        <div class="toggleButton" onclick="updateSideNav()" id="sidebarToggleButton">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+        <input type="checkbox" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      
+        <!-- logo -->
+        <a href="./" class="menu-logo"><img id="navTitle" alt="StreamPulse" src="/imgs/streampulseLogo.png"></a>
+      
+        <!-- menu items -->
+        <div class="menu">
+          <ul>
+            <li><a href="./movielist">Movie lists</a></li>
+            <li><a href="./detail">Detail page</a></li>
+            <li class="reviewContent">
+                <a id="reviewParagraph">Reviews</a>
+                <div class="dropdown">
+                    <a href="./reviews">External reviews</a>
+                    <a href="./reviews">Users reviews</a>
+                </div>
+            </li>
+            <li><a href="./watchlist">Watchlist</a></li>
+            <li><div class="navSearchBar"><input type="text" class="searchBar" value="ceva"></div></li>
+          </ul>
+          <ul>
+            <li><a href="./account">Account</a></li>
+          </ul>
+        </div>
+    </nav>
+
+    <div id="homePageMain">
+        <!-- Pentru filmul de pe tot ecranul -->
+        <article class="movieContainer">
+            <h2 style="display: none;">?</h2>
+        </article>
+    </div>
+    <footer style="background-color: #222; color: #ddd; padding: 20px 0; text-align: center;">
+      <div style="max-width: 1200px; margin: auto; padding: 0 20px;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 20px;">
+          <div style="flex: 1 1 200px; margin: 10px;">
+            <img src="/imgs/streampulseLogo.png" alt="Logo" style="max-width: 150px;">
+          </div>
+          <div style="flex: 1 1 200px; margin: 10px;">
+            <h4>Contact Us</h4>
+            <p>Email: dumrares@gmail.com</p>
+            <p>Phone: 0210 000 000</p>
+          </div>
+          <div style="flex: 1 1 200px; margin: 10px;">
+            <h4>Quick Links</h4>
+            <p><a href="#" style="color: #ddd;">Home</a></p>
+            <p><a href="#" style="color: #ddd;">About</a></p>
+            <p><a href="#" style="color: #ddd;">Services</a></p>
+            <p><a href="#" style="color: #ddd;">Contact</a></p>
+          </div>
+          <div style="flex: 1 1 200px; margin: 10px;">
+            <h4>Follow Us</h4>
+            <p>
+              <a href="#" style="color: #ddd; margin: 0 10px;">Facebook</a>
+              <a href="#" style="color: #ddd; margin: 0 10px;">Twitter</a>
+              <a href="#" style="color: #ddd; margin: 0 10px;">Instagram</a>
+            </p>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <h4>Subscribe to our Newsletter</h4>
+          <form style="display: flex; justify-content: center;">
+            <input type="email" placeholder="Enter your email" style="padding: 10px; border: none; border-radius: 5px 0 0 5px;">
+            <button type="submit" style="padding: 10px; border: none; border-radius: 0 5px 5px 0; background-color: #9054a0; color: white;">Subscribe</button>
+          </form>
+        </div>
+        <div style="border-top: 1px solid #444; padding-top: 10px;">
+          <p>&copy; 2024 StreamPulse. All rights reserved.</p>
+          <!-- <p><a href="#" style="color: #ddd;">Privacy Policy</a> | <a href="#" style="color: #ddd;">Terms of Service</a></p> -->
+        </div>
+      </div>
+    </footer>
+      
+    <script src="/js/animatii.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/global.js" type="module"></script>
+</body>
+</html>

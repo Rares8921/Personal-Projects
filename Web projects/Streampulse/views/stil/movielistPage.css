@@ -1,0 +1,54 @@
+.genreList .titleWrapper {
+    margin-block-end: 56px;
+}
+
+.gridList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    column-gap: 16px;
+    row-gap: 16px;
+}
+
+:is(.genreList, .searchModal) :is(.movieCard, .cardBanner) {
+    width: 100%;
+}
+
+.loadMore {
+    background-color: #9054a0;
+    margin-inline: auto;
+    color: white;
+    border: none;
+    margin-block: 36px 60px;
+}
+
+.loadMore :is(:hover, :focus-visible) {
+    background-color: #533a59;
+}
+
+.loadMore.loading::before {
+    display: block;
+}
+
+.searchModal {
+    position: relative;
+    display: none;
+    top: 96px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 100px;
+    background-color: transparent;
+    padding: 50px 24px;
+    overflow-y: overlay;
+    z-index: 4;
+}
+
+.searchModal.active {
+    display: block;
+}
+
+.searchModal .searchLabel {
+    color: #533a59;
+    font-weight: bold;
+    margin-block-end: 8px;
+}

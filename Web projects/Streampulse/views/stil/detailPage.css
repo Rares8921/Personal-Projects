@@ -1,0 +1,60 @@
+.movieDetail {
+    color: white;
+}
+
+.movieDetail .backdrop {
+    background-image: url('/imgs/darkPoster.jpg');
+}
+
+.backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 600px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+.backdrop::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(0deg, hsla(250, 13%, 11%, 1), 
+                hsla(250, 13%, 11%, 0.9));
+}
+
+.movieDetail .moviePoster {
+    max-width: 300px;
+    width: 100%;
+}
+
+.movieDetail .movieHeading {
+    margin-block: 24px 12px;
+}
+
+.movieDetail :is(.metaList, .genre) {
+    color: white;
+}
+
+.movieDetail .genre {
+    margin-block: 12px 16px;
+}
+
+.detailList {
+    margin-block: 24px 32px;
+}
+
+.movieDetail .listItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-block-end: 12px;
+}
+
+.movieDetail .listName {
+    color: white;
+    min-width: 112px;
+}
