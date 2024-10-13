@@ -1,7 +1,0 @@
-.gridP Line {
-    -fx-stroke: #b8b8b8;
-    -fx-stroke-width: 0.8;
-    -fx-stroke-style: solid inside;
-    -fx-stroke-dash-array: 15 2 4 2;
-    -fx-stroke-dash-offset: 6;
-}
