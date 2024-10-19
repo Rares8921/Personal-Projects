@@ -20,6 +20,7 @@ Here, you'll find a collection of my personal projects, ranging from intricate A
 
 ### Artificial Intelligence
 - Satire text detection
+- Optical Character recognition
 
 ### Assembly Programs
 - Conway’s Game of Life.
