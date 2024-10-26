@@ -1,4 +1,4 @@
-# Welcome to My GitHub Repository! 
+9# Welcome to My GitHub Repository! 
 
 👋 **Greetings!**  
 I'm Rares, and I welcome you to explore my GitHub profile. I am a passionate and detail-oriented software developer, with a strong focus on writing clean, efficient, and maintainable code. Over the years, I have accumulated experience across various domains, including artificial intelligence, application programming, game development, and web technologies.  
@@ -46,8 +46,8 @@ In these projects, I applied various advanced programming and software engineeri
 - Python Scripts: **14**  
 - Web Development: **4**  
 - Assembly Programs: **1**  
-- Artificial Intelligence: **1**
-- Total: 54
+- Artificial Intelligence: **2**
+- Total: 55
 
 ---
 
