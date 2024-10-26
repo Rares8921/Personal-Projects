@@ -1,4 +1,4 @@
-9# Welcome to My GitHub Repository! 
+# Welcome to My GitHub Repository! 
 
 👋 **Greetings!**  
 I'm Rares, and I welcome you to explore my GitHub profile. I am a passionate and detail-oriented software developer, with a strong focus on writing clean, efficient, and maintainable code. Over the years, I have accumulated experience across various domains, including artificial intelligence, application programming, game development, and web technologies.  
