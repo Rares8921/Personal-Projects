@@ -1,4 +1,4 @@
-# Chess Application Description
+# ChessFX
 
 ## Overview
 This Chess Application is built using JavaFX, allowing for a rich user experience with drag-and-drop functionality for moving pieces, real-time game validation, and various game state evaluations. The application supports two-player gameplay, including features like castling, en passant, and promotion.
