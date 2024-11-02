@@ -36,7 +36,7 @@ In these projects, I applied various advanced programming and software engineeri
 
 - **Object-Oriented Programming (OOP)**: Used extensively in projects like **Ethereal Eclipse** and the **Chess game**, encapsulating game logic into reusable components.
 - **Modular Design**: Decomposing functionality into independent, reusable modules.
-- **MVC Architecture**: Utilized in larger projects to separate the user interface from the game logic and data management.
+- **Maven Architecture**: Utilized in larger projects to separate the user interface from the logic and data management.
 - **Memory Management**: Extensive use of manual memory management in C++ to handle object lifecycles and optimize performance.
 - **Concurrency**: Implemented multithreading for certain performance-critical sections, such as parallel computation in image editing or simulations.
 
