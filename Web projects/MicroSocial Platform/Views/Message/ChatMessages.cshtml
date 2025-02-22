@@ -1,0 +1,1873 @@
+﻿@{
+    ViewData["Title"] = "Messages";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MicroSocial_Platform.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Messages.css" asp-append-version="true" />
+</head>
+
+<body>
+    <div class="dm-container">
+        <div class="chat-container">
+
+            <div class="chat-list">
+
+                <div class="chat-toggle-buttons">
+                    <button id="directMessagesBtn" class="btn btn-primary" onclick="showDirectMessages()">Direct Messages</button>
+                    <button id="groupChatsBtn" class="btn btn-secondary" onclick="showGroupChats()">Group Chats</button>
+                    <button class="btn btn-primary" onclick="showGroupCreationModal()">Create Group</button>
+                    <button class="btn btn-secondary" onclick="openJoinGroupsModal()">Find Groups</button>
+                </div>
+                <hr />
+
+                <ul id="directMessagesList" class="chat-list-section">
+                    <li>
+                        <div class="new-chat">
+                            <input id="newChatRecipient" type="text" placeholder="Create new chat" oninput="searchUsers()" />
+                            <ul id="userSearchResults" style="display:none;"></ul>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul id="groupChatsList" class="chat-list-section" style="display:none;">
+                </ul>
+            </div>
+
+            <div class="vl"></div>
+
+            <div class="chat-window">
+                <h3 id="chatHeader">Select a chat</h3>
+                <div id="messageContainer" class="message-container">
+
+                </div>
+                <hr />
+                <div class="message-input" id="message-input-div" style="visibility: hidden;">
+                    <textarea id="messageInput" placeholder="Type your message..."></textarea>
+                    <button onclick="sendMessage()" id="mainSendButton">Send</button>
+                </div>
+                <div class="voice-message-controls" id="voice-message-controls-div" style="visibility: hidden;">
+                    <button id="recordVoiceMessageButton" onclick="startRecording()">Record Voice Message</button>
+                    <audio id="voiceMessagePreview" controls style="display:none;"></audio>
+                    <button id="sendVoiceMessageButton" onclick="sendVoiceMessage()" style="display:none;">Send Voice Message</button>
+                    <button id="cancelVoiceMessageButton" onclick="resetVoiceMessageUI()" style="display:none;">Cancel</button>
+                    <input type="file" id="mediaFileInput" accept="image/*,video/*,image/gif" style="display:none;" onchange="previewMedia(event)" />
+                    <button id="selectMediaButton" onclick="document.getElementById('mediaFileInput').click();">Select Media</button>
+
+                    <div id="mediaPreviewContainer" style="display: none;">
+                        <img id="mediaPreviewImage" src="" alt="Media Preview" style="max-width: 100%; display: none;" />
+                        <video id="mediaPreviewVideo" controls style="max-width: 100%; display: none;"></video>
+                        <button id="sendMediaMessageButton" onclick="sendMediaMessage()">Send Media Message</button>
+                        <button id="resetMediaButton" onclick="resetMedia()">Reset Media</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal pentru creare grup -->
+        <div id="groupCreationModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeGroupCreationModal()">&times;</span>
+                <h4>Create a New Group</h4>
+                <div>
+                    <input id="groupSearchInput" type="text" placeholder="Search users" oninput="searchUsersForGroup()" />
+                    <ul id="userSearchResultsForGroup" style="display:none;"></ul>
+                </div>
+                <h5>Selected Users:</h5>
+                <ul id="selectedUsersList">
+                </ul>
+                <label for="groupName">Group Name:</label>
+                <input id="groupName" type="text" placeholder="Enter group name" required />
+
+                <label for="groupDescription">Group Description (Optional):</label>
+                <input id="groupDescription" type="text" placeholder="Enter group description" />
+
+                <!-- Select pentru vizibilitate -->
+                <label for="groupVisibility">Visibility:</label>
+                <select id="groupVisibility">
+                    <option value="Public">Public</option>
+                    <option value="Private">Private</option>
+                </select>
+
+                <button id="createGroupBtn" class="btn btn-success" onclick="createGroup()">Create Group</button>
+                <p id="groupErrorMessage" style="color: red; display: none;">You must select at least 2 people!</p>
+            </div>
+        </div>
+
+
+        <!-- Modal pentru add de membri in grup -->
+        <div id="addMemberModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeAddMemberModal()">&times;</span>
+                <h4>Add Members to Group</h4>
+                <div>
+                    <input id="addMemberSearchInput" type="text" placeholder="Search users" oninput="searchUsersForAdding()" />
+                    <ul id="addMemberSearchResults" style="display:none;"></ul>
+                </div>
+                <h5>Selected Users:</h5>
+                <ul id="selectedAddMemberUsersList"></ul>
+                <button id="addMemberButton" class="btn btn-success" onclick="addMembersToGroup()">Add to Group</button>
+                <p id="addMemberErrorMessage" style="color: red; display: none;">You must select at least 1 person!</p>
+            </div>
+        </div>
+
+        <!-- Modal pentru editare grup -->
+        <div id="editGroupModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditGroupModal()">&times;</span>
+                <h4>Edit Group</h4>
+                <label for="editGroupName">Group Name:</label>
+                <input id="editGroupName" type="text" placeholder="Enter group name" required />
+
+                <label for="editGroupDescription">Group Description (Optional):</label>
+                <input id="editGroupDescription" type="text" placeholder="Enter group description" />
+
+                <!-- Select pentru vizibilitate -->
+                <label for="editGroupVisibility">Visibility:</label>
+                <select id="editGroupVisibility">
+                    <option value="Public">Public</option>
+                    <option value="Private">Private</option>
+                </select>
+
+                <button id="editGroupBtn" class="btn btn-success" onclick="editGroup()">Save Changes</button>
+                <p id="editGroupErrorMessage" style="color: red; display: none;">All fields are required!</p>
+            </div>
+        </div>
+
+        <!-- Modal pentru grupuri disponibile -->
+        <div id="joinGroupsModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeJoinGroupsModal()">&times;</span>
+                <h4>Available Groups</h4>
+                <div id="groupList">
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal pentru cererile de join -->
+        <div id="joinRequestsModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeJoinRequestsModal()">&times;</span>
+                <h4>Join Requests</h4>
+                <div id="joinRequestsList"></div>
+            </div>
+        </div>
+
+        <div id="participantsPopup" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h4>Select member</h4>
+                <ul id="participantsList"></ul>
+                <button id="closePopupButton">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Modal pentru lista de membri -->
+        <div id="participantsModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="document.getElementById('participantsModal').style.display='none'">&times;</span>
+                <h4>Group Members</h4>
+                <ul id="participantList"></ul>
+            </div>
+        </div>
+
+        @if (@isAdmin)
+        {
+            <input type="hidden" value="true" id="currentUserIsAdmin"/>
+        } else
+        {
+            <input type="hidden" value="false" id="currentUserIsAdmin" />
+        }
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script>
+        const isAdmin = document.getElementById("currentUserIsAdmin").value == "true";
+        let currentChatId = null;
+        let currentRecipientId = null;
+        let selectedUsers = [];
+        let groupCreatorId = '@ViewBag.UserId';
+        let currentRecipientName = '';
+        let sendMessageToGroup = false;
+
+        var mediaRecorder;
+        var audioChunks = [];
+
+        // Configurarea conexiunii SignalR
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/ws")
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        connection.on("Message_Received", (userId, userName, timeStamp, content, messageId) => {
+            if('@ViewBag.UserId' != userId) {
+                const messageContainer = document.getElementById("messageContainer");
+                const messageDiv = document.createElement("div");
+                messageDiv.className = "message received";
+                messageDiv.innerHTML = `
+                    <p>${userName}: <small>${new Date(timeStamp).toLocaleTimeString()}</small></p>
+                    <p>${content}</p>
+                `;
+                messageDiv.setAttribute("messageId", messageId);
+                messageDiv.style.display = messageContainer.style.display;
+                messageContainer.appendChild(messageDiv);
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            }
+        });
+
+        connection.on("UdpateChat_Received", (chatId, senderId, senderName, recipientName, recipientId) => {
+            if ('@ViewBag.UserId' != senderId) {
+                loadChat(chatId, senderName, recipientId != "" ? recipientId : null);
+            }
+        });
+
+        connection.on("Message_Deleted", (userId, messageId) => {
+            if('@ViewBag.UserId' != userId) {
+                const messageDiv = document.querySelector(`[messageId="${messageId.toString()}"]`);
+                if (messageDiv) {
+                    messageDiv.remove();
+                } else {
+                    console.error("Message not found in the DOM.");
+                }
+            }
+        });
+
+        connection.start().catch(err => console.error(err.toString()));
+
+        function previewMedia(event) {
+            const file = event.target.files[0];
+            const mediaPreviewContainer = document.getElementById('mediaPreviewContainer');
+            const mediaPreviewImage = document.getElementById('mediaPreviewImage');
+            const mediaPreviewVideo = document.getElementById('mediaPreviewVideo');
+
+            // Resetare preview
+            mediaPreviewImage.style.display = 'none';
+            mediaPreviewVideo.style.display = 'none';
+
+            if (file) {
+                const fileURL = URL.createObjectURL(file);
+                mediaPreviewContainer.style.display = 'block';
+
+                if (file.type.startsWith('image/')) {
+                    mediaPreviewImage.src = fileURL;
+                    mediaPreviewImage.style.display = 'block';
+                } else if (file.type.startsWith('video/')) {
+                    mediaPreviewVideo.src = fileURL;
+                    mediaPreviewVideo.style.display = 'block';
+                }
+                mainSendButton.disabled = true;
+            } else {
+                mediaPreviewContainer.style.display = 'none';
+            }
+        }
+
+        function resetMedia() {
+            const mediaPreviewContainer = document.getElementById('mediaPreviewContainer');
+            const mediaPreviewImage = document.getElementById('mediaPreviewImage');
+            const mediaPreviewVideo = document.getElementById('mediaPreviewVideo');
+            const mediaFileInput = document.getElementById('mediaFileInput');
+            const mainSendButton = document.getElementById('mainSendButton');
+
+            // Resetare preview
+            mediaPreviewImage.style.display = 'none';
+            mediaPreviewVideo.style.display = 'none';
+            mediaPreviewContainer.style.display = 'none';
+
+            // Resetare input
+            mediaFileInput.value = '';
+
+            mainSendButton.disabled = false;
+        }
+
+        // Functii pentru selectarea intre sectiuni
+        function showDirectMessages() {
+            document.getElementById("messageContainer").innerHTML = "";
+            document.getElementById('directMessagesList').style.display = 'block';
+            document.getElementById('groupChatsList').style.display = 'none';
+            document.getElementById('directMessagesBtn').classList.add('btn-primary');
+            document.getElementById('directMessagesBtn').classList.remove('btn-secondary');
+            document.getElementById('groupChatsBtn').classList.add('btn-secondary');
+            document.getElementById('groupChatsBtn').classList.remove('btn-primary');
+            document.getElementById('chatHeader').innerHTML = "Select a chat";
+            document.getElementById("message-input-div").style.visibility = "hidden";
+            document.getElementById("voice-message-controls-div").style.visibility = "hidden";
+            sendMessageToGroup = false;
+        }
+
+        function showGroupChats() {
+            document.getElementById("messageContainer").innerHTML = "";
+            document.getElementById('directMessagesList').style.display = 'none';
+            document.getElementById('groupChatsList').style.display = 'block';
+            document.getElementById('groupChatsBtn').classList.add('btn-primary');
+            document.getElementById('groupChatsBtn').classList.remove('btn-secondary');
+            document.getElementById('directMessagesBtn').classList.add('btn-secondary');
+            document.getElementById('directMessagesBtn').classList.remove('btn-primary');
+            document.getElementById('chatHeader').innerHTML = "Select a chat";
+            document.getElementById("message-input-div").style.visibility = "hidden";
+            document.getElementById("voice-message-controls-div").style.visibility = "hidden";
+            sendMessageToGroup = true;
+        }
+
+        function startRecording() {
+            if (document.getElementById('recordVoiceMessageButton').innerHTML == 'Stop voice message') {
+                return;
+            }
+            navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.start();
+
+                document.getElementById('recordVoiceMessageButton').innerHTML = 'Stop voice message';
+
+                mediaRecorder.ondataavailable = event => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const audio = document.getElementById('voiceMessagePreview');
+                    audio.src = audioUrl;
+                    audio.style.display = 'block';
+                    document.getElementById('sendVoiceMessageButton').style.display = 'inline';
+                    document.getElementById('cancelVoiceMessageButton').style.display = 'inline';
+                };
+
+                // Sa pot opri mesajul
+                document.getElementById('recordVoiceMessageButton').onclick = () => {
+                    if (mediaRecorder.state === "recording") {
+                        document.getElementById('recordVoiceMessageButton').innerHTML = 'Record voice message';
+                        mediaRecorder.stop();
+                    }
+                };
+
+                setTimeout(() => {
+                    document.getElementById('recordVoiceMessageButton').innerHTML = 'Record voice message';
+                    mediaRecorder.stop();
+                }, 45000); // 45 de secunde
+            })
+            .catch(error => {
+                console.error("Error accessing microphone:", error);
+            });
+        }
+
+        function sendVoiceMessage() {
+            // Trimite mesajul vocal la server
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            const formData = new FormData();
+            formData.append('voiceMessage', audioBlob);
+            formData.append('senderId', '@ViewBag.UserId');
+
+            if(sendMessageToGroup) {
+                formData.append('groupId', currentChatId);
+                fetch('/GroupChatMessage/SendVoiceMessage', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Voice message sent successfully!");
+                        resetVoiceMessageUI();
+                        connection.invoke("UpdateChat", data.chatId, data.senderId, data.senderName, data.recipientName, data.recipientId).catch(err => console.error(err.toString()));
+                        // Adaug mesajul
+                        connection.invoke("UpdateChat", data.chatId, data.senderId, data.senderName, data.recipientName, data.recipientId).catch(err => console.error(err.toString()));
+                        const messageContainer = document.getElementById("messageContainer");
+                        const messageDiv = document.createElement("div");
+                        messageDiv.className = "message sent";
+
+                        // Convert the audioBlob to base64
+                        const reader = new FileReader();
+                        reader.onloadend = function () {
+                            const base64Audio = reader.result.split(',')[1];
+                            const audioSrc = `data:audio/wav;base64,${base64Audio}`;
+                            const timestamp = new Date().toISOString();
+
+                            messageDiv.innerHTML = `
+                                <p>${data.senderName}: <small>${new Date(timestamp).toLocaleTimeString()}</small></p>
+                                <audio controls src="${audioSrc}"></audio>
+                            `;
+
+                            let buttonsHtml = groupActionButtons({ id: data.messageId, groupChatId: currentChatId, senderId: '@ViewBag.UserId', contentMimeType: "Audio" }, messageDiv);
+                            messageDiv.appendChild(buttonsHtml);
+
+                            messageContainer.appendChild(messageDiv);
+                            messageContainer.scrollTop = messageContainer.scrollHeight;
+                        };
+                        reader.readAsDataURL(audioBlob);
+                    } else {
+                        alert("Failed to send voice message.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error sending voice message:", error);
+                });
+            } else {
+                formData.append('chatId', currentChatId);
+                formData.append('recipientId', currentRecipientId);
+                fetch('/ChatMessage/SendVoiceMessage', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Voice message sent successfully!");
+                        resetVoiceMessageUI();
+
+                        connection.invoke("UpdateChat", data.chatId, data.senderId, data.senderName, data.recipientName, data.recipientId).catch(err => console.error(err.toString()));
+                        // Adaug mesajul
+                        const messageContainer = document.getElementById("messageContainer");
+                        const messageDiv = document.createElement("div");
+                        messageDiv.className = "message sent";
+
+                        // Convert the audioBlob to base64
+                        const reader = new FileReader();
+                        reader.onloadend = function() {
+                            const base64Audio = reader.result.split(',')[1];
+                            const audioSrc = `data:audio/wav;base64,${base64Audio}`;
+                            const timestamp = new Date().toISOString();
+
+                            messageDiv.innerHTML = `
+                                <p>${data.senderName}: <small>${new Date(timestamp).toLocaleTimeString()}</small></p>
+                                <audio controls src="${audioSrc}"></audio>
+                            `;
+
+                            let buttonsHtml = directMessagesActionButtons({ id: data.messageId, chatId: currentChatId, senderId: '@ViewBag.UserId', contentMimeType: "Audio" }, messageDiv);
+                            messageDiv.appendChild(buttonsHtml);
+
+                            messageContainer.appendChild(messageDiv);
+                            messageContainer.scrollTop = messageContainer.scrollHeight;
+                        };
+                        reader.readAsDataURL(audioBlob);
+                    } else {
+                        alert("Failed to send voice message.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error sending voice message:", error);
+                });
+            }
+        }
+
+        function resetVoiceMessageUI() {
+            audioChunks = [];
+            document.getElementById('voiceMessagePreview').style.display = 'none';
+            document.getElementById('sendVoiceMessageButton').style.display = 'none';
+            document.getElementById('cancelVoiceMessageButton').style.display = 'none';
+            document.getElementById('recordVoiceMessageButton').innerHTML = 'Record voice message';
+            document.getElementById('recordVoiceMessageButton').onclick = startRecording;
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+        }
+
+        function sendMediaMessage() {
+            const mediaFileInput = document.getElementById('mediaFileInput');
+            const mediaFile = mediaFileInput.files[0];
+            const formData = new FormData();
+            formData.append('mediaFile', mediaFile);
+            formData.append('senderId', '@ViewBag.UserId');
+            const userId = '@ViewBag.UserId';
+            const currentTimestamp = new Date().toISOString();
+
+            if (sendMessageToGroup) {
+                formData.append('groupId', currentChatId);
+                fetch('/GroupChatMessage/SendGroupMediaMessage', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Media message sent successfully!");
+                        const userName = data.senderName;
+                        const timeStamp = currentTimestamp;
+                        const mediaSrc = URL.createObjectURL(mediaFile);
+                        const type = mediaFile.type;
+                        connection.invoke("UpdateChat", data.chatId, data.senderId, data.senderName, data.recipientName, data.recipientId).catch(err => console.error(err.toString()));
+                        // Update the chat interface with the new media message
+                        const messageDiv = document.createElement("div");
+                        if (mediaFile.type.startsWith('image/')) {
+                            messageDiv.innerHTML = `
+                                <p>${data.senderName}: <small>${new Date(currentTimestamp).toLocaleTimeString()}</small></p>
+                                <img src="${mediaSrc}" alt="Invalid media" style="max-width: 300px;">
+                            `;
+                        } else if (mediaFile.type.startsWith('video/')) {
+                            messageDiv.innerHTML = `
+                                <p>${data.senderName}: <small>${new Date(currentTimestamp).toLocaleTimeString()}</small></p>
+                                <video width="320" height="240" controls>
+                                    <source src="${mediaSrc}" type="${mediaFile.type}">
+                                    Your browser does not support the video tag.
+                                </video>
+                            `;
+                        } else if (mediaFile.type === 'image/gif') {
+                            messageDiv.innerHTML = `
+                                <p>${data.senderName}: <small>${new Date(currentTimestamp).toLocaleTimeString()}</small></p>
+                                <img src="${mediaSrc}" alt="GIF" style="max-width: 300px;">
+                            `;
+                        }
+
+                        let buttonsHtml = groupActionButtons({ id: data.messageId, groupChatId: currentChatId, senderId: '@ViewBag.UserId', contentMimeType: mediaFile.type }, messageDiv);
+                        messageDiv.appendChild(buttonsHtml);
+                        document.getElementById("messageContainer").appendChild(messageDiv);
+                        const mainSendButton = document.getElementById('mainSendButton');
+                        mainSendButton.disabled = false;
+                        resetMedia();
+                    } else {
+                        alert("Failed to send media message.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error sending media message:", error);
+                });
+            } else {
+                formData.append('chatId', currentChatId);
+                formData.append('recipientId', currentRecipientId);
+                fetch('/ChatMessage/SendMediaMessage', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Media message sent successfully!");
+                        // Update the chat interface with the new media message
+                        const messageDiv = document.createElement("div");
+                        messageDiv.className = "message sent";
+                        const mediaSrc = URL.createObjectURL(mediaFile);
+                        const userName = data.senderName;
+                        const timeStamp = currentTimestamp;
+                        const type = mediaFile.type;
+                        connection.invoke("currentChatId", data.chatId, data.senderId, data.senderName, data.recipientName, data.recipientId).catch(err => console.error(err.toString()));
+                        if (mediaFile.type.startsWith('image/')) {
+                            messageDiv.innerHTML = `
+                                <p>${data.senderName}: <small>${new Date(currentTimestamp).toLocaleTimeString()}</small></p>
+                                <img src="${mediaSrc}" alt="Invalid media" style="max-width: 300px;">
+                            `;
+                        } else if (mediaFile.type.startsWith('video/')) {
+                            messageDiv.innerHTML = `
+                                <p>${data.senderName}: <small>${new Date(currentTimestamp).toLocaleTimeString()}</small></p>
+                                <video width="320" height="240" controls>
+                                    <source src="${mediaSrc}" type="${mediaFile.type}">
+                                    Your browser does not support the video tag.
+                                </video>
+                            `;
+                        } else if (mediaFile.type === 'image/gif') {
+                            messageDiv.innerHTML = `
+                                <p>${data.senderName}: <small>${new Date(currentTimestamp).toLocaleTimeString()}</small></p>
+                                <img src="${mediaSrc}" alt="GIF" style="max-width: 300px;">
+                            `;
+                        }
+
+                        let buttonsHtml = directMessagesActionButtons({ id: data.messageId, chatId: currentChatId, senderId: '@ViewBag.UserId', contentMimeType: mediaFile.type }, messageDiv);
+                        messageDiv.appendChild(buttonsHtml);
+                        document.getElementById("messageContainer").appendChild(messageDiv);
+                        const mainSendButton = document.getElementById('mainSendButton');
+                        mainSendButton.disabled = false;
+                        resetMedia();
+                    } else {
+                        alert("Failed to send media message.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error sending media message:", error);
+                });
+            }
+        }
+
+        function selectMessageType(type) {
+            // Hide all message options
+            document.getElementById('sendVoiceMessageButton').style.display = 'none';
+            document.getElementById('sendMediaMessageButton').style.display = 'none';
+            document.getElementById('mediaFileInput').style.display = 'none';
+
+            // Show the selected message type
+            if (type === 'voice') {
+                document.getElementById('recordVoiceMessageButton').style.display = 'inline';
+            } else if (type === 'media') {
+                document.getElementById('mediaFileInput').style.display = 'inline';
+                document.getElementById('sendMediaMessageButton').style.display = 'inline';
+            }
+        }
+
+        function showGroupCreationModal() {
+            document.getElementById("groupCreationModal").style.display = "block";
+        }
+
+        function closeGroupCreationModal() {
+            document.getElementById("groupCreationModal").style.display = "none";
+            selectedUsers = [];
+            updateSelectedUsersList();
+        }
+
+        function openEditGroupModal(group) {
+            showEditGroupModal(group.GroupChatId, group.Name, group.Description, group.Visibility === 0 ? "Public" : "Private");
+        }
+
+        // Deschide modalul pentru editare grup
+        function showEditGroupModal(groupId, groupName, groupDescription, groupVisibility) {
+            document.getElementById("editGroupName").value = groupName;
+            document.getElementById("editGroupName").setAttribute("data-group-chat-id", groupId);
+            document.getElementById("editGroupDescription").value = groupDescription;
+            document.getElementById("editGroupVisibility").value = groupVisibility;
+            document.getElementById("editGroupModal").style.display = "block";
+        }
+
+        function closeEditGroupModal() {
+            document.getElementById("editGroupModal").style.display = "none";
+        }
+
+        function searchUsersForGroup() {
+            const userNameText = document.getElementById("groupSearchInput").value.trim();
+            if (userNameText.length > 2) {
+                fetch(`/SearchEngine/SearchUsers?userNameText=${userNameText}`)
+                    .then(response => response.json())
+                    .then(users => {
+                        const userSearchResults = document.getElementById("userSearchResultsForGroup");
+                        userSearchResults.innerHTML = '';
+                        if (users.length > 0) {
+                            userSearchResults.style.display = 'block';
+                            users.forEach(user => {
+                                const li = document.createElement('li');
+                                li.innerText = user.name;
+                                li.onclick = () => selectUserForGroup(user);
+                                userSearchResults.appendChild(li);
+                            });
+                        } else {
+                            userSearchResults.style.display = 'none';
+                        }
+                    });
+            } else {
+                document.getElementById("userSearchResultsForGroup").style.display = 'none';
+            }
+        }
+
+        function selectUserForGroup(user) {
+            if (!selectedUsers.some(u => u.id === user.id)) {
+                selectedUsers.push(user);
+                updateSelectedUsersList();
+            }
+        }
+
+        function removeUserFromGroup(user) {
+            selectedUsers = selectedUsers.filter(u => u.id !== user.id);
+            updateSelectedUsersList();
+        }
+
+        function updateSelectedUsersList() {
+            const selectedUsersList = document.getElementById("selectedUsersList");
+            selectedUsersList.innerHTML = '';
+            selectedUsers.forEach(user => {
+                const li = document.createElement('li');
+                li.innerText = user.name;
+                li.onclick = () => removeUserFromGroup(user);
+                selectedUsersList.appendChild(li);
+            });
+            document.getElementById("createGroupBtn").disabled = selectedUsers.length < 2;
+            document.getElementById("groupErrorMessage").style.display = selectedUsers.length >= 2 ? 'none' : 'block';
+        }
+
+        function openJoinGroupsModal() {
+            var userId = '@ViewBag.UserId';
+            fetch(`/groupchat/available/${userId}`)
+            .then(response => response.json())
+            .then(groups => {
+                const groupListElement = document.getElementById('groupList');
+                groupListElement.innerHTML = ''; // reset
+
+                groups.forEach(group => {
+                    const groupItem = document.createElement('div');
+                    groupItem.className = 'group-item';
+                    groupItem.innerHTML = `<p>${group.Name}</p>`;
+
+                    groupItem.onclick = () => joinGroup(group);
+                    groupListElement.appendChild(groupItem);
+                });
+
+                // Deschide modalul
+                document.getElementById('joinGroupsModal').style.display = 'block';
+            })
+            .catch(error => console.error('Error fetching available groups:', error));
+        }
+
+        function closeJoinGroupsModal() {
+            document.getElementById('joinGroupsModal').style.display = 'none';
+        }
+
+        function joinGroup(group) {
+            const groupChatId = group.GroupChatId;
+
+            var userId = '@ViewBag.UserId';
+            if (isAdmin || group.Visibility == 0) { // Public group
+                fetch(`/groupchat/addParticipant/${groupChatId}/${userId}`, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Joined group successfully!');
+                        closeJoinGroupsModal();
+                        window.location.reload(true);
+                    } else {
+                        alert('Error joining group.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error joining group:', error);
+                    alert('Error joining group.');
+                });
+            } else { // Private group, send request
+                const joinRequestData = {
+                    groupChatId: groupChatId,
+                    userId: '@ViewBag.UserId', 
+                };
+
+                fetch(`/groupchat/join-request/${joinRequestData.groupChatId}/${joinRequestData.userId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(joinRequestData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Join request sent!');
+                        closeJoinGroupsModal();
+                    } else {
+                        alert('Error sending join request.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error sending join request:', error);
+                    alert('Error sending join request.');
+                });
+            }
+        }
+
+
+        // Functie pentru crearea unui grup
+        function createGroup() {
+            if (selectedUsers.length >= 2) {
+                const groupName = document.getElementById("groupName").value.trim();
+                const groupDescription = document.getElementById("groupDescription").value.trim();
+                const groupVisibility = document.getElementById("groupVisibility").value;
+
+                if (!groupName || !groupDescription) {
+                    alert("Group name and desciption is required!");
+                    return;
+                }
+
+                const groupData = {
+                    moderatorId: groupCreatorId,
+                    userIds: selectedUsers.map(user => user.id),
+                    groupName: groupName,
+                    groupDescription: groupDescription,
+                    visibility: groupVisibility
+                };
+
+                fetch(`/groupchat/create/${groupData.groupName}/${groupData.moderatorId}/${groupData.userIds.join(',')}/${groupData.visibility}/${encodeURIComponent(groupData.groupDescription)}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(groupData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.groupChatId) {
+                        alert("Group created successfully!");
+                        closeGroupCreationModal();
+                        window.location.reload(true);
+                    } else {
+                        alert("Failed to create group!");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error creating group:", error);
+                    alert("An error occurred while creating the group.");
+                });
+            } else {
+                document.getElementById("groupErrorMessage").style.display = 'block';
+            }
+        }
+
+        // Funcție pentru editarea grupului
+        function editGroup() {
+            const groupName = document.getElementById("editGroupName").value.trim();
+            const groupDescription = document.getElementById("editGroupDescription").value.trim();
+            const groupVisibility = document.getElementById("editGroupVisibility").value;
+
+            if (!groupName) {
+                alert("Group name is required!");
+                return;
+            }
+
+            const groupData = {
+                groupName: groupName,
+                groupDescription: groupDescription,
+                visibility: groupVisibility
+            };
+
+            var userId = '@ViewBag.UserId';
+            const groupId = document.getElementById("editGroupName").getAttribute("data-group-chat-id");
+
+            // Trimite request pentru a edita grupul
+            fetch(`/groupchat/edit/${groupId}/${userId}/${groupData.groupName}/${groupData.groupDescription}/${groupData.visibility}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(groupData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Group updated successfully!");
+                    closeEditGroupModal();
+                    window.location.reload(true);
+                } else {
+                    alert("Failed to update group!");
+                }
+            })
+            .catch(error => {
+                console.error("Error updating group:", error);
+                alert("An error occurred while updating the group.");
+            });
+        }
+
+        function openJoinRequestsModal(event) {
+            const groupChatId = event.target.getAttribute('data-group-chat-id');
+
+            fetch(`/groupchat/join-requests/${groupChatId}`)
+            .then(response => response.json())
+            .then(requests => {
+                const joinRequestsListElement = document.getElementById('joinRequestsList');
+                joinRequestsListElement.innerHTML = ''; // reset
+
+                requests.forEach(request => {
+                    const requestItem = document.createElement('div');
+                    requestItem.className = 'request-item';
+                    requestItem.textContent = `Request from ${request.userName}`;
+
+                    const acceptButton = document.createElement('button');
+                    acceptButton.textContent = 'Accept';
+                    acceptButton.onclick = () => manageJoinRequest(request.joinRequestId, 'Accept');
+
+                    const rejectButton = document.createElement('button');
+                    rejectButton.textContent = 'Reject';
+                    rejectButton.onclick = () => manageJoinRequest(request.joinRequestId, 'Reject');
+
+                    requestItem.appendChild(acceptButton);
+                    requestItem.appendChild(rejectButton);
+
+                    joinRequestsListElement.appendChild(requestItem);
+                });
+
+                // Deschide modalul
+                document.getElementById('joinRequestsModal').style.display = 'block';
+            })
+            .catch(error => console.error('Error fetching join requests:', error));
+        }
+
+        function closeJoinRequestsModal() {
+            document.getElementById('joinRequestsModal').style.display = 'none';
+        }
+
+
+        function manageJoinRequest(joinRequestId, requestAction) {
+            fetch(`/groupchat/manage-group-join-request/${joinRequestId}/${requestAction}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`${requestAction}ed join request successfully!`);
+                    closeJoinRequestsModal();
+                } else {
+                    alert(`Failed to ${requestAction} join request.`);
+                }
+            })
+            .catch(error => {
+                console.error('Error managing join request:', error);
+                window.location.reload(true);
+            });
+        }
+
+        // Functie pentru cautarea utilizatorilor pentru mesaje directe
+        function searchUsers() {
+            const userNameText = document.getElementById("newChatRecipient").value.trim();
+            if (userNameText.length > 2) {
+                fetch(`/SearchEngine/SearchUsers?userNameText=${userNameText}`)
+                    .then(response => response.json())
+                    .then(users => {
+                        const userSearchResults = document.getElementById("userSearchResults");
+                        userSearchResults.innerHTML = '';
+                        if (users.length > 0) {
+                            userSearchResults.style.display = 'block';
+                            users.forEach(user => {
+                                const li = document.createElement('li');
+                                li.innerText = user.name;
+                                li.onclick = () => selectUserForChat(user);
+                                userSearchResults.appendChild(li);
+                            });
+                        } else {
+                            userSearchResults.style.display = 'none';
+                        }
+                    });
+            } else {
+                document.getElementById("userSearchResults").style.display = 'none';
+            }
+        }
+
+        // Functie pentru crearea unui chat direct
+        function createChat(recipientId, recipientName) {
+            const senderId = '@ViewBag.UserId';
+
+            fetch(`/Chatroom/GetChatroomID/${senderId}/${recipientId}/true`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ChatId) {
+                        currentChatId = data.ChatId;
+                        currentRecipientId = recipientId;
+                        currentRecipientName = recipientName;
+
+                        loadChat(data.ChatId, recipientName, recipientId);
+
+                        const chatList = document.getElementById("directMessagesList");
+                        const newChat = document.createElement("li");
+                        newChat.id = `chat-${data.ChatId}`;
+                        newChat.innerText = recipientName;
+                        newChat.onclick = () => loadChat(data.ChatId, recipientName, recipientId);
+                        chatList.appendChild(newChat);
+
+                    }
+                    window.location.reload(true);
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert("Failed to create a new chat.");
+                });
+        }
+
+        function selectUserForChat(user) {
+            document.getElementById("userSearchResults").style.display = 'none';
+            createChat(user.id, user.name);
+        }
+
+        // Functii pentru gestionarea mesajelor
+        function loadChat(chatId, recipientName, recipientId) {
+            document.getElementById("chatHeader").innerText = `Chat with ${recipientName}`;
+
+            document.getElementById("message-input-div").style.visibility = "visible";
+            document.getElementById("voice-message-controls-div").style.visibility = "visible";
+
+            if (currentChatId === null) {
+                currentChatId = chatId;
+            }
+            if (currentRecipientId === null) {
+                currentRecipientId = recipientId;
+            }
+
+            const messageContainer = document.getElementById("messageContainer");
+            messageContainer.innerHTML = "Loading messages...";
+
+            // Pentru mesaje directe
+            if (recipientId != null) {
+                fetch(`/ChatMessage/getChatMessages/${chatId}`)
+                .then(response => response.json())
+                .then(messages => {
+                    messageContainer.innerHTML = "";
+                    messages.forEach(msg => {
+                        const messageDiv = document.createElement("div");
+                        messageDiv.className = msg.senderId === '@ViewBag.UserId' ? "message sent" : "message received";
+                        messageDiv.setAttribute("messageId", msg.id);
+                        let buttonsHtml = directMessagesActionButtons(msg, messageDiv);
+
+                        // Daca am continut media 
+                        if(msg.contentMimeType) {
+                            if (msg.contentMimeType.startsWith('Audio')) {
+                                const audioSrc = `data:audio/wav;base64,${msg.mediaContent}`;
+                                messageDiv.innerHTML += `
+                                    <p>${msg.senderName}: <small>${new Date(msg.timestamp).toLocaleTimeString()}</small></p>
+                                    <audio controls src="${audioSrc}"></audio>
+                                `;
+                            } else if (msg.contentMimeType.startsWith('image/gif')) {
+                                const imageSrc = `data:${msg.contentMimeType};base64,${msg.mediaContent}`;
+                                messageDiv.innerHTML += `
+                                    <p>${msg.senderName}: <small>${new Date(msg.timestamp).toLocaleTimeString()}</small></p>
+                                    <img src="${imageSrc}" alt="Invalid source">
+                                `;
+                            } else if (msg.contentMimeType.startsWith('image')) {
+                                const imageSrc = `data:${msg.contentMimeType};base64,${msg.mediaContent}`;
+                                messageDiv.innerHTML += `
+                                    <p>${msg.senderName}: <small>${new Date(msg.timestamp).toLocaleTimeString()}</small></p>
+                                            <img src="${imageSrc}" alt="Invalid source">
+                                `;
+                            } else if (msg.contentMimeType.startsWith('video')) {
+                                const videoSrc = `data:${msg.contentMimeType};base64,${msg.mediaContent}`;
+                                messageDiv.innerHTML += `
+                                    <p>${msg.senderName}: <small>${new Date(msg.timestamp).toLocaleTimeString()}</small></p>
+                                    <video width="320" height="240" controls>
+                                        <source src="${videoSrc}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                    </video>
+                                `;
+                            }
+                        } else {
+                            messageDiv.innerHTML = `
+                                <p>${msg.senderName}: <small>${new Date(msg.timestamp).toLocaleTimeString()}</small></p>
+                                <p>${msg.content}</p>
+                            `;
+                        }
+
+                        messageDiv.appendChild(buttonsHtml);
+                        messageContainer.appendChild(messageDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching messages:", error);
+                    messageContainer.innerHTML = "<p>Failed to load messages.</p>";
+                });
+            }
+            // Pentru mesaje de grup
+            else {
+                fetch(`/groupchat/messages/get/${chatId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(messages => {
+                    if (messages.length === 0) {
+                        messageContainer.innerHTML = "";
+                        const messageDiv = document.createElement("div");
+                        messageDiv.innerHTML = `
+                            <p>No current messages</p>
+                        `;
+                        messageContainer.appendChild(messageDiv);
+                    } else { 
+                        messageContainer.innerHTML = "";
+                        messages.forEach(msg => {
+                            const messageDiv = document.createElement("div");
+                            messageDiv.className = msg.senderId === '@ViewBag.UserId' ? "message sent" : "message received";
+                            messageDiv.setAttribute("messageId", msg.id);
+                            let buttonsHtml = groupActionButtons(msg, messageDiv);
+
+                            // Daca am continut media
+                            if(msg.contentMimeType) {
+                                if (msg.contentMimeType.startsWith('Audio')) {
+                                    const audioSrc = `data:audio/wav;base64,${msg.mediaContent}`;
+                                    messageDiv.innerHTML = `
+                                        <p>${msg.senderName}: <small>${new Date(msg.timestamp).toLocaleTimeString()}</small></p>
+                                        <audio controls src="${audioSrc}"></audio>
+                                    `;
+                                } else if (msg.contentMimeType.startsWith('image/gif')) {
+                                    const imageSrc = `data:${msg.contentMimeType};base64,${msg.mediaContent}`;
+                                    messageDiv.innerHTML = `
+                                        <p>${msg.senderName}: <small>${new Date(msg.timestamp).toLocaleTimeString()}</small></p>
+                                        <img src="${imageSrc}" alt="Invalid source">
+                                    `;
+                                } else if (msg.contentMimeType.startsWith('image')) {
+                                    const imageSrc = `data:${msg.contentMimeType};base64,${msg.mediaContent}`;
+                                    messageDiv.innerHTML = `
+                                        <p>${msg.senderName}: <small>${new Date(msg.timestamp).toLocaleTimeString()}</small></p>
+                                                <img src="${imageSrc}" alt="Invalid source">
+                                    `;
+                                } else if (msg.contentMimeType.startsWith('video')) {
+                                    const videoSrc = `data:${msg.contentMimeType};base64,${msg.mediaContent}`;
+                                    messageDiv.innerHTML = `
+                                        <p>${msg.senderName}: <small>${new Date(msg.timestamp).toLocaleTimeString()}</small></p>
+                                        <video width="320" height="240" controls>
+                                            <source src="${videoSrc}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                        </video>
+                                    `;
+                                }
+                            } else {
+                                messageDiv.innerHTML = `
+                                    <p>${msg.senderName}: <small>${new Date(msg.timestamp).toLocaleTimeString()}</small></p>
+                                    <p>${msg.content}</p>
+                                `;
+                            }
+
+                            messageDiv.appendChild(buttonsHtml);
+                            messageContainer.appendChild(messageDiv);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching group messages:", error);
+                    messageContainer.innerHTML = "<p>Failed to load group messages.</p>";
+                });
+            }
+        }
+
+
+        function sendMessage() {
+            const messageInput = document.getElementById("messageInput");
+            const content = messageInput.value.trim();
+            const timeStamp = new Date();
+
+            if (content && currentChatId) {
+                var userId = '@ViewBag.UserId';
+                if (sendMessageToGroup) {
+                    fetch(`/groupchat/messages/send/${currentChatId}/${userId}/${encodeURIComponent(content)}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(errorData => {
+                                throw new Error(errorData.error);
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data) {
+                            connection.invoke("SendMessage", '@ViewBag.UserId', '@ViewBag.UserName', timeStamp, content, data.id).catch(err => console.error(err.toString()));
+                            const messageContainer = document.getElementById("messageContainer");
+                            const messageDiv = document.createElement("div");
+                            let buttonsHtml = groupActionButtons(data, messageDiv);
+                            messageDiv.className = "message sent";
+                            messageDiv.innerHTML = `
+                                <p>${data.senderName}: <small>${new Date(data.timestamp).toLocaleTimeString()}</small></p>
+                                <p>${data.content}</p>
+                            `;
+                            messageDiv.appendChild(buttonsHtml);
+                            messageContainer.appendChild(messageDiv);
+                            messageInput.value = ""; // resetare input
+
+                            // Scroll automat la ultimul mesaj
+                            messageContainer.scrollTop = messageContainer.scrollHeight;
+                        } else {
+                            console.error("Error: No data received from server.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error sending message:", error.message);
+                        alert("The message could not be send:\n" + error.message);
+                    });
+                }
+                else {
+                    if (currentRecipientId) {
+                        fetch(`/ChatMessage/saveChatMessage/${encodeURIComponent(content)}/${currentChatId}/${userId}/${currentRecipientId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ content: content })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.json().then(errorData => {
+                                    throw new Error(errorData.error);
+                                });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data) {
+                                connection.invoke("SendMessage", '@ViewBag.UserId', '@ViewBag.UserName', timeStamp, content, data.id).catch(err => console.error(err.toString()));
+                                const messageContainer = document.getElementById("messageContainer");
+                                const messageDiv = document.createElement("div");
+                                let buttonsHtml = directMessagesActionButtons(data, messageDiv);
+                                messageDiv.className = "message sent";
+                                messageDiv.innerHTML = `
+                                    <p>${data.senderName}: <small>${new Date(data.timestamp).toLocaleTimeString()}</small></p>
+                                    <p>${data.content}</p>
+                                `;
+                                messageDiv.appendChild(buttonsHtml);
+                                messageContainer.appendChild(messageDiv);
+                                messageInput.value = ""; // resetare input
+
+                                // Scroll automat la ultimul mesaj
+                                messageContainer.scrollTop = messageContainer.scrollHeight;
+                            } else {
+                                console.error("Error: No data received from server.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error sending message:", error.message);
+                            alert("The message could not be send:\n" + error.message);
+                        });
+                    }
+                }
+            }
+            messageInput.value = '';
+        }
+
+        function directMessagesActionButtons(msg, messageDiv) {
+            let buttonsHTML = document.createElement("div");
+            if (isAdmin || msg.senderId === '@ViewBag.UserId') {
+                const editButton = document.createElement('button');
+                editButton.className = 'edit-button';
+                editButton.textContent = 'Edit';
+                editButton.setAttribute('data-message-id', msg.id);
+                editButton.setAttribute('data-chat-id', msg.chatId);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'delete-button';
+                deleteButton.textContent = 'Delete';
+                deleteButton.setAttribute('data-message-id', msg.id);
+                deleteButton.setAttribute('data-chat-id', msg.chatId);
+
+                editButton.addEventListener('click', function () {
+                    const messageId = this.getAttribute('data-message-id');
+                    const chatId = this.getAttribute('data-chat-id');
+                    const senderId = '@ViewBag.UserId';
+
+                    const newContent = prompt("Edit your message:");
+
+                    if (newContent !== null) {
+                        fetch(`/chat/messages/edit/${chatId}/${messageId}/${senderId}/${newContent}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(newContent)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Message updated successfully!");
+                                connection.invoke("UpdateChat", chatId, senderId, data.senderName, data.recipientName, data.recipientId).catch(err => console.error(err.toString()));
+                                window.location.reload(true);
+                            } else {
+                                alert("You are not authorized to edit this message.");
+                            }
+                        })
+                        .catch(error => console.error('Error editing message:', error));
+                    }
+                });
+
+                deleteButton.addEventListener('click', function () {
+                    const messageId = this.getAttribute('data-message-id');
+                    const chatId = this.getAttribute('data-chat-id');
+                    const userId = '@ViewBag.UserId';
+
+                    if (confirm("Are you sure you want to delete this message?")) {
+                        fetch(`/chat/messages/delete/${chatId}/${messageId}/${userId}`, {
+                            method: 'DELETE'
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Message deleted successfully!");
+                                messageDiv.setAttribute("messageId", messageId);
+                                connection.invoke("DeleteMessage", userId, parseInt(messageId)).catch(err => console.error(err.toString()));
+                                messageDiv.remove();
+                            } else {
+                                alert("You are not authorized to delete this message.");
+                            }
+                        })
+                        .catch(error => console.error('Error deleting message:', error));
+                    }
+                });
+                if(msg.contentMimeType == null) {
+                    buttonsHTML.appendChild(editButton);
+                }
+                buttonsHTML.appendChild(deleteButton);
+            }
+            return buttonsHTML;
+        }
+
+        function groupActionButtons(msg, messageDiv) {
+            let buttonsHTML = document.createElement("div");
+            if (isAdmin || msg.senderId === '@ViewBag.UserId') {
+                const editButton = document.createElement('button');
+                editButton.className = 'edit-button';
+                editButton.textContent = 'Edit';
+                editButton.setAttribute('data-message-id', msg.id);
+                editButton.setAttribute('data-group-chat-id', msg.groupChatId);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'delete-button';
+                deleteButton.textContent = 'Delete';
+                deleteButton.setAttribute('data-message-id', msg.id);
+                deleteButton.setAttribute('data-group-chat-id', msg.groupChatId);
+
+                editButton.addEventListener('click', function () {
+                    const messageId = this.getAttribute('data-message-id');
+                    const groupChatId = this.getAttribute('data-group-chat-id');
+                    const userId = '@ViewBag.UserId'; // ID-ul utilizatorului curent
+
+                    const newContent = prompt("Edit your message:");
+
+                    if (newContent !== null) {
+                        fetch(`/groupchat/messages/edit/${groupChatId}/${messageId}/${newContent}/${userId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(newContent)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Message updated successfully!");
+                                const chatId = groupChatId;
+                                const senderId = userId;
+                                connection.invoke("UpdateChat", chatId, senderId, data.senderName, data.recipientName, data.recipientId).catch(err => console.error(err.toString()));
+                                window.location.reload(true);
+                            } else {
+                                alert("You are not authorized to edit this message.");
+                            }
+                        })
+                        .catch(error => console.error('Error editing message:', error));
+                    }
+                });
+
+                deleteButton.addEventListener('click', function () {
+                    const messageId = this.getAttribute('data-message-id');
+                    const groupChatId = this.getAttribute('data-group-chat-id');
+                    const userId = '@ViewBag.UserId'; // ID-ul utilizatorului curent
+
+                    if (confirm("Are you sure you want to delete this message?")) {
+                        fetch(`/groupchat/messages/delete/${groupChatId}/${messageId}/${userId}`, {
+                            method: 'DELETE'
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Message deleted successfully!");
+                                connection.invoke("DeleteMessage", userId, parseInt(messageId)).catch(err => console.error(err.toString()));
+                                messageDiv.remove();
+                            } else {
+                                alert("You are not authorized to delete this message.");
+                            }
+                        })
+                        .catch(error => console.error('Error deleting message:', error));
+                    }
+                });
+                if(msg.contentMimeType == null) {
+                    buttonsHTML.appendChild(editButton);
+                }
+                buttonsHTML.appendChild(deleteButton);
+            }
+            return buttonsHTML;
+        }
+
+        function deleteGroup() {
+            const groupId = currentChatId;
+            fetch(`/GroupChat/DeleteGroup/${groupId}`, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Group deleted successfully!");
+                    window.window.location.reload(true);
+                } else {
+                    alert("Failed to delete the group.");
+                }
+            })
+            .catch(error => {
+                console.error("Error deleting group:", error);
+            });
+        }
+
+        window.onload = function () {
+            // Actiune pentru butonul de inchidere
+            document.getElementById('closePopupButton').addEventListener('click', () => {
+                participantsPopup.style.display = 'none';
+            });
+
+            const userId = '@ViewBag.UserId';
+
+            // Fetch pentru mesaje directe
+            fetch(`/Chatroom/GetUserChatrooms?userId=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.chatRooms && Array.isArray(data.chatRooms)) {
+                    const directMessagesList = document.getElementById("directMessagesList");
+
+                    data.chatRooms
+                        .filter(chat => !chat.isGroupChat) // Doar DM-uri
+                        .forEach(chat => {
+                            const chatAvatar = document.createElement("div");
+                            const newChat = document.createElement("li");
+                            newChat.classList.add('chat-item');
+                            newChat.innerHTML = `
+                                <a href="#" class="list-group-item list-group-item-action border-0">
+                                    <div class="d-flex align-items-start">
+                                        <img src="${chat.profilePictureBase64}" class="rounded-circle mr-1" width="40" height="40">
+                                        <div class="flex-grow-1 ml-3">
+                                            ${chat.recipientName}
+                                        </div>
+                                    </div>
+                                </a>
+                            `;
+                            newChat.onclick = () => loadChat(chat.chatId, chat.recipientName, chat.recipientId);
+                            directMessagesList.appendChild(newChat);
+                        });
+                } else {
+                    console.error("Direct messages not found in response.");
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching direct messages:", error);
+            });
+
+            // Fetch pentru grupuri
+            fetch(`/groupchat/getUserGroups/${userId}`)
+            .then(response => response.json())
+            .then(groups => {
+                if (groups && Array.isArray(groups)) {
+                    const groupChatsList = document.getElementById("groupChatsList");
+                    groupChatsList.innerHTML = '';
+
+                    groups.forEach(group => {
+                        const newGroup = document.createElement("li");
+                        const actionButtons = document.createElement("div");
+                        actionButtons.classList.add("action-buttons");
+                        // Daca este moderator sau admin, mai multe actiuni
+                        if(isAdmin || userId === group.ModeratorId) {
+
+                            const requestsButton = document.createElement('button');
+                            requestsButton.className = '-group-requestsbutton';
+                            requestsButton.textContent = 'Join requests';
+                            requestsButton.setAttribute('data-group-chat-id', group.GroupChatId);
+
+                            const editGroupButton = document.createElement('button');
+                            editGroupButton.className = 'edit-group-button';
+                            editGroupButton.textContent = 'Edit group';
+                            editGroupButton.setAttribute('data-group-chat-id', group.GroupChatId);
+
+                            const addMemberButton = document.createElement('button');
+                            addMemberButton.className = 'add-member-button';
+                            addMemberButton.textContent = 'Add member';
+                            addMemberButton.setAttribute('data-group-chat-id', group.GroupChatId);
+
+                            const kickMemberButton = document.createElement('button');
+                            kickMemberButton.className = 'kick-member-button';
+                            kickMemberButton.textContent = 'Kick member';
+                            kickMemberButton.setAttribute('data-group-chat-id', group.GroupChatId);
+
+                            const changeModeratorButton = document.createElement('button');
+                            changeModeratorButton.className = 'leave-group-button';
+                            changeModeratorButton.textContent = 'Change moderator';
+                            changeModeratorButton.setAttribute('data-group-chat-id', group.GroupChatId);
+
+                            const leaveGroupButton = document.createElement('button');
+                            leaveGroupButton.className = 'leave-group-button';
+                            leaveGroupButton.textContent = 'Leave group';
+                            leaveGroupButton.setAttribute('data-group-chat-id', group.GroupChatId);
+
+                            const deleteGroupButton = document.createElement('button');
+                            deleteGroupButton.className = 'delete-group-button';
+                            deleteGroupButton.textContent = 'Delete group';
+                            deleteGroupButton.setAttribute('data-group-chat-id', group.GroupChatId);
+                            
+                            requestsButton.onclick = openJoinRequestsModal;
+
+                            editGroupButton.onclick = function () {
+                                openEditGroupModal(group);
+                            };
+
+                            addMemberButton.addEventListener('click', async function () {
+                                const groupChatId = this.getAttribute('data-group-chat-id');
+
+                                const participantsResponse = await fetch(`/groupchat/getParticipants/${groupChatId}`);
+                                const participants = await participantsResponse.json();
+
+                                const existingMemberIds = participants.map(participant => participant.UserId);
+
+                                openAddMemberSearchModal(existingMemberIds, groupChatId);
+                            });
+
+                            kickMemberButton.addEventListener('click', async function () {
+                                const groupChatId = this.getAttribute('data-group-chat-id');
+
+                                // Fetch group participants
+                                const participantsResponse = await fetch(`/groupchat/getParticipants/${groupChatId}`);
+                                const participants = await participantsResponse.json();
+
+                                const otherParticipants = participants.filter(participant => participant.UserId !== userId && participant.Result.UserId !== userId);
+
+                                if (otherParticipants.length === 0) {
+                                    alert("You cannot perform this action because no other members exist.");
+                                    return;
+                                }
+
+                                if (participants.length === 0) {
+                                    alert("No participants found in this group.");
+                                    return;
+                                }
+
+                                participantsList.innerHTML = '';
+                                participantsList.style.backgroundColor = 'gray';
+                                otherParticipants.forEach(participant => {
+                                    const li = document.createElement('li');
+                                    li.innerText = participant.Result.UserName;
+                                    li.style.cursor = 'pointer';
+                                    li.onclick = () => kickMember(groupChatId, participant.Result.UserId, participant.Result.UserName);
+                                    participantsList.appendChild(li);
+                                });
+
+                                participantsPopup.style.display = 'block';
+
+                                async function kickMember(groupChatId, memberId, memberName) {
+                                    if (confirm(`Are you sure you want to kick ${memberName} from the group?`)) {
+                                        try {
+                                            const response = await fetch(`/groupchat/removeParticipant/${groupChatId}/${memberId}`, {
+                                                method: 'DELETE',
+                                            });
+                                            const data = await response.json();
+
+                                            if (data.success) {
+                                                alert(`${memberName} has been successfully kicked out of the group!`);
+                                                participantsPopup.style.display = 'none';
+                                                window.location.reload(true);
+                                            } else {
+                                                alert("Error kicking the member out of the group.");
+                                            }
+                                        } catch (error) {
+                                            console.error('Error kicking the member:', error);
+                                        }
+                                    }
+                                }
+                            });
+
+                            changeModeratorButton.addEventListener('click', async function () {
+                                const groupChatId = this.getAttribute('data-group-chat-id');
+
+                                // Fetch group participants
+                                const participantsResponse = await fetch(`/groupchat/getParticipants/${groupChatId}`);
+                                const participants = await participantsResponse.json();
+
+                                // Exclude current moderator from list
+                                const otherParticipants = participants.filter(participant => participant.UserId !== userId && participant.Result.UserId !== userId);
+
+                                if (otherParticipants.length === 0) {
+                                    alert("You cannot leave the group because no other members exist.");
+                                    return;
+                                }
+
+                                if (confirm("Now you will set another moderator for the group! Proceed?")) {
+                                    participantsList.innerHTML = '';
+                                    participantsList.style.backgroundColor = 'gray'
+                                    otherParticipants.forEach(participant => {
+                                        const li = document.createElement('li');
+                                        li.innerText = participant.Result.UserName;
+                                        li.style.cursor = 'pointer';
+                                        li.onclick = () => setNewModerator(groupChatId, participant.Result.UserId, participant.Result.UserName);
+                                        participantsList.appendChild(li);
+                                    });
+
+                                    participantsPopup.style.display = 'block';
+
+
+                                    async function setNewModerator(groupChatId, newModeratorId, newModeratorName) {
+                                        if (confirm(`Are you sure you want to set ${newModeratorName} as the new moderator?`)) {
+                                            try {
+                                                const response = await fetch(`/groupchat/setModerator/${groupChatId}/${newModeratorId}/noleave`, {
+                                                    method: 'POST',
+                                                });
+                                                const data = await response.json();
+
+                                                if (data.success) {
+                                                    alert("Successfully set a new moderator!");
+                                                    participantsPopup.style.display = 'none';
+                                                    leaveGroupButton.closest('.group-item').remove();
+                                                    window.location.reload(true);
+                                                } else {
+                                                    alert("Error setting a new moderator.");
+                                                }
+                                            } catch (error) {
+                                                console.error('Error setting the moderator:', error);
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+
+                            leaveGroupButton.addEventListener('click', async function () {
+                                const groupChatId = this.getAttribute('data-group-chat-id');
+
+                                // Fetch group participants
+                                const participantsResponse = await fetch(`/groupchat/getParticipants/${groupChatId}`);
+                                const participants = await participantsResponse.json();
+
+                                // Exclude current moderator from list
+                                const otherParticipants = participants.filter(participant => participant.UserId !== userId && participant.Result.UserId !== userId);
+
+                                if (otherParticipants.length === 0) {
+                                    alert("You cannot leave the group because no other members exist.");
+                                    return;
+                                }
+
+                                if (confirm("Now you must set another moderator for the group! Proceed?")) {
+                                    participantsList.innerHTML = '';
+                                    participantsList.style.backgroundColor = 'gray'
+                                    otherParticipants.forEach(participant => {
+                                        const li = document.createElement('li');
+                                        li.innerText = participant.Result.UserName;
+                                        li.style.cursor = 'pointer';
+                                        li.onclick = () => setNewModeratorAndLeave(groupChatId, participant.Result.UserId, participant.Result.UserName);
+                                        participantsList.appendChild(li);
+                                    });
+
+                                    participantsPopup.style.display = 'block';
+
+
+                                    async function setNewModeratorAndLeave(groupChatId, newModeratorId, newModeratorName) {
+                                        if (confirm(`Are you sure you want to set ${newModeratorName} as the new moderator and leave the group?`)) {
+                                            try {
+                                                const response = await fetch(`/groupchat/setModerator/${groupChatId}/${newModeratorId}/leave`, {
+                                                    method: 'POST',
+                                                });
+                                                const data = await response.json();
+
+                                                if (data.success) {
+                                                    alert("Successfully left the group and set a new moderator!");
+                                                    participantsPopup.style.display = 'none';
+                                                    leaveGroupButton.closest('.group-item').remove();
+                                                    window.location.reload(true);
+                                                } else {
+                                                    alert("Error leaving the group and setting a new moderator.");
+                                                }
+                                            } catch (error) {
+                                                console.error('Error leaving the group:', error);
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+
+                            deleteGroupButton.addEventListener('click', function () {
+                                const groupChatId = this.getAttribute('data-group-chat-id');
+                                const userId = '@ViewBag.UserId';
+                                if (confirm("Are you sure you want to delete this group?")) {
+                                    fetch(`/groupchat/deleteGroup/${groupChatId}/${userId}`, {
+                                        method: 'DELETE'
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            alert("Group deleted successfully!");
+                                            newGroup.remove();
+                                        } else {
+                                            alert("Error deleting group.");
+                                        }
+                                    })
+                                    .catch(error => console.error('Error deleting group:', error));
+                                }
+                            });
+
+                            const memberListButton = document.createElement('button');
+                            memberListButton.className = 'member-list-button';
+                            memberListButton.textContent = 'Member List';
+                            memberListButton.setAttribute('data-group-chat-id', group.GroupChatId);
+
+                            memberListButton.addEventListener('click', async function () {
+                                const groupChatId = this.getAttribute('data-group-chat-id');
+                                await fetchGroupParticipants(groupChatId);
+                            });
+
+                            actionButtons.appendChild(memberListButton);
+                            actionButtons.appendChild(requestsButton);
+                            actionButtons.appendChild(editGroupButton);
+                            actionButtons.appendChild(addMemberButton);
+                            actionButtons.appendChild(kickMemberButton);
+                            actionButtons.appendChild(changeModeratorButton);
+                            actionButtons.appendChild(leaveGroupButton);
+                            actionButtons.appendChild(deleteGroupButton);
+                        } else {
+                            const leaveButton = document.createElement('button');
+                            leaveButton.className = 'leave-group-button';
+                            leaveButton.textContent = 'Leave Group';
+                            leaveButton.setAttribute('data-group-chat-id', group.GroupChatId);
+
+                            leaveButton.addEventListener('click', function () {
+                                const groupChatId = this.getAttribute('data-group-chat-id');
+                                const userId = '@ViewBag.UserId'; // ID-ul utilizatorului curent
+                                const sendNotification = false;
+
+                                if (confirm("Are you sure you want to leave this group?")) {
+                                    fetch(`/groupchat/removeParticipant/${groupChatId}/${userId}/${sendNotification}`, {
+                                        method: 'DELETE'
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            alert("Successfully left the group!");
+                                            newGroup.remove();
+                                        } else {
+                                            alert("Error in leaving the group.");
+                                        }
+                                    })
+                                    .catch(error => console.error('Error leaving the group:', error));
+                                }
+                            });
+                            actionButtons.appendChild(leaveButton);
+
+                            const memberListButton = document.createElement('button');
+                            memberListButton.className = 'member-list-button';
+                            memberListButton.textContent = 'Member List';
+                            memberListButton.setAttribute('data-group-chat-id', group.GroupChatId);
+
+                            memberListButton.addEventListener('click', async function () {
+                                const groupChatId = this.getAttribute('data-group-chat-id');
+                                await fetchGroupParticipants(groupChatId);
+                            });
+
+                            actionButtons.appendChild(memberListButton);
+                        }
+                        newGroup.classList.add('chat-item');
+                        const groupDetailsDiv = document.createElement("div");
+                        const groupVisibility = group.Visibility == 0 ? "Public" : "Private";
+                        groupDetailsDiv.innerHTML = `
+                            <div class="chat-avatar">
+                                <img style="height:225px;max-width:200px;width: expression(this.width > 200 ? 200: true);"
+                                        src="${group.profilePictureBase64 || ''}" alt="${group.Name || 'Group'}" />
+                            </div>
+                            <div class="chat-info">
+                                <strong>${group.Description || 'No description!'}</strong>
+                            </div>
+                            <div class="private-info">
+                                <p><strong>${groupVisibility}</strong> Group</p>
+                            </div>
+                        `;
+                        groupDetailsDiv.onclick = () => loadChat(group.GroupChatId, group.Name, null);
+                        newGroup.appendChild(groupDetailsDiv);
+                        newGroup.appendChild(actionButtons);
+                        groupChatsList.appendChild(newGroup);
+                        groupChatsList.appendChild(document.createElement("hr"));
+                    });
+                } else {
+                    console.error("Groups not found in response or invalid format.");
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching groups:", error);
+            });
+        };
+
+        async function fetchGroupParticipants(groupChatId) {
+            const participantsResponse = await fetch(`/groupchat/getParticipants/${groupChatId}`);
+            const participants = await participantsResponse.json();
+
+            const participantListElement = document.getElementById('participantList');
+            participantListElement.innerHTML = '';
+
+            participants.forEach(participant => {
+                const participantItem = document.createElement('li');
+                participantItem.innerHTML = `${participant.Result.UserName}`;
+                participantListElement.appendChild(participantItem);
+            });
+
+            // Deschide modalul
+            document.getElementById('participantsModal').style.display = 'block';
+        }
+
+        // Modal pentru adaugare de membri
+        function openAddMemberSearchModal(existingMemberIds, groupChatId) {
+            const modal = document.getElementById("addMemberModal");
+            const userSearchResults = document.getElementById("addMemberSearchResults");
+
+            // Reset search input si users list
+            document.getElementById("addMemberSearchInput").value = '';
+            document.getElementById("addMemberModal").setAttribute("data-groupChatId", groupChatId);
+            userSearchResults.innerHTML = '';
+            modal.style.display = 'block';
+
+            document.getElementById("addMemberSearchInput").oninput = async function () {
+                const userNameText = this.value.trim();
+                if (userNameText.length > 2) {
+                    const response = await fetch(`/SearchEngine/SearchUsers?userNameText=${userNameText}`);
+                    const users = await response.json();
+
+                    const filteredUsers = users.filter(user => !existingMemberIds.includes(user.id));
+
+                    userSearchResults.innerHTML = '';
+                    if (filteredUsers.length > 0) {
+                        userSearchResults.style.display = 'block';
+                        filteredUsers.forEach(user => {
+                            const li = document.createElement('li');
+                            li.innerText = user.name;
+                            li.onclick = () => selectUserForAdding(user, groupChatId);
+                            userSearchResults.appendChild(li);
+                        });
+                    } else {
+                        userSearchResults.style.display = 'none';
+                    }
+                } else {
+                    userSearchResults.style.display = 'none';
+                }
+            };
+        }
+
+        function selectUserForAdding(user, groupChatId) {
+            const selectedUsersList = document.getElementById("selectedAddMemberUsersList");
+
+            // Daca a fost deja selectat
+            const existingUserItems = Array.from(selectedUsersList.children).map(item => item.innerText);
+            if (!existingUserItems.includes(user.name)) {
+                const li = document.createElement('li');
+                li.innerText = user.name;
+                li.setAttribute('data-user-id', user.id);
+                li.onclick = () => removeUserFromSelection(user.name);
+                selectedUsersList.appendChild(li);
+            }
+        }
+
+        function removeUserFromSelection(userName) {
+            const selectedUsersList = document.getElementById("selectedAddMemberUsersList");
+            const items = Array.from(selectedUsersList.children);
+            items.forEach(item => {
+                if (item.innerText === userName) {
+                    selectedUsersList.removeChild(item);
+                }
+            });
+        }
+
+        function addMembersToGroup() {
+            const selectedUsersList = document.getElementById("selectedAddMemberUsersList");
+            const selectedUsers = Array.from(selectedUsersList.children);
+
+            if (selectedUsers.length === 0) {
+                document.getElementById("addMemberErrorMessage").style.display = 'block';
+                return;
+            }
+
+            const groupChatId = document.getElementById("addMemberModal").getAttribute("data-groupChatId");
+
+            selectedUsers.forEach(userElement => {
+                const userId = userElement.getAttribute('data-user-id');
+                const userName = userElement.innerText;
+
+                fetch(`/groupchat/addParticipant/${groupChatId}/${userId}`, {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(`${userName} has been successfully added to the group!`);
+                    } else {
+                        alert(`Error adding ${userName} to the group.`);
+                    }
+                })
+                .catch(error => console.error('Error adding user to group:', error));
+            });
+
+            closeAddMemberModal();
+            
+        }
+
+        function closeAddMemberModal() {
+            const modal = document.getElementById("addMemberModal");
+            modal.style.display = 'none';
+        }
+        
+    </script>
+</body>

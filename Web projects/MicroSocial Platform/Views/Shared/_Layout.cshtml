@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MicroSocial_Platform</title>
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home_Index_style.css" asp-append-version="true" />
+    
+</head>
+<body>
+    <!--<header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MicroSocial_Platform</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>-->
+
+    <div id="Options">
+        <h1 class="text-centered px-4 py-4">ShellSpace</h1>
+        <div id="list">
+            <div>
+                <img src="/Photos/Home_white.png">
+                <a href="/"><p>Home</p></a>
+            </div>
+
+            <div onclick="toggleSearchModal()">
+                <img src="/Photos/Magnifing_white.png" id="searchIcon">
+                <a><p>Search</p></a>
+            </div>
+
+            <div id="searchModal" class="modal12" style="display: none;">
+                <div class="modal-content12">
+                    <span class="close12" onclick="toggleSearchModal()">&times;</span>
+                    <h4>Search</h4>
+                    <input type="text" id="searchInput" placeholder="Username or tag" oninput="searchChanged()" />
+                    <button id="searchSubmit" onclick="search()" class="btn">Search</button>
+                    <div id="searchResults"></div>
+                </div>
+            </div>
+
+            @if (ViewBag?.IsLoggedIn != null && ViewBag?.IsLoggedIn)
+            {
+
+                <div>
+                    <img src="/Photos/Messages_white.png">
+                    <a href="~/chat/messages"><p>Messages</p></a>
+                </div>
+
+                <div>
+                    <img src="/Photos/Inbox_white.png">
+                    <a asp-controller="Inbox" asp-action="Index"><p>Inbox</p></a>
+                </div>
+
+                <div>
+                    <img src="/Photos/Create_white.png">
+                    <a href="~/post/create"><p>Create</p></a>
+                </div>
+
+                <div>
+                    <img src="/Photos/microphone_white.png">
+                    <a href="~/conference"><p>Conference</p></a>
+                </div>
+
+                <div>
+                    <img src="/Photos/report_white.png">
+                    <a id="reportButton" onclick="openReportModal(); return true;"><p>Report</p></a>
+                </div>
+
+
+                <div>
+                    <img src="/Photos/Settings_white.png">
+                    <a asp-controller="Settings" asp-action="Edit"><p>Settings</p></a>
+                </div>
+            }
+
+        </div>
+    </div>
+
+    @if (@ViewBag?.ShowRelatives != null) {
+        <div id="Relatives">
+            <!-- La Url.Action si Model.userName va fi nevoie de simbolul de arond -->
+            <!-- href="Url.Action("Index", "Profile", new { username = Model.userName })"-->
+            @if (ViewBag?.IsLoggedIn != null && ViewBag?.IsLoggedIn)
+            {
+                <a id="Account" href="@Url.Action("Index", "Profile")">
+                    <img src="@ViewBag.ProfilePicture" class="profile-picture">
+                    <p>@ViewBag.UserName</p> <!-- Model.userName -->
+                </a>
+            }
+            else
+            {
+                <button id="No_Account"><a href="~/Identity/Account/Login">Log in / Register</a></button>
+            }
+
+            <hr>
+            @if (ViewBag?.FollowRecomand != null && (ViewBag.FollowRecomand as List<User>).Count != 0)
+            {
+                <p class="text-center">Suggested for you</p>
+                <div id="People-recommendation">
+                    @foreach (var i in ViewBag.FollowRecomand)
+                    {
+                        <div>
+                            <a href="@Url.Action("Index", "Profile", new { userId = @i.Id })" style="text-decoration: none; color:white;">
+                                <img src="data:image/png;base64,@Convert.ToBase64String(@i.ProfilePicture)">
+                            </a>
+                            <a href="@Url.Action("Index", "Profile", new { userId = @i.Id })" style="text-decoration: none; color:white;">@i.UserName</a>
+                            <button class="follow-btn" data-user-id="@i.Id">Follow</button>
+                        </div>
+                    }
+                </div>
+            } else
+            {
+                <p class="text-center">No suggestions</p>
+            }
+        </div>
+    }
+
+    <!-- Modal pentru raport -->
+    <div id="reportModal" class="report-modal" style="display: none;">
+        <div class="report-modal-content">
+            <span class="close123 close12" onclick="closeReportModal()">&times;</span>
+            <h4>Submit a Report</h4>
+            <textarea id="reportContent" placeholder="Enter your report here..." required minlength="10"></textarea>
+            <button id="submitReportButton" class="btn" onclick="submitReport()">Submit Report</button>
+            <p id="reportErrorMessage" style="color: red; display: none;">Please enter a report before submitting!</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        function toggleSearchModal() {
+            var modal = document.getElementById("searchModal");
+            modal.style.display = modal.style.display === "none" ? "block" : "none";
+
+            if (modal.style.display === "none") {
+                const searchResults = document.getElementById("searchResults");
+                while (searchResults.lastElementChild) {
+                    searchResults.removeChild(searchResults.lastElementChild);
+                }
+                document.getElementById("searchInput").value = "";
+            }
+        }
+
+        function search() {
+            var searchQuery = document.getElementById("searchInput").value;
+
+            // Daca incepe cu # este hashtag
+            if (searchQuery.startsWith("#")) {
+                fetch(`/SearchEngine/SearchTags/${searchQuery.slice(1)}`)
+                    .then(response => response.json())
+                    .then(data => displayResults(data));
+            } else {
+                fetch(`/SearchEngine/SearchUsers/${searchQuery}`)
+                    .then(response => response.json())
+                    .then(data => displayResults(data));
+            }
+        }
+
+        function displayResults(results) {
+            var resultsContainer = document.getElementById("searchResults");
+            resultsContainer.innerHTML = "";
+
+            if (results.length > 0) {
+                results.forEach(result => {
+                    var resultItem = document.createElement("a");
+                    resultItem.className = "search-result-item";
+                    if (result.type === "Tag") {
+                        var mediaWrapper = document.createElement("a");
+                        mediaWrapper.href = `/post/detail/${result.id}`;
+
+                        var resultItemLink = document.createElement("a");
+                        resultItemLink.textContent = `Description: ${result.textContent}`;
+                        resultItemLink.href = `/post/detail/${result.id}`;
+                        resultItemLink.style.display = "block"; // rand separat
+                        resultsContainer.appendChild(resultItemLink);
+
+                        // Manipulare media
+                        if (result.mediaLink || result.embedUrl) {
+                            var mediaElement;
+                            if (result.mimeType == "Image") {
+                                mediaElement = document.createElement("img");
+                                mediaElement.src = `data:${result.mediaType};base64,${result.mediaLink}`;
+                            } else if (result.mimeType == "Video") {
+                                mediaElement = document.createElement("video");
+                                mediaElement.src = `data:${result.mediaType};base64,${result.mediaLink}`;
+                                mediaElement.controls = true;
+                            } else if (result.mimeType == "Embed") {
+                                mediaElement = document.createElement("iframe");
+                                mediaElement.width = "560";
+                                mediaElement.height = "315";
+                                mediaElement.src = result.embedUrl
+                                mediaElement.frameBorder = "0";
+                                mediaElement.allowFullscreen = true;
+                            } else {
+                                mediaElement = document.createElement("p");
+                            }
+
+                            // Stil
+                            mediaElement.style.maxWidth = "100%";
+                            mediaElement.style.height = "auto";
+                            mediaElement.style.marginTop = "10px";
+                            mediaWrapper.appendChild(mediaElement);
+
+                            resultsContainer.appendChild(mediaWrapper);
+                        }
+                    } else if (result.type === "User") {
+                        resultItem.href = `/profile/${result.id}`;
+                        resultItem.textContent = result.name;
+                    }
+                    resultsContainer.appendChild(resultItem);
+                });
+            } else {
+                resultsContainer.innerHTML = "<p>No results found.</p>";
+            }
+        }
+
+        function searchChanged() {
+            var searchQuery = document.getElementById("searchInput").value.trim();;
+            var searchButton = document.getElementById("searchSubmit");
+            searchButton.disabled = searchQuery.trim() === "";
+        }
+
+        function openReportModal() {
+            document.getElementById('reportModal').style.display = 'block';
+        }
+
+        function closeReportModal() {
+            document.getElementById('reportModal').style.display = 'none';
+        }
+
+        function submitReport() {
+            const reportContentVal = document.getElementById('reportContent').value;
+
+            if (!reportContentVal) {
+                document.getElementById('reportErrorMessage').style.display = 'block';
+                return;
+            }
+
+            fetch(`/report/submit`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ reportContent: reportContentVal }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Report submitted successfully!");
+                    closeReportModal();
+                    document.getElementById('reportContent').value = ''; // Reset textarea
+                } else {
+                    alert("Error submitting report.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error submitting report.");
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const followButtons = document.querySelectorAll(".follow-btn");
+
+            followButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    const userId = this.getAttribute("data-user-id");
+
+                    fetch('/Follow/Add', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '@Html.AntiForgeryToken()'
+                        },
+                        body: JSON.stringify({ followedUserId: userId })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const userDiv = document.getElementById(`user-${userId}`);
+                            if (userDiv) {
+                                userDiv.remove(); // Remove user from recommendations
+                            }
+                        } else {
+                            alert('Error: Unable to follow this user.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>

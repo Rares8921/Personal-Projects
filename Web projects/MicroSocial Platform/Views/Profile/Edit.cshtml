@@ -1,0 +1,86 @@
+﻿@model MicroSocial_Platform.Models.User
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile-Edit</title>
+    <link href="~/css/Profile_Edit_style.css" rel="stylesheet" asp-append-version="true">
+</head>
+<body>
+    <div id="Settings">
+        <form method="post" action="@Url.Action("EditProfile", "Profile")" enctype="multipart/form-data">
+            <!-- fixarea rutei postului -->
+            @Html.AntiForgeryToken()
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="validation-errors">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <p>@error.ErrorMessage</p>
+                    }
+                </div>
+            }
+            <div id="Photo">
+                <img src="@ViewBag.ProfilePicture" class="profile-picture">
+                <div>
+                    <p>@Model.Email</p>
+                    <p>@Model.UserName</p>
+                </div>
+                <label class="file-input-label">
+                    <input type="file" id="profilePictureInput" accept="image/*" onchange="previewProfilePicture(event)" name="ProfilePicture">
+                    Choose <br> Profile Picture
+                </label>
+                <img id="profilePicturePreview" src="" alt="Profile Picture Preview" style="display:none; width: 150px; height: 150px; border-radius: 50%; margin-top: 10px;">
+            </div>
+            <div id="Name">
+                <p>Name</p>
+                <input name="UserName" type="text" placeholder="Current Name" value="@Model.UserName" />
+            </div>
+            <div id="Bio">
+                <p>Bio</p>
+                <textarea name="Biography" placeholder="Current Bio" rows="8">@Model.Biography</textarea>
+            </div>
+            <div id="PrivateAccount">
+                <p>Make account private: </p>
+                <label class="toggle-switch">
+                    <input name="PrivateAccountCheck" type="checkbox" id="privateAccountToggle" @(Model.PrivateAccount ? "checked" : "")>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <a href="@Url.Page("/Account/Manage/Email", new { area = "Identity" })" class="btn" id="changeEmailButton">Change email</a>
+            <br />
+            <button id="Submit" type="submit"><p>Submit change</p></button>
+        </form>
+    </div>
+    <script>
+        function previewProfilePicture(event) {
+            const input = event.target;
+            const preview = document.getElementById('profilePicturePreview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+    </script>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+</body>

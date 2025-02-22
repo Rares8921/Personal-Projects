@@ -1,0 +1,260 @@
+﻿@using System.Security.Claims
+@using System.Text
+@model MicroSocial_Platform.Models.Post
+
+@{
+    ViewData["Title"] = "Post Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<head>
+    <meta charset="UTF-8">
+    <link href="~/css/Detail_style.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/css/CreatePost_style.css" rel="stylesheet" asp-append-version="true">
+</head>
+<body>
+    <div id="PostDetails">
+        <h1>Post Details</h1>
+        <div class="post">
+
+            @if (Model.EmbedUrl != null || (Model.MediaLinks != null && Model.MediaLinks.Length > 0))
+            {
+                string deserializedContent = "";
+                if (Model.MediaLinks != null && Model.MediaLinks.Length > 0)
+                {
+                    deserializedContent = Convert.ToBase64String(Model.MediaLinks);
+                }
+                if (Model.MimeType == "Video")
+                {
+                    <video controls style="max-width: 500px;">
+                        <source src="data:video/mp4;base64,@deserializedContent" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                }
+                else if (Model.MimeType == "Image")
+                {
+                    <img src="data:image/jpeg;base64,@deserializedContent" alt="Media" style="max-width: 500px;">
+                }
+                else if (Model.MimeType == "Embed")
+                {
+                    <iframe width="500" height="315"
+                            src="@Model.EmbedUrl"
+                            frameborder="0" allowfullscreen></iframe>
+                }
+                else
+                {
+                    <img src="data:image/jpeg;base64,@deserializedContent" alt="Media">
+                }
+            }
+
+            <p>@Model.TextContent</p>
+            <p>@Model.LikeCounter <strong>Like(s)</strong></p>
+
+            <p>
+                <strong>Tags:</strong>
+                @if (Model.Tags != null && Model.Tags.Any())
+                {
+                    foreach (var tag in Model.Tags)
+                    {
+                        <span>@tag</span>
+                    }
+                }
+                else
+                {
+                    <span>No tags</span>
+                }
+            </p>
+
+            @if (@ViewBag.IsLoggedIn) {
+                <div class="button-container">
+
+                    <form action="@Url.Action("Index", "Like", new { contentType = "post", contentId = Model.ContentId, postId = Model.ContentId })" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-primary">Like</button>
+                    </form>
+
+                    @if (ViewBag?.IsSavedPost != null && ViewBag.IsSavedPost)
+                    {
+                        <form action="@Url.Action("RemoveSavedPost", "Post", new { postId = Model.ContentId, redirectString = "detail" })" method="post" style="display:inline;">
+                            @Html.AntiForgeryToken()    
+                            <input type="hidden" name="postId" value="@Model.ContentId" />
+                            <button type="submit" class="btn btn-secondary">Remove From Saved</button>
+                        </form>
+                    }
+                    else if (ViewBag?.IsSavedPost != null)
+                    {
+                        <form action="@Url.Action("SavePost", "Post", new { postId = Model.ContentId })" method="post" style="display:inline;">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="postId" value="@Model.ContentId" />
+                            <button type="submit" class="btn btn-secondary">Save Post</button>
+                        </form>
+                    }
+
+                </div>
+            
+
+                <form asp-action="Add" asp-controller="Comment">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="postId" value="@Model.ContentId" />
+                    <label for="content">Your Comment:</label>
+                    <textarea id="content" name="content" required></textarea>
+                    <button type="submit">Add Comment</button>
+                </form>
+            }
+
+            <div id="commentsSection">
+                <h3>Comments</h3>
+                @foreach (var comment in Model.PostComments)
+                {
+                    <div class="comment">
+                        <div class="comment-header">
+                            <strong>@comment.User.UserName</strong>
+                            <small>@comment.TimeStamp.ToString("g")</small>
+                        </div>
+                        <p>@comment.StringContent</p>
+                        <p class="likes-count">@comment.likeCounter Like(s)</p>
+
+                        @if (@ViewBag.IsLoggedIn) {
+                            <div class="comment-actions">
+                                <form action="@Url.Action("Index", "Like", new { contentType = "comment", contentId = comment.CommentId, postId = Model.ContentId })" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-primary" style="margin-bottom: 2%;">Like</button>
+                                </form>
+
+                                @if (isAdmin || comment.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
+                                {
+                                    <form asp-action="Edit" asp-controller="Comment" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="commentId" value="@comment.CommentId" />
+                                        <input type="hidden" name="id" value="@Model.ContentId" />
+                                        <textarea name="content" required>@comment.StringContent</textarea>
+                                        <button type="submit" class="btn btn-primary">Edit</button>
+                                    </form>
+                                    <form asp-action="Delete" asp-controller="Comment" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@comment.CommentId" />
+                                        <input type="hidden" name="postId" value="@Model.ContentId" />
+                                        <button type="submit" class="btn btn-link" style="color: red;">Delete</button>
+                                    </form>
+                                }
+                            </div>
+                        }
+
+                        <h4>Replies to Comment</h4>
+                        @if (@ViewBag.IsLoggedIn) {
+                            <form asp-action="Add" asp-controller="Answer" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="commentId" value="@comment.CommentId" />
+                                <input type="hidden" name="contentId" value="@Model.ContentId" />
+                                <textarea name="content" required placeholder="Your Reply..."></textarea>
+                                <button type="submit" class="btn btn-secondary">Reply</button>
+                            </form>
+                        }
+
+                        <div class="replies-to-comment">
+                            @{
+                                var displayedReplies = new HashSet<int>();
+                            }
+                            @foreach (var answer in comment.Replies)
+                            {
+                                if (!displayedReplies.Contains(answer.AnswerId))
+                                {
+                                    displayedReplies.Add(answer.AnswerId);
+                                    <div class="answer">
+                                        <div class="answer-header">
+                                            <strong>@answer.User.UserName</strong>
+                                            <small>@answer.TimeStamp.ToString("g")</small>
+                                        </div>
+                                        <p>@answer.Content</p>
+                                        <p class="likes-count">@answer.LikeCounter Like(s)</p>
+
+                                        @if (@ViewBag.IsLoggedIn) {
+                                            <form action="@Url.Action("Index", "Like", new { contentType = "answer", contentId = answer.AnswerId, postId = Model.ContentId })" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-primary">Like</button>
+                                            </form>
+                                        }
+
+                                        @if (isAdmin || answer.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
+                                        {
+                                            <div class="button-container">
+                                                <form asp-action="Edit" asp-controller="Answer" method="post">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="answerId" value="@answer.AnswerId" />
+                                                    <textarea name="content" required>@answer.Content</textarea>
+                                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                                </form>
+                                                <form asp-action="Delete" asp-controller="Answer" method="post">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="answerId" value="@answer.AnswerId" />
+                                                    <input type="hidden" name="typeOfAnswer" value="commentAnswer" />
+                                                    <button type="submit" class="btn btn-link" style="color: red;">Delete</button>
+                                                </form>
+                                            </div>
+                                        }
+
+                                        <h4>Replies to Answer</h4>
+                                        @if (@ViewBag.IsLoggedIn) {
+                                            <form asp-action="Add" asp-controller="Answer" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="commentId" value="@comment.CommentId" />
+                                                <input type="hidden" name="parentAnswerId" value="@answer.AnswerId" />
+                                                <input type="hidden" name="contentId" value="@Model.ContentId" />
+                                                <textarea name="content" required placeholder="Your Reply..."></textarea>
+                                                <button type="submit" class="btn btn-secondary">Reply</button>
+                                            </form>
+                                        }
+                                        <div class="replies-to-answer">
+                                            @foreach (var reply in answer.Replies)
+                                            {
+                                                if (!displayedReplies.Contains(reply.AnswerId))  // Daca răspunsul este deja afisat
+                                                {
+                                                    displayedReplies.Add(reply.AnswerId);
+                                                    <div class="reply">
+                                                        <div class="reply-header">
+                                                            <strong>@reply.User.UserName</strong>
+                                                            <small>@reply.TimeStamp.ToString("g")</small>
+                                                        </div>
+                                                        <p>@reply.Content</p>
+                                                        <p class="likes-count">@reply.LikeCounter Like(s)</p>
+
+                                                        @if (@ViewBag.IsLoggedIn) {
+                                                            <form action="@Url.Action("Index", "Like", new { contentType = "answer", contentId = reply.AnswerId, postId = Model.ContentId })" method="post">
+                                                                @Html.AntiForgeryToken()
+                                                                <button type="submit" class="btn btn-primary">Like</button>
+                                                            </form>
+                                                        }
+
+                                                        @if (isAdmin || reply.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
+                                                        {
+                                                            <div class="button-container">
+                                                                <form asp-action="Edit" asp-controller="Answer" method="post">
+                                                                    @Html.AntiForgeryToken()
+                                                                    <input type="hidden" name="answerId" value="@reply.AnswerId" />
+                                                                    <textarea name="content" required>@reply.Content</textarea>
+                                                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                                                </form>
+                                                                <form asp-action="Delete" asp-controller="Answer" method="post">
+                                                                    @Html.AntiForgeryToken()
+                                                                    <input type="hidden" name="answerId" value="@reply.AnswerId" />
+                                                                    <input type="hidden" name="typeOfAnswer" value="commentAnswer" />
+                                                                    <button type="submit" class="btn btn-link" style="color: red;">Delete</button>
+                                                                </form>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</body>

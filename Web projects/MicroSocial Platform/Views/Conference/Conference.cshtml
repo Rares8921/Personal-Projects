@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Conference";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userId = ViewBag.UserId ?? "invalid";
+    var userName = ViewBag.UserId ?? "invalid";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conference</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/css/Conference.css" rel="stylesheet" asp-append-version="true">
+</head>
+<body>
+    <div class="container">
+
+        <div class="main">
+            <div class="new-meeting">
+                <button id="newMeetingBtn" onclick="handleNewMeeting()">Create a New Meeting</button>
+                <div class="join-meeting">
+                    <input type="text" placeholder="Meeting ID" id="meetingName">
+                    <button id="joinMeetingBtn" onclick="handleJoinMeeting()">Join</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const userId = '@userId';
+
+        function handleNewMeeting() {
+            const roomId = Math.floor(Math.random() * 100000) + "";
+            window.open(`/conference/videocall/${userId}?roomID=${roomId}`, "_blank");
+        }
+
+        function handleJoinMeeting() {
+            const roomId = document.getElementById("meetingName").value.trim();
+            if (!roomId) {
+                alert("Please enter a valid Meeting ID.");
+                return;
+            }
+            window.open(`/conference/videocall/${userId}?roomID=${roomId}`, "_blank");
+        }
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,74 @@
+﻿
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "";
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<head>
+    <meta charset="UTF-8">
+    <link href="~/css/Story.css" rel="stylesheet" asp-append-version="true">
+</head>
+
+<body>
+    <a id="story-close" href="/" style="float: right;">X</a>
+
+    <div id="profile-info">
+        <img id="profile-pic" src="@ViewBag.ProfilePicture">
+        <p id="username">@ViewBag.Username</p>
+    </div>
+
+    <p id="story-title">@ViewBag.Story_title</p>
+
+    @if (isAdmin || @ViewBag.IsSameUser)
+    {
+        <a href="@Url.Action("Delete", "Story", new { id = @ViewBag.ContentId })" id="story-delete">Delete</a>
+    }
+    <!-- Media Wrapper -->
+    <div id="video-wrapper">
+
+        <!-- Media Containers -->
+        <div class="video-container active">
+            @if(@ViewBag.Story_mimeType == "Video") {
+                <video src="@ViewBag.Story_media" autoplay loop></video>
+            } else {
+                <img src="@ViewBag.Story_media" alt="Story" />
+            }
+        </div>
+    </div>
+
+    <script>
+        const videoContainers = document.querySelectorAll('.video-container');
+        const leftArrow = document.getElementById('leftArrow');
+        const rightArrow = document.getElementById('rightArrow');
+        let currentIndex = 0;
+
+        function updateActiveVideo(index) {
+            // Pause all videos and hide containers
+            videoContainers.forEach((container, i) => {
+                const video = container.querySelector('video');
+                video.pause(); // Pause the video
+                container.classList.remove('active'); // Hide the container
+            });
+
+            // Set the new active video container
+            const newActiveContainer = videoContainers[index];
+            const newActiveVideo = newActiveContainer.querySelector('video');
+            newActiveContainer.classList.add('active'); // Show the container
+            newActiveVideo.currentTime = 0; // Reset video to start
+            newActiveVideo.play(); // Play the video
+        }
+
+        window.onload = function() {
+            const storyDeleteButton = document.getElementById('story-delete');
+            const storyCloseButton = document.getElementById('story-close');
+
+            if (storyDeleteButton && storyCloseButton) {
+                const deleteButtonWidth = storyDeleteButton.offsetWidth;
+                storyCloseButton.style.right = `${deleteButtonWidth + 30}px`;
+            }
+        }
+
+    </script>
+</body>

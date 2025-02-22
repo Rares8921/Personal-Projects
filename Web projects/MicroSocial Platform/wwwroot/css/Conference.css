@@ -1,0 +1,114 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #eaeaea;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+}
+
+.container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.background-image{
+    width: 100%;
+    height: 30%;
+}
+
+.main {
+    width: 100%;
+    max-width: 600px;
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button#newMeetingBtn {
+    background-color: #007bff;
+}
+
+button#newMeetingBtn:hover {
+    background-color: #0056b3;
+}
+
+button#joinMeetingBtn {
+    background-color: #28a745;
+}
+
+button#joinMeetingBtn:hover {
+    background-color: #218838;
+}
+
+.join-meeting {
+    display: flex;
+    gap: 10px;
+    margin: 20px;
+}
+
+.join-meeting input {
+    flex: 1;
+    padding: 15px;
+    font-size: 16px;
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    color: #eaeaea;
+    border-radius: 5px;
+}
+
+.join-meeting input:focus {
+    border-color: #007bff;
+    background-color: #333;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Connected Users */
+.connected-users {
+    margin-top: 20px;
+}
+
+.connected-users h2 {
+    margin-bottom: 15px;
+}
+
+.connected-users ul {
+    list-style: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #2a2a2a;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.connected-users ul li {
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    color: #eaeaea;
+}
+
+#root > div > div {
+    padding: 50px;
+}

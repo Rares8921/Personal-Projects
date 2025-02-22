@@ -1,0 +1,421 @@
+﻿:root {
+    --White: #f9f9f9;
+    --Gray: #2f2f2f;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: var(--White);
+}
+
+a {
+    text-decoration: none;
+}
+
+.dm-container {
+    margin-left: 100px;
+    padding: 20px;
+}
+
+.chat-list {
+    width: 550px; /* Sidebar width */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    overflow-y: auto;
+}
+
+.chat-toggle-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.chat-toggle-buttons button {
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chat-toggle-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.new-chat {
+    margin-bottom: 20px;
+}
+
+.new-chat input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#userSearchResults {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 5px;
+    background-color: #121212;
+    border: 1px solid #ddd;
+    max-height: 150px;
+    overflow-y: auto;
+    display: none;
+}
+
+#userSearchResults li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+#userSearchResults li:hover {
+    background-color: #343434;
+}
+
+button.btn {
+    padding: 10px;
+    border: none;
+    background-color: #121212;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+button.btn:hover, button.btn:focus {
+    background-color: #232323;
+}
+
+.chat-window {
+    flex-grow: 1;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+#chatHeader {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+    font-family: Verdana, sans-serif;
+    text-decoration: underline;
+}
+
+.message-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.message-input {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.voice-message-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.voice-message-controls button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #232323;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.voice-message-controls button:hover {
+    background-color: #343434;
+}
+
+#messageInput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 40px;
+    resize: none;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background-color: #232323;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+button:hover {
+    background-color: #343434;
+}
+
+/* Modals */
+.modal {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    margin-top: 5%;
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content input, .modal-content select {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#createGroupBtn {
+    background-color: darkgreen;
+}
+
+#createGroupBtn:hover {
+    background-color: green;
+}
+
+input {
+    color: white;
+}
+
+.modal h4 {
+    margin-top: 0;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Popup for selecting a new moderator */
+#participantsPopup {
+    position: absolute;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#participantsList {
+    list-style-type: default;
+    padding-left: 0;
+}
+
+#participantsList li {
+    padding: 8px;
+    cursor: pointer;
+    background-color: #232323;
+    font-weight: bold;
+}
+
+#participantsList li:hover {
+    background-color: #343434;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+.chat-list {
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    position: absolute;
+    border-right: 2px solid white;
+}
+
+.chat-window {
+    width: 100%;
+    margin-top: 20px;
+}
+
+    #messageInput {
+        min-height: 50px;
+    }
+}
+
+/* Mesaje de eroare sau succes */
+.message-success {
+    color: #00ff00;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.message-error {
+    color: #ff0000;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+#list > div:hover {
+    background-color: rgb(33, 33, 33);
+    transition: 0.3s;
+}
+
+#newChatRecipient {
+    color: black;
+}
+
+#groupCreationModal {
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    justify-content: center;
+}
+
+#groupSearchInput, #groupName, #groupDescription, #addMemberSearchInput, #editGroupName, #editGroupDescription {
+    color: white;
+}
+
+.list-group-item, .list-group-item:hover {
+    background-color: transparent;
+}
+
+.list-group-item:focus {
+    background-color: #232323;
+}
+
+.list-group-item:hover {
+    text-decoration: underline;
+}
+
+#directMessagesList, #groupChatsList {
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    padding: 10px;
+    list-style-type: none;
+}
+
+.rounded-circle {
+    margin-right: 12px;
+}
+
+#newChatRecipient {
+    background-color: #222;
+    color: #bbb;
+}
+
+.chat-container {
+    display: flex;
+    height: 100vh;
+}
+
+.vl {
+    border-left: 3px solid white;
+    height: 110%;
+    margin-top: -2%;
+}
+
+textarea, textarea:focus, textarea:hover {
+    background-color: #333;
+    margin-bottom: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-buttons button {
+    width: 100%;
+}
+
+.message {
+    clear: both;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.message.sent {
+    background-color: #15202B;
+    text-align: right;
+    border-radius: 20px;
+}
+
+.message.sent > div .edit-button, .message.sent > div .delete-button {
+    background-color: #15202B;
+    text-decoration: underline;
+    font-family: Monospace;
+    transition: background-color 0.3s ease-in;
+}
+
+.message.sent > div .edit-button:hover, .message.sent > div .delete-button:hover {
+    background-color: #1c2a38;
+    transition: background-color 0.3s ease-in;
+}
+
+.message.received {
+    background-color: #222;
+    text-align: left;
+    border-radius: 20px;
+}
+
+#mainSendButton {
+    margin-top: 2%;
+    height: 70%;
+}
+
+#mediaPreviewContainer {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #232323;
+}
+
+#resetMediaButton {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#resetMediaButton:hover {
+    background-color: #c82333;
+}

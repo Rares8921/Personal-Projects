@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MicroSocial_Platform</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MicroSocial_Platform.styles.css" asp-append-version="true" />
+
+</head>
+<body>
+    <div id="Relatives">
+        <!-- La Url.Action si Model.userName va fi nevoie de simbolul de arond -->
+        <!-- href="Url.Action("Index", "Profile", new { username = Model.userName })"-->
+        @if (ViewBag?.IsLoggedIn != null)
+        {
+            <a id="Account" href="@Url.Action("Index", "Profile")">
+                <img src="@ViewBag.ProfilePicture" class="profile-picture">
+                <p>@ViewBag.UserName</p> <!-- Model.userName -->
+            </a>
+        }
+        else
+        {
+            <button id="No_Account"><a href="Identity/Account/Login">Log in / Register</a></button>
+        }
+
+        <hr>
+        <p>Suggested for you</p>
+
+        <div id="People-recommendation">
+            <div>
+                <img src="Photos/3DGladeline.png">
+                <a>Person 1</a>
+                <button>Follow</button>
+            </div>
+            <div>
+                <img src="Photos/3DGladeline.png">
+                <a>Person 2</a>
+                <button>Follow</button>
+            </div>
+            <div>
+                <img src="Photos/3DGladeline.png">
+                <a>Person 3</a>
+                <button>Follow</button>
+            </div>
+            <div>
+                <img src="Photos/3DGladeline.png">
+                <a>Person 4</a>
+                <button>Follow</button>
+            </div>
+            <div>
+                <img src="Photos/3DGladeline.png">
+                <a>Person 5</a>
+                <button>Follow</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+</body>

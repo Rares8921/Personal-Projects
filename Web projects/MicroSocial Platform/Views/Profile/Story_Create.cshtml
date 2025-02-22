@@ -1,0 +1,78 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="UTF-8">
+
+    <link href="~/css/Story_Create.css" rel="stylesheet" asp-append-version="true">
+</head>
+
+<body>
+    <div class="container12">
+        <form asp-controller="Story" asp-action="Create" method="post" id="storyForm" enctype="multipart/form-data">
+            <h1>Select a title for your story</h1>
+            <input type="text" id="title" name="Title" required placeholder="Enter your story title" maxlength="7">
+
+            <label for="mediaContent">Upload Media (Image or Video):</label>
+            <input type="file" id="mediaContent" name="MediaContent" accept="image/*,video/*" required />
+            <input type="hidden" name="mimeType" id="mimeType" value="Image" />
+
+            <div id="mediaPreviewContainer" style="display:none; margin-top: 10px;">
+                <img id="mediaImagePreview" src="" alt="Media Preview" style="width: 100%; max-width: 300px;" />
+                <video id="mediaVideoPreview" controls style="display:none; width: 100%; max-width: 300px;"></video>
+            </div>
+
+            <button type="button" id="deleteMediaButton" style="display:none;" onclick="deleteMedia()" class="btn-sm btn-danger">Delete Media</button>
+
+            <button type="submit">Create Story</button>
+        </form>
+    </div>
+
+    <script>
+
+        const mediaInput = document.getElementById('mediaContent');
+        const mimeTypeInput = document.getElementById('mimeType');
+        const mediaPreviewContainer = document.getElementById('mediaPreviewContainer');
+        const mediaImagePreview = document.getElementById('mediaImagePreview');
+        const mediaVideoPreview = document.getElementById('mediaVideoPreview');
+        const deleteMediaButton = document.getElementById('deleteMediaButton');
+
+        mediaInput.addEventListener('change', function () {
+            if (mediaInput.files.length > 0) {
+                const file = mediaInput.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    mediaPreviewContainer.style.display = 'block';
+                    if (file.type.startsWith('image/')) {
+                        mimeTypeInput.value = 'Image';
+                        mediaImagePreview.src = e.target.result;
+                        mediaImagePreview.style.display = 'block';
+                        mediaVideoPreview.style.display = 'none';
+                    } else if (file.type.startsWith('video/')) {
+                        mimeTypeInput.value = 'Video';
+                        mediaVideoPreview.src = e.target.result;
+                        mediaVideoPreview.style.display = 'block';
+                        mediaImagePreview.style.display = 'none';
+                    }
+                    deleteMediaButton.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function deleteMedia() {
+            mediaInput.value = ""; 
+            mediaImagePreview.style.display = 'none';
+            mediaVideoPreview.style.display = 'none';
+            mediaPreviewContainer.style.display = 'none';
+            deleteMediaButton.style.display = 'none'; 
+            mimeTypeInput.value = "";
+        }
+    </script>
+</body>

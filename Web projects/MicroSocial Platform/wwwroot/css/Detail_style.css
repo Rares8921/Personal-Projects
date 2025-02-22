@@ -1,0 +1,191 @@
+﻿:root {
+    --White: #f9f9f9;
+    --Gray: #2f2f2f;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: var(--White);
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    height: 100vh;
+    background-color: #060610;
+}
+
+#Options {
+    border-right: 2px solid var(--White);
+    width: 250px;
+    position: fixed;
+    height: 100%;
+}
+
+#Options > header {
+    color: var(--White);
+    font-size: xx-large;
+    height: 20%;
+    padding: 20px;
+}
+
+#Options > p {
+    padding: 20px 0 50px 15px;
+}
+
+#list > div > img {
+    padding: 6px;
+    height: 35px;
+    width: 35px;
+}
+
+#list > div > a > p {
+    margin: 0;
+}
+
+
+#list > div {
+    border-radius: 20px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin: 0 5px 20px 25px;
+    gap: 25px;
+}
+
+#PostDetails {
+    position: relative;
+    height: 100%;
+    left: 250px;
+    width: calc(100% - 250px);
+    padding: 20px;
+}
+
+#PostDetails > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 2px solid var(--White);
+}
+
+#PostDetails > header > h1 {
+    font-size: xx-large;
+    color: var(--White);
+}
+
+#PostDetails > form {
+    margin: 40px 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#PostDetails > form > label {
+    font-size: large;
+    margin-bottom: 5px;
+}
+
+#PostDetails > form > input,
+#PostDetails > form > textarea {
+    width: 100%;
+    background-color: var(--Gray);
+    color: var(--White);
+    border: 1px solid var(--White);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: medium;
+}
+
+#PostDetails > form > textarea {
+    resize: none;
+    height: 150px;
+}
+
+#PostDetails > form > button {
+    padding: 10px 20px;
+    background-color: var(--Gray);
+    border-radius: 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    font-size: medium;
+    align-self: flex-start;
+}
+
+#PostDetails > form > button:hover {
+    background-color: #1c1c1c;
+    transition: 0.3s;
+}
+
+#list > div:hover {
+    background-color: rgb(33, 33, 33);
+    transition: 0.3s;
+}
+
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.button-container form {
+    margin: 0;
+}
+
+
+#commentsSection {
+    margin-top: 20px;
+}
+
+.comment, .answer, .reply {
+    background-color: #232323;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.replies-to-comment, .replies-to-answer {
+    margin-top: 2%;
+}
+
+.comment-header, .answer-header, .reply-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.comment-actions, .answer-actions, .reply-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #454545;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #454545;
+    color: white;
+}
+
+.btn-link {
+    background: none;
+    color: #007bff;
+    text-decoration: underline;
+}

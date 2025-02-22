@@ -1,0 +1,175 @@
+﻿:root {
+    --White: #f9f9f9;
+    --Gray: #2f2f2f;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: var(--White);
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    height: 100vh;
+    background-color: #060610;
+}
+
+#Options {
+    border-right: 2px solid var(--White);
+    width: 250px;
+    position: fixed;
+    height: 100%;
+}
+
+#Options > header {
+    color: var(--White);
+    font-size: xx-large;
+    height: 20%;
+    padding: 20px;
+}
+
+#Options > p {
+    padding: 20px 0 50px 15px;
+}
+
+#list > div > img {
+    padding: 6px;
+    height: 35px;
+    width: 35px;
+}
+
+#list > div {
+    border-radius: 20px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin: 0 5px 20px 25px;
+    gap: 25px;
+}
+
+#CreatePostSection {
+    margin-left: 25%;
+    padding: 20px;
+    max-width: 800px; /* Use more horizontal space for the form */
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+/* Header */
+#CreatePostSection h2 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-family: Verdana;
+}
+
+/* Form elements */
+.form-group {
+    margin-bottom: 20px; /* Increased spacing for better readability */
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #bbbbbb; /* Softer text color for labels */
+}
+
+textarea,
+input[type="text"],
+input[type="url"],
+input[type="file"],
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #444444;
+    border-radius: 4px;
+    background-color: #2a2a2a; /* Darker input background */
+    color: #eaeaea; /* Light text for contrast */
+    outline: none;
+    transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+input[type=file]::file-selector-button {
+    border: 2px solid #2c4963;
+    padding: .2em .4em;
+    border-radius: .5em;
+    background-color: #335a7d;
+    color: var(--White);
+    transition: 1s;
+    cursor: pointer;
+}
+
+textarea {
+    resize: vertical;
+}
+
+textarea:focus,
+input:focus {
+    border-color: #007bff;
+    background-color: #333333; /* Subtle color change on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Media preview styles */
+#postImagePreview,
+#postVideoPreview,
+#embedContainer {
+    border: 1px solid #444444;
+    border-radius: 4px;
+    background-color: #2a2a2a;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+#embedPreview {
+    color: #eaeaea;
+}
+
+/* Buttons */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+#deleteMediaButton {
+    background-color: #dc3545;
+    margin-top: 10px;
+}
+
+    #deleteMediaButton:hover {
+        background-color: #b02a37;
+    }
+
+/* Tags input help text */
+small.text-danger {
+    font-size: 12px;
+    color: #ff6f6f; /* Red for error text */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    #CreatePostSection {
+        margin-left: 0;
+        width: 95%;
+        margin: 10px auto;
+    }
+}

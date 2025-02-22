@@ -1,0 +1,96 @@
+﻿
+<head>
+    <meta charset="UTF-8">
+    <title>Settings-Edit</title>
+    <link href="~/css/Settings_Edit_style.css" rel="stylesheet" asp-append-version="true">
+</head>
+<body>
+
+    <div id="Settings">
+        <form method="post" action="@Url.Action("Edit", "Settings")" enctype="multipart/form-data">
+            <div id="Visibility">
+                <!--
+                <p>Interface</p>
+                <div>
+                    <div>
+                        <p>🎨 Light Mode / Dark Mode</p>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="suggestionsToggle" name="LD_Mode" @(ViewBag.NotificationOptions.LD_Mode ? "checked" : "")>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                -->
+                <p>Messages</p>
+                <div>
+                    <div>
+                        <p>💬 Notifications from chat messages</p>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="suggestionsToggle" name="ChatMessages" @(ViewBag.NotificationOptions.ChatMessages ? "checked" : "")>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <p>Activity</p>
+                <div>
+                    <div>
+                        <p>❤️ Notifications from likes on your post</p>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="suggestionsToggle" name="LikesPost" @(ViewBag.NotificationOptions.LikesPost ? "checked" : "")>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div>
+                        <p>📝 Comments on your post</p>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="suggestionsToggle" name="CommentsPost" @(ViewBag.NotificationOptions.CommentsPost ? "checked" : "")>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div>
+                        <p>👤➕ Notifications from new followers</p>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="suggestionsToggle" name="NewFollowers" @(ViewBag.NotificationOptions.NewFollowers ? "checked" : "")>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="button-container">
+                <button id="Submit" type="submit"><p>Submit change</p></button>
+                <button type="button" id="Delete" onclick="deleteAccount('@ViewBag.UserId')">
+                    <p>Delete account</p>
+                </button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function deleteAccount(userId) {
+            const confirmDelete = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+            if (!confirmDelete) {
+                return;
+            }
+            try {
+                const encodedUserId = encodeURIComponent(userId);
+                const response = fetch(`/profile/deleteaccount/${encodedUserId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+                if (response.ok) {
+                    alert('Account deleted successfully.');
+                    window.location.href = '/';
+                } else {
+                    alert('Failed to delete account. Please try again.');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                alert('An unexpected error occurred.');
+            }
+        }
+    </script>
+</body>
+<!-- ?????? -->

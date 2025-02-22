@@ -1,0 +1,433 @@
+﻿@model MicroSocial_Platform.Models.User
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<head>
+    <meta charset="UTF-8">
+    <link href="~/css/Profile_Index_style.css" rel="stylesheet" asp-append-version="true">
+</head>
+
+<body>
+    <div id="Profile">
+        <header>
+            <img src="@ViewBag.ProfilePicture" class="profile-picture">
+            <div>
+                <div id="Name&EditProfile">
+                    <p>@Model.UserName</p>
+                    <p style="font-size: small; cursor: pointer;" id="open-followers">@((ViewBag.Followers).Count) followers</p>
+                    <p style="font-size: small; cursor: pointer;" id="open-followed">@((ViewBag.Followed).Count) followed</p>
+
+                    <div id="overlay"></div>
+
+                    <div id="followers-container">
+                        <button class="close-btn" id="close-modal">&times;</button>
+                        <h3 id="modal-title">Followers</h3>
+                        <ul class="list" id="modal-list">
+                            @if (ViewBag.Followers != null)
+                            {
+                                @foreach (var i in ViewBag.Followers)
+                                {
+                                    <li>
+                                        <img src="@ViewBag.FollowersProfilePictures[i.Id]">
+                                        <p>@i.UserName</p>
+                                        @if (isAdmin || @ViewBag.IsCurrentUser)
+                                        {
+                                            <form asp-controller="Follow" asp-action="RemoveProfile" method="post">
+                                                <input type="hidden" name="userId" value="@i.Id" />
+                                                <button type="submit" class="btn btn-primary">Remove</button>
+                                            </form>
+                                        }
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+
+                    <div id="followed-container">
+                        <button class="close-btn" id="close-modal">&times;</button>
+                        <h3 id="modal-title">Followed</h3>
+                        <ul class="list" id="modal-list">
+                            @if (ViewBag.Followed != null)
+                            {
+                                @foreach (var i in ViewBag.Followed)
+                                {
+                                    <li>
+                                        <img src="@ViewBag.FollowedProfilePictures[i.Id]">
+                                        <p>@i.UserName</p>
+                                        @if (isAdmin || @ViewBag.IsCurrentUser)
+                                        {
+                                            <form asp-controller="Follow" asp-action="UnFollowProfile" method="post">
+                                                <input type="hidden" name="userId" value="@i.Id" />
+                                                <button type="submit" class="btn btn-primary">Unfollow</button>
+                                            </form>
+                                        }
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+
+                    @if(ViewBag.IsCurrentUser) {
+
+                    } else if (@ViewBag.AlreadyFollowed)
+                    {
+                        <form asp-controller="Follow" asp-action="UnFollowProfile" method="post">
+                            <input type="hidden" name="userId" value="@Model.Id" />
+                            <button type="submit" class="btn btn-primary">Unfollow</button>
+                        </form>
+                    }
+                    else if (@ViewBag.IsLoggedIn)
+                    {
+                        <form asp-controller="Follow" asp-action="FollowProfile" method="post">
+                            <input type="hidden" name="userId" value="@Model.Id" />
+                            <button type="submit" class="btn btn-primary">Follow</button>
+                        </form>
+                    }
+                </div>
+                <textarea placeholder="Current Bio" rows="8" readonly>@Model.Biography</textarea>
+            </div>
+        </header>
+
+        @if (isAdmin || ViewBag.IsCurrentUser)
+        {
+            <div class="profileActionButtons">
+                <a asp-controller="Profile" asp-action="Edit" class="btn btn-primary" style="margin-right: 1%;">Edit profile</a>
+                @if(isAdmin && !ViewBag.CurrentUserIsAdmin)
+                {
+                    <button id="deleteAccountButton" type="submit" class="btn btn-primary">Delete account</button>
+                } else {
+                    <form asp-action="Logout" asp-controller="Auth" method="post">
+                            <button type="submit" class="btn btn-primary">Logout</button>
+                    </form>
+                }
+            </div>
+        }
+
+        @if (@ViewBag.IsLoggedIn) {
+            <div id="user-stories">
+                @if (ViewBag.IsCurrentUser)
+                {
+                    <h2>Your Stories</h2>
+                }
+                else
+                {
+                    <h2>Stories</h2>
+                }
+                <div class="story">
+                    @if (ViewBag.Stories != null && ViewBag.Stories.Count > 0 && (ViewBag.IsCurrentUser || !@Model.PrivateAccount || ViewBag.AlreadyFollowed || isAdmin))
+                    {
+                        foreach (var story in ViewBag.Stories)
+                        {
+                            <a href="@Url.Action("Index", "Story", new { id = story.ContentId })" class="btn btn-primary" id="storyButton">View @story.Name</a>
+                        }
+                    }
+                    else
+                    {
+                        <p>No stories available.</p>
+                    }
+
+                </div>
+            </div>
+        }
+
+        @if(ViewBag.IsCurrentUser) {
+            <div id="stories">
+                <div id="createStoryDiv" class="story create-story">
+                    <a asp-controller="Story" asp-action="Create" class="btn btn-primary">+</a>
+                    <p>Create Story</p>
+                </div>
+            </div>
+        }
+
+        <hr class="textbreak"/>
+
+        <div id="Select_posts">
+            <button id="btnPosts" class="btn btn-primary" onclick="showPosts()">Posts</button>
+            @if (isAdmin || ViewBag.IsCurrentUser)
+            {
+                <button id="btnSavedPosts" class="btn btn-primary" onclick="showSavedPosts()">Saved Posts</button>
+            }
+        </div>
+
+        <div id="Content13">
+            @if (isAdmin || ViewBag.IsCurrentUser || !@Model.PrivateAccount || ViewBag.AlreadyFollowed)
+            {
+                <div id="userPosts" class="post-section">
+                    @if (Model.Posts != null && Model.Posts.Any())
+                    {
+                        foreach (var post in Model.Posts.Where(p => p.MimeType != null && p.MediaLinks != null && p.MediaLinks.Length > 0 || p.EmbedUrl != null))
+                        {
+                            <div class="post">
+
+                                @if (post.EmbedUrl != null || (post.MediaLinks != null && post.MediaLinks.Length > 0))
+                                {
+                                    string deserializedContent = "";
+                                    if (post.MediaLinks != null && post.MediaLinks.Length > 0)
+                                    {
+                                        deserializedContent = Convert.ToBase64String(post.MediaLinks);
+                                    }
+                                    <a href="@Url.Action("Detail", "Post", new { id = post.ContentId })">
+                                        @if (post.MimeType == "Video")
+                                        {
+                                            <video controls>
+                                                <source src="data:video/mp4;base64,@deserializedContent" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        }
+                                        else if (post.MimeType == "Image")
+                                        {
+                                            <img src="data:image/jpeg;base64,@deserializedContent" alt="Media">
+                                        }
+                                        else if (post.MimeType == "Embed")
+                                        {
+                                            <iframe width="560" height="315"
+                                                    src="@post.EmbedUrl"
+                                                    frameborder="0" allowfullscreen></iframe>
+                                        }
+                                    </a>
+                                }
+
+                                <a href="@Url.Action("Detail", "Post", new { id = post.ContentId })">
+                                    <p>@post.TextContent</p>
+                                </a>
+                                <p>@post.LikeCounter <strong>Like(s)</strong></p>
+                                <p>
+                                    <strong>Tags:</strong>
+                                    @if (post.Tags != null && post.Tags.Any())
+                                    {
+                                        foreach (var tag in post.Tags)
+                                        {
+                                            <span>@tag</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>No tags</span>
+                                    }
+                                </p>          
+                            </div>
+                            @if (isAdmin || @ViewBag.IsCurrentUser)
+                            {
+                                <form action="@Url.Action("Delete", "Post", new { id = post.ContentId })" method="post" style="display:inline;">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                                <form action="@Url.Action("EditPage", "Post", new { id = post.ContentId })" method="post" style="display:inline;">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                </form>
+                            }
+                            <hr />
+                        }
+                    }
+                    else
+                    {
+                        <p>No posts available.</p>
+                        <hr />
+                    }
+                </div>
+
+                <div id="userThreads" class="post-section">
+                    @if (Model.Posts != null && Model.Posts.Any())
+                    {
+                        foreach (var post in Model.Posts.Where(p => p.MimeType == null || ((p.MediaLinks == null || p.MediaLinks.Length == 0) && p.EmbedUrl == null)))
+                        {
+                            <div class="post">
+                                <a href="@Url.Action("Detail", "Post", new { id = post.ContentId })">
+                                    <p>@post.TextContent</p>
+                                </a>
+                                <p>@post.LikeCounter <strong>Like(s)</strong></p>
+                                <p>
+                                    <strong>Tags:</strong>
+                                    @if (post.Tags != null && post.Tags.Any())
+                                    {
+                                        foreach (var tag in post.Tags)
+                                        {
+                                            <span>@tag</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>No tags</span>
+                                    }
+                                </p>
+                            </div>
+                            @if (isAdmin || @ViewBag.IsCurrentUser)
+                            {
+                                <form action="@Url.Action("Delete", "Post", new { id = post.ContentId })" method="post" style="display:inline;">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                                <form action="@Url.Action("EditPage", "Post", new { id = post.ContentId })" method="post" style="display:inline;">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                </form>
+                            }
+                            <hr />
+                        }
+                    }
+                    else
+                    {
+                        <p>No threads available.</p>
+                    }
+                </div>
+
+                @if (isAdmin || ViewBag.IsCurrentUser)
+                {
+                    <div id="savedPosts" class="post-section" style="display: none;">
+                        <h2>Saved Posts</h2>
+                        @if (Model.SavedPosts != null && Model.SavedPosts.Any())
+                        {
+                            @foreach (var savedPost in Model.SavedPosts.Where(sp => sp.Post.MimeType != null && sp.Post.MediaLinks != null && sp.Post.MediaLinks.Length > 0 || sp.Post.EmbedUrl != null))
+                            {
+                                <div class="post">
+                                    @if (savedPost.Post.MediaLinks != null && savedPost.Post.MediaLinks.Length > 0)
+                                    {
+                                        string deserializedContent = Convert.ToBase64String(savedPost.Post.MediaLinks);
+                                        <a href="@Url.Action("Detail", "Post", new { id = savedPost.Post.ContentId })">
+                                            @if (savedPost.Post.MimeType == "Video")
+                                            {
+                                                <video controls>
+                                                    <source src="data:video/mp4;base64,@deserializedContent" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            }
+                                            else
+                                            {
+                                                <img src="data:image/jpeg;base64,@deserializedContent" alt="Media">
+                                            }
+                                        </a>
+                                    } else {
+                                        <div class="post">
+                                            <a href="@Url.Action("Detail", "Post", new { id = savedPost.Post.ContentId })">
+                                                <p>@savedPost.Post.TextContent</p>
+                                            </a>
+                                            <p>@savedPost.Post.LikeCounter <strong>Like(s)</strong></p>
+                                            <p>
+                                                <strong>Tags:</strong>
+                                                @if (savedPost.Post.Tags != null && savedPost.Post.Tags.Any())
+                                                {
+                                                    foreach (var tag in savedPost.Post.Tags)
+                                                    {
+                                                        <span>@tag</span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span>No tags</span>
+                                                }
+                                            </p>
+                                        </div>
+                                    }
+                                    <br />
+                                    <form action="@Url.Action("RemoveSavedPost", "Post", new { postId = savedPost.PostId, redirectString = "profile" })" method="post" style="display:inline;">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-danger">Remove saved post</button>
+                                    </form>
+                                </div>
+                                <hr />
+                            }
+                        }
+                        else
+                        {
+                            <p>No saved posts available.</p>
+                            <hr />
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <p>This account is private. You cannot view the posts.</p>
+            }
+        </div>
+
+    </div>
+
+    <script>
+        function showPosts() {
+            document.getElementById('savedPosts').style.display = 'none';
+            document.getElementById('userPosts').style.display = 'block';
+            document.getElementById('userThreads').style.display = 'block';
+
+            document.getElementById('btnPosts').classList.add('active');
+            document.getElementById('btnSavedPosts')?.classList.remove('active');
+        }
+
+        function showSavedPosts() {
+            document.getElementById('userPosts').style.display = 'none';
+            document.getElementById('userThreads').style.display = 'none';
+            document.getElementById('savedPosts').style.display = 'block';
+
+            document.getElementById('btnPosts').classList.remove('active');
+            document.getElementById('btnSavedPosts').classList.add('active');
+        }
+
+        showPosts();
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const openFollowers = document.getElementById('open-followers');
+            const openFollowed = document.getElementById('open-followed');
+            const overlay = document.getElementById('overlay');
+            const followersContainer = document.getElementById('followers-container');
+            const followedContainer = document.getElementById('followed-container');
+            const closeModalButtons = document.querySelectorAll('#close-modal');
+
+            // Open followers container
+            openFollowers.addEventListener('click', function () {
+                overlay.style.display = 'block';
+                followersContainer.style.display = 'block';
+            });
+
+            // Open followed container
+            openFollowed.addEventListener('click', function () {
+                overlay.style.display = 'block';
+                followedContainer.style.display = 'block';
+            });
+
+            // Close the modal containers when the close button is clicked
+            closeModalButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    overlay.style.display = 'none';
+                    followersContainer.style.display = 'none';
+                    followedContainer.style.display = 'none';
+                });
+            });
+
+            // Close the modal containers when the overlay is clicked
+            overlay.addEventListener('click', function () {
+                overlay.style.display = 'none';
+                followersContainer.style.display = 'none';
+                followedContainer.style.display = 'none';
+            });
+
+            document.getElementById('deleteAccountButton').addEventListener('click', function () {
+                const userId = encodeURIComponent('@Model.Id');
+
+                if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+                    fetch(`/profile/deleteaccount/${userId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Account deleted successfully.");
+                            window.location.href = '/';
+                        } else {
+                            alert("Failed to delete account. Please try again.");
+                        }
+                    })
+                    .catch(error => console.error('Error deleting account:', error));
+                }
+            });
+        });
+    </script>
+
+</body>

@@ -1,0 +1,170 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="~/css/Home_Index_style.css" rel="stylesheet" asp-append-version="true">
+</head>
+<body>
+    <div id="Content">
+
+        @if (ViewBag.NewNotificationsCount > 0)
+        {
+            <div class="alert alert-dark" style="border: 2px solid white; border-radius: 20px;">
+                You have <strong style="color: black;">@ViewBag.NewNotificationsCount</strong> new notification(s)!
+            </div>
+            <hr style="width:130%;margin-left:-15%;padding:0;" />
+        }
+        <h2 style="display: block;">Stories</h2>
+        <div class="story">
+            @if (ViewBag.Stories != null && ViewBag.Stories.Count > 0)
+            {
+                foreach (var story in ViewBag.Stories)
+                {
+                    <div class="story-item">
+                        <a href="@Url.Action("Index", "Story", new { id = story.ContentId })" class="btn btn-primary" id="storyButton">View @story.Name</a>
+                        <p>@story.User.UserName</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No stories available.</p>
+            }
+        </div>
+
+        <hr style="width:130%;margin-left:-15%;padding:0;" />
+
+        <h1>For you</h1>
+        <div>
+            @if (@ViewBag.IsLoggedIn)
+            {
+                <button class="Content_select" onclick="fetchForYouPosts()">Following</button>
+            }
+            <button class="Content_select">Explore:</button>
+            <select id="timeFrameSelect" onchange="fetchExplorePosts(this.value)">
+                <option value="1day">Last day</option>
+                <option value="1week">Last week</option>
+                <option value="1month">Last month</option>
+                <option value="1year">Last year</option>
+            </select>
+        </div>
+        <hr style="width:130%;margin-left:-15%;padding:0;" />
+
+        <div id="scrollableContainer" style="display: none;">
+            <div id="userPosts" class="post-section">
+                <div id="postsWithMedia"></div>
+            </div>
+
+            <div id="userThreads" class="post-section">
+                <div id="postsWithoutMedia"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchForYouPosts() {
+            fetch('/api/Discovery/ForYou')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(posts => {
+                displayPosts(posts);
+            })
+            .catch(error => {
+                console.error('Error fetching posts:', error);
+            });
+        }
+
+        function fetchExplorePosts(timeFrame) {
+            const url = `/api/Discovery/Explore?timeFrame=${timeFrame}`;
+
+            fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(posts => {
+                displayPosts(posts);
+            })
+            .catch(error => {
+                console.error('Error fetching explore posts:', error);
+            });
+        }
+
+        function displayPosts(posts) {
+            const postsWithMediaContainer = document.getElementById("postsWithMedia");
+            const postsWithoutMediaContainer = document.getElementById("postsWithoutMedia");
+            postsWithMediaContainer.innerHTML = "";
+            postsWithoutMediaContainer.innerHTML = "";
+
+            document.getElementById("scrollableContainer").style.display = "none";
+
+            let cnt = 0;
+
+            posts.forEach(post => {
+                const contentId = post.contentId;
+                const postElement = document.createElement("div");
+                ++cnt;
+
+                postElement.onclick = function () {
+                    window.location.href = `/post/detail/${contentId}`;
+                };
+
+                const insertData = `
+                    <p>${post.textContent}</p>
+                    <p>${post.likeCounter} <strong>Like(s)</strong></p>
+                    <p>
+                        <strong>Tags:</strong>
+                        ${post.tags ? post.tags.$values.map(tag => `<span>${tag}</span>`).join(", ") : ""}
+                    </p>
+                    <hr style='width: 130%; margin-left: -15%; padding: 0;' />
+                `;
+
+                if (post.mediaLink || post.embedUrl) {
+                    let mediaContent = '';
+                    
+                    if (post.mediaLink) {
+                        if (post.mimeType === "Image") {
+                            mediaContent = `<img src="data:image/jpeg;base64,${post.mediaLink}" alt="Media" class="img-fluid">`;
+                        } else if (post.mimeType === "Video") {
+                            mediaContent = `
+                                <video controls  class="img-fluid">
+                                    <source src="data:video/mp4;base64,${post.mediaLink}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>`;
+                        } else if (post.mimeType === "Gif") {
+                            mediaContent = `<img src="data:image/gif;base64,${post.mediaLink}" alt="Media" class="img-fluid">`;
+                        } else if(post.mimeType != null) {
+                            mediaContent = `<img src="data:image/jpeg;base64,${post.mediaLink}" alt="Media" class="img-fluid">`;
+                        } else {
+                            postElement.innerHTML += mediaContent;
+                            postElement.innerHTML += insertData
+                            postsWithoutMediaContainer.appendChild(postElement);
+                            return;
+                        }
+                    } else if (post.embedUrl) {
+                        mediaContent = `<iframe width="500" height="315" src="${post.embedUrl}" frameborder="0" allowfullscreen></iframe>`;
+                    }
+                    postElement.innerHTML += mediaContent;
+                    postElement.innerHTML += insertData
+                    postsWithMediaContainer.appendChild(postElement);
+                } else {
+                    postElement.innerHTML += insertData
+                    postsWithoutMediaContainer.appendChild(postElement);
+                }
+            });
+            if(cnt > 0) {
+                document.getElementById("scrollableContainer").style.display = "block";
+            }
+        }
+    </script>
+</body>

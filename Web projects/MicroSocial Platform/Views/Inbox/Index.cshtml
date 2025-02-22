@@ -1,0 +1,70 @@
+﻿@model MicroSocial_Platform.Models.User
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile-Edit</title>
+    <link href="~/css/Inbox_style.css" rel="stylesheet" asp-append-version="true">
+</head>
+<body>
+    <div id="Settings">
+        <h3>Your Notifications (@((ViewBag.Notifications as List<Notification>).Count))</h3>
+        <br />
+        @foreach (var i in ViewBag.Notifications)
+        {
+            <small>@i.Timestamp</small>
+            <div style="color:gray;">
+                <!-- <p>From i.SenderId</p> -->
+                <p>@i.Context</p>
+                @if (@i.Type == "FollowRequest")
+                {
+                    <form method="post" action="@Url.Action("AcceptFollowRequest", "Follow")" style="display:inline;">
+                        <input type="hidden" name="userId" value="@i.SenderId" />
+                        <button type="submit" class="btn">Accept</button>
+                    </form>
+                    <form method="post" action="@Url.Action("RejectFollowRequest", "Follow")" style="display:inline;">
+                        <input type="hidden" name="userId" value="@i.SenderId" />
+                        <button type="submit" class="btn">Reject</button>
+                    </form>
+                } else if (@i.Type == "GroupRequest")
+                {
+                    <button onclick="manageGroupRequest('@i.Id', 'Accept')" class="btn">Accept</button>
+                    <button onclick="manageGroupRequest('@i.Id', 'Reject')" class="btn">Reject</button>
+                } else
+                {
+                    <form method="post" action="@Url.Action("DeleteNotification", "Inbox")" style="display:inline;">
+                        <input type="hidden" name="notificationId" value="@i.Id" />
+                        <button type="submit" class="btn">Delete</button>
+                    </form>
+                }
+            </div>
+            <hr />
+        }
+    </div>
+    <script>
+        function manageGroupRequest(notificationId, action) {
+            fetch(`/GroupChat/ManageJoinRequest/${notificationId}/${action}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.success) {
+                    alert(`${action}ed join request successfully!`);
+                    window.location.reload(true);
+                } else {
+                    alert(`Failed to ${action} join request.`);
+                }
+            })
+            .catch(error => {
+                console.error('Error managing join request:', error);
+                alert('Error managing join request.');
+            });
+        }
+    </script>
+</body>

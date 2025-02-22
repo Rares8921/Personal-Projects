@@ -1,0 +1,142 @@
+﻿@model MicroSocial_Platform.Models.Post
+
+@{
+    ViewData["Title"] = "Edit Post";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <link href="~/css/Detail_style.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/css/CreatePost_style.css" rel="stylesheet" asp-append-version="true">
+</head>
+<body>
+    <div id="PostDetails">
+        <h1>Edit Post</h1>
+
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="ContentId" name="id" />
+            <input type="hidden" id="embedUrl" name="embedUrl" />
+
+            <!-- Text Content -->
+            <div>
+                <label for="newTextContent">Text Content:</label>
+                <textarea id="newTextContent" name="newTextContent">@Model.TextContent</textarea>
+            </div>
+
+            <!-- Media Content Actual -->
+            <div>
+                <label>Current Media:</label>
+                <div id="currentMediaContainer">
+                    @if (Model.EmbedUrl != null || (Model.MediaLinks != null && Model.MediaLinks.Length > 0))
+                    {
+                        string deserializedContent = "";
+                        if (Model.MediaLinks != null && Model.MediaLinks.Length > 0)
+                        {
+                            deserializedContent = Convert.ToBase64String(Model.MediaLinks);
+                        }
+                        if (Model.MimeType == "Video")
+                        {
+                            <video controls>
+                                <source src="data:video/mp4;base64,@deserializedContent" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        }
+                        else if(Model.MimeType == "Image")
+                        {
+                            <img src="data:image/jpeg;base64,@deserializedContent" alt="Media">
+                        }
+                        else if (Model.MimeType == "Embed")
+                        {
+                            <iframe width="560" height="315"
+                                    src="@Model.EmbedUrl"
+                                    frameborder="0" allowfullscreen></iframe>
+                        }
+                        else
+                        {
+                            <img src="data:image/jpeg;base64,@deserializedContent" alt="Media">
+                        }
+                    }
+                    else
+                    {
+                        <p>No media attached to this post.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Upload Media -->
+            <div>
+                <label for="newMediaContent">Upload New Media:</label>
+                <input type="file" id="newMediaContent" name="newMediaContent" accept="image/*,video/*" onchange="clearEmbedUrl()" />
+            </div>
+
+            <!-- Embed URL (Optional) -->
+            <div>
+                <label for="newEmbedUrl">Embed URL (Optional):</label>
+                <input type="url" id="newEmbedUrl" name="newEmbedUrl" placeholder="Enter a YouTube link..." onchange="clearMediaContent()" />
+            </div>
+
+            <div id="embedPreviewContainer" style="display: none; margin-top: 10px;">
+                <iframe id="embedPreview" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <div>
+                <label for="newTags">Tags (comma-separated):</label>
+                <input type="text" id="newTags" name="newTags" value="@string.Join(",", Model.Tags)" />
+            </div>
+
+            <!-- Submit -->
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <!-- Erori de validare -->
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        }
+    </div>
+
+    <script>
+        // Clear Embed URL when new media is uploaded
+        function clearEmbedUrl() {
+            document.getElementById('newEmbedUrl').value = '';  // Clear Embed URL field
+            document.getElementById('embedPreviewContainer').style.display = 'none'; // Hide preview
+            document.getElementById('embedUrl').value = ''; // Clear embedUrl hidden field
+        }
+
+        // Clear Media when Embed URL is entered
+        function clearMediaContent() {
+            document.getElementById('newMediaContent').value = '';  // Clear Media field
+            document.getElementById('currentMediaContainer').innerHTML = ''; // Remove media preview
+            document.getElementById('embedUrl').value = document.getElementById('newEmbedUrl').value; // Set the Embed URL value in the hidden field
+        }
+
+        // Preview Embed URL content
+        document.getElementById("newEmbedUrl").addEventListener("input", function (event) {
+            const url = event.target.value.trim();
+            const embedPreviewContainer = document.getElementById('embedPreviewContainer');
+            const embedPreview = document.getElementById('embedPreview');
+
+            embedPreviewContainer.style.display = 'none'; // Reset previous preview
+
+            if (url) {
+                const youtubeMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/);
+
+                if (youtubeMatch) {
+                    const videoId = youtubeMatch[1];
+                    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+                    embedPreview.src = embedUrl;
+                    embedPreviewContainer.style.display = 'block';
+                } else {
+                    alert("Unsupported embed URL. Currently, only YouTube links are supported.");
+                }
+            }
+        });
+    </script>
+</body>

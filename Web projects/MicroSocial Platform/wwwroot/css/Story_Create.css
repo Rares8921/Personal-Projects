@@ -1,0 +1,113 @@
+:root {
+    --White: #f9f9f9;
+    --Gray: #2f2f2f;
+    --Blue: #007bff;
+    --DarkBlue: #0056b3;
+}
+
+* {
+    box-sizing: border-box;
+    color: var(--White);
+}
+
+.container12 a {
+    text-decoration: none;
+}
+
+body {
+    overflow-x: hidden;
+    margin-bottom: 20%;
+}
+
+
+/* Container for form */
+.container12 {
+    padding: 30px;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    margin-left: 20%;
+    max-width: 1000px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Heading style */
+.container12 h1 {
+    font-size: 24px;
+    margin-bottom: 120px;
+    color: var(--White);
+    display: inline;
+}
+
+/* Input fields styling */
+.container12 input[type="text"], .container12 input[type="url"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 2px solid var(--Gray);
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+/* Focus effect on input fields */
+input[type="text"]:focus, input[type="url"]:focus {
+    border-color: var(--Blue);
+    outline: none;
+}
+
+/* Button styling */
+.container12 button[type=submit] {
+    padding: 12px 20px;
+    background-color: #2a2a2a;
+    color: var(--White);
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease-in;
+}
+
+.container12 button[type=submit]:focus, .container button[type=submit]:hover {
+    background-color: #333;
+    transition: background-color 0.3s ease-in;
+}
+
+input[type=file]::file-selector-button {
+    background-color: #2a2a2a;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in;
+}
+
+input[type=file]::file-selector-button:hover {
+    background-color: #333;
+    transition: background-color 0.3s ease-in;
+}
+
+input[type=text], #storyForm label, #storyForm input, #mediaPreviewContainer {
+    display: inline-block;
+    margin-bottom: 2%;
+}
+
+input[type=text] {
+    margin-top: 2%;
+}
+
+#storyForm {
+    margin-top: 10%;
+}
+
+@media (max-width: 600px) {
+    .container {
+    width: 90%;
+}
+}
+
+#deleteMediaButton {
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 1%;
+}

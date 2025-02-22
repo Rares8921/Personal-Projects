@@ -1,0 +1,165 @@
+﻿@model MicroSocial_Platform.Models.User
+
+@{
+    ViewData["Title"] = "Create Post";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MicroSocial_Platform.styles.css" asp-append-version="true" />
+    <link href="~/css/CreatePost_style.css" rel="stylesheet" asp-append-version="true">
+</head>
+<body>
+    <div id="CreatePost">
+        <div id="CreatePostSection">
+            <h2>Create a New Post</h2>
+            <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Post" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label for="PostContent">Post Content (Text):</label>
+                    <textarea id="PostContent" name="content" rows="6" placeholder="Write something..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="PostImage">Upload Image or Video (Optional):</label>
+                    <input type="file" id="PostImage" name="mediaContent" accept="image/*,video/*" onchange="previewPostImage(event)">
+                </div>
+                <img id="postImagePreview" src="" alt="Post Image Preview" style="display:none; width: 100%; max-width: 300px; margin-top: 10px;">
+                <video id="postVideoPreview" controls style="display:none; width: 100%; max-width: 300px; margin-top: 10px;"></video>
+
+                <button type="button" id="deleteMediaButton" class="btn btn-danger" style="display:none;" onclick="deleteMedia()">Delete Media</button>
+
+                <div class="form-group">
+                    <label for="EmbedUrl">Embed URL (Optional):</label>
+                    <input type="url" id="EmbedUrl" name="embedUrl" placeholder="Enter an URL..." onchange="previewEmbedContent(event)">
+                </div>
+                <div id="embedContainer" style="display:none; margin-top: 10px;">
+                    <div id="embedPreview"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Tags">Tags (comma separated):</label>
+                    <input type="text" id="Tags" name="tags" placeholder="e.g. tag1, tag2, tag3" pattern="^[a-zA-Z0-9]+(, [a-zA-Z0-9]+)*$" title="Tagurile trebuie să fie separate prin virgulă și să conțină doar caractere alfanumerice." />
+                    <small class="text-danger" id="tag-error" style="display:none;">Incorrect format for tags!</small>
+                </div>
+
+                <input type="hidden" id="inputMimeType" name="mimeType" value="Image" />
+
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function previewPostImage(event) {
+            toggleEmbedInput();
+
+            const input = event.target;
+            const imagePreview = document.getElementById('postImagePreview');
+            const videoPreview = document.getElementById('postVideoPreview');
+            const deleteButton = document.getElementById('deleteMediaButton');
+
+            imagePreview.style.display = 'none';
+            videoPreview.style.display = 'none';
+            deleteButton.style.display = 'none';
+
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    if (file.type.startsWith('image/')) {
+                        document.getElementById("inputMimeType").value = "Image";
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    } else if (file.type.startsWith('video/')) {
+                        document.getElementById("inputMimeType").value = "Video";
+                        videoPreview.src = e.target.result;
+                        videoPreview.style.display = 'block';
+                    }
+                    deleteButton.style.display = 'block'; // Afisez butonul
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function previewEmbedContent(event) {
+            toggleFileInput();
+
+            const url = event.target.value.trim();
+            const embedPreview = document.getElementById('embedPreview');
+            const embedContainer = document.getElementById('embedContainer');
+            const deleteButton = document.getElementById('deleteMediaButton');
+
+            embedContainer.style.display = 'none';
+            embedPreview.innerHTML = "";
+            deleteButton.style.display = 'none'; // Ascund butonul
+
+            if (url) {
+                document.getElementById("inputMimeType").value = "Embed"; 
+                const youtubeMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/);
+
+                if (youtubeMatch) {
+                    const videoId = youtubeMatch[1];
+                    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+                    embedPreview.innerHTML = `<iframe width="560" height="315" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>`;
+                    embedContainer.style.display = 'block';
+                } else {
+                    alert("Unsupported embed URL. Currently, only YouTube links are supported.");
+                }
+            }
+        }
+
+        function toggleFileInput() {
+            const embedInput = document.getElementById('EmbedUrl');
+            const fileInput = document.getElementById('PostImage');
+            if (embedInput.value.trim() !== '') {
+                fileInput.disabled = true;
+            } else {
+                fileInput.disabled = false;
+            }
+        }
+
+        function toggleEmbedInput() {
+            const fileInput = document.getElementById('PostImage');
+            const embedInput = document.getElementById('EmbedUrl');
+            if (fileInput.files.length > 0) {
+                embedInput.disabled = true;
+            } else {
+                embedInput.disabled = false;
+            }
+        }
+
+        function deleteMedia() {
+            const fileInput = document.getElementById('PostImage');
+            const imagePreview = document.getElementById('postImagePreview');
+            const videoPreview = document.getElementById('postVideoPreview');
+            const deleteButton = document.getElementById('deleteMediaButton');
+            const embedInput = document.getElementById('EmbedUrl');
+
+            fileInput.value = "";  // Reset file input
+            imagePreview.style.display = 'none';
+            videoPreview.style.display = 'none';
+            deleteButton.style.display = 'none';  // Ascund butonul
+
+            embedInput.disabled = false;  // Reactivez sectiunea de embed
+        }
+
+        function validateForm() {
+            const content = document.getElementById('PostContent').value.trim();
+            const mediaContent = document.getElementById('PostImage').files.length > 0;
+            const embedUrl = document.getElementById('EmbedUrl').value.trim();
+
+            if (content === '' && !mediaContent && !embedUrl) {
+                alert("You must provide at least one type of content: text, image/video, or embed URL.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>

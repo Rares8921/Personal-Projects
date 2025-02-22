@@ -1,0 +1,119 @@
+﻿@page
+@model MicroSocial_Platform.Areas.Identity.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MicroSocial_Platform</title>
+    <link rel="stylesheet" href="~/css/LogIn_Style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="row w-100">
+            <div class="col-md-6 col-lg-4 mx-auto">
+                <!-- Aici trebuie sa includ enctype="multipart/form-data" pentru a transmite fisiere -->
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
+                    <h2>Create a new account.</h2>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" id="email" autocomplete="email" aria-required="true" placeholder="name@example.com" />
+                        <label asp-for="Input.Email">Email</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.UserName" class="form-control" id="username" autocomplete="username" aria-required="true" placeholder="name1" />
+                        <label asp-for="Input.UserName">Username</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Biography" class="form-control" autocomplete="biography" aria-required="true" placeholder="Hello! I am X." />
+                        <label asp-for="Input.Biography">Biography</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" class="form-control password-input" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <button type="button" class="toggle-password" onclick="togglePasswordVisibility(this)">Show</button>
+                        <label asp-for="Input.Password">Password</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Input.DateOfBirth" type="date" id="dateOfBirth" />
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Input.ProfilePicture" type="file" class="form-control" />
+                    </div>
+
+                    <label class="toggle-switch">
+                        <input type="checkbox" asp-for="Input.PrivateAccount" id="suggestionsToggle" />
+                        <span class="slider"></span>
+                        <span class="label-text">Private Account</span>
+                    </label>
+
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+        <div class="validation-container col-md-4" id="validationContainer">
+            <div id="validationMessages" class="text-danger">
+                <p id="passInfo" style="display: none;" class="text-danger">
+                    The password must be at least 8 characters long, with a capital letter, a digit and a symbol
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        // Min 8 caractere, cel putin o litera mare, un simbol si o cifra
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[$!%*?&])[A-Za-z\d$!%*?&]{8,}$/;
+
+        function validatePassword() {
+            const passwordInput = document.querySelector('input[name="Input.Password"]');
+            const passwordError = document.querySelector('span[data-valmsg-for="Input.Password"]');
+            const passwordInfo = document.getElementById("passInfo");
+            if (!passwordRegex.test(passwordInput.value)) {
+                passwordInfo.style.display = "block";
+            } else {
+                passwordInfo.style.display = "none";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const emailInput = document.querySelector('input[name="Input.Email"]');
+            const passwordInput = document.querySelector('input[name="Input.Password"]');
+
+            passwordInput.addEventListener('blur', validatePassword);
+            passwordInput.addEventListener('input', validatePassword);
+
+            const userName = '@TempData["UserName"]';
+            const email = '@TempData["Email"]';
+            const dateOfBirth = '@TempData["DateOfBirth"]';
+            const profilePicture = '@TempData["ProfilePicture"]';
+
+            if (userName) {
+                document.getElementById('username').value = userName;
+            }
+            if (email) {
+                document.getElementById('email').value = email;
+            }
+            if (dateOfBirth) {
+                document.getElementById('dateOfBirth').value = dateOfBirth;
+            }
+            if (profilePicture) {
+                document.getElementById('profilePictureImage').src = profilePicture;
+            }
+        });
+    </script>
+</body>

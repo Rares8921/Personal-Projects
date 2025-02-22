@@ -1,0 +1,249 @@
+:root{                          /* color shortcuts */
+    --White: #f9f9f9;
+    --Gray: #888787;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a, p, div {
+    color: var(--White);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    cursor: pointer;
+}
+body {
+    height: 100vh;
+    background-color: #060610;
+}
+
+#Options{
+    border-right: 2px solid var(--White);
+    width: 250px;
+    position: fixed;
+    height: 100%;
+    overflow-y: scroll;
+}
+#Options > header{
+    color: var(--White);
+    font-size: xx-large;
+    height: 20%;
+    padding: 20px;
+}
+#Options > p{
+    padding: 20px 0 50px 15px;
+}
+#list > div > img{
+    padding: 6px;
+    height: 35px;
+    width: 35px;
+}
+#list > div{
+    border-radius: 20px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin: 0 5px 20px 25px;
+    gap: 25px;
+}
+#list > div:hover{
+    background-color: rgb(33, 33, 33);
+    transition: 0.3s;
+}
+
+#list > div > a > p {
+    margin: 0;
+}
+
+#Account p {
+    margin: 0;
+}
+
+#Content {
+    position: fixed;
+    height: 100%;
+    left: 250px;
+    width: calc(100% - 550px);
+    padding: 30px 100px;
+    align-items: center;
+    border: none;
+    overflow-y: auto;
+}
+
+#Content > header{
+    display: flex;
+    font-size: medium;
+}
+#Content > hr{
+    margin: 30px 0 60px 0;
+}
+.Content_select{
+    font-size: medium;
+    padding: 0 15px;
+    background-color: transparent;
+    transition: text-decoration 0.3s ease-in;
+    text-decoration: none;
+    border: transparent;
+}
+
+#Selective_content{
+    border: 1px solid var(--White);
+    width: 100%;
+    min-height: 20px; 
+    display: inline-block;
+}
+
+.Content_select:hover {
+    background-color: transparent;
+    transition: text-decoration 0.3s ease-in;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#Relatives{
+    position: fixed;
+    height: 100%;
+    right: 0;
+    width: 300px;
+    padding: 30px 0;
+    border-left: 2px solid #ffffff;
+}
+#Relatives > p{
+    padding: 15px;
+    color: var(--Gray);
+}
+#Account{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 5px 20px 20px 20px;
+    border-radius: 10px;
+}
+#Account > img, #People-recommendation > div > img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+#Account > a img, #People-recommendation > div > a img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+#No_Account{
+    background-color: transparent;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+#People-recommendation{
+    width: 100%;
+    gap: 20px;
+}
+
+#People-recommendation > div{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 5% 10%;
+}
+#People-recommendation > div > button{
+    font-size: medium;
+    padding: 0 15px;
+    background-color: transparent;
+    border: transparent;
+    cursor: pointer;
+    color: rgba(28, 190, 255, 0.7);
+}
+
+#timeFrameSelect {
+    background-color: #121212;
+    color: var(--White);
+    border: 1px solid var(--White);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: medium;
+    cursor: pointer;
+}
+
+#timeFrameSelect:hover {
+    background-color: #121212;
+    transition: background-color 0.3s;
+}
+
+.postElement {
+    border: 2px solid white;
+}
+
+.img-fluid {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+/* Individual story styles */
+.story {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* General story circle styling */
+.story > div > a, .story > a {
+    border-radius: 50%;
+    border: 2px solid var(--White);
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+}
+
+/* Hover effect for story circles */
+.story > div > a:hover, .story > a:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Story text styles */
+.story > div > p, .story > p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--White);
+    font-weight: 500;
+}
+
+.story > div > p, .story > p {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.story-item {
+    margin-right: 20px;
+}
+
+#storyButton {
+    background-color: #222;
+}

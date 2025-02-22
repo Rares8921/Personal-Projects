@@ -1,0 +1,131 @@
+﻿body.bg-light {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 15px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.col-md-4, .col-md-6 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+button.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.form-floating {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-floating label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-control {
+    height: 50px;
+    border-radius: 5px;
+}
+
+a {
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.text-danger {
+    font-size: 0.875rem;
+}
+
+.form-control {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+}
+
+.form-control:focus {
+    background-color: #444444;
+    color: #ffffff;
+    border-color: #00bfff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 191, 255, 0.25);
+}
+
+input[type="text"].form-control,
+input[type="email"].form-control,
+input[type="password"].form-control {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+}
+
+input[type="text"].form-control:focus,
+input[type="email"].form-control:focus,
+input[type="password"].form-control:focus {
+    background-color: #444444;
+    color: #ffffff;
+    border-color: #00bfff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 191, 255, 0.25);
+}
+
+textarea.form-control {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+}
+
+textarea.form-control:focus {
+    background-color: #444444;
+    color: #ffffff;
+    border-color: #00bfff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 191, 255, 0.25);
+}
+
+input[type="checkbox"].form-check-input {
+    background-color: #333333;
+    border-color: #555555;
+}
+
+input[type="checkbox"].form-check-input:checked {
+    background-color: #00bfff;
+    border-color: #00bfff;
+}

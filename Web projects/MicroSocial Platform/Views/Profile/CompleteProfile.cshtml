@@ -1,0 +1,28 @@
+﻿@model UserProfileFormViewModel
+
+<form asp-action="CompleteProfile" method="post" enctype="multipart/form-data">
+    <div>
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" />
+        <span asp-validation-for="UserName"></span>
+    </div>
+    <div>
+        <label asp-for="Bio"></label>
+        <textarea asp-for="Bio"></textarea>
+        <span asp-validation-for="Bio"></span>
+    </div>
+    <div>
+        <label asp-for="PrivateAccount"></label>
+        <input asp-for="PrivateAccount" type="checkbox" />
+    </div>
+    <div>
+        <label asp-for="DateOfBirth"></label>
+        <input asp-for="DateOfBirth" type="date" />
+        <span asp-validation-for="DateOfBirth"></span>
+    </div>
+    <div>
+        <label asp-for="ProfilePicture"></label>
+        <input asp-for="ProfilePicture" type="file" />
+    </div>
+    <button type="submit">Complete Profile</button>
+</form>

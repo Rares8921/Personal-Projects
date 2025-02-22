@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "MicroSocial_Platform.Controllers.DiscoveryController",
+    "Method": "Explore",
+    "RelativePath": "api/Discovery/Explore",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "timeFrame",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MicroSocial_Platform.Controllers.DiscoveryController",
+    "Method": "ForYou",
+    "RelativePath": "api/Discovery/ForYou",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

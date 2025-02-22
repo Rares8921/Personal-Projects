@@ -1,0 +1,389 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\MicroSocial Platform.bundle.scp.css",
+      "PackagePath": "staticwebassets\\MicroSocial Platform.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Create_black.png",
+      "PackagePath": "staticwebassets\\Photos\\Create_black.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Create_white.png",
+      "PackagePath": "staticwebassets\\Photos\\Create_white.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Home_black.png",
+      "PackagePath": "staticwebassets\\Photos\\Home_black.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Home_white.png",
+      "PackagePath": "staticwebassets\\Photos\\Home_white.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Inbox_black.png",
+      "PackagePath": "staticwebassets\\Photos\\Inbox_black.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Inbox_white.png",
+      "PackagePath": "staticwebassets\\Photos\\Inbox_white.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Magnifing_black.png",
+      "PackagePath": "staticwebassets\\Photos\\Magnifing_black.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Magnifing_white.png",
+      "PackagePath": "staticwebassets\\Photos\\Magnifing_white.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Messages_black.png",
+      "PackagePath": "staticwebassets\\Photos\\Messages_black.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Messages_white.png",
+      "PackagePath": "staticwebassets\\Photos\\Messages_white.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Settings_black.png",
+      "PackagePath": "staticwebassets\\Photos\\Settings_black.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\Settings_white.png",
+      "PackagePath": "staticwebassets\\Photos\\Settings_white.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\google.png",
+      "PackagePath": "staticwebassets\\Photos\\google.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\hero-bg.jpg",
+      "PackagePath": "staticwebassets\\Photos\\hero-bg.jpg"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\microphone_black.png",
+      "PackagePath": "staticwebassets\\Photos\\microphone_black.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\microphone_white.png",
+      "PackagePath": "staticwebassets\\Photos\\microphone_white.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\pfp.png",
+      "PackagePath": "staticwebassets\\Photos\\pfp.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\Photos\\report_white.png",
+      "PackagePath": "staticwebassets\\Photos\\report_white.png"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\Conference.css",
+      "PackagePath": "staticwebassets\\css\\Conference.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\CreatePost_style.css",
+      "PackagePath": "staticwebassets\\css\\CreatePost_style.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\Detail_style.css",
+      "PackagePath": "staticwebassets\\css\\Detail_style.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\Home_Index_style.css",
+      "PackagePath": "staticwebassets\\css\\Home_Index_style.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\Inbox_style.css",
+      "PackagePath": "staticwebassets\\css\\Inbox_style.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\LogIn_Style.css",
+      "PackagePath": "staticwebassets\\css\\LogIn_Style.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\Messages.css",
+      "PackagePath": "staticwebassets\\css\\Messages.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\Profile_Edit_style.css",
+      "PackagePath": "staticwebassets\\css\\Profile_Edit_style.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\Profile_Index_style.css",
+      "PackagePath": "staticwebassets\\css\\Profile_Index_style.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\Register_style.css",
+      "PackagePath": "staticwebassets\\css\\Register_style.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\Settings_Edit_style.css",
+      "PackagePath": "staticwebassets\\css\\Settings_Edit_style.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\Story.css",
+      "PackagePath": "staticwebassets\\css\\Story.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\Story_Create.css",
+      "PackagePath": "staticwebassets\\css\\Story_Create.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\MicroSocial Platform\\MicroSocial Platform\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MicroSocial Platform.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.MicroSocial Platform.props",
+      "PackagePath": "build\\MicroSocial Platform.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.MicroSocial Platform.props",
+      "PackagePath": "buildMultiTargeting\\MicroSocial Platform.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.MicroSocial Platform.props",
+      "PackagePath": "buildTransitive\\MicroSocial Platform.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

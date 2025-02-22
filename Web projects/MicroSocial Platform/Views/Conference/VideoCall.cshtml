@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Conference";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userId = ViewBag.UserId ?? "invalid";
+    var userName = ViewBag.UserName ?? "invalid";
+    var roomId = ViewBag.RoomId ?? "invalid";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conference</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .container {
+            padding-left: 15%;
+            padding-top: 5%;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/@@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+    <script>
+        function createNewMeeting() {
+            const roomID = Math.floor(Math.random() * 100000) + "";
+            window.location.href = window.location.pathname + '?roomID=' + roomID;
+        }
+
+        function joinMeeting() {
+            const roomID = document.getElementById('meetingName').value.trim();
+            if (roomID) {
+                window.location.href = window.location.pathname + '?roomID=' + roomID;
+            } else {
+                alert("Please enter a valid Meeting ID.");
+            }
+        }
+
+        window.onload = function () {
+
+            const rootDiv = document.getElementById("root");
+
+            if (rootDiv) {
+                const observer = new MutationObserver(mutations => {
+                    mutations.forEach(mutation => {
+                        mutation.addedNodes.forEach(node => {
+                            if (node.nodeType === Node.ELEMENT_NODE) {
+                                const button = node.querySelector("button");
+                                if (button != null && button.textContent.trim() == "You have left the room.") {
+                                    console.log("TEST");
+                                    const parentDiv = button.closest("div");
+                                    if (parentDiv) {
+                                        parentDiv.style.padding = "50px";
+                                        console.log("Padding applied to:", parentDiv);
+                                    }
+                                }
+                            }
+                        });
+                    });
+                });
+
+                observer.observe(rootDiv, { childList: true, subtree: true });
+            }
+
+            function getUrlParams(url) {
+                let urlStr = url.split('?')[1];
+                if (!urlStr) {
+                    alert("No room ID provided. Redirecting to the main page.");
+                    window.location.href = "/conference";
+                    return;
+                }
+                const urlSearchParams = new URLSearchParams(urlStr);
+                const result = Object.fromEntries(urlSearchParams.entries());
+                return result;
+            }
+
+            const roomID = getUrlParams(window.location.href)['roomID'] || (Math.floor(Math.random() * 100000) + "");
+            const userID = '@userId';
+            const userName = '@userName';
+            if (userID == "invalid" || userName == "invalid") {
+                throw DOMException();
+            }
+            const appID = 0;
+            const serverSecret = "";
+            const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
+
+            const zp = ZegoUIKitPrebuilt.create(kitToken);
+            zp.joinRoom({
+                container: document.querySelector("#root"),
+                sharedLinks: [{
+                    name: 'Personal link',
+                    url: window.location.protocol + '//' + window.location.host + window.location.pathname + '?roomID=' + roomID,
+                }],
+                scenario: {
+                    mode: ZegoUIKitPrebuilt.VideoConference,
+                },
+                turnOnMicrophoneWhenJoining: false,
+                turnOnCameraWhenJoining: false,
+                showMyCameraToggleButton: true,
+                showMyMicrophoneToggleButton: true,
+                showAudioVideoSettingsButton: true,
+                showScreenSharingButton: true,
+                showTextChat: true,
+                showUserList: true,
+                maxUsers: 2,
+                layout: "Auto",
+                showLayoutButton: false,
+            });
+        }
+    </script>
+</body>
+</html>

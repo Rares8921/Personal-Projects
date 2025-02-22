@@ -1,0 +1,343 @@
+:root{                          /* color shortcuts */
+    --White: #f9f9f9;
+    --Gray: #2f2f2f;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: var(--White);
+}
+
+a{
+    text-decoration: none;
+}
+body{
+    height: 100vh;
+    background-color: #060610;
+}
+
+#Options{
+    border-right: 2px solid var(--White);
+    width: 250px;
+    position: fixed;
+    height: 100%;
+}
+#Options > header{
+    color: var(--White);
+    font-size: xx-large;
+    height: 20%;
+    padding: 20px;
+}
+#Options > p{
+    padding: 20px 0 50px 15px;
+}
+#list > div > img{
+    padding: 6px;
+    height: 35px;
+    width: 35px;
+}
+#list > div{
+    border-radius: 20px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin: 0 5px 20px 25px;
+    gap: 25px;
+}
+
+#list > div > a > p {
+    margin: 0;
+}
+
+#Profile{
+    position: relative;
+    height: 100%;
+    left: 250px;
+    width: calc(100% - 250px);
+}
+#Profile > header{
+    display: flex;
+    min-height: 250px;
+    padding: 20px 0;
+}
+#Profile > header > div{
+    align-items: center;
+    width: 50%;
+}
+#Profile > header > img{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin-left: 13%;
+    margin-right: 12%;
+    margin-top: 50px;
+}
+
+#list > div:hover{
+    background-color: rgb(33, 33, 33);
+    transition: 0.3s;
+}
+
+#Name\&EditProfile{
+    margin: 30px 0;
+    gap: 30px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+#Name\&EditProfile > p{
+    font-size: xx-large;
+    flex-grow: 1;
+}
+#Name\&EditProfile > button{
+    padding: 10px 20px;
+    background-color: var(--Gray);
+    border-radius: 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+#Name\&EditProfile > button:hover{
+    background-color: #1c1c1c;
+    transition: 0.3s;
+}
+
+
+
+#Select_posts > p{
+    flex: 1;
+    font-size: x-large;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+#Content{
+    margin-right: 120px;
+    margin-left: 120px;
+    border: 1px solid var(--White);
+    height: 100%;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 999;
+}
+
+#followers-container, #followed-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: dimgray;
+    border: 2px solid #4a90e2;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+#modal-title {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+#modal-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #444; /* White background for each item */
+    border-radius: 8px;
+    border: 1px solid #555; /* Light border around items */
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+#modal-list li img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#modal-list li p {
+    margin: 0; /* Remove margin around the username */
+    flex-grow: 1; /* Allow the username to take up the available space */
+}
+
+#modal-list li button {
+    background-color: transparent;
+    border: none;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #ff0000; /* Red color on hover */
+}
+
+
+/* Container styles */
+#stories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Flexible grid layout */
+    gap: 20px;
+    margin: 20px auto;
+    padding: 10px;
+    max-width: 1200px;
+    justify-content: center;
+    align-items: center; /* Align items to the center */
+}
+
+/* Individual story styles */
+.story {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* General story circle styling */
+.story > a {
+    border-radius: 50%;
+    border: 2px solid var(--White);
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+}
+
+/* Hover effect for story circles */
+.story > a:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for Create Story circle */
+.create-story > a {
+    color: var(--White); /* White '+' symbol */
+    font-size: 32px; /* Size of the plus sign */
+    border-radius: 50%;
+    border: 2px solid skyblue; /* Same border styling */
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+}
+
+/* Hover effect for Create Story circle */
+.create-story > a:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Story text styles */
+.story > p, .create-story > p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--White);
+    font-weight: 500;
+}
+
+.story > p {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+#createStoryDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .story > a, .create-story > a {
+        height: 60px;
+        width: 60px;
+    }
+
+    .story > p, .create-story > p {
+        font-size: 12px;
+    }
+}
+
+input {
+    background-color: #121212;
+    color: white;
+}
+
+img, video {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+textarea, textarea:focus {
+    border-color: #bbb;
+    background-color: #333;
+    border-radius: 20px;
+    padding: 10px;
+    min-width: 400px;
+    min-height: 210px;
+    max-height: 400px;
+}
+
+#open-followers, #open-followed {
+    font-family: Verdana;
+}
+
+.profileActionButtons {
+    display: flex;
+    justify-content: center;   
+}
+
+
+#Profile {
+    overflow-x: hidden;
+}
+
+#Profile hr {
+    border: 2px solid white;
+}
+
+#Content13 {
+    padding: 5px;
+}
+
+#storyButton {
+    background-color: #222;
+    margin-right: 10px;
+}
