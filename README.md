@@ -47,8 +47,8 @@ In these projects, I applied various advanced programming and software engineeri
 - Web Development: **4**  
 - Assembly Programs: **1**  
 - Artificial Intelligence: **2**
-- Incoming projects: **4** - ***DONE** Promodash (cashback phone app)*, ***DONE** DiskAnalyzer*, *IoT home automation*, *Booking.com clone* 
-- Total: 64
+- Incoming projects: **4** - ***DONE** Promodash (cashback phone app)*, ***DONE** DiskAnalyzer*, *IoT home automation*, *Booking.com*, *Joblyo* 
+- Total: 65
 
 ---
 
