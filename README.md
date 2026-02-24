@@ -47,8 +47,8 @@ In these projects, I applied various advanced programming and software engineeri
 - Web Development: **4**  
 - Assembly Programs: **1**  
 - Artificial Intelligence: **2**
-- Incoming projects: **4** - ***DONE** Promodash (cashback phone app)*, ***DONE** DiskAnalyzer*, *IoT home automation*, *Booking.com*, *Joblyo*, *E-Comm platform*, *Deepfake classification*, *Ml-lib*, *Hackaton tasks*, *Networking project* 
-- Total: 70
+- Incoming projects: **11** - *Promodash*, *Joblyo*, *Disk Analyzer*, *Github Clone*, *Adaptive traffic signal control*, *Horizon Line*, *Aircraft cls*, *Enterprise RAG*, *Multimodal LLM*, *Iot Home Automation*, *E comm template*
+- Total: 71
 
 ---
 
