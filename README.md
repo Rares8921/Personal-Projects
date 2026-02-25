@@ -47,7 +47,7 @@ In these projects, I applied various advanced programming and software engineeri
 - Web Development: **4**  
 - Assembly Programs: **1**  
 - Artificial Intelligence: **2**
-- Incoming projects: **12** - *Eye Tracking data analysis*, *Promodash*, *Joblyo*, *Disk Analyzer*, *Github Clone*, *Adaptive traffic signal control*, *Horizon Line*, *Aircraft cls*, *Enterprise RAG*, *Multimodal LLM*, *Iot Home Automation*, *E comm template*
+- Done projects to add, few adjustments needed before: **12** - *Eye Tracking data analysis*, *Promodash*, *Joblyo*, *Disk Analyzer*, *Github Clone*, *Adaptive traffic signal control*, *Horizon Line*, *Aircraft cls*, *Enterprise RAG*, *Multimodal LLM*, *Iot Home Automation*, *E comm template*
 - Total: 72
 
 ---
