@@ -176,6 +176,66 @@ Future improvements and features:
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Player vs AI Gameplay** - Demonstrate minimax AI making intelligent moves
+- **Move Validation** - Show legal move highlighting and illegal move rejection
+- **Special Chess Moves** - Castling, en passant, pawn promotion
+- **Check & Checkmate Detection** - Display check warnings and checkmate scenarios
+- **Move History** - Show full game notation tracking
+- **2-Player Mode** - Quick demonstration of local multiplayer
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Build the project (if using Maven)
+mvn clean package
+
+# Or run from IDE (IntelliJ/Eclipse)
+# Run Main class
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include microphone narration (optional)
+
+**Steps:**
+1. Start the application: `java -jar Chess.jar` or run from IDE
+2. Open OBS Studio and set up screen capture
+3. Record the demonstration following the timeline above
+4. Save video as `demo.mp4` in the project root directory
+5. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Start application (if JAR available)
+cd "d:\Personal-Projects\Java projects\Chess"
+java -jar Chess.jar
+
+# Or with Maven
+mvn javafx:run
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 **Proprietary Software - All Rights Reserved**

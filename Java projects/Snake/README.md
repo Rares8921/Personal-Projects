@@ -186,6 +186,62 @@ java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Snake Movement** - Show WASD and arrow key controls
+- **Food Variety** - Display 9 different food types appearing randomly
+- **Growing Mechanics** - Demonstrate snake growing as it eats
+- **Collision Detection** - Show wall and self-collision game over
+- **Score Tracking** - Display score accumulation and high score
+- **Pause Functionality** - Demonstrate spacebar pause/resume
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Ensure JavaFX 17+ is installed
+# Run from IDE or compile to JAR
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include microphone narration (optional)
+
+**Steps:**
+1. Start the application: `java -jar Snake.jar` or run Main class
+2. Open OBS Studio and set up screen capture
+3. Record the demonstration following the timeline above
+4. Save video as `demo.mp4` in the project root directory
+5. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Start application
+cd "d:\Personal-Projects\Java projects\Snake"
+java -jar Snake.jar
+
+# Or run from IDE
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 **Proprietary License**  

@@ -268,6 +268,66 @@ let maze = [
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Procedural Maze Generation** - Show multiple game starts with different random mazes
+- **Gameplay Mechanics** - Navigate maze, collect pellets, avoid ghosts
+- **BFS Validation** - Explain how maze solvability is guaranteed
+- **Ghost AI** - Demonstrate random but constrained ghost movement
+- **Lives System** - Show what happens when hit by a ghost
+- **Score Tracking** - Display score accumulation and high scores
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# No installation needed - runs in browser
+# Simply open index.html in your browser
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include microphone narration (optional)
+
+**Steps:**
+1. Open `index.html` in your browser
+2. Open OBS Studio and set up screen capture
+3. Record the demonstration following the timeline above
+4. Save video as `demo.mp4` in the project root directory
+5. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Navigate to project directory
+cd "d:\Personal-Projects\Web projects\Randomized pacman"
+
+# Open in default browser
+start index.html
+
+# Or use a local server
+python -m http.server 8000
+# Then open http://localhost:8000/index.html
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 **Proprietary Software** - All rights reserved.

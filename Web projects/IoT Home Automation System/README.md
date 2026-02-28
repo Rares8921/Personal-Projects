@@ -225,6 +225,70 @@ Some ideas I'm considering:
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Device Control Dashboard** - Add and control multiple device types (lights, thermostats, cameras)
+- **User Authentication** - Registration, JWT login, email verification
+- **Automation Rules** - Create time-based automations and triggers
+- **Real-time Monitoring** - View device status updates and system logs
+- **Security Features** - User isolation, audit logging, role-based access
+- **ThingsBoard Integration** - External IoT platform connectivity
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Start MariaDB (Docker or local)
+docker-compose up -d mariadb
+
+# Configure application.properties with database credentials
+# Set SMTP settings for email verification
+
+# Start the application
+mvn spring-boot:run
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include microphone narration (optional)
+
+**Steps:**
+1. Start the application: `mvn spring-boot:run`
+2. Open OBS Studio and set up screen capture
+3. Navigate to `http://localhost:8080`
+4. Record the demonstration following the timeline above
+5. Save video as `demo.mp4` in the project root directory
+6. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Start application
+cd "d:\Personal-Projects\Web projects\IoT Home Automation System"
+mvn spring-boot:run
+
+# Access the app
+# Open browser to http://localhost:8080
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.

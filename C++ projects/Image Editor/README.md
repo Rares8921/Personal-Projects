@@ -308,6 +308,64 @@ Planned enhancements:
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **30+ Filters** - Demonstrate blur, sharpen, chrome, vignette, grayscale
+- **Color Adjustments** - Brightness, contrast, saturation, exposure
+- **AI Colorization** - Apply CNN-based colorization to B&W images
+- **Background Removal** - AI-powered subject extraction
+- **Undo/Redo System** - Show memento pattern with unlimited undos
+- **Drawing Tools** - Brush, eraser, fill bucket, text tool
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Build in Visual Studio (Windows)
+# Ensure OpenCV 4.x and Caffe model files are in place
+# Models needed: colorization_release_v2.caffemodel, eng.traineddata
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include microphone narration (optional)
+
+**Steps:**
+1. Start the application: Run `ImageEditor.exe` from build directory
+2. Open OBS Studio and set up screen capture
+3. Load a sample image for editing
+4. Record the demonstration following the timeline above
+5. Save video as `demo.mp4` in the project root directory
+6. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Navigate to build directory
+cd "d:\Personal-Projects\C++ projects\Image Editor\x64\Release"
+
+# Start the application
+start ImageEditor.exe
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.

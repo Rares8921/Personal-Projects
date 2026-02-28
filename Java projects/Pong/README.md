@@ -163,6 +163,63 @@ java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Mouse-Controlled Gameplay** - Show smooth paddle control with mouse
+- **AI Opponent** - Demonstrate AI tracking ball and responding
+- **Ball Physics** - Show bouncing, speed increase with hits
+- **Score System** - Display point accumulation for both players
+- **Progressive Difficulty** - Ball gets faster after each paddle hit
+- **Game Reset** - Show automatic reset after each point
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Ensure JavaFX 17+ is installed
+# Build with Maven or run from IDE
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include microphone narration (optional)
+
+**Steps:**
+1. Start the application: `java -jar Pong.jar` or run Main class
+2. Open OBS Studio and set up screen capture
+3. Record the demonstration following the timeline above
+4. Save video as `demo.mp4` in the project root directory
+5. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Start application
+cd "d:\Personal-Projects\Java projects\Pong"
+java -jar Pong.jar
+
+# Or with Maven
+mvn javafx:run
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 **Proprietary License**  

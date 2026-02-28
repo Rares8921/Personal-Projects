@@ -362,6 +362,71 @@ const User = mongoose.model('User', UserSchema);
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Movie Catalog Browsing** - Explore TMDB movie collection with posters and ratings
+- **User Authentication** - Register account, secure login with bcrypt
+- **Movie Details** - View comprehensive movie info, trailers, cast
+- **Personal Watchlist** - Add/remove movies to watchlist
+- **User Reviews** - Read and write movie reviews
+- **Search Functionality** - Find specific movies
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Install dependencies
+npm install
+
+# Create .env file with TMDB API key
+echo "TMDB_API_KEY=your_api_key_here" > .env
+echo "SESSION_SECRET=random_secret_string" >> .env
+
+# Start the application
+npm start
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include microphone narration (optional)
+
+**Steps:**
+1. Start the application: `npm start`
+2. Open OBS Studio and set up screen capture
+3. Navigate to `http://localhost:3000`
+4. Record the demonstration following the timeline above
+5. Save video as `demo.mp4` in the project root directory
+6. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Start application
+cd "d:\Personal-Projects\Web projects\Streampulse"
+npm start
+
+# Access the app
+# Open browser to http://localhost:3000
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 **Proprietary Software** - All rights reserved.

@@ -229,6 +229,63 @@ Potential enhancements I'm considering:
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Dynamic Combat** - Real-time melee and ranged combat with enemies
+- **Enemy AI** - Demonstrate AIFollow pathfinding and intelligent pursuit
+- **World Exploration** - Navigate through multiple zones (zone1-zone8)
+- **Inventory System** - Show weapon management and item usage
+- **Custom Shaders** - Display lighting effects and dynamic rendering
+- **Player Progression** - XP/leveling and character stats (AttributeComponent)
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Build the project in Visual Studio 2019
+# Ensure SFML 2.5 and OpenAL libraries are linked
+# Run in Release mode for best performance
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include system audio to capture game music and sound effects
+
+**Steps:**
+1. Start the application: Run `Ethereal Eclipse.exe` from build directory
+2. Open OBS Studio and set up screen capture with audio
+3. Record the demonstration following the timeline above
+4. Save video as `demo.mp4` in the project root directory
+5. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Navigate to build directory
+cd "d:\Personal-Projects\C++ projects\Ethereal Eclipse\x64\Release"
+
+# Start the game
+start "Ethereal Eclipse.exe"
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.

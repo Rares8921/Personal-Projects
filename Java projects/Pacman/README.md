@@ -222,6 +222,66 @@ Future enhancements being considered:
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Classic Gameplay** - Navigate maze, collect pellets
+- **Ghost AI** - Demonstrate distinct ghost behaviors (chase, scatter, frightened)
+- **Power Pellets** - Eat power pellets, chase and eat vulnerable ghosts
+- **Score System** - Show scoring for pellets (10), power pellets (50), ghosts (200+)
+- **Lives System** - Display three lives, ghost collisions
+- **Level Completion** - Complete a level by eating all pellets
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Build with Maven
+mvn clean package
+
+# Or run directly
+mvn javafx:run
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include system audio to capture sound effects
+
+**Steps:**
+1. Start the application: `mvn javafx:run` or `java -jar Pacman.jar`
+2. Open OBS Studio and set up screen capture with audio
+3. Record the demonstration following the timeline above
+4. Save video as `demo.mp4` in the project root directory
+5. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Start application
+cd "d:\Personal-Projects\Java projects\Pacman"
+mvn javafx:run
+
+# Or with JAR
+java -jar target/Pacman.jar
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.

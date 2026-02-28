@@ -186,6 +186,66 @@ docker run -p 8080:80 chatbot
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Chat Interface** - Clean, responsive Bootstrap UI
+- **Command Processing** - Demonstrate various command inputs
+- **Real-time Responses** - Client-side command handling
+- **API Integration** - (If connected) Show OpenAI/DialogFlow responses
+- **Conversation History** - Display of chat message flow
+- **Mobile Responsiveness** - Show UI on different screen sizes
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# No installation needed - runs in browser
+# Simply open index.html in your browser
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include microphone narration (optional)
+
+**Steps:**
+1. Open `index.html` in your browser
+2. Open OBS Studio and set up screen capture
+3. Record the demonstration following the timeline above
+4. Save video as `demo.mp4` in the project root directory
+5. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Navigate to project directory
+cd "d:\Personal-Projects\Web projects\Chat Bot"
+
+# Open in default browser
+start index.html
+
+# Or use a local server
+python -m http.server 8000
+# Then open http://localhost:8000/index.html
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 **Proprietary Software** - All rights reserved.

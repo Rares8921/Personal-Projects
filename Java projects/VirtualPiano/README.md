@@ -199,6 +199,63 @@ java --module-path /path/to/javafx/lib --add-modules javafx.controls,javafx.fxml
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Keyboard Playing** - Play 61 keys using computer keyboard shortcuts
+- **Mouse Control** - Click keys with mouse for alternative input
+- **Instrument Selection** - Switch between piano, organ, guitar, strings, brass
+- **Recording & Playback** - Record a performance and play it back
+- **Metronome** - Demonstrate adjustable BPM and time signatures
+- **Volume Control** - Show real-time volume adjustment
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Ensure JavaFX 17+ is installed
+# MIDI support should be available (javax.sound.midi)
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include system audio to capture piano sounds
+
+**Steps:**
+1. Start the application: `java -jar VirtualPiano.jar` or run from IDE
+2. Open OBS Studio and set up screen capture with audio
+3. Record the demonstration following the timeline above
+4. Save video as `demo.mp4` in the project root directory
+5. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Start application
+cd "d:\Personal-Projects\Java projects\VirtualPiano"
+java -jar VirtualPiano.jar
+
+# Make sure MIDI synthesizer is available
+java -cp VirtualPiano.jar Main
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 **Proprietary License**  

@@ -313,6 +313,71 @@ docker run -p 8080:80 -e "ConnectionStrings__DefaultConnection=YOUR_SQL_CONNECTI
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **User Registration & Login** - Email verification, Google OAuth integration
+- **Post Creation & Interaction** - Create posts, like, comment, share
+- **Real-time Chat** - Direct messages and group chat via SignalR
+- **Stories System** - Create 24-hour ephemeral stories
+- **User Profiles** - View profiles, follow/unfollow users
+- **Content Moderation** - ML.NET profanity detection in action
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Set up SQL Server connection string in appsettings.json
+# Configure SendGrid API key for emails
+# Set up Google OAuth credentials (optional)
+
+# Apply database migrations
+dotnet ef database update
+
+# Start the application
+dotnet run
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include microphone narration (optional)
+
+**Steps:**
+1. Start the application: `dotnet run`
+2. Open OBS Studio and set up screen capture
+3. Navigate to `http://localhost:5000`
+4. Record the demonstration following the timeline above
+5. Save video as `demo.mp4` in the project root directory
+6. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Start application
+cd "d:\Personal-Projects\Web projects\MicroSocial Platform"
+dotnet run
+
+# Access the app
+# Open browser to http://localhost:5000
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 **Proprietary Software** - All rights reserved.

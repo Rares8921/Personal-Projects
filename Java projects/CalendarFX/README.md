@@ -145,6 +145,63 @@ Future enhancements to expand functionality:
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Event Creation** - Click date cells to add new events
+- **Drag-and-Drop Rescheduling** - Move events between dates
+- **Event Editing** - Double-click to modify event details
+- **Recurring Events** - Set up daily/weekly/monthly repeats
+- **Calendar Navigation** - Switch between months, today highlighting
+- **Custom Styling** - Show the CSS theming and hover effects
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Ensure JavaFX 11+ is installed
+# Build the project or run from IDE
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include microphone narration (optional)
+
+**Steps:**
+1. Start the application: `java -jar CalendarFX.jar` or run from IDE
+2. Open OBS Studio and set up screen capture
+3. Record the demonstration following the timeline above
+4. Save video as `demo.mp4` in the project root directory
+5. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Start application
+cd "d:\Personal-Projects\Java projects\CalendarFX"
+java -jar CalendarFX.jar
+
+# Or run Calendar.exe (if packaged)
+start Calendar.exe
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 **Proprietary Software - All Rights Reserved**

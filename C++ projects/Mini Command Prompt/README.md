@@ -303,6 +303,62 @@ Ideas for future versions:
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Custom Commands** - !help, !prime, !time, !ip, !ping, !connect
+- **Prime Number Checking** - Demonstrate O(√n) algorithm efficiency
+- **IP Lookup** - Show network information retrieval
+- **Ping Testing** - Display latency measurement
+- **URL Launching** - Open URLs in default browser
+- **System Information** - CPU/RAM details, date/time
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Compile the C++ project in Visual Studio or with g++
+# Run with administrator privileges for !ip and !ping
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include microphone narration (optional)
+
+**Steps:**
+1. Start the application: Run `MiniCommandPrompt.exe` (as administrator)
+2. Open OBS Studio and set up screen capture
+3. Record the demonstration following the timeline above
+4. Save video as `demo.mp4` in the project root directory
+5. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Navigate to build directory
+cd "d:\Personal-Projects\C++ projects\Mini Command Prompt\x64\Release"
+
+# Start the application (right-click, Run as Administrator)
+start MiniCommandPrompt.exe
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.

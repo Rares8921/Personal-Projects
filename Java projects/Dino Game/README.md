@@ -188,6 +188,60 @@ Future enhancements to expand the game:
 
 ---
 
+## 📹 Demo Video
+
+> **Recording Instructions:** A 3-5 minute walkthrough showcasing the key features of this project.
+
+### What to Demonstrate
+
+**Suggested Timeline:**
+- **0:00-0:30** - Project overview and startup
+- **0:30-2:00** - Core features demonstration
+- **2:00-3:30** - Advanced features and interactions
+- **3:30-5:00** - Edge cases and wrap-up
+
+### Features to Showcase
+
+- **Endless Running** - Show infinite side-scrolling gameplay
+- **Jump Mechanic** - Demonstrate spacebar jump over cacti
+- **Obstacle Variety** - Display different cactus heights (1, 3, 4-cactus)
+- **Score System** - Show score increment and milestone sounds
+- **Increasing Difficulty** - Demonstrate speed increase over time
+- **Sound Effects** - Jump, score milestone, death sounds
+
+### Recording Setup
+
+**Prerequisites:**
+```bash
+# Ensure JavaFX 11+ is installed
+# Run from IDE or compile to JAR
+```
+
+**OBS Studio Settings:**
+- Resolution: 1920x1080 (1080p)
+- FPS: 30
+- Format: MP4 (H.264)
+- Audio: Include system audio to capture sound effects
+
+**Steps:**
+1. Start the application: `java -jar DinoGame.jar` or run Main class
+2. Open OBS Studio and set up screen capture with audio
+3. Record the demonstration following the timeline above
+4. Save video as `demo.mp4` in the project root directory
+5. (Optional) Upload to YouTube and update README with embed link
+
+### Quick Demo Commands
+
+```bash
+# Start application
+cd "d:\Personal-Projects\Java projects\Dino Game"
+java -jar DinoGame.jar
+```
+
+**Video file:** Once recorded, save as `demo.mp4` in this directory.
+
+---
+
 ## License
 
 **Proprietary Software - All Rights Reserved**
