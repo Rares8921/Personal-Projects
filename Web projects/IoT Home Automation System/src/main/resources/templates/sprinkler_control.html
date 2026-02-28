@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script>(function(){document.documentElement.className=localStorage.getItem('theme')||'light'})();</script>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sprinkler Control</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"/>
+<link rel="stylesheet" th:href="@{/css/device_control.css}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+<script defer src="/script/theme-toggle.js"></script>
+</head>
+<body class="light">
+<div th:replace="~{fragments :: headerFrag}"></div>
+<main class="container">
+    <h2><i class="fas fa-droplet"></i> Sprinkler Control</h2>
+    <div id="message"></div>
+    <div class="status-panel">
+        <div class="status-item"><span class="label">ID:</span><span id="devId"></span></div>
+        <div class="status-item"><span class="label">Name:</span><span id="devName"></span></div>
+        <div class="status-item"><span class="label">Power:</span><span id="devPower" class="status-badge"></span></div>
+        <div class="status-item"><span class="label">Duration:</span><span id="devDuration"></span></div>
+    </div>
+    <div class="control-group">
+        <label>Watering Duration (0.1-1440 min):</label>
+        <input id="durationInput" type="number" min="0.1" max="1440" step="0.1" value="10"/>
+        <button class="primary" onclick="updateDuration()"><i class="fas fa-clock"></i> Set Duration</button>
+    </div>
+    <div class="controls"><button class="primary" onclick="toggleDev()"><i class="fas fa-power-off"></i> Toggle Power</button></div>
+    <button class="secondary" onclick="location.href='/sprinkler_management'"><i class="fas fa-arrow-left"></i> Back</button>
+</main>
+<div th:replace="~{fragments :: footerFrag}"></div>
+<script src="/script/main.js"></script>
+<script>
+const API="/api/sprinklers",id=new URLSearchParams(location.search).get("id");const token=localStorage.getItem("jwt");
+async function loadDev(){try{const r=await fetch(API+"/"+id,{headers:{"Authorization":"Bearer "+token}});const d=await r.json();document.getElementById("devId").textContent=d.id;document.getElementById("devName").textContent=d.name;document.getElementById("devPower").textContent=d.isOn?"ON":"OFF";document.getElementById("devPower").className="status-badge "+(d.isOn?"on":"off");document.getElementById("devDuration").textContent=d.wateringDuration+" min";document.getElementById("durationInput").value=d.wateringDuration}catch(e){document.getElementById("message").textContent=e.message}}
+async function toggleDev(){await fetch(API+"/"+id+"/toggle",{method:"POST",headers:{"Authorization":"Bearer "+token}});showMsg("Power toggled");loadDev()}
+async function updateDuration(){await fetch(API+"/"+id+"/updateDuration",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+token},body:JSON.stringify({wateringDuration:document.getElementById("durationInput").value})});showMsg("Duration updated");loadDev()}
+function showMsg(m){const el=document.getElementById("message");el.textContent=m;setTimeout(()=>el.textContent="",3000)}
+loadDev();
+</script>
+</body>
+</html>

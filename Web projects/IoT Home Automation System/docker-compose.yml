@@ -1,0 +1,73 @@
+services:
+  db:
+    image: mariadb:latest
+    container_name: iot_mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=secret
+      - MARIADB_DATABASE=home_automation
+      - MARIADB_USER=home_automation_user
+      - MARIADB_PASSWORD=0BXY5[ei<*6__nG(}BR
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: iot_home_automation_app
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/home_automation
+      SPRING_DATASOURCE_USERNAME: home_automation_user
+      SPRING_DATASOURCE_PASSWORD: 0BXY5[ei<*6__nG(}BR
+      SPRING_PROFILES_ACTIVE: docker
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: health,info,prometheus,metrics
+
+  # ─── Monitoring Stack ───────────────────────────────────
+
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: iot_prometheus
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    depends_on:
+      - app
+
+  loki:
+    image: grafana/loki:2.9.4
+    container_name: iot_loki
+    volumes:
+      - ./monitoring/loki/loki-config.yml:/etc/loki/loki-config.yml
+      - loki_data:/loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/loki-config.yml
+
+  grafana:
+    image: grafana/grafana:10.4.0
+    container_name: iot_grafana
+    depends_on:
+      - prometheus
+      - loki
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./monitoring/grafana/provisioning/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./monitoring/grafana/provisioning/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  mariadb_data:
+  prometheus_data:
+  loki_data:
+  grafana_data:

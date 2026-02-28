@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script>(function(){document.documentElement.className=localStorage.getItem('theme')||'light'})();</script>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Thermostat Control</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"/>
+<link rel="stylesheet" th:href="@{/css/device_control.css}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+<script defer src="/script/theme-toggle.js"></script>
+</head>
+<body class="light">
+<div th:replace="~{fragments :: headerFrag}"></div>
+<main class="container">
+    <h2><i class="fas fa-temperature-half"></i> Thermostat Control</h2>
+    <div id="message"></div>
+    <div class="status-panel">
+        <div class="status-item"><span class="label">ID:</span><span id="devId"></span></div>
+        <div class="status-item"><span class="label">Name:</span><span id="devName"></span></div>
+        <div class="status-item"><span class="label">Power:</span><span id="devPower" class="status-badge"></span></div>
+        <div class="status-item"><span class="label">Temperature:</span><span id="devTemp"></span></div>
+        <div class="status-item"><span class="label">Mode:</span><span id="devMode"></span></div>
+    </div>
+    <div class="control-group">
+        <label>Temperature (15-30°C):</label>
+        <input id="tempSlider" type="range" min="15" max="30" value="22"/>
+        <span id="tempVal">22</span>°C
+        <button class="primary" onclick="updateTemp()"><i class="fas fa-thermometer-half"></i> Set Temperature</button>
+    </div>
+    <div class="control-group">
+        <label>Mode:</label>
+        <select id="modeSelect"><option>COOL</option><option>HEAT</option><option>OFF</option><option selected>AUTO</option></select>
+        <button class="primary" onclick="updateMode()"><i class="fas fa-wind"></i> Set Mode</button>
+    </div>
+    <div class="controls">
+        <button class="primary" onclick="toggleDev()"><i class="fas fa-power-off"></i> Toggle Power</button>
+        <button class="primary" onclick="autoAdjust()" style="margin-left:10px"><i class="fas fa-magic"></i> Auto Adjust</button>
+    </div>
+    <button class="secondary" onclick="location.href='/thermostat_management'"><i class="fas fa-arrow-left"></i> Back</button>
+</main>
+<div th:replace="~{fragments :: footerFrag}"></div>
+<script src="/script/main.js"></script>
+<script>
+const API="/api/thermostats",id=new URLSearchParams(location.search).get("id");const token=localStorage.getItem("jwt");
+document.getElementById("tempSlider").addEventListener("input",e=>document.getElementById("tempVal").textContent=e.target.value);
+function populate(d){document.getElementById("devId").textContent=d.id;document.getElementById("devName").textContent=d.name;document.getElementById("devPower").textContent=d.isOn?"ON":"OFF";document.getElementById("devPower").className="status-badge "+(d.isOn?"on":"off");document.getElementById("devTemp").textContent=d.temperature+"°C";document.getElementById("devMode").textContent=d.mode;document.getElementById("tempSlider").value=d.temperature;document.getElementById("tempVal").textContent=d.temperature}
+async function loadDev(){try{const r=await fetch(API+"/"+id,{headers:{"Authorization":"Bearer "+token}});const d=await r.json();populate(d)}catch(e){document.getElementById("message").textContent=e.message}}
+async function toggleDev(){try{const r=await fetch(API+"/"+id+"/toggle",{method:"POST",headers:{"Authorization":"Bearer "+token}});const ct=r.headers.get("Content-Type");if(ct&&ct.includes("application/json")){populate(await r.json())}else{loadDev()}showMsg("Power toggled")}catch(e){document.getElementById("message").textContent=e.message}}
+async function updateTemp(){try{const r=await fetch(API+"/"+id+"/update",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+token},body:JSON.stringify({temperature:document.getElementById("tempSlider").value})});const ct=r.headers.get("Content-Type");if(ct&&ct.includes("application/json")){populate(await r.json())}else{loadDev()}showMsg("Temperature updated")}catch(e){document.getElementById("message").textContent=e.message}}
+async function updateMode(){try{const r=await fetch(API+"/"+id+"/update",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+token},body:JSON.stringify({mode:document.getElementById("modeSelect").value})});const ct=r.headers.get("Content-Type");if(ct&&ct.includes("application/json")){populate(await r.json())}else{loadDev()}showMsg("Mode updated")}catch(e){document.getElementById("message").textContent=e.message}}
+async function autoAdjust(){try{const wr=await fetch("/api/thermostats/weather",{headers:{"Authorization":"Bearer "+token}});if(!wr.ok)throw new Error("Weather API failed");const w=await wr.json();const r=await fetch(API+"/"+id+"/autoAdjust",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+token},body:JSON.stringify({ambientTemp:w.temperature})});const ct=r.headers.get("Content-Type");if(ct&&ct.includes("application/json")){populate(await r.json())}else{loadDev()}showMsg("Auto-adjusted with "+w.temperature.toFixed(1)+"°C")}catch(e){document.getElementById("message").textContent=e.message}}
+function showMsg(m){const el=document.getElementById("message");el.textContent=m;setTimeout(()=>el.textContent="",3000)}
+loadDev();
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function () {
+      document.documentElement.className = localStorage.getItem('theme') || 'light';
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protected Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <link rel="stylesheet" th:href="@{/css/test.css}" />
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <script defer src="/script/theme-toggle.js"></script>
+</head>
+
+<body class="light">
+<div th:replace="~{fragments :: headerFrag}"></div>
+
+<main class="container">
+  <h2>Protected Page</h2>
+  <p>This page is secured and accessible only to authenticated users.</p>
+  <p><strong>Note:</strong> On every application restart, your JWT session is reset. Please logout and log in again to restore full access.</p>
+
+  <div id="status" class="status-message">Checking access...</div>
+
+  <button class="secondary" id="logoutBtn">Logout</button>
+</main>
+
+<div th:replace="~{fragments :: footerFrag}"></div>
+
+<script>
+  const token = localStorage.getItem("jwt");
+
+  if (!token) {
+    window.location.href = "/login";
+  } else {
+    fetch('/api/test', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(res => {
+      if (res.ok) return res.text();
+      throw new Error("Access denied");
+    })
+    .then(data => {
+      document.getElementById("status").innerText = data;
+    })
+    .catch(err => {
+      console.error(err);
+      localStorage.removeItem("jwt");
+      window.location.href = "/login";
+    });
+  }
+
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("jwt");
+    window.location.href = "/login";
+  });
+</script>
+<script src="/script/main.js"></script>
+</body>
+</html>

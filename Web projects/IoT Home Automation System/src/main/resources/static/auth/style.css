@@ -1,0 +1,94 @@
+/* Fundal general */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c') no-repeat center center fixed;
+    background-size: cover;
+    filter: brightness(0.4) blur(9px); /* întunecare + blur */
+    z-index: -2;
+}
+
+/* Card mare transparent */
+.background-card {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 50px;
+    border-radius: 30px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    max-width: 500px;
+    width: 90%;
+    box-sizing: border-box;
+}
+
+/* Containerul propriu-zis pentru form */
+.login-container {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+h2 {
+    text-decoration: underline;
+    margin-bottom: 20px;
+    color: #dddddd;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    text-align: left;
+    font-weight: 500;
+    color: white;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #b57226;
+    outline: none;
+}
+
+button {
+    padding: 12px;
+    background-color: #b57226;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #b57226;
+}
+
+#message {
+    margin-top: 20px;
+    color: #ff3333;
+    font-weight: bold;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script>(function(){document.documentElement.className=localStorage.getItem('theme')||'light'})();</script>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Washing Machine Control</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"/><link rel="stylesheet" th:href="@{/css/device_control.css}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+<script defer src="/script/theme-toggle.js"></script>
+</head>
+<body class="light">
+<div th:replace="~{fragments :: headerFrag}"></div>
+<main class="container">
+    <h2><i class="fas fa-shirt"></i> Washing Machine Control</h2>
+    <div id="message"></div>
+    <div class="status-panel" id="statusPanel">Loading…</div>
+    <div class="control-groups">
+        <div class="control-group"><label>Wash Mode</label>
+            <select id="mode"><option>NORMAL</option><option>DELICATE</option><option>HEAVY</option><option>QUICK</option><option>ECO</option></select>
+        </div>
+        <div class="control-group"><label>Temperature (°C)</label>
+            <input id="temperature" type="range" min="20" max="90" value="40"/>
+            <span class="range-value" id="tempVal">40</span>
+        </div>
+        <div class="control-group"><label>Spin Speed (RPM)</label>
+            <input id="spinSpeed" type="range" min="400" max="1600" step="100" value="800"/>
+            <span class="range-value" id="spinVal">800</span>
+        </div>
+        <div class="control-group"><label>Power</label>
+            <button id="toggleBtn"><i class="fas fa-power-off"></i> Toggle</button>
+        </div>
+        <div class="control-group"><label>Cycle</label>
+            <button id="startBtn"><i class="fas fa-play"></i> Start Cycle</button>
+        </div>
+    </div>
+    <div class="actions">
+        <button id="saveBtn"><i class="fas fa-save"></i> Save</button>
+        <button id="backBtn"><i class="fas fa-arrow-left"></i> Back</button>
+    </div>
+</main>
+<div th:replace="~{fragments :: footerFrag}"></div>
+<script src="/script/main.js"></script>
+<script>
+const params=new URLSearchParams(location.search),id=params.get("id"),API="/api/washer";
+const tempSlider=document.getElementById("temperature"),spinSlider=document.getElementById("spinSpeed");
+tempSlider.addEventListener("input",()=>document.getElementById("tempVal").textContent=tempSlider.value);
+spinSlider.addEventListener("input",()=>document.getElementById("spinVal").textContent=spinSlider.value);
+async function load(){const r=await fetch(`${API}/${id}`);const d=await r.json();document.getElementById("statusPanel").innerHTML=`<span class="status-badge ${d.isOn?'on':'off'}">${d.isOn?'On':'Off'}</span> <strong>${d.name}</strong> — ${d.mode}, ${d.temperature}°C, ${d.spinSpeed} RPM, ${d.remainingMinutes} min left`;document.getElementById("mode").value=d.mode;tempSlider.value=d.temperature;document.getElementById("tempVal").textContent=d.temperature;spinSlider.value=d.spinSpeed;document.getElementById("spinVal").textContent=d.spinSpeed}
+async function save(){await fetch(`${API}/${id}`,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode:document.getElementById("mode").value,temperature:+tempSlider.value,spinSpeed:+spinSlider.value})});document.getElementById("message").textContent="Saved!";load()}
+async function toggle(){await fetch(`${API}/${id}/toggle`,{method:"POST"});load()}
+async function startCycle(){await fetch(`${API}/${id}/start`,{method:"POST"});load()}
+document.getElementById("toggleBtn").addEventListener("click",toggle);
+document.getElementById("startBtn").addEventListener("click",startCycle);
+document.getElementById("saveBtn").addEventListener("click",save);
+document.getElementById("backBtn").addEventListener("click",()=>location.href="/washer_management");
+load();
+</script>
+</body>
+</html>

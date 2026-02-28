@@ -1,0 +1,46 @@
+:root {
+    --bg-light: #f6fbf8;
+    --bg-dark: #101914;
+    --card-light: #ffffff;
+    --card-dark: #1c2b22;
+    --text-light: #1c2d1c;
+    --text-dark: #d9fbe4;
+    --primary: #45c07a;
+    --primary-dark: #2d8a5a;
+}
+
+.container {
+    max-width: 700px;
+    margin: 60px auto;
+    background: var(--card-light);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    transition: background 0.3s ease;
+    text-align: center;
+}
+
+html.dark body .container {
+    background: var(--card-dark);
+}
+
+.status-message {
+    font-weight: bold;
+    margin: 20px 0;
+    color: var(--primary);
+}
+
+button.secondary {
+    padding: 10px 20px;
+    font-weight: bold;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button.secondary:hover {
+    background: var(--primary-dark);
+}

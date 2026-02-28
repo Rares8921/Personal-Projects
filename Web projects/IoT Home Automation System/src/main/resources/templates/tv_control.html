@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script>(function(){document.documentElement.className=localStorage.getItem('theme')||'light'})();</script>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smart TV Control</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"/>
+<link rel="stylesheet" th:href="@{/css/device_control.css}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+<script defer src="/script/theme-toggle.js"></script>
+</head>
+<body class="light">
+<div th:replace="~{fragments :: headerFrag}"></div>
+<main class="container">
+    <h2><i class="fas fa-tv"></i> Smart TV Control</h2>
+    <div class="status-panel">
+        <div class="status-item"><span class="label">ID:</span><span id="devId"></span></div>
+        <div class="status-item"><span class="label">Name:</span><span id="devName"></span></div>
+        <div class="status-item"><span class="label">Power:</span><span id="devPower" class="status-badge"></span></div>
+        <div class="status-item"><span class="label">Volume:</span><span id="devVolume"></span></div>
+        <div class="status-item"><span class="label">Channel:</span><span id="devChannel"></span></div>
+        <div class="status-item"><span class="label">Input:</span><span id="devInput"></span></div>
+    </div>
+    <div class="control-group">
+        <label>Volume (0-100):</label>
+        <input id="volumeInput" type="range" min="0" max="100" value="30"/>
+        <span id="volumeVal">30</span>
+        <button class="primary" onclick="updateVolume()">Set Volume</button>
+    </div>
+    <div class="control-group">
+        <label>Channel:</label>
+        <input id="channelInput" type="text" placeholder="Channel number"/>
+        <button class="primary" onclick="updateChannel()">Set Channel</button>
+    </div>
+    <div class="control-group">
+        <label>Input Source:</label>
+        <select id="inputSelect"><option>HDMI1</option><option>HDMI2</option><option>USB</option><option>STREAMING</option></select>
+        <button class="primary" onclick="updateInput()">Set Input</button>
+    </div>
+    <div class="controls"><button class="primary" onclick="toggleDev()"><i class="fas fa-power-off"></i> Toggle Power</button></div>
+    <div id="message"></div>
+    <button class="secondary" onclick="location.href='/tv_management'"><i class="fas fa-arrow-left"></i> Back</button>
+</main>
+<div th:replace="~{fragments :: footerFrag}"></div>
+<script src="/script/main.js"></script>
+<script>
+const API="/api/tv",id=new URLSearchParams(location.search).get("id");
+document.getElementById("volumeInput").addEventListener("input",e=>document.getElementById("volumeVal").textContent=e.target.value);
+async function loadDev(){try{const r=await fetch(`${API}/${id}`);const d=await r.json();document.getElementById("devId").textContent=d.id;document.getElementById("devName").textContent=d.name;document.getElementById("devPower").textContent=d.isOn?"On":"Off";document.getElementById("devPower").className="status-badge "+(d.isOn?"on":"off");document.getElementById("devVolume").textContent=d.volume;document.getElementById("devChannel").textContent=d.channel;document.getElementById("devInput").textContent=d.inputSource;document.getElementById("volumeInput").value=d.volume;document.getElementById("volumeVal").textContent=d.volume;document.getElementById("channelInput").value=d.channel}catch(e){document.getElementById("message").textContent=e.message}}
+async function toggleDev(){await fetch(`${API}/${id}/toggle`,{method:"POST"});loadDev()}
+async function updateVolume(){await fetch(`${API}/${id}/volume?volume=${document.getElementById("volumeInput").value}`,{method:"POST"});showMsg("Volume updated");loadDev()}
+async function updateChannel(){await fetch(`${API}/${id}/channel?channel=${document.getElementById("channelInput").value}`,{method:"POST"});showMsg("Channel updated");loadDev()}
+async function updateInput(){await fetch(`${API}/${id}/input?input=${document.getElementById("inputSelect").value}`,{method:"POST"});showMsg("Input updated");loadDev()}
+function showMsg(m){const el=document.getElementById("message");el.textContent=m;setTimeout(()=>el.textContent="",3000)}
+loadDev();
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script>(function(){document.documentElement.className=localStorage.getItem('theme')||'light'})();</script>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Robot Vacuum Management</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"/><link rel="stylesheet" th:href="@{/css/device_management.css}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+<script defer src="/script/theme-toggle.js"></script>
+</head>
+<body class="light">
+<div th:replace="~{fragments :: headerFrag}"></div>
+<main class="container">
+    <h2><i class="fas fa-robot"></i> Robot Vacuum Management</h2>
+    <div id="message"></div>
+    <div class="add-section"><h3>Add Robot Vacuum</h3>
+        <div class="add-form">
+            <input id="newId" type="text" placeholder="Device Token / ID" required/>
+            <input id="newName" type="text" placeholder="Name" required/>
+            <button id="addBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+    </div>
+    <h3>Your Robot Vacuums</h3>
+    <div class="device-list" id="deviceList"></div>
+    <div class="actions">
+        <button id="refreshBtn"><i class="fas fa-sync-alt"></i> Refresh</button>
+        <button id="backBtn"><i class="fas fa-arrow-left"></i> Dashboard</button>
+    </div>
+</main>
+<div th:replace="~{fragments :: footerFrag}"></div>
+<script src="/script/main.js"></script>
+<script>
+const API="/api/robotvacuum";
+async function load(){try{const r=await fetch(API);const d=await r.json();const list=document.getElementById("deviceList");list.innerHTML="";d.forEach(v=>{list.innerHTML+=`<div class="device-card"><div class="device-header"><h4><i class="fas fa-robot"></i> ${v.name}</h4><span class="status-badge ${v.isOn?'on':'off'}">${v.isOn?'On':'Off'}</span></div><div class="device-info"><span>Status: ${v.status}</span><span>Mode: ${v.mode}</span><span>Battery: ${v.batteryLevel}%</span><span>Cleaned: ${v.cleanedArea} m²</span></div><div class="device-actions"><button onclick="toggle('${v.id}')"><i class="fas fa-power-off"></i></button><button onclick="location.href='/robotvacuum_control?id=${v.id}'"><i class="fas fa-sliders-h"></i> Control</button><button class="delete" onclick="del('${v.id}')"><i class="fas fa-trash"></i></button></div></div>`})}catch(e){document.getElementById("message").textContent=e.message}}
+async function add(){const id=document.getElementById("newId").value,name=document.getElementById("newName").value;try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id,name})});document.getElementById("message").textContent=await r.text();load()}catch(e){document.getElementById("message").textContent=e.message}}
+async function del(id){await fetch(`${API}/${id}`,{method:"DELETE"});load()}
+async function toggle(id){await fetch(`${API}/${id}/toggle`,{method:"POST"});load()}
+document.getElementById("addBtn").addEventListener("click",add);
+document.getElementById("refreshBtn").addEventListener("click",load);
+document.getElementById("backBtn").addEventListener("click",()=>location.href="/dashboard");
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script>(function(){document.documentElement.className=localStorage.getItem('theme')||'light'})();</script>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smart Assistant Management</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"/>
+<link rel="stylesheet" th:href="@{/css/device_management.css}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+<script defer src="/script/theme-toggle.js"></script>
+</head>
+<body class="light">
+<div th:replace="~{fragments :: headerFrag}"></div>
+<main class="container">
+    <h2><i class="fas fa-microphone"></i> Smart Assistant Management</h2>
+    <div id="message"></div>
+    <div class="add-section">
+        <h3>Add Smart Assistant</h3>
+        <div class="add-form">
+            <input id="newId" type="text" placeholder="Device Token / ID" required/>
+            <input id="newName" type="text" placeholder="Name (e.g., Kitchen Assistant)" required/>
+            <select id="newHubId"><option value="">Select a Hub</option></select>
+            <button id="addBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+    </div>
+    <h3>Your Smart Assistants</h3>
+    <div class="device-list" id="deviceList"></div>
+    <div class="actions">
+        <button id="refreshBtn"><i class="fas fa-sync-alt"></i> Refresh</button>
+        <button id="backBtn"><i class="fas fa-arrow-left"></i> Dashboard</button>
+    </div>
+</main>
+<div th:replace="~{fragments :: footerFrag}"></div>
+<script src="/script/main.js"></script>
+<script>
+const API="/api/assistant",HUB_API="/api/hubs";const token=localStorage.getItem("jwt");
+function getUserId(){const payload=JSON.parse(atob(token.split(".")[1]));return payload.sub}
+async function load(){try{const r=await fetch(API+"?user_id="+getUserId(),{headers:{"Authorization":"Bearer "+token}});if(!r.ok)throw new Error(await r.text());const d=await r.json();const list=document.getElementById("deviceList");list.innerHTML="";d.forEach(t=>{list.innerHTML+=`<div class="device-card"><div class="device-header"><h4><i class="fas fa-microphone"></i> ${t.name}</h4><span class="status-badge on">Active</span></div><div class="device-info"><span>Hub: ${t.hubId}</span><span>Events: ${t.eventLogSize}</span></div><div class="device-actions"><button onclick="location.href='/assistant_control?id=${t.id}'"><i class="fas fa-sliders-h"></i> Control</button><button class="delete" onclick="del('${t.id}')"><i class="fas fa-trash"></i></button></div></div>`})}catch(e){document.getElementById("message").textContent=e.message}}
+async function loadHubs(){try{const r=await fetch(HUB_API+"?user_id="+getUserId(),{headers:{"Authorization":"Bearer "+token}});if(!r.ok)return;const hubs=await r.json();const sel=document.getElementById("newHubId");sel.innerHTML='<option value="">Select a Hub</option>';hubs.forEach(h=>{const o=document.createElement("option");o.value=h.id;o.textContent=h.id+" - "+h.name;sel.appendChild(o)})}catch(e){}}
+async function add(){const id=document.getElementById("newId").value.trim(),name=document.getElementById("newName").value.trim(),hubId=document.getElementById("newHubId").value;if(!id||!name||!hubId){document.getElementById("message").textContent="Please complete all fields.";return}try{const r=await fetch(API+"?user_id="+getUserId(),{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+token},body:JSON.stringify({id,name,hubId})});document.getElementById("message").textContent=await r.text();if(r.ok)load()}catch(e){document.getElementById("message").textContent=e.message}}
+async function del(id){try{await fetch(API+"/"+id+"?user_id="+getUserId(),{method:"DELETE",headers:{"Authorization":"Bearer "+token}});load()}catch(e){}}
+document.getElementById("addBtn").addEventListener("click",add);
+document.getElementById("refreshBtn").addEventListener("click",load);
+document.getElementById("backBtn").addEventListener("click",()=>location.href="/dashboard");
+load();loadHubs();
+</script>
+</body>
+</html>

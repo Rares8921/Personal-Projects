@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script>(function(){document.documentElement.className=localStorage.getItem('theme')||'light'})();</script>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Air Purifier Management</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"/><link rel="stylesheet" th:href="@{/css/device_management.css}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+<script defer src="/script/theme-toggle.js"></script>
+</head>
+<body class="light">
+<div th:replace="~{fragments :: headerFrag}"></div>
+<main class="container">
+    <h2><i class="fas fa-wind"></i> Air Purifier Management</h2>
+    <div id="message"></div>
+    <div class="add-section"><h3>Add Air Purifier</h3>
+        <div class="add-form">
+            <input id="newId" type="text" placeholder="Device Token / ID" required/>
+            <input id="newName" type="text" placeholder="Name" required/>
+            <button id="addBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+    </div>
+    <h3>Your Air Purifiers</h3>
+    <div class="device-list" id="deviceList"></div>
+    <div class="actions">
+        <button id="refreshBtn"><i class="fas fa-sync-alt"></i> Refresh</button>
+        <button id="backBtn"><i class="fas fa-arrow-left"></i> Dashboard</button>
+    </div>
+</main>
+<div th:replace="~{fragments :: footerFrag}"></div>
+<script src="/script/main.js"></script>
+<script>
+const API="/api/airpurifier";
+async function load(){try{const r=await fetch(API);const d=await r.json();const list=document.getElementById("deviceList");list.innerHTML="";d.forEach(a=>{const aqiColor=a.airQualityIndex<=50?"#27ae60":a.airQualityIndex<=100?"#f1c40f":a.airQualityIndex<=150?"#e67e22":"#e74c3c";list.innerHTML+=`<div class="device-card"><div class="device-header"><h4><i class="fas fa-wind"></i> ${a.name}</h4><span class="status-badge ${a.isOn?'on':'off'}">${a.isOn?'On':'Off'}</span></div><div class="device-info"><span>Fan: ${a.fanSpeed}</span><span style="color:${aqiColor}">AQI: ${a.airQualityIndex}</span><span>Filter: ${a.filterLife}%</span></div><div class="device-actions"><button onclick="toggle('${a.id}')"><i class="fas fa-power-off"></i></button><button onclick="location.href='/airpurifier_control?id=${a.id}'"><i class="fas fa-sliders-h"></i> Control</button><button class="delete" onclick="del('${a.id}')"><i class="fas fa-trash"></i></button></div></div>`})}catch(e){document.getElementById("message").textContent=e.message}}
+async function add(){const id=document.getElementById("newId").value,name=document.getElementById("newName").value;try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id,name})});document.getElementById("message").textContent=await r.text();load()}catch(e){document.getElementById("message").textContent=e.message}}
+async function del(id){await fetch(`${API}/${id}`,{method:"DELETE"});load()}
+async function toggle(id){await fetch(`${API}/${id}/toggle`,{method:"POST"});load()}
+document.getElementById("addBtn").addEventListener("click",add);
+document.getElementById("refreshBtn").addEventListener("click",load);
+document.getElementById("backBtn").addEventListener("click",()=>location.href="/dashboard");
+load();
+</script>
+</body>
+</html>

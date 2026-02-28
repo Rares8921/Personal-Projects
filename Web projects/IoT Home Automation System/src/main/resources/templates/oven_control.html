@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script>(function(){document.documentElement.className=localStorage.getItem('theme')||'light'})();</script>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smart Oven Control</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"/>
+<link rel="stylesheet" th:href="@{/css/device_control.css}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+<script defer src="/script/theme-toggle.js"></script>
+</head>
+<body class="light">
+<div th:replace="~{fragments :: headerFrag}"></div>
+<main class="container">
+    <h2><i class="fas fa-fire-burner"></i> Smart Oven Control</h2>
+    <div id="message"></div>
+    <div class="status-panel">
+        <div class="status-item"><span class="label">ID:</span><span id="devId"></span></div>
+        <div class="status-item"><span class="label">Name:</span><span id="devName"></span></div>
+        <div class="status-item"><span class="label">Power:</span><span id="devPower" class="status-badge"></span></div>
+        <div class="status-item"><span class="label">Temperature:</span><span id="devTemp"></span></div>
+        <div class="status-item"><span class="label">Timer:</span><span id="devTimer"></span></div>
+        <div class="status-item"><span class="label">Preheat:</span><span id="devPreheat"></span></div>
+    </div>
+    <div class="control-group">
+        <label>Temperature (50-300°C):</label>
+        <input id="tempInput" type="range" min="50" max="300" step="10" value="200"/>
+        <span id="tempVal">200</span>°C
+        <button class="primary" onclick="updateTemp()"><i class="fas fa-thermometer-half"></i> Set Temperature</button>
+    </div>
+    <div class="control-group">
+        <label>Timer (0-240 min):</label>
+        <input id="timerInput" type="range" min="0" max="240" step="5" value="0"/>
+        <span id="timerVal">0</span> min
+        <button class="primary" onclick="updateTimer()"><i class="fas fa-clock"></i> Set Timer</button>
+    </div>
+    <div class="control-group">
+        <label>Preheat:</label>
+        <select id="preheatSelect"><option value="true">Activate</option><option value="false">Deactivate</option></select>
+        <button class="primary" onclick="updatePreheat()"><i class="fas fa-fire"></i> Set Preheat</button>
+    </div>
+    <div class="controls"><button class="primary" onclick="toggleDev()"><i class="fas fa-power-off"></i> Toggle Power</button></div>
+    <button class="secondary" onclick="location.href='/oven_management'"><i class="fas fa-arrow-left"></i> Back</button>
+</main>
+<div th:replace="~{fragments :: footerFrag}"></div>
+<script src="/script/main.js"></script>
+<script>
+const API="/api/ovens",id=new URLSearchParams(location.search).get("id");const token=localStorage.getItem("jwt");
+document.getElementById("tempInput").addEventListener("input",e=>document.getElementById("tempVal").textContent=e.target.value);
+document.getElementById("timerInput").addEventListener("input",e=>document.getElementById("timerVal").textContent=e.target.value);
+async function loadDev(){try{const r=await fetch(API+"/"+id,{headers:{"Authorization":"Bearer "+token}});const d=await r.json();document.getElementById("devId").textContent=d.id;document.getElementById("devName").textContent=d.name;document.getElementById("devPower").textContent=d.isOn?"On":"Off";document.getElementById("devPower").className="status-badge "+(d.isOn?"on":"off");document.getElementById("devTemp").textContent=d.temperature+"°C";document.getElementById("devTimer").textContent=d.timer+" min";document.getElementById("devPreheat").textContent=d.preheat?"Active":"Inactive";document.getElementById("tempInput").value=d.temperature;document.getElementById("tempVal").textContent=d.temperature;document.getElementById("timerInput").value=d.timer;document.getElementById("timerVal").textContent=d.timer;document.getElementById("preheatSelect").value=d.preheat}catch(e){document.getElementById("message").textContent=e.message}}
+async function toggleDev(){await fetch(API+"/"+id+"/toggle",{method:"POST",headers:{"Authorization":"Bearer "+token}});showMsg("Power toggled");loadDev()}
+async function updateTemp(){await fetch(API+"/"+id+"/updateTemperature?temperature="+document.getElementById("tempInput").value,{method:"POST",headers:{"Authorization":"Bearer "+token}});showMsg("Temperature updated");loadDev()}
+async function updateTimer(){await fetch(API+"/"+id+"/updateTimer?timer="+document.getElementById("timerInput").value,{method:"POST",headers:{"Authorization":"Bearer "+token}});showMsg("Timer updated");loadDev()}
+async function updatePreheat(){await fetch(API+"/"+id+"/setPreheat?preheat="+document.getElementById("preheatSelect").value,{method:"POST",headers:{"Authorization":"Bearer "+token}});showMsg("Preheat updated");loadDev()}
+function showMsg(m){const el=document.getElementById("message");el.textContent=m;setTimeout(()=>el.textContent="",3000)}
+loadDev();
+</script>
+</body>
+</html>

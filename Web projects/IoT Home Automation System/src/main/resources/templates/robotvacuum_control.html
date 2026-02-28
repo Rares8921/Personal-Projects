@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script>(function(){document.documentElement.className=localStorage.getItem('theme')||'light'})();</script>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Robot Vacuum Control</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"/><link rel="stylesheet" th:href="@{/css/device_control.css}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+<script defer src="/script/theme-toggle.js"></script>
+</head>
+<body class="light">
+<div th:replace="~{fragments :: headerFrag}"></div>
+<main class="container">
+    <h2><i class="fas fa-robot"></i> Robot Vacuum Control</h2>
+    <div id="message"></div>
+    <div class="status-panel" id="statusPanel">Loading…</div>
+    <div class="control-groups">
+        <div class="control-group"><label>Clean Mode</label>
+            <select id="mode"><option>AUTO</option><option>SPOT</option><option>EDGE</option><option>TURBO</option><option>QUIET</option></select>
+        </div>
+        <div class="control-group"><label>Battery</label>
+            <div class="progress-bar"><div id="batteryBar" class="progress-fill"></div></div>
+            <span id="batteryVal">0%</span>
+        </div>
+        <div class="control-group"><label>Power</label>
+            <button id="toggleBtn"><i class="fas fa-power-off"></i> Toggle</button>
+        </div>
+        <div class="control-group"><label>Actions</label>
+            <button id="startBtn"><i class="fas fa-play"></i> Start Cleaning</button>
+            <button id="dockBtn" style="margin-top:.5rem"><i class="fas fa-home"></i> Return to Base</button>
+        </div>
+    </div>
+    <div class="actions">
+        <button id="saveBtn"><i class="fas fa-save"></i> Save</button>
+        <button id="backBtn"><i class="fas fa-arrow-left"></i> Back</button>
+    </div>
+</main>
+<div th:replace="~{fragments :: footerFrag}"></div>
+<script src="/script/main.js"></script>
+<script>
+const params=new URLSearchParams(location.search),id=params.get("id"),API="/api/robotvacuum";
+async function load(){const r=await fetch(`${API}/${id}`);const d=await r.json();document.getElementById("statusPanel").innerHTML=`<span class="status-badge ${d.isOn?'on':'off'}">${d.isOn?'On':'Off'}</span> <strong>${d.name}</strong> — ${d.status}, ${d.mode}, ${d.batteryLevel}% battery, ${d.cleanedArea} m² cleaned`;document.getElementById("mode").value=d.mode;const bar=document.getElementById("batteryBar");bar.style.width=d.batteryLevel+"%";bar.style.background=d.batteryLevel>20?"var(--accent-color)":"#e74c3c";document.getElementById("batteryVal").textContent=d.batteryLevel+"%"}
+async function save(){await fetch(`${API}/${id}`,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode:document.getElementById("mode").value})});document.getElementById("message").textContent="Saved!";load()}
+async function toggle(){await fetch(`${API}/${id}/toggle`,{method:"POST"});load()}
+async function startClean(){await fetch(`${API}/${id}/start`,{method:"POST"});load()}
+async function dock(){await fetch(`${API}/${id}/dock`,{method:"POST"});load()}
+document.getElementById("toggleBtn").addEventListener("click",toggle);
+document.getElementById("startBtn").addEventListener("click",startClean);
+document.getElementById("dockBtn").addEventListener("click",dock);
+document.getElementById("saveBtn").addEventListener("click",save);
+document.getElementById("backBtn").addEventListener("click",()=>location.href="/robotvacuum_management");
+load();
+</script>
+<style>.progress-bar{width:100%;height:20px;background:#333;border-radius:10px;overflow:hidden;margin:.5rem 0}.progress-fill{height:100%;border-radius:10px;transition:width .5s}</style>
+</body>
+</html>

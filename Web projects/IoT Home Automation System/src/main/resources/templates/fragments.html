@@ -1,0 +1,19 @@
+<!-- fragments.html -->
+<div th:fragment="headerFrag">
+    <header>
+        <h1><a href="/dashboard.html" style="text-decoration: underline; color: inherit;">Smart Home Dashboard</a></h1>
+        <div class="header-buttons">
+            <button id="themeToggle" class="logout-button">🌙</button>
+            <button onclick="logout()" class="logout-button">Logout</button>
+        </div>
+    </header>
+</div>
+
+<div th:fragment="footerFrag">
+    <footer>
+        <p>© 2026 My Smart Home Company. All rights reserved.</p>
+        <p>
+            Contact: <a href="mailto:info@smartco.com">info@smartco.com</a>
+        </p>
+    </footer>
+</div>
