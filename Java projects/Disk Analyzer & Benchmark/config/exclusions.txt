@@ -1,0 +1,7 @@
+# Disk Analyzer Exclusion Patterns
+# One pattern per line. Supports glob patterns (*, ?) and regex (prefix with regex:)
+# Lines starting with # are comments
+
+*.log
+regex:\.cache$
+node_modules
