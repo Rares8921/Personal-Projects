@@ -1,71 +1,162 @@
-# Java Hangman Game
+# Hangman
 
-## Code Summary
+<div align="center">
 
-This Java program is a simple Hangman game implemented using the JavaFX framework. It features a graphical user interface (GUI) that allows users to interact with the game easily. The application includes different screens for starting the game, playing the game, and displaying game results.
+![Java](https://img.shields.io/badge/Java-11-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-11-blue?style=for-the-badge&logo=java)
+![Game](https://img.shields.io/badge/Type-Word%20Game-purple?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge)
 
-## Program Description and Usage
+**Classic hangman word guessing game with a comprehensive dictionary, difficulty levels, and visual hangman progression.**
 
-### Main Components
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-1. **Main Class (`Main`)**:
-   - This is the entry point of the application. It extends `Application` and is responsible for setting up the primary stage (window) and loading the initial scene. The `Main` class initializes the game by displaying the start screen (`Open` scene).
+</div>
 
-2. **Open Class (`Open`)**:
-   - The `Open` class is responsible for the initial screen that the user sees when starting the game. It sets up the GUI components for the start screen, allowing the player to begin a new game or exit the application.
-   - This class includes buttons and event handlers to navigate to the actual game scene when the game starts.
+---
 
-3. **Controller Class (`Controller`)**:
-   - The `Controller` class handles the core game logic for the Hangman game. It manages the gameplay, including word selection, tracking guessed letters, and updating the display based on user input.
-   - The class interacts with the GUI to update the displayed word, incorrect guesses, and the hangman figure as the game progresses.
+## What It Does
 
-### Gameplay Mechanics
+A polished implementation of the timeless hangman game where players guess letters to reveal a hidden word before running out of lives. The game features a clean JavaFX interface with visual feedback for every guess.
 
-1. **Word Selection**:
-   - A random word is chosen from a predefined list at the start of each game. The word is hidden, and only the correct guesses are revealed as the player guesses letters.
+**Core features:**
+- **Word dictionary** - extensive word list loaded from file (`words.txt`)
+- **Letter guessing** - on-screen keyboard or physical keyboard input
+- **Lives system** - 6 incorrect guesses allowed, visualized via hangman drawing
+- **Difficulty levels** - easy (short words), medium, hard (long/complex words)
+- **Progress tracking** - see guessed letters and remaining blanks
 
-2. **User Input**:
-   - The player guesses letters through the GUI. If the guessed letter is in the word, it is revealed in its correct positions. If not, the hangman figure progresses towards completion, indicating a wrong guess.
+**What makes it engaging:**
+- Visual hangman progressively drawn with each wrong guess
+- Categorized word lists (common vs. challenging words)
+- Real-time feedback for correct/incorrect guesses
+- Win/loss screens with option to play again
+- Keyboard navigation fully supported
+- Clean, minimalist UI that doesn't distract from gameplay
 
-3. **Game Progression**:
-   - The game continues until the player correctly guesses the word or the hangman figure is fully drawn (indicating the player has run out of guesses).
+The game randomly selects words from the dictionary based on chosen difficulty, tracks all guessed letters to prevent duplicates, and updates the display in real-time as players make progress.
 
-4. **Game End**:
-   - When the game ends, the player is either presented with a "You Win" or "Game Over" screen depending on the outcome. The player can then choose to start a new game or exit.
+---
 
-### Custom Components
+## Tech Stack
 
-- **Start Screen**:
-  - The start screen is implemented in the `Open` class, providing a user-friendly interface to begin the game.
-  
-- **Game Logic Handling**:
-  - The `Controller` class manages the game logic, ensuring smooth gameplay and interaction between the user interface and the game's core functions.
+**Language:** Java 11  
+**Framework:** JavaFX (FXML + Scene Builder)  
+**UI:** FXML-based layout with CSS styling  
+**Data:** File I/O for word dictionary  
+**Build:** Standard Java compilation
 
-## Method of Generating the Game Elements
+### Architecture
 
-1. **Scene Initialization**:
-   - The game window and scenes are set up in the `Main` and `Open` classes. `Main` initializes the primary stage and loads the initial scene. `Open` creates the start screen, while the `Controller` manages the gameplay screen.
+MVC pattern with JavaFX FXML:
 
-2. **Game Loop**:
-   - The Hangman game does not rely on a traditional game loop but instead uses event-driven programming. The game state updates in response to user actions (e.g., guessing a letter).
+```
+Main (Application Launcher)
+      ↓
+FXML Layout (sample.fxml)
+      ↓
+Controller (Game Logic)
+      ↓
+┌─────────────────────────────────┐
+│   Game State Manager            │
+│   - Word Selection              │
+│   - Letter Validation           │
+│   - Lives Tracking              │
+│   - Win/Loss Detection          │
+└─────────────────────────────────┘
+      ↓
+Components:
+  ├─ Word Dictionary (words.txt)
+  ├─ Keyboard Handler (physical + virtual)
+  ├─ Hangman Drawer (SVG/Canvas)
+  └─ Open Dialog (game start options)
+```
 
-3. **Event Handling**:
-   - The game utilizes event handlers to manage user input and navigation between different scenes. For instance, the `Open` class has buttons to start the game, while the `Controller` manages letter guesses.
+**Game Logic Flow:**
+1. Load words from `words.txt` file
+2. Filter by difficulty (word length/complexity)
+3. Select random word and create blank template (`_ _ _ _`)
+4. Listen for keyboard/button input
+5. Validate letter against word
+6. Update display (reveal letters or draw hangman part)
+7. Check win condition (all letters found) or loss (6 wrong guesses)
 
-## Time and Space Complexity Analysis
+**Key Implementation Details:**
+- **Word Storage:** Text file with one word per line, loaded at startup
+- **Letter Tracking:** HashSet for guessed letters to prevent duplicates
+- **Display Logic:** String with underscores replaced by correct guesses
+- **Hangman Drawing:** Staged rendering - base → head → body → left arm → right arm → left leg → right leg
+- **Difficulty Algorithm:** Easy (4-6 letters), Medium (7-9 letters), Hard (10+ letters)
+- **Input Handling:** Both JavaFX button clicks and physical keyboard events trigger same validator
 
-### Time Complexity
+---
 
-- **Initialization**: Setting up the GUI components and initializing the game state occurs in constant time, O(1).
-- **Gameplay**: Each letter guess involves checking the word, which has a time complexity of O(n), where n is the length of the word. Updating the displayed word and checking for a win/loss condition also runs in O(n).
+## Project Structure
 
-### Space Complexity
+```
+Hangman/
+└── src/
+    ├── sample/
+    │   ├── Main.java              # Application entry point
+    │   ├── Controller.java        # Game logic controller
+    │   ├── Open.java             # Difficulty selection dialog
+    │   ├── sample.fxml           # Main UI layout
+    │   ├── words.txt             # Word dictionary (100+ words)
+    │   ├── hangman.png           # App icon
+    │   └── calendar.png          # UI assets
+    └── META-INF/
+        └── MANIFEST.MF           # JAR manifest
+```
 
-- **Memory Usage**: The primary space usage is for storing the game state, including the word to guess, the letters guessed, and the GUI components:
-  - Word and guessed letters: O(n) space.
-  - GUI components and state variables: O(1) space.
+---
 
-Overall, the space complexity is O(n), where n is the length of the word.
+## Getting Started
+
+**Requirements:**
+- Java 11 or higher
+- JavaFX SDK 11+ (if not bundled)
+
+**Setup and run:**
+
+```bash
+# Compile
+javac --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -d bin src/sample/*.java
+
+# Run
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -cp bin sample.Main
+```
+
+**Or use an IDE:**
+1. Import project into IntelliJ IDEA / Eclipse / NetBeans
+2. Configure JavaFX library in project settings
+3. Run `Main.java`
+
+**How to play:**
+1. Launch the application
+2. Select difficulty level (Easy/Medium/Hard)
+3. Guess letters by clicking on-screen keyboard or using physical keyboard
+4. Correctly guessed letters appear in the word
+5. Incorrect guesses add parts to the hangman
+6. Win by completing the word, lose after 6 wrong guesses
+
+**Customization:**
+- Edit `words.txt` to add your own words (one per line)
+- Longer words = harder difficulty
+
+---
+
+## What's Next
+
+Future enhancements under consideration:
+- Category-based word selection (animals, countries, movies, etc.)
+- Hint system (reveal one letter for a penalty)
+- Timer mode for added challenge
+- Multiplayer mode (turn-based guessing)
+- Statistics tracking (win rate, average guesses)
+- Sound effects and animations
+- Dark theme option
+
+---
 
 ## License
 

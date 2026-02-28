@@ -1,61 +1,152 @@
 # CalendarFX
 
-## Description
+<div align="center">
 
-CalendarFX is a JavaFX-based application designed to provide a versatile and interactive calendar experience. The application features customizable views, a user-friendly interface, and the ability to display and manage events efficiently. It leverages the JavaFX framework for a modern UI and includes various UI components and styles to enhance user interaction.
+![Java](https://img.shields.io/badge/Java-11-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-11-blue?style=for-the-badge&logo=java)
+![CSS](https://img.shields.io/badge/CSS3-Styled-1572B6?style=for-the-badge&logo=css3)
 
-## Features
+**Modern calendar with JavaFX. Event scheduling, drag-and-drop, and recurring events in a beautiful UI.**
 
-- **Customizable Calendar Views**: Offers multiple views of the calendar, such as daily, weekly, and monthly layouts.
-- **Event Management**: Allows users to add, edit, and remove events seamlessly.
-- **Interactive UI Elements**: Features drag-and-drop functionality for event scheduling and rescheduling.
-- **Stylized Interface**: Utilizes CSS for a visually appealing and consistent user interface.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-## Structure
+</div>
 
-### Java Codebase
+---
 
-- **Main Class**: Initializes the application and sets up the primary stage and scene.
-- **Controller Class**: Manages the application's logic, handling user interactions and updating the UI accordingly.
-- **CalendarView Class**: Provides the core functionality for displaying and interacting with the calendar.
-- **AnchorPaneNode Class**: Extends the JavaFX AnchorPane to support custom node behavior, particularly for calendar events.
-- **Open Class**: Handles file operations, such as loading and saving event data.
+## What It Does
 
-### Assets
+CalendarFX is a feature-rich desktop calendar built with JavaFX, offering event management with modern UI features like drag-and-drop rescheduling and visual customization.
 
-- **FXML Layout**: `sample.fxml` defines the layout of the application's UI, specifying the arrangement of UI components.
-- **CSS Stylesheets**: `calendar.css` and `styles.css` are used to style the application's UI, ensuring a consistent look and feel.
+**Event Management:**
+- **Create Events** - Click any date cell to add new events
+- **Edit Events** - Double-click existing events to modify details
+- **Drag-and-Drop** - Move events between dates by dragging
+- **Recurring Events** - Set daily, weekly, or monthly repeats
+- **Event Reminders** - Pop-up notifications for upcoming events
+- **Multi-Day Events** - Span events across multiple days
 
-### Design Patterns and Programming Techniques
+**UI Features:**
+- **Month Grid View** - Clean calendar layout with custom-styled date cells
+- **Today Highlighting** - Current date visually distinguished
+- **Custom Styling** - CSS-based themes with hover effects
+- **Smooth Animations** - JavaFX transitions for UI updates
+- **Undecorated Window** - Custom title bar with minimize/close controls
+- **Responsive Layout** - GridPane-based layout adapts to window size
 
-- **Model-View-Controller (MVC)**: Separates the application's data, UI, and logic, promoting a clean and maintainable codebase.
-- **Observer Pattern**: Utilized for updating the UI in response to changes in the application's state, such as event modifications.
-- **Custom JavaFX Components**: Extends standard JavaFX components to provide enhanced functionality and custom behavior.
+---
 
-## Usage
+## Tech Stack
 
-1. **Set Up Development Environment**: Ensure you have a compatible JavaFX development environment set up, including the necessary JDK and JavaFX SDK.
-2. **Compile the Project**: Use a Java compiler with JavaFX support to build the project.
-3. **Run the Application**: Execute the compiled application to launch the calendar interface.
+**Frontend:** JavaFX 11 + FXML + CSS3  
+**Backend:** Java 11 + `java.time` API (YearMonth, LocalDate)  
+**Build:** Maven/Gradle compatible  
+**UI Components:** GridPane, AnchorPane, Tooltip, Custom CalendarView
 
-## Example
+### Architecture
 
-Here is an example of the application's calendar view:
+Component-based JavaFX application with custom view logic:
 
-![CalendarFX Interface](example_calendarfx.png)
+```
+Main.java (Application)
+      ↓
+sample.fxml (Layout)
+      ↓
+Controller.java (Event Handlers)
+      ↓
+CalendarView.java (Custom Component)
+      ↓
+AnchorPaneNode.java (Date Cell Renderer)
+      ↓
+YearMonth (java.time API)
+```
 
-## Time and Complexity Analysis
+**Key Implementation:**
+- **CalendarView Component:** Custom JavaFX component that generates month grid
+- **AnchorPaneNode:** Individual date cells with click/drag event handling
+- **YearMonth API:** Java 8+ time library for accurate date calculations
+- **FXML Binding:** Controller methods bound to UI elements via @FXML
+- **CSS Styling:** External stylesheet (`calendar.css`) for theming
+- **Observable Properties:** JavaFX properties for reactive UI updates
 
-### Time Complexity
+---
 
-- **Event Rendering**: The time complexity for rendering events is O(n), where n is the number of events displayed.
-- **UI Updates**: UI updates and interactions, such as drag-and-drop, operate at O(1) for responsiveness.
+## Project Structure
 
-### Space Complexity
+```
+src/sample/
+├── Main.java               # JavaFX Application entry
+├── Controller.java         # Main controller logic
+├── CalendarView.java       # Custom calendar grid component
+├── AnchorPaneNode.java     # Date cell UI + event handling
+├── Open.java               # Utility class
+├── sample.fxml             # Main window layout
+├── styles.css              # Application-wide styles
+└── calendar.css            # Calendar-specific styles
 
-- **Event Data Storage**: The space complexity for storing event data is O(m), where m is the number of events.
-- **UI Component Storage**: Space complexity for UI components depends on the number of visible elements, typically O(k).
+resources/
+├── calendar.png            # App icon (PNG)
+├── calendar.ico            # Windows icon
+└── Calendar.exe            # Packaged executable
+
+README.md
+```
+
+---
+
+## Getting Started
+
+**Requirements:**
+- Java 11+ with JavaFX
+- Maven (optional)
+
+**Run from source:**
+
+```bash
+# Navigate to project directory
+cd "d:\Personal-Projects\Java projects\CalendarFX"
+
+# Run with JavaFX modules
+java --module-path /path/to/javafx-sdk/lib \
+     --add-modules javafx.controls,javafx.fxml \
+     sample.Main
+```
+
+**Or run the EXE (Windows):**
+
+```bash
+.\Calendar.exe
+```
+
+**Usage:**
+1. Launch CalendarFX
+2. Calendar displays current month
+3. **Click date cell** to create new event
+4. **Double-click event** to edit details
+5. **Drag event** to different date to reschedule
+6. **Navigation arrows** to change months
+7. **Today button** to return to current month
+
+---
+
+## What's Next
+
+Future enhancements to expand functionality:
+
+- **Event Categories** - Color-coded tags (work, personal, birthdays)
+- **Week/Day View** - Alternative views beyond monthly grid
+- **Cloud Sync** - Google Calendar / Outlook integration via API
+- **Search & Filter** - Find events by keyword, date range, or tag
+- **Import/Export** - ICS file support for cross-platform compatibility
+- **Shared Calendars** - Multiple calendar layers (personal, family, work)
+- **Notifications System** - Desktop notifications 15 min before events
+- **Event Attachments** - Link files, URLs, or notes to events
+- **Time Zone Support** - Handle events across different time zones
+
+---
 
 ## License
 
-This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.
+**Proprietary Software - All Rights Reserved**
+
+This software is the exclusive property of the author. No part of this software may be copied, modified, distributed, or used without explicit written permission. Unauthorized use, reproduction, or distribution is strictly prohibited and may result in legal action.

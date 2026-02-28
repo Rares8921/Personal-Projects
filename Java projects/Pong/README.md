@@ -1,77 +1,171 @@
-# Java Pong Game
+# Pong
 
-## Code Summary
+<div align="center">
 
-This Java program is a simple Pong game implemented using the JavaFX framework. It features a graphical user interface (GUI) with basic gameplay mechanics for a two-player game. The game window includes custom buttons for minimizing and closing the application, and the gameplay is controlled using the mouse.
+![Java](https://img.shields.io/badge/Java-JavaFX-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-17-blue?style=for-the-badge&logo=java)
+![Game](https://img.shields.io/badge/Game-Classic-green?style=for-the-badge&logo=gamepad)
 
-## Program Description and Usage
+**The timeless Pong game, rebuilt with JavaFX. Play against an adaptive AI that tracks the ball, with smooth physics and a clean dark interface.**
 
-### Main Components
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-1. **Pong Class (`Pong`)**:
-   - This is the main class extending `Application`, responsible for setting up the game window, initializing game elements, and handling the game's animation and logic.
-   - The window is styled without the default decorations (`StageStyle.UNDECORATED`), providing a clean and minimalistic interface.
+</div>
 
-2. **Canvas and GraphicsContext**:
-   - A `Canvas` object is used to draw all game elements, including the paddles, ball, and score. The `GraphicsContext` is obtained from the canvas to facilitate drawing operations.
+---
 
-3. **Timeline**:
-   - The game uses a `Timeline` with a `KeyFrame` to create a loop that updates the game state every 10 milliseconds, ensuring smooth gameplay.
+## What It Does
 
-4. **Mouse Controls**:
-   - The player's paddle (player one) is controlled by the mouse. The paddle's Y position follows the mouse's vertical movement, and clicking the mouse starts the game.
+This is a faithful recreation of the classic Pong game, built with JavaFX. One player (you) controls the left paddle with the mouse, while an AI opponent controls the right paddle. The AI tracks the ball's position and adjusts its paddle intelligently.
 
-5. **Custom Buttons**:
-   - The game window includes custom buttons for minimizing and closing the application. These buttons are styled with a dark theme and change appearance when hovered over.
+**Core features:**
+- **Mouse-controlled gameplay**: Move your paddle by moving the mouse vertically
+- **AI opponent** that tracks ball position and adjusts paddle dynamically
+- **Ball physics**: Speed increases with each paddle hit, making the game progressively harder
+- **Score tracking**: Points awarded when opponent misses the ball
+- **Smooth animations** using JavaFX Timeline (60 FPS)
+- **Minimalist dark UI** with custom window controls
 
-### Gameplay Mechanics
+**Gameplay mechanics:**
+- Ball bounces off top and bottom walls
+- Ball speed increases after each successful paddle hit
+- AI difficulty adapts based on ball position
+- Game resets after each point
+- Random ball direction on restart
 
-1. **Ball Movement**:
-   - The ball moves in the window, bouncing off the top and bottom edges. The direction and speed of the ball are randomized at the start of each round.
+**Why it's fun:**
+- Classic arcade feel with modern rendering
+- Progressive difficulty (ball gets faster)
+- Responsive mouse controls
+- Clean, distraction-free visuals
 
-2. **AI for Player Two**:
-   - Player two is controlled by a simple AI that follows the ball's vertical position, with a slight delay to simulate human reaction time.
+The game uses JavaFX Canvas for rendering and Timeline for the game loop, ensuring smooth 60 FPS animation with accurate collision detection.
 
-3. **Scoring System**:
-   - Each time a player misses the ball, the opposing player scores a point. The game resets the ball's position and speed when a point is scored.
+---
 
-4. **Paddle and Ball Collision**:
-   - The ball's speed increases each time it hits a paddle. The ball also reverses direction when it collides with a paddle, adding to the difficulty as the game progresses.
+## Tech Stack
 
-5. **Game Start and Reset**:
-   - The game starts when the user clicks on the canvas. If the ball goes out of bounds (i.e., a player misses), the game pauses, and the user must click again to restart.
+**Language:** Java (JavaFX 17+)  
+**UI Framework:** JavaFX (Canvas, GraphicsContext)  
+**Game Loop:** JavaFX Timeline with KeyFrame  
+**Physics:** Custom ball physics, collision detection  
+**Build:** Maven/Gradle (module-based project)
 
-### Custom Components
+### Architecture
 
-- **Minimize and Close Buttons**:
-  - Custom buttons are used for minimizing and closing the game window. These buttons are styled using CSS-like properties to fit the dark theme of the game.
+Classic game loop architecture with rendering, physics, and input handling:
 
-## Method of Generating the Game Elements
+```
+JavaFX Application
+      ↓
+Stage + Canvas Setup
+      ↓
+Game Loop (Timeline @ 60 FPS)
+      ↓
+┌─────────────┬─────────────┬──────────────┐
+│   Input     │   Physics   │   Rendering  │
+│  Handler    │   Engine    │   Engine     │
+└─────────────┴─────────────┴──────────────┘
+      ↓             ↓              ↓
+Mouse Events   Ball Movement   GraphicsContext
+               Collision Det.   (Canvas Drawing)
+               AI Logic
+```
 
-1. **Canvas Initialization**:
-   - The game window is created using a `Canvas`, and the `GraphicsContext` is used to draw the game's elements. The background, paddles, ball, and score are all drawn and updated in the `run` method.
+**How it works:**
+- **Game Loop**: Timeline fires every 10ms, calling `run(gc)` method
+- **Input**: Mouse movement updates player paddle Y position
+- **AI Logic**: AI paddle follows ball Y position with slight delay
+- **Physics**: Ball position updated each frame; collision detection with paddles and walls
+- **Rendering**: GraphicsContext draws paddles, ball, scores, and UI elements
+- **Scoring**: When ball crosses left/right boundary, update score and reset
 
-2. **Game Loop**:
-   - A `Timeline` is used to create a game loop, which calls the `run` method every 10 milliseconds. This loop is responsible for updating the game state and redrawing the canvas.
+**Key Implementation Details:**
+- **Ball Speed**: Stored in `ballXSpeed` and `ballYSpeed`; increases by 1 on each paddle collision
+- **Collision Detection**: Checks if ball intersects paddle rectangles using boundary conditions
+- **AI Behavior**: If ball is in left 75% of screen, AI tracks ball Y position; otherwise, moves toward center
+- **Physics**: Ball direction reverses on wall/paddle collision; speed multiplied by -1
+- **Custom Window**: Undecorated stage with custom minimize/close buttons
 
-3. **Event Handling**:
-   - Mouse events are handled to control the player one paddle and to start the game. The minimize and close buttons also use event handlers to perform their respective actions.
+---
 
-## Time and Space Complexity Analysis
+## Project Structure
 
-### Time Complexity
+```
+Pong/
+├── main/
+│   └── java/
+│       └── com/example/pong/
+│           └── Pong.java       # Main game logic + JavaFX application
+├── module-info.java            # Java module descriptor
+└── README.md
+```
 
-- **Initialization**: The initialization of the UI components and game elements occurs in constant time, O(1).
-- **Game Loop**: Each iteration of the game loop updates the position of the ball and paddles and redraws the canvas. Since these operations are linear with respect to the number of elements (ball, paddles, score), the time complexity of each loop iteration is O(1).
+**Main components:**
+- `Pong.java`: Game loop, rendering, physics, AI, input handling
+- Ball physics: Position, speed, collision detection
+- Paddle control: Player (mouse) + AI (ball tracking)
+- Score system: Player 1 vs Player 2 (AI)
 
-### Space Complexity
+---
 
-- **Memory Usage**: The primary space usage is for storing the positions of the ball and paddles, the scores, and the UI components:
-  - Ball and paddles: O(1) space.
-  - UI components and state variables: O(1) space.
+## Getting Started
 
-Overall, the space complexity is O(1).
+### Prerequisites
+
+- **Java 17+** with JavaFX SDK
+- Maven or Gradle (if building from source)
+
+### Running the Game
+
+**Option 1: Maven**
+```bash
+# Compile and run:
+mvn clean javafx:run
+```
+
+**Option 2: Gradle**
+```bash
+# Run with Gradle:
+gradle run
+```
+
+**Option 3: From JAR**
+```bash
+# If a JAR is provided:
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar Pong.jar
+```
+
+### How to Play
+
+1. **Start the game**: Click anywhere on the canvas to begin
+2. **Control your paddle**: Move the mouse up and down
+3. **Score points**: Make the AI miss the ball
+4. **Watch out**: Ball speeds up with each hit!
+
+**Scoring:**
+- Left paddle (you) scores when ball passes right boundary
+- Right paddle (AI) scores when ball passes left boundary
+- First to... well, there's no limit. Just keep playing!
+
+---
+
+## What's Next
+
+**Potential improvements:**
+- Add two-player mode (keyboard controls for second player)
+- Difficulty selector (easy, medium, hard AI)
+- Sound effects (ball hit, score, wall bounce)
+- Power-ups (faster ball, larger paddle, slow-motion)
+- High score tracking with persistent storage
+- Pause menu
+- Visual effects (particle trails, glow effects)
+
+---
 
 ## License
 
-This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.
+**Proprietary License**  
+© 2026. All rights reserved.
+
+This software is proprietary and confidential. Unauthorized copying, modification, distribution, or use of this software, via any medium, is strictly prohibited without explicit written permission from the owner.

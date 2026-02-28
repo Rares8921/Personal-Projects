@@ -1,63 +1,224 @@
-# Astronomy Picture of the Day (APOD) Viewer
+# NasaAPOD
 
-## Description
+<div align="center">
 
-The Astronomy Picture of the Day (APOD) Viewer is a JavaFX-based application that interacts with NASA's APOD API to display daily images of space phenomena, along with descriptions. The application leverages HTTP requests to fetch data from the API and presents it in a simple and user-friendly interface. This project is designed to provide space enthusiasts with easy access to NASA's rich collection of astronomical images.
+![Java](https://img.shields.io/badge/Java-11-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-11-blue?style=for-the-badge&logo=java)
+![API](https://img.shields.io/badge/NASA%20API-Integrated-red?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge)
 
-## Features
+**NASA Astronomy Picture of the Day viewer with date selection, descriptions, author credits, and direct HD image downloads.**
 
-- **NASA APOD API Integration**: Fetches daily images and descriptions directly from NASA’s Astronomy Picture of the Day API.
-- **JavaFX User Interface**: A modern and interactive GUI using JavaFX to display the image and its details (title, description, etc.).
-- **Error Handling**: Implements error handling to manage issues such as failed API requests or missing image data.
-- **JSON Parsing**: Efficiently parses the JSON response from NASA's API to extract and display relevant data.
-- **Modular Design**: Separates the concerns of UI management, API interaction, and data handling for improved maintainability.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-## Structure
+</div>
 
-### Java Codebase
+---
 
-- **Main Class (`Main.java`)**: Initializes the JavaFX application, sets up the primary stage, and loads the FXML for the UI layout.
-- **Controller Class (`Controller.java`)**: Handles user interactions, such as triggering the API request to fetch a new APOD image. It also manages the display of the image, title, and description in the UI.
-- **APOD Class (`APOD.java`)**: Manages the HTTP requests and JSON parsing for retrieving the APOD data from NASA’s API. It structures the data into easily accessible fields such as the image URL, title, and explanation.
+## What It Does
 
-### Assets
+NasaAPOD is a desktop application that brings NASA's Astronomy Picture of the Day directly to your screen. It fetches stunning space images and detailed descriptions from NASA's public API, making it easy to explore astronomical wonders.
 
-- **JavaFX Layouts**: Utilizes FXML to define the structure of the UI, separating the design from the business logic.
-- **NASA API**: Accesses NASA's APOD API for daily images, making use of standard HTTP libraries in Java to fetch and handle the data.
-- **JSON Parsing**: Parses the API response using libraries such as `org.json` to extract relevant data (title, image, description).
+**Core features:**
+- **Daily astronomy images** - automatically loads today's APOD on startup
+- **Date selection** - browse any APOD since June 20, 1995 (when the archive began)
+- **HD image viewing** - displays high-resolution space photography
+- **Descriptions** - hover tooltips with full explanations from NASA astronomers
+- **Author credits** - displays photographer/artist name for each image
+- **Direct HD links** - click image to open full-resolution version in browser
+- **Calendar navigation** - intuitive date picker for exploring past images
 
-### Design Patterns and Programming Techniques
+**What makes it special:**
+- Validates date range automatically (blocks dates before June 20, 1995 or future dates)
+- Fallback mechanism handles days with videos instead of images
+- Clean JavaFX interface with custom-styled date picker
+- Persistent window dragging for flexible positioning
+- Tooltip text wrapping for readable long descriptions
+- JSON parsing via Jackson library for reliable API consumption
 
-- **Model-View-Controller (MVC)**: The application follows the MVC pattern, where the `Main.java` sets up the view, `Controller.java` handles user input and events, and `APOD.java` acts as the model that interacts with the NASA API and provides data.
-- **Separation of Concerns**: Clearly divides API interaction, UI logic, and data presentation to ensure maintainability and scalability.
-- **Error Handling**: Implements error handling for HTTP requests and JSON parsing to manage potential issues such as connectivity problems or missing data.
+The application uses NASA's official APOD API endpoint, which provides daily selections of breathtaking images including deep space photos from Hubble, planetary surfaces, nebulae, galaxies, and more - all accompanied by professional astronomical explanations.
 
-## Usage
+---
 
-1. **Set Up Development Environment**: Ensure that your Java environment is configured with JavaFX and JSON libraries for API interactions.
-2. **Compile the Project**: Use a Java compiler or IDE to build the project, ensuring that dependencies for JavaFX and HTTP requests are correctly configured.
-3. **Run the Application**: Launch the compiled application to view the Astronomy Picture of the Day and related information.
+## Tech Stack
 
-## Example
+**Language:** Java 11  
+**Framework:** JavaFX (Scene, FXML, DatePicker)  
+**API:** NASA APOD RESTful API (https://api.nasa.gov/planetary/apod)  
+**JSON Parsing:** Jackson (codehaus.jackson) for ObjectMapper  
+**HTTP Client:** HttpURLConnection for API requests  
+**UI:** FXML layout with custom CSS styling  
+**Build:** Standard Java compilation
 
-Here is an example of how the application functions:
+### Architecture
 
-- Open the application.
-- The daily Astronomy Picture of the Day from NASA is fetched and displayed.
-- The user can view the title and a detailed description of the astronomical image.
+REST API consumer with MVC pattern:
 
-## Time and Complexity Analysis
+```
+Main (Application Launcher)
+      ↓
+Controller (FXML Controller)
+      ↓
+┌─────────────────────────────────┐
+│   NASA API Client               │
+│   - HTTP GET request            │
+│   - JSON response parsing       │
+│   - APOD model mapping          │
+└─────────────────────────────────┘
+      ↓
+Data Flow:
+  1. User selects date (or default = today)
+  2. Build API URL with date parameter
+  3. HttpURLConnection sends GET request
+  4. Receive JSON response
+  5. Jackson ObjectMapper → APOD object
+  6. Extract: title, author, explanation, hdUrl, url
+  7. Display image + metadata in UI
+      ↓
+UI Components:
+  ├─ ImageView (APOD image)
+  ├─ Label (title, author)
+  ├─ Tooltip (description on hover)
+  └─ DatePicker (calendar navigation)
+```
 
-### Time Complexity
+**API Integration:**
+```java
+URL: https://api.nasa.gov/planetary/apod
+Parameters:
+  - api_key: YOUR_NASA_API_KEY
+  - date: YYYY-MM-DD (optional, defaults to today)
 
-- **API Request**: The time complexity of making an API request to NASA's APOD API is O(1), as it is a constant-time operation regardless of the data being retrieved.
-- **JSON Parsing**: The time complexity of parsing the JSON response is O(n), where n is the number of fields in the API response.
-- **UI Updates**: Updating the JavaFX UI components is an O(1) operation, ensuring smooth user experience.
+Response (JSON):
+{
+  "copyright": "Photo Credit Name",
+  "date": "2020-05-19",
+  "explanation": "Long description text...",
+  "hdurl": "https://apod.nasa.gov/apod/image/2005/..._4096.jpg",
+  "media_type": "image",
+  "service_version": "v1",
+  "title": "Image Title",
+  "url": "https://apod.nasa.gov/apod/image/2005/..._1024.jpg"
+}
+```
 
-### Space Complexity
+**Key Implementation Details:**
+- **API Key:** Hardcoded NASA API key (public demo key, rate limited to 1000 requests/hour)
+- **Date Validation:** Blocks futures dates and dates before `1995-06-20` (APOD launch date)
+- **JSON Parsing:** Uses Jackson's `ObjectMapper.readValue()` to deserialize JSON into APOD POJO
+- **Image Loading:** ImageView directly loads from `hdUrl` (high-definition URL)
+- **Tooltip System:** Custom styling (dark background, white text, 400px max width, 90s display duration)
+- **Click Handler:** MouseListener on ImageView opens `hdUrl` in default browser via `Desktop.browse()`
+- **Fallback Logic:** If media_type is "video", loads default fallback image (May 19, 2020)
 
-- **API Data Storage**: The space complexity of storing the APOD data (image, title, and description) is O(m), where m is the size of the JSON response and the associated image data.
-- **JavaFX UI Components**: The memory usage for the UI components is constant and does not scale with the size of the data, making it O(1).
+**APOD Model Class:**
+```java
+@JsonProperty annotations map JSON fields to Java object:
+- copyright → String copyright
+- date → String date
+- explanation → String explanation
+- hdurl → String hdUrl
+- media_type → String mediaType
+- title → String title
+- url → String url
+```
+
+---
+
+## Project Structure
+
+```
+NasaAPOD/
+└── src/
+    ├── sample/
+    │   ├── Main.java              # JavaFX application entry
+    │   ├── Controller.java        # API logic + UI controller (170 lines)
+    │   ├── APOD.java             # Data model (Jackson POJO)
+    │   ├── Open.java             # Landing screen
+    │   ├── sample.fxml           # UI layout
+    │   ├── background.jpg        # App background
+    │   ├── calendar.png          # Calendar button icon
+    │   └── planet.ico            # App icon
+    └── META-INF/
+        └── MANIFEST.MF           # JAR manifest
+
+Dependencies:
+  - Jackson 1.x (codehaus.jackson) for JSON parsing
+```
+
+---
+
+## Getting Started
+
+**Requirements:**
+- Java 11 or higher
+- JavaFX SDK 11+
+- Internet connection (for NASA API access)
+- Jackson library (org.codehaus.jackson)
+
+**Setup:**
+
+1. **Get Jackson JAR:**
+   ```bash
+   # Download jackson-all-1.9.13.jar or add Maven dependency
+   # Place in lib/ folder
+   ```
+
+2. **Compile and run:**
+   ```bash
+   # Compile with JavaFX and Jackson
+   javac --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml \
+         -cp lib/jackson-all-1.9.13.jar \
+         -d bin src/sample/*.java
+
+   # Run
+   java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml \
+        -cp bin:lib/jackson-all-1.9.13.jar \
+        sample.Main
+   ```
+
+**Or use the JAR:**
+```bash
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar NasaAPOD.jar
+```
+
+**Using the application:**
+
+1. **View today's APOD:**
+   - Launch app - today's image loads automatically
+   - Read title and author at top
+   - Hover over image for full description (tooltip)
+
+2. **Explore past images:**
+   - Click calendar icon button
+   - Select any date since June 20, 1995
+   - App fetches and displays that day's APOD
+
+3. **Open HD version:**
+   - Click on the displayed image
+   - Opens full-resolution version in web browser for downloading/wallpaper use
+
+**API Key note:**
+- Code uses a demo NASA API key (rate limited)
+- For heavy use, get your own free key at [api.nasa.gov](https://api.nasa.gov)
+- Replace key in Controller.java line: `api_key=YOUR_KEY_HERE`
+
+---
+
+## What's Next
+
+Future enhancements under consideration:
+- Favorites/bookmarks system (save best images)
+- Offline mode (cache recent images)
+- Random APOD button (surprise me!)
+- Share functionality (social media, email)
+- Desktop wallpaper setter (one-click set as background)
+- Image gallery view (thumbnails of recent APODs)
+- Search by keyword in descriptions
+- Download manager for batch saving
+- Support for APOD videos (play in app instead of skipping)
+
+---
 
 ## License
 

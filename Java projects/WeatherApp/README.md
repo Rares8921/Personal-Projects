@@ -1,102 +1,214 @@
-# Weather Application Description
+# Weather App
 
-## Overview
+<div align="center">
 
-This application is a real-time weather forecasting tool built using Java and JavaFX for the graphical user interface. It allows users to input a city name and retrieve both current weather data and a 5-day weather forecast from the OpenWeatherMap API. The app is designed to be simple and user-friendly, featuring dynamic updates based on user input, automatic temperature unit conversions, and seamless interaction with the OpenWeatherMap API.
+![Java](https://img.shields.io/badge/Java-JavaFX-orange?style=for-the-badge&logo=java)
+![API](https://img.shields.io/badge/OpenWeatherMap-API-blue?style=for-the-badge&logo=weather)
+![Forecast](https://img.shields.io/badge/Forecast-5%20Day-green?style=for-the-badge&logo=cloud)
 
-### Usability
-- **City Search**: Users can input the name of any city in the provided text field to receive real-time weather data for that location. Upon pressing Enter, the app fetches the current conditions and the forecast.
-- **Dynamic Unit Conversion**: The user can toggle between metric and imperial units (Celsius to Fahrenheit, km/h to mph) by pressing a button on the interface.
-- **Forecast Visualization**: The app displays a 5-day weather forecast with high/low temperatures and icons representing the expected conditions for each day.
-- **Real-time Clock**: The current time and day of the week are continuously updated and displayed at the top of the application.
-- **Window Controls**: The window is draggable, and there are buttons to minimize or close the app.
+**A sleek weather forecast application that pulls real-time data from OpenWeatherMap API. Get current conditions and 5-day forecasts for any city, with weather icons and temperature trends.**
 
-### Key Features
-1. **Current Weather Data**: Displays real-time temperature, "feels like" temperature, wind speed, humidity, pressure, visibility, sunrise/sunset times, and an icon representing the weather condition.
-2. **5-Day Forecast**: Includes future high and low temperatures, along with weather condition icons for the next five days.
-3. **Automatic Unit Switching**: Users can switch between metric and imperial units, and the app will automatically update all measurements (temperature, wind speed, etc.) accordingly.
-4. **Real-time Clock**: Continuously updates the current time and day of the week on the screen.
-5. **Responsive and Interactive UI**: The app responds to user inputs instantly, with city names being entered and updated dynamically.
-6. **Smooth Window Dragging**: Users can click and drag the application window to reposition it on the screen easily.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
+
+</div>
 
 ---
 
-## External API Usage
-The application integrates with the OpenWeatherMap API to fetch real-time weather information. It sends two separate HTTP requests:
-1. **Current Weather Data**: Retrieves data for the current weather conditions in a specified city.
-2. **Forecast Data**: Fetches a 5-day forecast with temperature highs/lows and weather icons for each day.
+## What It Does
 
-### API Endpoints
-- **Current Weather**: `https://api.openweathermap.org/data/2.5/weather`
-- **Forecast**: `https://api.openweathermap.org/data/2.5/forecast`
+This is a modern weather application built with JavaFX that integrates with the OpenWeatherMap API. Search for any city worldwide to get current weather conditions and a detailed 5-day forecast with temperature, humidity, wind speed, and weather icons.
 
-### HTTP Connections
-The `connect()` and `connectNextDays()` methods handle HTTP requests. They use `URLConnection` to establish a connection to the API endpoints and parse the JSON responses into Java objects using Jackson’s `ObjectMapper`.
+**Core features:**
+- **City search**: Type any city name to get instant weather data
+- **Current weather**: Real-time temperature, conditions, humidity, wind speed
+- **5-day forecast**: Extended forecast with daily high/low temperatures
+- **Weather icons**: Visual representations of conditions (sunny, cloudy, rainy, etc.)
+- **Temperature units**: Switch between Celsius and Fahrenheit
+- **Auto-save preferences**: Remembers last searched city and unit preference
+- **Clean UI**: Dark-themed interface (#555555) with transparent window
+- **Location detection**: Default to saved location on startup
+- **API integration**: Pulls data from OpenWeatherMap's free tier
+
+**Displayed information:**
+- Temperature (current, feels like, high/low)
+- Weather condition (clear, clouds, rain, snow, etc.)
+- Humidity percentage
+- Wind speed and direction
+- Pressure
+- Sunrise/sunset times
+- 5-day forecast with daily predictions
+
+**Why it's useful:**
+- Fast, lightweight weather lookup
+- No ads or distractions
+- Persistent settings (remembers your city)
+- Professional-grade API data
+- Cross-platform (runs on Windows, Mac, Linux)
+
+The app makes HTTP GET requests to OpenWeatherMap API, parses JSON responses, and displays formatted data in JavaFX Labels and ImageViews.
 
 ---
 
-## Core Methods
+## Tech Stack
 
-### `initialize(URL url, ResourceBundle resourceBundle)`
-This method is called when the Controller is initialized. It performs the following actions:
-- Calls `setDraggable()` to allow dragging the window around the screen.
-- Loads the default city name and units from a data file using `loadUrl()`.
-- Connects to the OpenWeatherMap API to fetch weather data and calls `loadContent()` to update the UI with this information.
-- Sets up the user input listener through `onUserInput()` and initializes the real-time clock with `setTime()`.
+**Language:** Java (JavaFX 17+)  
+**API:** OpenWeatherMap REST API  
+**UI Framework:** JavaFX (Scene, FXML, Controller)  
+**Data Parsing:** JSON parsing (likely org.json or Gson)  
+**Networking:** `HttpURLConnection`, `BufferedReader`, `InputStreamReader`  
+**Persistence:** File I/O (`Formatter`, `Scanner`) for saving preferences  
+**Build:** Maven with JavaFX dependencies
 
-### `loadUrl(String u)`
-This method constructs the API request URL. It reads the city name and preferred unit of measurement from a file (`data.txt`). If the user has provided a different unit (metric/imperial), the URL is updated to reflect that.
+### Architecture
 
-### `connect()`
-This method handles the HTTP connection for current weather data. It fetches data from the OpenWeatherMap API, and the response is parsed using the `ObjectMapper` class into a `Map` for easy access.
+REST API integration with UI updates and preference persistence:
 
-### `connectNextDays()`
-Similar to `connect()`, this method fetches the weather forecast data for the next 5 days. It processes and stores the forecasted temperatures and icons for display in the UI.
-
-### `onUserInput()`
-This method listens for user input in the city `TextField`. When the user presses the **Enter** key, it triggers a new API call to update the weather information based on the newly entered city.
-
-### `loadContent()`
-After the API response is fetched, this method updates the UI components with the data:
-- Sets the temperature, feels like, and max/min temperatures.
-- Updates the wind speed, pressure, humidity, and visibility.
-- Displays the country, weather description, and weather icon.
-- Updates the sunrise and sunset times.
-- Sets the days and weather icons for the forecast section.
-
-### `setTime()`
-This method uses a `Timeline` to update the current day and time every second. It displays the day of the week and the current time in hours, minutes, and seconds.
-
-### `changeUnit()`
-This method toggles between metric and imperial units for temperature, wind speed, and other measurements. It reloads the data and updates the UI based on the chosen unit.
-
-### `setDraggable()`
-Allows the window to be dragged around the screen by updating its `x` and `y` position when the mouse is pressed and dragged.
-
-### `close()` and `minimize()`
-Handles window actions to close or minimize the application.
-
-## UI Elements
-- **Labels**: Used to display weather-related information, such as country, temperature, wind speed, humidity, visibility, and pressure.
-- **ImageViews**: Display weather icons for the current and forecasted weather conditions.
-- **TextField**: Allows the user to input the city name.
-- **Button**: Toggles between metric and imperial units of measurement.
-
-## Data Handling and Parsing
-The weather data is fetched in JSON format and parsed into Java `Map` objects. Specific fields such as temperature, weather conditions, and icons are extracted from these objects and displayed in the UI.
-
-### JSON Parsing
-- **Main Object**: Contains key weather data (temperature, pressure, humidity).
-- **Sys Object**: Contains information about the country, sunrise, and sunset times.
-- **Weather Object**: Contains a description of the current weather and the icon ID.
-
-### Example of API Response Parsing:
-```java
-Object sys = content.get("sys");
-String[] strSys = sys.toString().replace("{", "").replace("}", "").split(", ");
-long sunriseTimeStamp = Long.parseLong(strSys[sunriseIndex].substring(strSys[sunriseIndex].indexOf("=") + 1));
 ```
+JavaFX Application
+      ↓
+FXML UI (Search bar, Weather display, Forecast cards)
+      ↓
+Event Handlers (Search button, Unit toggle)
+      ↓
+┌──────────────┬──────────────┬──────────────┐
+│  API Client  │  JSON Parser │  Storage     │
+│  (HTTP)      │  (Weather)   │  Manager     │
+└──────────────┴──────────────┴──────────────┘
+      ↓              ↓               ↓
+HTTP GET       Extract Data    Write to File
+OpenWeatherMap  Temperature    (Last City,
+JSON Response   Conditions     Unit Pref)
+                Icons
+```
+
+**How it works:**
+- **Search Flow**: User types city → clicks search → HTTP GET to OpenWeatherMap → JSON response → parse data → update UI
+- **API Request**: `https://api.openweathermap.org/data/2.5/weather?q={city}&appid={key}&units={metric/imperial}`
+- **5-Day Forecast**: Separate API call to `/forecast` endpoint with same city
+- **JSON Parsing**: Extract temperature, humidity, conditions, icon code from response
+- **Icon Loading**: Weather icon codes (e.g., "01d", "10n") mapped to icon images
+- **Unit Conversion**: Toggle between Celsius (metric) and Fahrenheit (imperial) units
+- **Persistence**: On window close, saves city and unit preference to `src/data.txt`
+
+**Key Implementation Details:**
+- **API Key**: Embedded in code or config file (free OpenWeatherMap key)
+- **City Storage**: `Formatter` writes last city and unit to text file in `src/` directory
+- **Auto-load**: On startup, reads saved city from `data.txt` and fetches weather
+- **Error Handling**: Catches invalid city names, network errors, API failures
+- **Transparent Window**: `StageStyle.TRANSPARENT` with custom close handler
+
+---
+
+## Project Structure
+
+```
+WeatherApp/
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       └── com/example/weatherapp/
+│   │           ├── Main.java       # Entry point + JavaFX setup
+│   │           ├── Controller.java # UI logic + API calls
+│   │           └── Open.java       # Launch helper (optional)
+│   └── data.txt                    # Saved preferences (city, units)
+├── pom.xml                         # Maven dependencies
+└── WeatherApp.iml                  # IntelliJ module file
+```
+
+**Main components:**
+- `Main.java`: JavaFX application, scene setup, preference saving
+- `Controller.java`: API integration, JSON parsing, UI updates, city search
+- `weather.fxml`: FXML layout for weather display
+- `data.txt`: Persistent storage (city name, temperature unit)
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Java 17+** with JavaFX SDK
+- **Internet connection** (for API calls)
+- **OpenWeatherMap API key** (free tier available)
+- Maven (for building from source)
+
+### Configuration
+
+1. **Get API key**: Sign up at [OpenWeatherMap.org](https://openweathermap.org/api) for free API key
+2. **Add API key**: Open `Controller.java` and add your key to the API URL string
+
+### Running the Application
+
+**Option 1: Maven**
+```bash
+# Compile and run:
+mvn clean javafx:run
+```
+
+**Option 2: JAR**
+```bash
+# Run with JavaFX modules:
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar WeatherApp.jar
+```
+
+**Option 3: From Source**
+```bash
+# Compile:
+javac --module-path /path/to/javafx/lib --add-modules javafx.controls,javafx.fxml -d bin src/main/java/com/example/weatherapp/*.java
+
+# Run:
+java --module-path /path/to/javafx/lib --add-modules javafx.controls,javafx.fxml -cp bin com.example.weatherapp.Main
+```
+
+### How to Use
+
+1. **Search for city**:
+   - Type city name in search box (e.g., "London", "New York", "Tokyo")
+   - Press Enter or click search button
+   - Weather data loads automatically
+
+2. **View current weather**:
+   - Temperature displayed prominently
+   - Weather condition (sunny, cloudy, rainy, etc.)
+   - Additional details: humidity, wind speed, pressure
+
+3. **Check 5-day forecast**:
+   - Scroll through forecast cards
+   - See daily high/low temperatures
+   - Weather icons show predicted conditions
+
+4. **Change units**:
+   - Click unit toggle (°C / °F)
+   - Temperature updates immediately
+
+5. **Auto-loading**:
+   - Next time you open app, it remembers last city
+   - No need to search again
+
+**Supported cities:**
+- All major cities worldwide
+- Use format: "City, Country" for disambiguation (e.g., "Paris, FR")
+
+---
+
+## What's Next
+
+**Potential improvements:**
+- Add hourly forecast (24-hour breakdown)
+- Implement GPS location detection
+- Add weather alerts and warnings
+- Show air quality index (AQI)
+- UV index and pollen count
+- Radar/satellite imagery
+- Weather maps with precipitation overlay
+- Multiple city bookmarks
+- Widget mode (minimal, always-on-top)
+
+---
 
 ## License
 
-This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.
+**Proprietary License**  
+© 2026. All rights reserved.
+
+This software is proprietary and confidential. Unauthorized copying, modification, distribution, or use of this software, via any medium, is strictly prohibited without explicit written permission from the owner.

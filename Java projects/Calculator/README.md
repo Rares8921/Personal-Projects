@@ -1,54 +1,140 @@
-# JavaFX Calculator
+# Scientific Calculator
 
-This project is a **JavaFX-based calculator** that allows users to perform calculations and enter values through a custom graphical user interface (GUI). It consists of two primary classes: `Controller.java` and `InputBox.java`, which together provide functionality for basic arithmetic operations, input handling, and a clean user interface.
+<div align="center">
 
-## Key Components
+![Java](https://img.shields.io/badge/Java-11-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-11-blue?style=for-the-badge&logo=java)
+![FXML](https://img.shields.io/badge/FXML-UI-green?style=for-the-badge)
 
-### 1. Controller.java
+**Full-featured scientific calculator with modern UI. Because the default calculator isn't cutting it.**
 
-The `Controller.java` class serves as the backbone of the calculator. It manages the input, calculation logic, and button interactions. This class connects the UI buttons to the appropriate calculation functions and handles user interaction.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-**Main Features**:
-- **Button Event Handling**: Listens for button clicks to perform operations like addition, subtraction, multiplication, division, and resetting values.
-- **Input Processing**: Collects numeric input from users and passes it to the appropriate functions.
-- **Result Display**: After performing the calculation, it updates the calculator’s display with the result.
-- **Error Handling**: Displays appropriate messages or indicators when the user attempts to perform an invalid operation (e.g., division by zero).
-  
-The `Controller.java` class coordinates between user input, mathematical operations, and the UI display to ensure a smooth user experience.
+</div>
 
-### 2. InputBox.java
+---
 
-The `InputBox.java` class handles custom input dialogs, allowing users to input numbers manually. This is especially useful for advanced calculators that may require precise input beyond button presses.
+## What It Does
 
-**Main Features**:
-- **Custom Input Dialog**: Provides a modal input box where users can manually enter numbers.
-- **Input Validation**: Ensures that only valid numeric values are accepted, including support for commas as decimal points and negative numbers.
-- **Keyboard Interaction**: Supports keyboard events for entering and adjusting input (e.g., adding/removing negative signs, adjusting decimal points).
-- **Window Dragging**: Allows the user to drag the input box around the screen.
-- **Tooltips and UI Enhancements**: Provides tooltips to guide users in interacting with the input box effectively.
+A complete scientific calculator built with JavaFX, offering both basic arithmetic and advanced mathematical functions in a clean, intuitive interface.
 
-### How the Calculator Works
+**Calculation Features:**
+- **Basic Operations** - Addition, subtraction, multiplication, division
+- **Scientific Functions** - sin, cos, tan, arcsin, arccos, arctan
+- **Exponential & Logarithmic** - exp, ln, log, power (^), square root
+- **Memory Functions** - M+, M-, MR, MC for storing intermediate results
+- **Advanced Operations** - Factorial, absolute value, reciprocal (1/x)
+- **Constants** - π (pi), e (Euler's number)
 
-1. **User Interaction**: The user can either enter numbers using the on-screen buttons or open the custom input dialog (managed by `InputBox.java`) to enter more precise values.
-2. **Operation Selection**: Once the user has entered their numbers, they select the desired arithmetic operation (addition, subtraction, multiplication, division).
-3. **Calculation**: After selecting an operation, the `Controller.java` class processes the input and performs the calculation.
-4. **Result Display**: The result of the operation is displayed on the calculator’s screen. Any errors, such as invalid input or division by zero, are also managed by the `Controller.java` class.
+**UI Features:**
+- Draggable undecorated window
+- Keyboard input support
+- Expression display with result preview
+- Error handling for invalid operations
+- Clean, modern dark theme
 
-### Project Flow
+---
 
-- **Controller.java**: Manages the overall flow of the calculator, handling button interactions, mathematical operations, and UI updates.
-- **InputBox.java**: Provides an additional method for entering numbers manually, complete with validation and customization for more complex inputs.
+## Tech Stack
 
-### Technologies Used
-- **JavaFX**: For the user interface.
-- **FXML**: To define and structure the calculator layout and input box.
-- **Event Handling**: JavaFX’s event listeners are used for button clicks, key presses, and window dragging.
+**Frontend:** JavaFX 11 + FXML + CSS  
+**Backend:** Java 11 + Math library  
+**Build:** Maven  
+**UI Framework:** JavaFX Controls (TextField, Button, Label)
 
-### Conclusion
+### Architecture
 
-This JavaFX calculator project is designed to provide a clean, user-friendly experience for performing arithmetic operations. The integration of a custom input dialog (via `InputBox.java`) allows users to enter values with precision, making it suitable for both simple and advanced calculations. The project’s clear structure and modular design make it easy to extend and customize.
+Classic MVC pattern with FXML-based view:
 
+```
+Main.java (Application)
+      ↓
+Main.fxml (View Layout)
+      ↓
+Controller.java (Logic)
+      ↓
+InputBox.fxml (Pop-up dialogs)
+      ↓
+Math Operations (Java Math library)
+```
+
+**Implementation Details:**
+- **Expression Parser:** Custom parsing logic for operator precedence
+- **State Management:** Tracks current operation, operands, and memory state
+- **Event Handling:** Button actions bound via FXML + @FXML annotations
+- **Input Validation:** Prevents invalid characters and operations
+- **Responsive UI:** JavaFX scene graph with CSS styling
+
+---
+
+## Project Structure
+
+```
+src/sample/
+├── Main.java           # JavaFX Application entry point
+├── Controller.java     # Main calculator controller logic
+├── Main.fxml           # Calculator UI layout
+├── InputBox.java       # Dialog controller for special inputs
+├── InputBox.fxml       # Dialog layout
+├── Open.java           # Utility class
+└── styles.css          # Application styling
+
+resources/
+├── calc.png            # Icon
+└── calc.ico            # Windows icon
+```
+
+---
+
+## Getting Started
+
+**Requirements:**
+- Java 11+ (with JavaFX bundled or as separate modules)
+- Maven (optional, can run directly from IDE)
+
+**Run from IDE:**
+
+```bash
+# Navigate to project directory
+cd "d:\Personal-Projects\Java projects\Calculator"
+
+# Run Main.java directly
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml sample.Main
+```
+
+**Or compile with Maven:**
+
+```bash
+mvn clean install
+mvn javafx:run
+```
+
+**Keyboard Shortcuts:**
+- Numbers 0-9, operators (+, -, *, /)
+- Enter/= for equals
+- C for clear
+- Backspace to delete last character
+- Esc to close
+
+---
+
+## What's Next
+
+Future enhancements to consider:
+
+- **History Panel** - View and recall previous calculations
+- **Graphing Mode** - Plot functions like f(x) = sin(x)
+- **Programmer Mode** - Binary, hex, octal calculations with bitwise operations
+- **Unit Converter** - Integrated conversion for length, weight, temperature
+- **Custom Functions** - User-defined functions with variables
+- **Export Results** - Copy calculation history to clipboard or save as TXT/CSV
+- **Themes** - Light/dark mode toggle with custom color schemes
+- **RPN Mode** - Reverse Polish Notation for advanced users
+
+---
 
 ## License
 
-This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.
+**Proprietary Software - All Rights Reserved**
+
+This software is the exclusive property of the author. No part of this software may be copied, modified, distributed, or used without explicit written permission. Unauthorized use, reproduction, or distribution is strictly prohibited and may result in legal action.

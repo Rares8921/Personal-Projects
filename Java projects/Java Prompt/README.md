@@ -1,43 +1,184 @@
 # Java Prompt
 
-A static desktop application designed as a mini command prompt, that allows the user to run a few commands to get info about their configurations, to access the browser etc.
+<div align="center">
 
-## Code summary
-The application was created using java swing library. <br/>
-All the commands are shown to user by dialogue boxes. <br/>
-The program asks the user to type a command using the textfield. If the command is correct, the program will run sucessfuly. If the command is unknown, the program will throw an error mesage. </br>
-For the info command, all the java information is gathered using the System class. <br/>
-The url command uses the Desktop class to connect to the default browser, selected by the user, in order to search the specified url. <br/>
-The prime command utilises a simple algorithm( with time compleity of O(sqrt(n)), where n is effectively 100 ). <br/>
-The date is collected using the LocalDate class. <br/>
+![Java](https://img.shields.io/badge/Java-8-orange?style=for-the-badge&logo=java)
+![Swing](https://img.shields.io/badge/GUI-Swing-blue?style=for-the-badge)
+![Utility](https://img.shields.io/badge/Type-Terminal-yellow?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge)
 
+**A custom command-line interface built in Java with multiple utility commands, terminal aesthetics, and system integration.**
 
-## Requirement(s)
-Mandatory: Java JRE 8 or a later version installed. <br/>
-Optional: Internet connection (for url command).
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-## Illustration(s)
+</div>
 
-Main stage:
+---
 
-![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/mainFrame.png?raw=true)
+## What It Does
 
-Java info:
+Java Prompt is a terminal emulator with built-in commands for common tasks - think of it as a mini command prompt with Java-specific utilities plus general-purpose functions. It provides a nostalgic terminal experience while offering practical tools.
 
-![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/javaInfoCommand.png?raw=true)
+**Available commands:**
+- **!print** - display custom messages (echo functionality)
+- **!java** - view Java runtime information and system properties
+- **!url** - open specified URLs in your default browser
+- **!prime** - calculate and display prime numbers from 1 to 100
+- **!date** - show current date in day.month.year format
+- **!exit** - quit the application
 
-Url command:
+**What makes it useful:**
+- Terminal-style black background with cyan text for authentic command-line feel
+- Dialog-based output (JOptionPane) for clear results display
+- System integration via Desktop API for browser launching
+- Real-time command processing with Enter key execution
+- Copyright notice and command list displayed on startup
+- Lightweight and fast - no external dependencies
 
-![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/urlCommand.png?raw=true)
+The application combines the simplicity of a terminal with Java's GUI capabilities, making it educational for learning about command processors while being genuinely useful for quick calculations and system checks.
 
-Prime numbers:
+---
 
-![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/primeNumbersCommand.png?raw=true)
+## Tech Stack
 
-Date command:
+**Language:** Java 8  
+**GUI Framework:** Swing (JFrame, JTextField, JLabel, JOptionPane)  
+**Layout:** FlowLayout for component stacking  
+**Integration:** Desktop API (browser launching), LocalDate (date handling)  
+**Algorithms:** Prime number sieve, URL validation  
+**Build:** Standard javac compilation
 
-![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/errorMessage.png?raw=true)
+### Architecture
 
-Error message:
+Command-pattern implementation with event-driven execution:
 
-![image](https://github.com/Rares8921/Projects/blob/master/2019/Java/Java%20Prompt/errorMessage.png?raw=true)
+```
+Main (extends JFrame)
+      ↓
+┌─────────────────────────────────┐
+│   Command Processor             │
+│   - KeyListener (Enter key)     │
+│   - Command Parser              │
+│   - Executor                    │
+└─────────────────────────────────┘
+      ↓
+Command Handlers:
+  ├─ !print → JOptionPane message dialog
+  ├─ !java → System.getProperty() calls
+  ├─ !url → Desktop.browse(URI)
+  ├─ !prime → prime calculation algorithm
+  ├─ !date → LocalDate.now() formatter
+  └─ !exit → System.exit(0)
+```
+
+**Prime Number Algorithm:**
+```
+For each number i from 1 to 100:
+    counter = 0
+    For each divisor num from i down to 1:
+        If i % num == 0:
+            counter++
+    If counter == 2:  // only divisible by 1 and itself
+        Add i to primes list
+```
+
+**Key Implementation Details:**
+- **Command Parsing:** Uses `String.equals()` for exact command matching
+- **Output Display:** JOptionPane dialogs for non-terminal-like pop-up results
+- **URL Handling:** Validates URL format, opens in default browser via `Desktop.getDesktop().browse()`
+- **Java Info:** Queries system properties: runtime version, home directory, vendor, vendor URL
+- **Date Formatting:** Uses Java 8's `LocalDate` API for current date (day, month, year)
+- **Terminal Styling:** Black background, cyan text (RGB: #00FFFF), white labels for instructions
+
+**System Properties Queried:**
+- `java.runtime.version` - JRE version
+- `java.home` - JDK/JRE installation path
+- `java.vendor` - Java provider (Oracle, OpenJDK, etc.)
+- `java.vendor.url` - vendor's website
+
+---
+
+## Project Structure
+
+```
+Java Prompt/
+├── Main.java                    # Core application (GUI + command logic)
+├── Java Prompt.jar              # Compiled executable
+├── mainFrame.png                # Screenshot: main interface
+├── javaInfoCommand.png          # Screenshot: !java output
+├── primeNumbersCommand.png      # Screenshot: !prime output
+├── dateCommand.png              # Screenshot: !date output
+├── urlCommand.png               # Screenshot: !url usage
+├── errorMessage.png             # Error dialog visual
+└── README.md
+```
+
+---
+
+## Getting Started
+
+**Requirements:**
+- Java 8 or higher
+- Default web browser (for !url command)
+
+**Run the application:**
+
+```bash
+# Option 1: Use the JAR
+java -jar "Java Prompt.jar"
+
+# Option 2: Compile from source
+javac Main.java
+java com.jetbrains.Main
+```
+
+**Usage guide:**
+
+```bash
+# Print a custom message
+!print
+# (follow the prompt to enter your message)
+
+# View Java system information
+!java
+
+# Open a URL in browser
+!url
+# (enter URL when prompted, e.g., https://github.com)
+
+# Display prime numbers 1-100
+!prime
+
+# Show current date
+!date
+
+# Exit the application
+!exit
+```
+
+**Tips:**
+- Commands must be typed exactly as shown (case-sensitive)
+- Results appear in pop-up dialogs for easy reading
+- Invalid commands are ignored (no error message)
+- Command field clears after execution for next command
+
+---
+
+## What's Next
+
+Planned enhancements:
+- Command history with up/down arrow keys
+- Autocomplete for commands (tab completion)
+- More commands: `!calc`, `!sysinfo`, `!clear`, `!help`
+- File operations: `!ls`, `!cd`, `!mkdir`, `!rm`
+- Output logging to file
+- Piping/chaining commands (e.g., `!prime | !count`)
+- Script execution from `.jpt` files
+- Customizable themes (green, amber, matrix)
+- Command aliases for shortcuts
+
+---
+
+## License
+
+This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.

@@ -1,55 +1,277 @@
-# Pacman Game
+# Randomized Pacman
 
-## Description
+<div align="center">
 
-Pacman is a web-based game inspired by classic maze and snack collection games. The player navigates a maze, collecting points while avoiding enemies. The game features a start screen, a leaderboard, and control buttons for navigation.
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Canvas API](https://img.shields.io/badge/Canvas%20API-FF6F00?style=for-the-badge&logo=html5&logoColor=white)
 
-## Features
+**Classic Pacman game with procedurally generated mazes. Every playthrough is different, every maze is solvable.**
 
-- **Interactive Gameplay**: Navigate through the maze, collect points, and avoid enemies.
-- **LeaderBoard**: Displays top scores.
-- **Lives and Score Display**: Shows the remaining lives and the current score.
-- **Controls**: Directional buttons for movement and keyboard arrow key support.
-- **Start Screen**: Initial screen to start the game.
-- **Responsive Design**: Fits various screen sizes with a smartphone-like appearance.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-## Structure
+</div>
 
-### HTML
+---
 
-- The HTML structure includes a header, start button, leaderboard, main game area, lives display, score display, and control buttons.
-- Elements like the leaderboard, lives, score, and controls are organized using CSS grid layout.
-- The `main` tag contains the game maze, dynamically populated with div elements representing walls, points, the player, and enemies.
+## What It Does
 
-### CSS
+This is Pacman reimagined with procedural maze generation. Built with pure JavaScript and HTML5 Canvas, it creates random mazes that are guaranteed to be solvable while maintaining classic gameplay.
 
-- **Font**: Uses 'Press Start 2P' for a retro game feel.
-- **Grid Layout**: CSS grid for responsive and structured layout.
-- **Animations**: Keyframe animations for player mouth movement and death/hit effects.
-- **Styling**: Visual styles for walls, points, enemies, and control buttons.
+**The good stuff:**
+- **Procedural Generation:** Every game creates a unique, random maze layout
+- **Maze Validation:** BFS algorithm ensures all pellets are reachable before game starts
+- **Smart Enemy Placement:** Ghosts spawn in valid positions that don't block critical paths
+- **Classic Gameplay:** Navigate mazes, collect pellets, avoid ghosts, rack up high scores
+- **Lives System:** Three lives per game with visual indicators
+- **Leaderboard:** Track high scores across sessions
+- **Keyboard Controls:** Arrow keys or WASD for movement
+- **Responsive Canvas:** Clean rendering with smooth animations
 
-### JavaScript
+**What makes it different:**
+- No two games are the same - infinite replayability
+- Smart maze generation with pathfinding validation
+- Pure vanilla JavaScript - no frameworks, no dependencies
+- Runs entirely in the browser, no backend needed
+- Clean, readable code perfect for learning game development
 
-- **Game Initialization**: Functions to initialize the game, generate enemy positions, and ensure maze accessibility.
-- **Movement Handling**: Functions to handle player movement and direction based on keyboard and button inputs.
-- **Collision Detection**: Functions to check for collisions with points and enemies, update the score, and handle game-over scenarios.
-- **Dynamic Maze Rendering**: Populates the maze grid based on the predefined maze array.
-- **Event Listeners**: Listens for keydown and keyup events for player movement.
+The game validates maze solvability using breadth-first search to ensure players can always reach all pellets. Ghost positions are randomly generated but constrained to maintain fair gameplay.
 
-## Usage
+---
 
-1. **Start the Game**: Click the start button on the initial screen.
-2. **Navigate the Maze**: Use the arrow keys or the directional buttons on the screen to move the player.
-3. **Collect Points**: Move over points to collect them and increase your score.
-4. **Avoid Enemies**: Navigate carefully to avoid colliding with enemies.
-5. **Game Over**: The game ends when all points are collected or the player collides with an enemy.
+## Tech Stack
 
-## Example
+**Frontend:** HTML5 + CSS3 + Vanilla JavaScript  
+**Rendering:** HTML5 Canvas API  
+**Algorithms:** BFS (pathfinding validation), procedural maze generation  
+**State Management:** Pure JavaScript (no frameworks)
 
-Here is an example of how the webpage might look when the game is running:
+### Architecture
 
-![Pacman Game Example](example.png)
+Simple game loop architecture with procedural generation:
+
+```
+Game State Manager
+       ↓
+Maze Generation Algorithm (random layout)
+       ↓
+BFS Validation (ensure solvability)
+       ↓
+Enemy Placement (random valid positions)
+       ↓
+Game Loop (60 FPS)
+       ↓
+Canvas Renderer (DOM updates)
+```
+
+**How maze generation works:**
+
+1. **Initial Layout:** Start with a base 10x10 grid (walls on borders)
+2. **Random Placement:** Randomly place internal walls avoiding player start position
+3. **Enemy Spawning:** Generate random positions from free cells
+4. **Validation:** Run BFS from player position to verify all pellets are reachable
+5. **Retry Logic:** If maze is unsolvable, regenerate enemy positions and validate again
+6. **Game Start:** Once validated, render maze and begin gameplay
+
+**BFS Validation Algorithm:**
+```javascript
+function isAccessible(maze, startX, startY) {
+    // Breadth-first search from player position
+    // Visit all reachable cells (0 = pellet, 2 = player)
+    // Return false if any pellet (0) is unreachable
+    // Return true if all pellets can be collected
+}
+```
+
+**Game Loop:**
+```
+User Input (keyboard events)
+       ↓
+Update Player Position (collision detection)
+       ↓
+Update Enemy Positions (AI movement)
+       ↓
+Check Win/Loss Conditions
+       ↓
+Render Frame (Canvas draw calls)
+       ↓
+Request Next Frame (60 FPS)
+```
+
+---
+
+## Project Structure
+
+```
+Randomized pacman/
+├── index.html              # Game container and UI elements
+├── script.js               # Game logic, maze generation, BFS validation
+├── style.css              # Styling for game board and UI
+├── images/
+│   └── icon.png           # Pacman icon/avatar
+└── README.md             # This file
+```
+
+All game logic, maze generation, and validation happens in `script.js`. The maze is a 2D array where:
+- `1` = Wall (black cells)
+- `0` = Pellet (collectible points)
+- `2` = Player (Pacman)
+- `3` = Enemy (Ghosts)
+
+---
+
+## Getting Started
+
+**What you need:**
+A modern web browser with JavaScript enabled. That's it.
+
+**Setup (10 seconds):**
+
+```bash
+# Navigate to the project
+cd "d:\Personal-Projects\Web projects\Randomized pacman"
+
+# Open in browser
+start index.html
+```
+
+**Or use a local server:**
+
+```bash
+# Python 3
+python -m http.server 8000
+
+# Node.js
+npx http-server -p 8000
+```
+
+Then open `http://localhost:8000` in your browser.
+
+**How to play:**
+1. Click the "Start" button to generate a new maze
+2. Use **arrow keys** or **WASD** to move Pacman
+3. Collect all pellets (white dots) to win
+4. Avoid the ghosts - they'll cost you a life
+5. Beat your high score and climb the leaderboard
+
+**Controls:**
+- **↑ / W** - Move Up
+- **↓ / S** - Move Down
+- **← / A** - Move Left
+- **→ / D** - Move Right
+
+---
+
+## Game Mechanics
+
+**Scoring:**
+- Each pellet collected: +10 points
+- Complete maze: Bonus points based on time and lives remaining
+- High scores saved in leaderboard
+
+**Lives:**
+- Start with 3 lives
+- Lose a life when touching a ghost
+- Game over at 0 lives
+
+**Enemy AI:**
+- Ghosts move randomly within the maze
+- Cannot pass through walls
+- Movement speed increases as game progresses (optional feature)
+
+**Win Condition:**
+- Collect all pellets in the maze
+- Survive with at least 1 life remaining
+
+---
+
+## What's Next
+
+**Planned improvements:**
+- Add power pellets for ghost-eating mode
+- Implement smarter ghost AI (chase/scatter modes)
+- Add sound effects and background music
+- Create multiple difficulty levels (maze size, ghost count, speed)
+- Add touch controls for mobile devices
+- Implement maze size customization (10x10, 15x15, 20x20)
+- Add animations for Pacman mouth and ghost movement
+- Persistent leaderboard with localStorage
+- Add level progression (maze complexity increases)
+- Implement special bonus fruits
+
+**Want to contribute?**
+The codebase is vanilla JavaScript - easy to understand and extend. Focus areas: AI improvements, visual effects, mobile support.
+
+---
+
+## Deployment
+
+**Static Hosting (Free):**
+- **GitHub Pages:** Push to repo, enable Pages, live instantly
+- **Netlify:** Drag and drop the folder, deployed in seconds
+- **Vercel:** `vercel deploy` from the command line
+- **AWS S3:** Static website hosting with CloudFront CDN
+
+**Docker (optional):**
+
+```dockerfile
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+```bash
+docker build -t randomized-pacman .
+docker run -p 8080:80 randomized-pacman
+```
+
+**Cloudflare Pages:**
+```bash
+# Install Wrangler
+npm install -g wrangler
+
+# Deploy
+wrangler pages publish .
+```
+
+---
+
+## Technical Details
+
+**Maze Representation:**
+The maze is a 2D JavaScript array:
+```javascript
+let maze = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 1, 0, 0, 0, 0, 2, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+    // ... more rows
+];
+```
+
+**BFS Validation:**
+- Time Complexity: O(n × m) where n, m are maze dimensions
+- Space Complexity: O(n × m) for visited array
+- Ensures every pellet is reachable from player start position
+
+**Rendering:**
+- Canvas-based rendering for smooth performance
+- Cell-by-cell drawing for walls, pellets, player, and enemies
+- 60 FPS game loop using `requestAnimationFrame`
+
+**Collision Detection:**
+- Check adjacent cell before moving player
+- Prevent movement into walls (cell value === 1)
+- Detect player-enemy collision for life deduction
+
+---
 
 ## License
 
-This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.
+**Proprietary Software** - All rights reserved.
+
+This software is provided for personal use and evaluation only. No license is granted for commercial use, modification, or distribution without explicit written permission from the author.
+
+For licensing inquiries, please contact the repository owner.

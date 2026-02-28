@@ -1,55 +1,191 @@
-# Tetris Game Application
+# Tetris
 
-## Description
+<div align="center">
 
-The Tetris Game Application is a Java-based implementation of the classic Tetris game, developed using JavaFX. It offers a smooth and responsive gameplay experience, with all the core features of traditional Tetris. The application uses JavaFX for rendering and user interaction, while the game logic is meticulously implemented to provide an engaging and challenging experience.
+![Java](https://img.shields.io/badge/Java-JavaFX-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-17-blue?style=for-the-badge&logo=java)
+![Game](https://img.shields.io/badge/Game-Puzzle-green?style=for-the-badge&logo=gamepad)
 
-## Features
+**The classic Tetris game, rebuilt from scratch with JavaFX. Seven tetromino shapes, line clearing, increasing speed, and a polished game loop. Drop, rotate, and clear lines.**
 
-- **Classic Tetris Gameplay**: Provides the traditional Tetris experience, with familiar mechanics for rotating and stacking blocks.
-- **JavaFX User Interface**: The entire user interface, including the game board and score display, is managed within the `Tetris.java` class using JavaFX, ensuring a modern and fluid visual experience.
-- **Score Tracking**: Tracks and displays the player’s score as they clear lines.
-- **Responsive Controls**: Players can control the falling blocks using keyboard inputs, with smooth and responsive gameplay.
-- **Game Over Detection**: Detects when the game is over and displays the final score, allowing the player to restart or exit.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-## Structure
+</div>
 
-### Java Codebase
+---
 
-- **Main Class (`Tetris.java`)**: Serves as the main entry point for the application. It sets up the JavaFX stage and scene, handles the game loop, and manages user interactions such as block movement, rotation, and line clearing. This class also contains the logic for detecting game over conditions and updating the player's score.
-- **Controller Class (`Controller.java`)**: Manages the core game logic, including block movement, collision detection, line clearing, and score calculations. It works closely with `Tetris.java` to update the game state based on user actions and time progression.
-- **Form Class (`Form.java`)**: Represents the Tetris pieces (Tetrominoes). This class defines the shapes, rotations, and positioning of each piece, and handles the logic for how these pieces interact with the game board.
+## What It Does
 
-### Assets
+This is a full implementation of Tetris, built with JavaFX. Control falling tetrominoes (the iconic 7 shapes), rotate them, and clear lines to score points. The game speeds up as you progress, testing your reflexes and spatial reasoning.
 
-- **JavaFX Integration**: The entire game interface, including the game board, score display, and control handling, is implemented using JavaFX, providing a sleek and modern user experience.
-- **Tetris Pieces**: The `Form.java` class defines the various Tetrominoes used in the game, handling their shapes, rotations, and positioning on the game board.
+**Core features:**
+- **7 classic tetromino shapes** (I, O, T, S, Z, J, L) with accurate rotation mechanics
+- **Line clearing**: Complete horizontal lines to score points and clear space
+- **Increasing difficulty**: Game speed increases as you clear more lines
+- **Next piece preview**: See what's coming next to plan ahead
+- **Score and line tracking**: Real-time display of score and lines cleared
+- **2D grid collision detection**: Accurate placement and rotation validation
+- **Game over detection**: Ends when pieces stack to the top
+- **Smooth animations** using JavaFX Timeline
 
-## Usage
+**Gameplay mechanics:**
+- Pieces fall automatically at timed intervals
+- Arrow keys: Left/Right (move), Up (rotate), Down (drop faster)
+- Pieces lock in place when they hit the bottom or another piece
+- Completed lines are cleared and score increases
+- Speed increases every N lines cleared
+- Game over when new piece spawns at occupied position
 
-1. **Set Up Development Environment**: Ensure you have a Java development environment with JavaFX properly configured.
-2. **Compile the Project**: Use a Java compiler to build the project.
-3. **Run the Application**: Execute the compiled application to start playing Tetris.
+**Why it's addictive:**
+- Classic Tetris mechanics faithfully recreated
+- Smooth controls and collision detection
+- Progressive difficulty keeps it challenging
+- Clean, minimalist UI with score/line display
 
-## Example
+The game uses a 2D integer array for the grid (12x24 cells), JavaFX Rectangles for rendering pieces, and a Timeline-based game loop for consistent timing.
 
-Here is an example of how to play the Tetris Game:
+---
 
-- Start the game by running the application.
-- Use the arrow keys to move and rotate the Tetrominoes as they fall.
-- Clear lines by filling them completely with blocks.
-- Continue playing until the blocks stack to the top of the screen, at which point your final score will be displayed.
+## Tech Stack
 
-## Time and Complexity Analysis
+**Language:** Java (JavaFX 17+)  
+**UI Framework:** JavaFX (Pane, Scene, Rectangle, Text)  
+**Data Structures:** 2D int array (grid state), Form class (tetromino shapes)  
+**Game Loop:** JavaFX Timer + TimerTask  
+**Collision Detection:** Grid boundary and occupied cell checking  
+**Build:** Maven (with JavaFX dependencies)
 
-### Time Complexity
+### Architecture
 
-- **Game Loop**: The time complexity of the game loop is O(1) per frame, involving constant-time operations such as checking for collisions, updating block positions, and rendering the game board.
+Game loop with piece spawning, movement, rotation, line clearing, and rendering:
 
-### Space Complexity
+```
+JavaFX Application
+      ↓
+Stage + Pane Setup (12x24 grid)
+      ↓
+Game Loop (Timer @ variable speed)
+      ↓
+┌──────────────┬──────────────┬───────────────┐
+│   Input      │   Game       │   Rendering   │
+│  Handler     │   Logic      │   Engine      │
+└──────────────┴──────────────┴───────────────┘
+      ↓              ↓               ↓
+Key Events    Piece Movement   Rectangle Nodes
+Rotation      Collision Det.   (JavaFX Shapes)
+              Line Clearing
+              Score Update
+```
 
-- **Memory Usage**: The space complexity is O(1) for the game state (current block, next block, score) and O(n) for the game board, where n is the number of cells on the board.
+**How it works:**
+- **Grid State**: 2D array `tetrisMatr[12][24]` stores occupied cells (0 = empty, N = color ID)
+- **Form Class**: Represents tetromino shapes with 4 Rectangle nodes (a, b, c, d)
+- **Movement**: Arrow keys trigger horizontal movement or rotation; validated against grid
+- **Gravity**: Timer moves piece down every N milliseconds
+- **Collision**: Checks if target cells are occupied or out of bounds
+- **Line Clearing**: Scans for complete rows, removes them, shifts rows down
+- **Next Piece**: Preview displayed on right side of grid
+
+**Key Implementation Details:**
+- **Tetromino Shapes**: Each shape defined by 4 Rectangle positions (e.g., I-piece, L-piece, T-piece)
+- **Rotation Logic**: Calculates new positions for 4 blocks based on shape type and current rotation state
+- **Line Detection**: Iterates through rows, checks if all columns are filled
+- **Speed Increase**: Timer interval decreases as `numberOfLines` increases
+- **Game Over**: Detected when new piece spawns at Y=0 and position is occupied twice consecutively
+
+---
+
+## Project Structure
+
+```
+Tetris/
+├── src/
+│   └── main/
+│       └── java/
+│           └── com/example/tetris/
+│               ├── Tetris.java     # Main game loop + rendering
+│               ├── Controller.java # Piece factory + rotation logic
+│               └── Form.java       # Tetromino shape class
+├── pom.xml                         # Maven dependencies
+└── README.md
+```
+
+**Main components:**
+- `Tetris.java`: Game loop, grid management, line clearing, scoring
+- `Controller.java`: Tetromino factory (`makeObject()`), rotation algorithms
+- `Form.java`: Tetromino representation (4 Rectangle nodes + color)
+- Grid: 12 columns × 24 rows (each cell = 25px)
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Java 17+** with JavaFX SDK
+- Maven (for building from source)
+
+### Running the Game
+
+**Option 1: Maven**
+```bash
+# Compile and run:
+mvn clean javafx:run
+```
+
+**Option 2: From JAR**
+```bash
+# If JAR is provided:
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls -jar Tetris.jar
+```
+
+**Option 3: From Source**
+```bash
+# Compile manually:
+javac --module-path /path/to/javafx/lib --add-modules javafx.controls -d bin src/main/java/com/example/tetris/*.java
+
+# Run:
+java --module-path /path/to/javafx/lib --add-modules javafx.controls -cp bin com.example.tetris.Tetris
+```
+
+### How to Play
+
+1. **Start**: Run the application—the first piece falls automatically
+2. **Move**: Use Left/Right arrow keys to move piece horizontally
+3. **Rotate**: Press Up arrow to rotate piece clockwise
+4. **Drop faster**: Hold Down arrow to speed up descent
+5. **Clear lines**: Fill horizontal rows completely to clear them
+6. **Goal**: Score as many points as possible before game over
+
+**Controls:**
+- **Left/Right Arrow**: Move piece horizontally
+- **Up Arrow**: Rotate piece
+- **Down Arrow**: Drop piece faster (soft drop)
+
+**Scoring:**
+- Each line cleared: +100 points
+- Faster drop (manual): +10 points per cell
+- Game over when pieces reach the top
+
+---
+
+## What's Next
+
+**Potential improvements:**
+- Add hard drop (instant drop to bottom)
+- Implement hold piece feature
+- Add T-spin detection for bonus points
+- Ghost piece (shows where piece will land)
+- Level progression with defined level thresholds
+- High score persistence
+- Sound effects (line clear, game over, rotation)
+- Multiplayer mode (side-by-side or competitive)
+
+---
 
 ## License
 
-This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.
+**Proprietary License**  
+© 2026. All rights reserved.
+
+This software is proprietary and confidential. Unauthorized copying, modification, distribution, or use of this software, via any medium, is strictly prohibited without explicit written permission from the owner.

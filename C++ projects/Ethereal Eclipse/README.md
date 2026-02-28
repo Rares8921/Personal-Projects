@@ -1,69 +1,233 @@
 # Ethereal Eclipse
 
-## Description
+<div align="center">
 
-Ethereal Eclipse is an immersive 2D action-adventure game developed using C++. The game features dynamic character interactions, challenging enemy encounters, and a rich, detailed environment. The project includes comprehensive game mechanics, a robust tile system, and various visual assets to create an engaging player experience. Debugging and performance analysis were conducted using native code analysis tools to ensure optimal game performance.
+![C++](https://img.shields.io/badge/C++-17-00599C?style=for-the-badge&logo=cplusplus)
+![SFML](https://img.shields.io/badge/SFML-2.5-8CC445?style=for-the-badge&logo=sfml)
+![OpenGL](https://img.shields.io/badge/OpenGL-3.3-5586A4?style=for-the-badge&logo=opengl)
+![Visual Studio](https://img.shields.io/badge/Visual_Studio-2019-5C2D91?style=for-the-badge&logo=visualstudio)
 
-## Features
+**A 2D action-adventure game showcasing advanced C++ design patterns, smart pointer memory management, and custom shader programming.**
 
-- **Dynamic Character Interactions**: Engage with the game world through various character abilities and actions.
-- **Challenging Enemy Encounters**: Battle a variety of enemies with unique behaviors and attack patterns.
-- **Rich Environment**: Explore detailed environments with diverse textures and interactive elements.
-- **Robust Tile System**: Utilizes a sophisticated tile map system for environment design.
-- **Debugging and Performance Analysis**: Ensures a smooth gaming experience with extensive debugging and performance optimization.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-## Structure
+</div>
 
-### C++ Codebase
+---
 
-- **Game Mechanics**: Implements core gameplay features such as character movement, combat, and enemy 'AI'.
-- **Tile System**: Manages the game's environment using a tile-based approach for efficient rendering and interaction.
-- **Debugging Tools**: Uses native code analysis tools to detect and resolve performance bottlenecks and bugs.
-- **Memory Management**: Utilizes smart pointers (e.g., `std::unique_ptr` and `std::shared_ptr`) to ensure efficient and safe memory usage, preventing leaks and dangling pointers.
+## What It Does
 
-### Assets
+Ethereal Eclipse is a fully-featured 2D action game built from scratch in C++. It combines classic dungeon-crawler gameplay with modern software engineering practices - think *Enter the Gungeon* meets enterprise design patterns.
 
-- **Textures**: Includes a wide array of textures for characters, environments, and user interface elements.
-- **Shaders**: Custom vertex and fragment shaders for advanced graphical effects.
+**Core Features:**
+- **Dynamic Combat System** - Real-time melee and ranged combat with enemy AI that actually reacts to your moves
+- **Intelligent Enemy AI** - Enemies use pathfinding (AIFollow) to hunt you down, adapting to your position
+- **Tile-Based World** - 8 explorable zones (zone1-zone8) with custom `.slmp` level format
+- **Player Progression** - Full inventory system, weapon management, XP/leveling, and character stats (AttributeComponent)
+- **Entity-Component Architecture** - Modular entity system with reusable components for movement, combat, and attributes
+- **Custom Shaders** - Vertex and fragment shaders for lighting effects and dynamic rendering
+- **Audio System** - Background music (`mainMusic.mp3`) and sound effects via OpenAL
 
-### Design Patterns and Programming Techniques
+**What Makes It Stand Out:**
+- **5 Core Design Patterns:** Factory (entity creation), Prototype (object cloning), Observer (event system), State (game states), Component-based design (entities)
+- **RAII Memory Management** - Extensive use of smart pointers (`std::unique_ptr`, `std::shared_ptr`) - zero raw pointers in gameplay code
+- **Professional Architecture** - Clean separation: Entities → Components → Systems → Rendering
+- **Custom GUI System** - Handcrafted UI with pause menus, player stats, inventory screens
+- **Sound-Driven Engine** - Integrated OpenAL for 3D positional audio
 
-- **Factory Pattern**: Used for creating instances of different game objects, such as enemies and tiles, allowing for easy scalability and maintenance.
-- **Prototype Pattern**: Utilized in the Item class to create new item instances by copying existing objects, allowing for efficient item creation.
-- **Observer Pattern**: Implements an event system where game entities can subscribe to events, allowing for decoupled and maintainable code.
-- **State Pattern**: Manages the different states of the game and its entities, such as the main menu, gameplay, and pause states.
-- **Component-Based Design**: Uses composition over inheritance to create flexible and reusable game entity behaviors.
-- **RAII (Resource Acquisition Is Initialization)**: Ensures that resources such as textures and file handles are properly managed and released.
+---
 
-## Usage
+## Tech Stack
 
-1. **Set Up Development Environment**: Ensure you have a compatible C++ development environment set up.
-2. **Compile the Project**: Use your preferred C++ compiler to build the project.
-3. **Run the Game**: Execute the compiled binary to start the game.
+**Language:** C++17  
+**Graphics:** SFML 2.5 (rendering) + OpenGL 3.3 (custom shaders)  
+**Audio:** OpenAL (`openal32.dll`)  
+**Build:** Visual Studio 2019 (`.vcxproj`)  
+**Patterns:** Factory, Prototype, Observer, State, Component-based, RAII
 
-## Example
+### Architecture
 
-Here is an example of the game's environment featuring various interactive elements:
+The game follows a layered Entity-Component-System pattern with state management:
 
-![Ethereal Eclipse Environment](example_environment.png)
+```
+Game Loop (Main.cpp)
+      ↓
+GameRun (state machine)
+      ↓
+┌─────────────────────────────────────┐
+│  Entity Layer                       │
+│  - Player (hero w/ inventory)       │
+│  - Enemy (AI-driven mobs)           │
+│  - Rat (basic enemy type)           │
+└─────────────────────────────────────┘
+      ↓
+┌─────────────────────────────────────┐
+│  Component Layer                    │
+│  - AttributeComponent (HP/XP/stats) │
+│  - MovementComponent                │
+│  - AnimationComponent               │
+│  - HitboxComponent                  │
+└─────────────────────────────────────┘
+      ↓
+┌─────────────────────────────────────┐
+│  System Layer                       │
+│  - EnemySystem (AI pathfinding)     │
+│  - Controls (input handling)        │
+│  - Inventory (item management)      │
+│  - GUI (player HUD, menus)          │
+└─────────────────────────────────────┘
+      ↓
+Rendering Pipeline
+  - SFML (sprites, textures)
+  - Custom shaders (vertex_shader.vert, fragment_shader.frag)
+  - OpenGL post-processing
+```
 
-## Time and Complexity Analysis
+**Design Pattern Implementation:**
+- **Factory Pattern:** `Entity` creation through factory methods (Player, Enemy, Rat spawning)
+- **Prototype Pattern:** Enemy cloning for wave spawning
+- **Observer Pattern:** Event system for player damage, level changes, game state transitions
+- **State Pattern:** Game states (MainMenu, Playing, Paused, GameOver) via `States/` folder
+- **Component Pattern:** Entities composed of reusable components (Movement, Attributes, Hitbox)
+- **RAII:** Smart pointers manage all dynamic resources - textures, entities, weapons auto-cleanup
 
-### Time Complexity
+**Key Modules:**
+- **Level System:** `Level.cpp` loads zones from `.slmp` files, manages tile collision
+- **AI System:** `AIFollow.cpp` implements A* pathfinding for enemy tracking
+- **Combat:** `Player.cpp` handles attacks, `Weapon.h` abstraction for melee/ranged weapons
+- **GUI:** `PlayerGUI.cpp` + `PauseMenu.cpp` for HUD overlays and menus
+- **Shader Pipeline:** `vertex_shader.vert` + `fragment_shader.frag` for dynamic lighting
 
-- **Game Loop**: The main game loop operates at O(1) per frame, ensuring consistent performance regardless of the game's complexity.
-- **Tile Rendering**: The time complexity for rendering tiles is O(n), where n is the number of visible tiles on the screen. This is efficient given the spatial locality of the rendering process.
-- **Collision Detection**: Uses spatial partitioning techniques, such as a quadtree or grid, reducing the average time complexity of collision detection to O(log n) for query operations. Broad-phase and narrow-phase collision detection are used to optimize performance.
-  - **Broad-phase**: Quickly eliminates pairs of objects that cannot collide using a spatial partitioning method, typically O(n log n) due to sorting and partitioning.
-  - **Narrow-phase**: Detailed collision detection on the remaining pairs, usually O(k) where k is the number of pairs from broad-phase.
-- **Animation System**: Manages character animations with time complexity O(1) per frame, as animations are updated based on a fixed frame rate and state changes.
-- **AI Behavior**: The AI behavior for enemies is based on simple trigger conditions and calculations, with a time complexity of O(1) for each evaluation, ensuring efficient and responsive enemy actions.
+---
 
-### Space Complexity
+## Project Structure
 
-- **Asset Storage**: The space complexity for storing game assets (textures, tiles) is O(m), where m is the total number of assets. Efficient data structures are used to manage these assets in memory.
-- **Game State**: The space complexity for maintaining the game state is O(1), as it primarily depends on the fixed-size data structures for storing player stats, current level information, and other game-specific data.
-- **Entity Component System (ECS)**: Manages game entities and their components with space complexity O(e + c), where e is the number of entities and c is the number of components. This allows for efficient querying and updating of entity states.
+```
+Ethereal Eclipse/
+├── Core/
+│   ├── Main.cpp                     # Entry point
+│   ├── Game.cpp / Game.h            # Main menu and initialization
+│   ├── GameRun.cpp / GameRun.h      # Game loop and state machine
+│   └── GeneralFunctions.cpp / .h    # Utility functions
+│
+├── Entities/
+│   ├── Entity.cpp / Entity.h        # Base entity class
+│   ├── Player.cpp / Player.h        # Player character with inventory
+│   ├── Enemy.cpp / Enemy.h          # Enemy base class
+│   ├── Rat.cpp / Rat.h              # Basic enemy type
+│   └── EnemySystem.cpp / .h         # Enemy spawning and AI coordination
+│
+├── Components/
+│   └── (Various component headers)  # Attribute, Movement, Animation, Hitbox
+│
+├── Systems/
+│   ├── Controls.cpp / Controls.h    # Input handling
+│   ├── Inventory.cpp / Inventory.h  # Item and weapon management
+│   ├── Level.cpp / Level.h          # Tile-based world loading
+│   ├── AIFollow.cpp / AIFollow.h    # Enemy pathfinding AI
+│   └── GUI.cpp / GUI.h              # Base GUI system
+│
+├── GUI/
+│   ├── PlayerGUI.cpp / PlayerGUI.h  # HUD (HP, XP, inventory)
+│   ├── PauseMenu.cpp / PauseMenu.h  # In-game pause screen
+│   ├── TextTags.cpp / TextTags.h    # Floating combat text
+│   └── Settings.cpp / Settings.h    # Game settings menu
+│
+├── Items/
+│   └── Weapons/
+│       ├── Weapon.h                 # Weapon interface
+│       └── Melee/
+│           └── Sword.h              # Melee weapon implementation
+│
+├── States/
+│   └── (Game state implementations)
+│
+├── Shaders/
+│   ├── vertex_shader.vert           # Vertex shader (lighting)
+│   └── fragment_shader.frag         # Fragment shader (post-processing)
+│
+├── Assets/
+│   ├── Fonts/                       # Game fonts
+│   ├── Sounds/                      # Sound effects
+│   ├── Tiles/                       # Tile textures
+│   ├── mainMusic.mp3                # Background music
+│   ├── moveLeft.png                 # Player sprites
+│   └── zone1-zone8.slmp             # Level data files
+│
+├── Config/                          # Game configuration
+├── Tabs/                            # UI tab implementations
+└── openal32.dll                     # Audio library
+```
+
+---
+
+## Getting Started
+
+**Prerequisites:**
+- Visual Studio 2019 (or later)
+- SFML 2.5.1+ (automatically linked via `.vcxproj`)
+- OpenGL 3.3+ compatible GPU
+- Windows 10/11
+
+**Setup (2 minutes):**
+
+1. **Clone or download the project**
+```bash
+# If you have Git
+git clone <repo-url>
+cd "Ethereal Eclipse"
+```
+
+2. **Open in Visual Studio**
+```bash
+# Double-click to open
+start "Ethereal Eclipse.vcxproj"
+```
+
+3. **Build and run**
+- Press `F5` or click "Local Windows Debugger"
+- The game will build automatically (SFML is pre-configured)
+
+**Controls:**
+- **WASD** - Movement
+- **Mouse** - Aim
+- **Left Click** - Attack
+- **E** - Interact/Pick up items
+- **I** - Inventory
+- **ESC** - Pause menu
+
+**First Time Playing:**
+1. Navigate the main menu and select "Play"
+2. Explore zone1 to get familiar with controls
+3. Fight enemies (Rats) to gain XP and level up
+4. Collect weapons from defeated enemies
+5. Progress through zones 1-8
+
+---
+
+## What's Next
+
+Potential enhancements I'm considering:
+
+**Gameplay:**
+- Boss fights with unique attack patterns
+- Procedurally generated dungeons (move from `.slmp` to runtime generation)
+- Magic system (spells, mana, cooldowns)
+- Multiplayer co-op via TCP sockets
+
+**Technical:**
+- Serialize save games (JSON or binary format)
+- Port to SDL2 for cross-platform support (Linux/Mac)
+- Optimize enemy AI with behavior trees instead of raw A*
+- Add particle effects for explosions and magic
+
+**Polish:**
+- Controller support (Xbox/PS4 gamepads)
+- Achievement system
+- Dynamic music that changes with combat state
+- Mod support (load custom zones, enemies, weapons)
+
+---
 
 ## License
 

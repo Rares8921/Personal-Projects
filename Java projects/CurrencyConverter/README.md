@@ -1,74 +1,166 @@
-# Java Currency Converter
+# Currency Converter
 
-## Code Summary
+<div align="center">
 
-This Java program is a Currency Converter application implemented using the JavaFX framework. It provides a graphical user interface (GUI) that allows users to convert between 153 different currencies. The application retrieves real-time exchange rates from a reliable currency exchange API, ensuring accurate and up-to-date conversions.
+![Java](https://img.shields.io/badge/Java-11-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-11-blue?style=for-the-badge&logo=java)
+![API](https://img.shields.io/badge/REST-API-green?style=for-the-badge)
 
-## Program Description and Usage
+**Real-time currency conversion with live exchange rates. 150+ currencies with historical rate graphs.**
 
-### Main Components
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-1. **Main Class (`Main`)**:
-   - This is the entry point of the application. It extends `Application` and is responsible for setting up the primary stage (window) and loading the initial scene. The `Main` class initializes the GUI by displaying the main screen (`Open` scene), where users can start the conversion process.
+</div>
 
-2. **Open Class (`Open`)**:
-   - The `Open` class is responsible for the initial screen that the user interacts with when launching the application. It sets up the GUI components for the currency converter, allowing the user to select the source and target currencies, enter the amount, and perform the conversion.
-   - This class includes buttons and event handlers to manage the conversion process and update the display based on user input.
+---
 
-3. **Controller Class (`Controller`)**:
-   - The `Controller` class handles the core logic of the Currency Converter. It manages the conversion rates, processes user input, and updates the UI with the converted amount. 
-   - The class interacts with the currency exchange API to fetch real-time exchange rates, ensuring that the conversions are accurate and reflect the current market conditions.
+## What It Does
 
-### API Integration
+A modern currency converter that pulls live exchange rates from external APIs and visualizes historical trends. Perfect for travelers, forex traders, or anyone dealing with international currencies.
 
-- The application integrates with a currency exchange API to retrieve real-time exchange rates for 153 different currencies. The API ensures that users get the most accurate and current conversion rates available.
-- The API is called whenever the user initiates a conversion, and the retrieved data is used to calculate the equivalent amount in the target currency.
+**Conversion Features:**
+- **153 Currencies Supported** - Major and minor currencies from around the world
+- **Live Exchange Rates** - Real-time data via REST API integration
+- **Instant Conversion** - Type amount, conversion happens automatically
+- **Bidirectional Exchange** - Easily swap "from" and "to" currencies
+- **High Precision** - Up to 10 decimal places for accuracy
 
-### Conversion Mechanics
+**Visualization Features:**
+- **Historical Rate Graphs** - AreaChart showing exchange rate trends
+- **Multiple Timeframes** - 7 days, 1/3/6 months, 1/5/10/20 years
+- **Interactive Charts** - Hover over points to see exact rates
+- **Trend Analysis** - Quickly spot currency strengthening/weakening
 
-1. **Currency Selection**:
-   - The user selects the source and target currencies from dropdown menus. The available currencies are dynamically loaded based on the data retrieved from the API, ensuring that the list is always up-to-date.
+**UI Features:**
+- Clean, modern JavaFX interface
+- ComboBox dropdowns with search/filter for currencies
+- Draggable undecorated window
+- Currency flags displayed for visual recognition
+- Responsive layout with FXML
 
-2. **User Input**:
-   - The user inputs the amount they wish to convert. The application ensures that the input is a valid number before proceeding with the conversion.
+---
 
-3. **Conversion Process**:
-   - Upon clicking the "Convert" button, the application sends a request to the currency exchange API to retrieve the latest exchange rate for the selected currency pair. The conversion is then performed using this rate.
+## Tech Stack
 
-4. **Display of Results**:
-   - Once the conversion is complete, the result is displayed on the screen, showing the equivalent amount in the target currency. The user is also provided with the exchange rate used for the conversion.
+**Frontend:** JavaFX 11 + FXML + CSS  
+**Backend:** Java 11 + HttpURLConnection (REST API calls)  
+**Data Format:** JSON (Gson library for parsing)  
+**Charts:** JavaFX AreaChart + LineChart  
+**API:** Exchange rates API (configurable endpoint)
 
-### Custom Components
+### Architecture
 
-- **Currency Selection Menus**:
-  - The application includes dropdown menus for selecting the source and target currencies. These menus are populated dynamically using the data retrieved from the API.
+MVC pattern with external API integration:
 
-- **Conversion Handling**:
-  - The `Controller` class manages the conversion logic, ensuring accurate and efficient processing of user inputs and updating the UI accordingly.
+```
+Main.java (Application)
+      ↓
+sample.fxml + Controller.java
+      ↓
+API Request (HttpURLConnection)
+      ↓
+JSON Response (Gson Parser)
+      ↓
+Exchange Rate Data → Map<String, Object>
+      ↓
+ComboBox Population + Conversion Logic
+      ↓
+AreaChart Rendering (Historical Data)
+```
 
-## Method of Generating the UI Elements
+**Implementation Details:**
+- **API Integration:** HttpURLConnection for GET requests to exchange rate API
+- **JSON Parsing:** Gson library converts JSON responses to Java Map structures
+- **Conversion Formula:** `amount * (toRate / fromRate)` for cross-currency conversion
+- **Data Caching:** Rates stored in memory to reduce API calls
+- **Chart Rendering:** JavaFX XYChart.Series for plotting time-series data
+- **Currency List:** Loaded from `currencies.txt` file (153 currency codes)
 
-1. **Scene Initialization**:
-   - The application window and scenes are set up in the `Main` and `Open` classes. `Main` initializes the primary stage and loads the initial scene. `Open` creates the main currency converter screen, while the `Controller` manages the conversion logic.
+---
 
-2. **Event Handling**:
-   - The application uses event handlers to manage user interactions, such as selecting currencies and initiating conversions. The `Controller` class handles these events and updates the display based on the conversion results.
+## Project Structure
 
-## Time and Space Complexity Analysis
+```
+src/sample/
+├── Main.java               # JavaFX Application entry
+├── Controller.java         # Main conversion logic + API calls
+├── CalendarView.java       # Date picker for historical rates
+├── AnchorPaneNode.java     # Custom UI components
+├── Open.java               # Utility class
+├── sample.fxml             # Main window layout
+├── styles.css              # Application styling
+├── currencies.txt          # List of 153 currency codes
+└── flags/                  # Flag images for each currency
 
-### Time Complexity
+resources/
+├── background.jpeg         # App background
+└── currency-icons/         # Additional graphics
 
-- **Initialization**: Setting up the GUI components and initializing the conversion rates occurs in constant time, O(1).
-- **API Call and Conversion**: The API call to retrieve exchange rates and the subsequent conversion process are performed in O(1) time, as they involve constant time operations like HTTP requests and simple arithmetic.
+README.md
+```
 
-### Space Complexity
+---
 
-- **Memory Usage**: The primary space usage is for storing the conversion rates, user inputs, and GUI components:
-  - Conversion rates and selected currencies: O(1) space.
-  - GUI components and state variables: O(1) space.
+## Getting Started
 
-Overall, the space complexity is O(1).
+**Requirements:**
+- Java 11+ with JavaFX
+- Active internet connection (for API calls)
+- Gson library (Maven dependency)
+
+**Setup:**
+
+```bash
+# Navigate to project directory
+cd "d:\Personal-Projects\Java projects\CurrencyConverter"
+
+# Ensure dependencies are available (Gson)
+# If using Maven, run:
+mvn clean install
+
+# Run with JavaFX
+java --module-path /path/to/javafx-sdk/lib \
+     --add-modules javafx.controls,javafx.fxml \
+     sample.Main
+```
+
+**Usage:**
+1. Launch application
+2. Select **"From"** currency (e.g., USD)
+3. Select **"To"** currency (e.g., EUR)
+4. Enter amount in "From" field
+5. Converted amount appears automatically in "To" field
+6. Click timeframe buttons (7 days, 1 month, etc.) to view historical graph
+7. Hover over graph points to see exact rates on specific dates
+
+**API Configuration:**
+Edit `Controller.java` to change API endpoint if needed:
+```java
+// Example: Update API URL
+String apiUrl = "https://api.exchangerate.host/latest?base=" + baseCurrency;
+```
+
+---
+
+## What's Next
+
+Enhancements for future versions:
+
+- **Offline Mode** - Cache last-known rates for offline conversion
+- **Cryptocurrency Support** - Add Bitcoin, Ethereum, and other cryptos
+- **Rate Alerts** - Notify when exchange rate hits target threshold
+- **Favorites** - Pin frequently used currency pairs
+- **Multi-Currency Calculator** - Convert to multiple targets simultaneously
+- **Commission Calculator** - Factor in bank/exchange fees
+- **CSV Export** - Download historical rate data as spreadsheet
+- **Dark Mode** - Toggle between light/dark themes
+- **Widget Mode** - Compact always-on-top overlay window
+- **Custom API Sources** - Choose between multiple rate providers
+
+---
 
 ## License
 
-This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.
+**Proprietary Software - All Rights Reserved**
+
+This software is the exclusive property of the author. No part of this software may be copied, modified, distributed, or used without explicit written permission. Unauthorized use, reproduction, or distribution is strictly prohibited and may result in legal action.

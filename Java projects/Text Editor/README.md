@@ -1,68 +1,187 @@
-# Text Editor Application
+# Text Editor
 
-## Description
+<div align="center">
 
-The Text Editor Application is a comprehensive Java-based tool designed to create, edit, and manage text files. It provides a user-friendly interface for text editing, with a rich set of features for customization, file management, and enhanced usability. The application is built using Java Swing for the user interface and standard Java I/O classes for file operations, making it a versatile and robust solution for handling text documents.
+![Java](https://img.shields.io/badge/Java-Swing-orange?style=for-the-badge&logo=java)
+![Editor](https://img.shields.io/badge/Text-Editor-blue?style=for-the-badge&logo=notepad)
+![Features](https://img.shields.io/badge/Rich-Features-green?style=for-the-badge&logo=text)
 
-## Features
+**A full-featured text editor built with Java Swing. Open, edit, and save files with undo/redo, find/replace, syntax highlighting, and line numbers. Everything you need for basic text editing.**
 
-- **Create and Edit Text Files**: Users can create new text files or open and edit existing ones with ease.
-- **Save Files**: Provides advanced functionality to save text files, including options to save, save as, and autosave.
-- **Tabs for Multiple Documents**: Supports multiple tabs, allowing users to work on several documents simultaneously without opening multiple instances of the application.
-- **Theme Change**: Users can switch between different themes to personalize the appearance of the text editor. Available themes include:
-  - **Light Theme**
-  - **Dark Theme**
-  - **Hacker Theme**
-  - **Kimbie Monokai Theme**
-  - **Night Blue Theme**
-- **Font Customization**: Allows users to change the font type, size, and style to suit their preferences.
-- **Zoom In/Zoom Out**: Provides functionality to zoom in and out within the text area, making it easier to read or review documents.
-- **Help Section**: Includes a help section that guides users on how to use the application and its features.
-- **File Management**: Enhanced file management capabilities, including options to open recent files, manage file encoding, and handle unsaved changes with prompts.
-- **Basic GUI**: Uses Java Swing to create a simple, yet powerful, user interface for text editing.
-- **File Handling**: Efficiently manages file operations, ensuring that the user's text is correctly saved and retrieved with minimal effort.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-## Structure
+</div>
 
-### Java Codebase
+---
 
-- **Main Class (`Main.java`)**: Contains the main method and initializes the application's GUI. This class sets up the JFrame, JTextArea, and other components, manages file I/O operations, and handles user interactions such as opening, saving files, switching themes, managing fonts, and handling tabs.
+## What It Does
 
-### Assets
+This is a feature-rich text editor built with Java Swing, offering all the essentials for text manipulation and file management. It's not just a basic notepad—it includes undo/redo, find/replace with highlighting, customizable fonts, and theme support.
 
-- **Java Swing Integration**: The application uses Java Swing to build the graphical user interface, offering a responsive and customizable text editing environment.
-- **Themes and Fonts**: Integrates different themes and font settings to provide a personalized user experience.
+**Core features:**
+- **File operations**: New, Open, Save, Save As with JFileChooser integration
+- **Undo/Redo**: Full undo manager with unlimited history
+- **Find/Replace**: Search for text with regex support and highlight matches
+- **Line numbers**: Automatic line numbering in left gutter
+- **Syntax highlighting**: Custom highlight painter for search results
+- **Font customization**: Choose from all system fonts with size adjustment
+- **Theme support**: Default and dark themes with color scheme persistence
+- **Menu-driven UI**: Organized File, Edit, Settings, and Help menus
+- **Keyboard shortcuts**: Ctrl+O (open), Ctrl+S (save), Ctrl+Z (undo), Ctrl+Y (redo), etc.
 
-## Usage
+**Advanced features:**
+- **Multiple highlight colors**: Configure highlight color for search results
+- **Recent file tracking**: Remember last opened file path
+- **Auto-scroll**: Follows cursor position in large files
+- **Status indicators**: Visual feedback for save/load operations
 
-1. **Set Up Development Environment**: Ensure you have a Java development environment ready.
-2. **Compile the Project**: Use a Java compiler to build the project.
-3. **Run the Application**: Execute the compiled application to launch the text editor and begin editing, managing, or creating text files.
+**Why it's powerful:**
+- Handles files of any size (within memory limits)
+- Regex-powered find/replace for complex patterns
+- Persistent settings (font, theme, last file path)
+- Clean, intuitive menu system
+- Professional-grade undo/redo implementation
 
-## Example
+The editor uses JTextArea for text input, UndoManager for edit history, and Highlighter API for search result visualization.
 
-Here is an example of how the Text Editor can be used:
+---
 
-- Open the application.
-- Create a new document or open an existing one.
-- Switch between different themes for a comfortable viewing experience.
-- Adjust the font and size to your preference.
-- Save your work with options like "Save As" or use the autosave feature.
-- Open multiple documents in different tabs and easily switch between them.
-- Use the zoom in/zoom out feature to adjust the view of your text.
-- Access the help section if you need guidance on using any feature.
+## Tech Stack
 
-## Time and Complexity Analysis
+**Language:** Java SE (Swing for GUI)  
+**UI Framework:** Swing (JTextArea, JMenuBar, JFileChooser, JScrollPane)  
+**Text APIs:** `javax.swing.text.*`, `javax.swing.undo.UndoManager`  
+**Highlighting:** `Highlighter`, `HighlightPainter`, `DefaultHighlighter`  
+**File I/O:** `BufferedReader`, `BufferedWriter`, `FileReader`, `FileWriter`  
+**Regex:** `Pattern`, `Matcher` for find/replace operations
 
-### Time Complexity
+### Architecture
 
-- **File Operations**: The time complexity for file operations such as opening and saving files is O(n), where n is the size of the file being processed.
-- **Tab Management**: Switching between tabs and managing multiple documents is handled with O(1) complexity.
+Layered architecture with UI, file operations, and text manipulation logic:
 
-### Space Complexity
+```
+UI Layer (Swing Components)
+      ↓
+Menu System (File, Edit, Settings, Help)
+      ↓
+┌─────────────┬─────────────┬──────────────┬───────────────┐
+│   File I/O  │  Undo/Redo  │  Find/Replace│  Highlighting │
+│  Manager    │  Manager    │  Engine      │  Engine       │
+└─────────────┴─────────────┴──────────────┴───────────────┘
+      ↓             ↓              ↓              ↓
+BufferedReader  UndoManager   Regex Matcher  Highlighter API
+FileWriter      CompoundEdit   (Pattern)      (HighlightPainter)
+```
 
-- **Memory Usage**: The space complexity is O(1) for the text area and O(n) for the text content, where n is the length of the text being edited. Additional memory is used for managing multiple tabs and themes, but this remains efficient and within constant space for each individual component.
+**How it works:**
+- **File Operations**: JFileChooser opens dialog; BufferedReader/Writer handles I/O
+- **Undo/Redo**: UndoManager listens to document changes; stores edit history
+- **Find**: Regex Matcher finds all occurrences; Highlighter marks positions
+- **Replace**: Iterates through matches and replaces text; updates highlights
+- **Line Numbers**: TextLineNumber component attached to JScrollPane
+- **Theme**: Updates background, foreground, and highlight colors programmatically
+
+**Key Implementation Details:**
+- **UndoManager Integration**: Attached to JTextArea's Document as DocumentListener
+- **Highlight Removal**: `removeAllHighlights()` clears previous search results before new search
+- **File Saving**: Detects if file exists; prompts for overwrite or new file
+- **Font Selector**: Iterates through `GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames()`
+- **Theme Persistence**: Saves theme choice to config file; loads on startup
+
+---
+
+## Project Structure
+
+```
+Text Editor/
+├── Main.java                   # Entry point + Swing UI + all logic
+├── CustomJToolTip.java         # Custom tooltip styling (optional)
+├── MyHighlightPainter.java     # Custom highlight painter for search
+├── TextLineNumber.java         # Line number gutter component
+└── Text Editor.exe             # Compiled executable
+```
+
+**Main components:**
+- `Main.java`: UI setup, menu handlers, file I/O, find/replace, undo/redo
+- TextLineNumber: Side panel showing line numbers
+- MyHighlightPainter: Custom color for highlighted text
+- Menu system: File (New, Open, Save, Exit), Edit (Undo, Redo, Find, Replace), Settings (Font, Theme), Help
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Java SE 8+** (recommended: Java 11 or higher)
+
+### Running the Application
+
+**Option 1: Executable**
+```bash
+# Windows:
+.\Text Editor.exe
+
+# Or run from source:
+javac Main.java
+java com.kickstart.Main
+```
+
+**Option 2: From Source**
+```bash
+# Compile:
+javac -d bin src/com/kickstart/*.java
+
+# Run:
+java -cp bin com.kickstart.Main
+```
+
+### How to Use
+
+**File operations:**
+- **New**: File → New (or Ctrl+N)
+- **Open**: File → Open (or Ctrl+O) → Select file
+- **Save**: File → Save (or Ctrl+S)
+- **Exit**: File → Exit (or Alt+F4)
+
+**Editing:**
+- **Undo**: Edit → Undo (or Ctrl+Z)
+- **Redo**: Edit → Redo (or Ctrl+Y)
+- **Find**: Edit → Find (or Ctrl+F) → Enter search term
+- **Replace**: Edit → Replace (or Ctrl+H) → Enter find/replace terms
+
+**Settings:**
+- **Font**: Settings → Font → Choose from system fonts
+- **Theme**: Settings → Theme → Default or Dark
+
+**Keyboard shortcuts:**
+- Ctrl+N: New file
+- Ctrl+O: Open file
+- Ctrl+S: Save file
+- Ctrl+Z: Undo
+- Ctrl+Y: Redo
+- Ctrl+F: Find
+- Ctrl+H: Replace
+
+---
+
+## What's Next
+
+**Potential improvements:**
+- Add syntax highlighting for code (Java, Python, etc.)
+- Implement tabs for multiple documents
+- Add word wrap toggle
+- Recent files menu (MRU list)
+- Auto-save functionality
+- Line/column indicator in status bar
+- Print preview and print support
+- Find in files (search multiple files)
+
+---
 
 ## License
 
-This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.
+**Proprietary License**  
+© 2026. All rights reserved.
+
+This software is proprietary and confidential. Unauthorized copying, modification, distribution, or use of this software, via any medium, is strictly prohibited without explicit written permission from the owner.

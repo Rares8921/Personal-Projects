@@ -1,84 +1,195 @@
 # Dino Game
 
-This JavaFX-based project recreates a simplified version of the popular "Dino" game, featuring a dinosaur running through a desert while dodging enemies and obstacles. The game mechanics such as movement, jumping, gravity, and background animation are handled using JavaFX animation timelines. The game also incorporates sound effects for interaction feedback.
+<div align="center">
 
-## Core Classes and their Functionality
+![Java](https://img.shields.io/badge/Java-11-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-11-blue?style=for-the-badge&logo=java)
+![Game](https://img.shields.io/badge/Type-Arcade-brightgreen?style=for-the-badge)
 
-### Dino Class (Player Character)
+**Chrome's offline dinosaur game recreated in JavaFX. Jump over cacti, rack up points, beat your high score.**
 
-The `Dino` class is the main player character class responsible for the dinosaur's actions, particularly running and jumping. The player's movement and jumping mechanics are handled through a velocity and gravity system.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-#### Jumping Mechanism
+</div>
 
-The `Dino` class uses a simple physics-based system to control jumps. The jump starts by setting an upward velocity. As the game progresses, gravity continuously affects the dinosaur, decreasing the velocity and bringing the character back to the ground. The following parameters control the Dino's movement:
+---
 
-- `velocityY`: Determines the current vertical velocity of the Dino. A negative value sends the Dino upwards, while gravity reduces the velocity to bring it back down.
-- `gravity`: Constantly decreases the Dino's `velocityY` to simulate gravity. Once the velocity reaches 0, the Dino starts to descend.
+## What It Does
 
-The Dino's Y position is updated in each frame of the game loop based on the velocity.
+A faithful recreation of the iconic Chrome offline dinosaur game, built entirely in JavaFX. The classic endless runner that everyone plays when the internet dies.
 
-**Key Aspects:**
+**Gameplay Features:**
+- **Endless Running** - Infinite side-scrolling desert landscape
+- **Jump Mechanic** - Press spacebar to jump over obstacles
+- **Obstacle Variety** - Cacti of different heights (1-cactus, 3-cacti, 4-cacti)
+- **Score Tracking** - Points increase over time, displays current score
+- **High Score** - Persistent high score saved between sessions
+- **Increasing Difficulty** - Obstacles spawn faster and move quicker as score increases
+- **Sound Effects:**
+  - Jump sound (when dinosaur jumps)
+  - Score milestone sound (every 100 points)
+  - Death sound (collision with obstacle)
+- **Game Over Screen** - Shows final score with replay button
 
-- `velocityY`: The current vertical speed of the Dino.
-- `gravity`: Simulates the downward force bringing the Dino back to the ground.
-  
-#### Jumping Logic
+**Visual Features:**
+- Animated dinosaur sprite (running animation)
+- Parallax cloud movement
+- Scrolling ground tiles
+- Day/night mode visuals
+- Game-over screen with replay button
 
-When the jump key is pressed, `velocityY` is set to a negative value (e.g., `-10`), which moves the Dino upwards. Gravity, a constant value, is then added each frame to gradually reduce `velocityY` until it reaches 0 and the Dino falls back down. Once `velocityY` becomes positive, the Dino descends, creating the arc of the jump.
+**Controls:**
+- **Spacebar** - Jump
+- **P** - Pause/Resume
+- **R** - Restart after game over
+- **Esc** - Close game
 
-### Enemy Class (Obstacles)
+---
 
-The `Enemy` class represents obstacles that the Dino must avoid. These enemies move from right to left, giving the illusion that the Dino is running. The movement of enemies is done using JavaFX's `Timeline` class.
+## Tech Stack
 
-#### Animation
+**Frontend:** JavaFX 11 + FXML + CSS  
+**Graphics:** JavaFX ImageView + Animation API  
+**Backend:** Java 11 + Timeline-based game loop  
+**Audio:** JavaFX Media (WAV files)  
+**Build:** Maven/Gradle compatible  
+**Pattern:** MVC with game state management
 
-The movement of the enemies across the screen is handled by a JavaFX `Timeline`, which updates the enemy's position at regular intervals (similar to asynchronous threading). As the timeline progresses, the enemy moves toward the Dino, creating a dynamic game environment.
+### Architecture
 
-### Cloud Class (Background Objects)
+Game loop architecture with collision detection:
 
-The `Cloud` class simulates the movement of clouds in the background to enhance the visual depth and create a dynamic environment. The clouds move slowly from right to left, providing the illusion of a moving sky.
+```
+Main.java (Application)
+      ↓
+sample.fxml + Controller.java
+      ↓
+Game Loop (Timeline, 60 FPS)
+      ↓
+Game Entities:
+  ├── Dino.java (Player character)
+  ├── Enemy.java (Cacti obstacles)
+  ├── Floor.java (Ground tiles)
+  └── Cloud.java (Background clouds)
+      ↓
+Collision Detection (Bounds intersection)
+      ↓
+Game State:
+  ├── Running (active gameplay)
+  ├── Paused (frozen state)
+  └── Game Over (death screen)
+      ↓
+Sound.java (Audio playback)
+```
 
-#### Animation
+**Key Implementation Details:**
+- **Timeline Animation:** JavaFX Timeline running at ~60 FPS for smooth gameplay
+- **Collision Detection:** Bounding box intersection between Dino and Enemy objects
+- **Sprite Animation:** KeyFrame-based sprite cycling for dino running frames
+- **Procedural Generation:** Enemies spawn at random intervals with increasing frequency
+- **State Persistence:** High score saved to AppData folder (`dinogamefile.dat`)
+- **Difficulty Scaling:** Enemy speed increases by 5% every 100 points
 
-Similar to the `Enemy` class, the cloud's position is updated periodically using a JavaFX `Timeline`. This timeline moves the clouds from the right side of the screen to the left, resetting their position once they move off-screen. This creates a continuous, looping background animation.
+**Physics:**
+- Gravity simulation for jump arc (parabolic motion)
+- Ground collision detection keeps dino grounded
+- Jump velocity: Initial upward force + gravity pull
 
-### Floor Class (Ground Animation)
+---
 
-The `Floor` class is responsible for the movement of the ground. Like the clouds and enemies, the floor moves from right to left, giving the illusion that the Dino is running through a desert landscape.
+## Project Structure
 
-#### Animation
+```
+src/sample/
+├── Main.java           # JavaFX Application entry
+├── Controller.java     # Game controller + main game loop
+├── Dino.java           # Player character logic
+├── Enemy.java          # Obstacle (cactus) logic
+├── Floor.java          # Scrolling ground tiles
+├── Cloud.java          # Background cloud movement
+├── Sound.java          # Audio playback wrapper
+├── sample.fxml         # UI layout
+└── styles.css          # Game styling
 
-The floor uses a `Timeline` to update its position at regular intervals. As the game runs, the floor tiles shift to the left. When one tile moves off-screen, it is repositioned to the right to simulate an infinite scrolling ground. The timeline ensures smooth transitions and continuous ground movement, much like background scrolling in 2D games.
+resources/images/
+├── dino1.png → dino6.png     # Dino sprite frames
+├── Cactus1.png, Cactus3.png, Cactus4.png
+├── Cloud1.png, Cloud2.png
+├── Land.png                   # Ground tile
+├── Sun.png                    # Sky decoration
+├── gameover_text.png
+└── replay_button.png
 
-### Sound Class (Audio Effects)
+resources/audio/
+├── jump.wav            # Jump sound effect
+├── dead.wav            # Collision sound
+└── scoreup.wav         # Score milestone sound
 
-The `Sound` class is used to play sound effects during gameplay. It wraps around JavaFX's `AudioClip` class to load and play sounds for specific game events such as jumps or collisions.
+META-INF/
+test.txt
+README.md
+```
 
-**Key Aspects:**
+---
 
-- `playClip()`: This method is responsible for playing the sound effect when triggered by certain game events.
-- `AudioClip`: Loads sound files (e.g., `.wav` or `.mp3`) and plays them asynchronously to provide instant feedback to the player.
+## Getting Started
 
-The sound effects are played asynchronously using the `AudioClip` class, allowing sounds to play independently of the game logic and animation, ensuring a smooth audio experience.
+**Requirements:**
+- Java 11+ with JavaFX
+- Maven (optional)
 
-## Time and Space Complexity Analysis
+**Build & Run:**
 
-### Dino (Jump and Gravity System)
-- **Time Complexity**: The jumping and gravity mechanism is updated in each frame of the game loop, so its time complexity is O(1) per frame, as it involves constant-time operations (updating velocity and position).
-- **Space Complexity**: The space complexity is O(1) since the system only stores a few variables (`velocityY`, `gravity`) for controlling the jump.
+```bash
+# Navigate to project directory
+cd "d:\Personal-Projects\Java projects\Dino Game"
 
-### Enemy, Cloud, and Floor (Animations)
-- **Time Complexity**: The animations for enemies, clouds, and the floor are updated in constant time, O(1) per frame. The JavaFX `Timeline` class ensures that each frame is processed at regular intervals, and each object (enemy, cloud, floor tile) is moved based on a fixed time step.
-- **Space Complexity**: The space complexity is O(n), where `n` is the number of enemies, clouds, or floor tiles that need to be stored and updated in memory.
+# Run with JavaFX
+java --module-path /path/to/javafx-sdk/lib \
+     --add-modules javafx.controls,javafx.fxml,javafx.media \
+     sample.Main
+```
 
-### Sound Class
-- **Time Complexity**: The sound effects play asynchronously when triggered, so their time complexity is O(1) for playing each clip.
-- **Space Complexity**: The space complexity is O(1) since the class only stores a reference to the audio clip being played.
+**Or run from IDE:**
+1. Open project in IntelliJ IDEA
+2. Configure JavaFX SDK
+3. Run `Main.java`
 
-### Summary
+**How to Play:**
+1. Launch game
+2. Press **Start** button
+3. Press **Spacebar** to jump over cacti
+4. Avoid hitting obstacles
+5. Survive as long as possible
+6. Beat your high score!
 
-This project combines JavaFX timelines and physics-based movement to simulate the Dino's jump and run dynamics, along with smooth background animations and sound effects.
+**Tips:**
+- Different cacti require different jump timing
+- Score increases every ~130ms (about 10 points per second initially)
+- Speed increases make later stages harder
+- Sound cues help with timing
+
+---
+
+## What's Next
+
+Future enhancements to expand the game:
+
+- **Mobile Controls** - Touch/click to jump (for mobile deployment)
+- **Duck Mechanic** - Down arrow to duck under flying pterodactyls
+- **Power-Ups** - Shields, slow-motion, or score multipliers
+- **Level System** - Progress through themed stages (desert, mountains, night)
+- **Leaderboard** - Online high score tracking with player names
+- **Achievements** - Unlock badges for milestones (100 pts, 1000 pts, etc.)
+- **Skins** - Unlock different dinosaur skins and obstacle themes
+- **Multiplayer** - Race against friends in real-time
+- **Procedural Music** - Dynamic soundtrack that evolves with difficulty
+- **Particle Effects** - Dust clouds, cactus debris on collision
+
+---
 
 ## License
 
-This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.
+**Proprietary Software - All Rights Reserved**
+
+This software is the exclusive property of the author. No part of this software may be copied, modified, distributed, or used without explicit written permission. Unauthorized use, reproduction, or distribution is strictly prohibited and may result in legal action.

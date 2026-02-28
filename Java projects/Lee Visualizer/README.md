@@ -1,61 +1,221 @@
-# <ins>Lee Visualizer</ins>
+# Lee Visualizer
 
-**Lee Visualizer** is a Java desktop application designed to simulate various versions of Lee's algorithm, including scenarios with obstacles, portals, lasers, and other custom elements. It provides an interactive and dynamic visualization of the pathfinding algorithm, allowing users to observe its operation in real-time.
+<div align="center">
 
-## <ins>Application Overview</ins>
+![Java](https://img.shields.io/badge/Java-11-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-11-blue?style=for-the-badge&logo=java)
+![Algorithm](https://img.shields.io/badge/Type-Pathfinding-green?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge)
 
-The **Lee Visualizer** was developed using JavaFX 15 and provides a user-friendly interface to simulate Lee's algorithm with multiple configurations. The core components of the application include:
+**An interactive pathfinding visualizer implementing Lee's BFS algorithm with support for obstacles, lasers, teleports, and multiple movement modes.**
 
-- **Grid Panel**: This is the primary visualization area where the algorithm's progress is displayed. The grid represents the matrix where the user can define obstacles, portals, lasers, and other entities.
-  
-- **Option Buttons**: These allow users to configure the simulation by setting different types of cells in the grid, such as start points, obstacles (`X`), portals (`O`), lasers (`+`), and laser portals (`/`).
-  
-- **Action Buttons**: These include:
-  - **Start**: Initiates the algorithm simulation when the user has provided valid input.
-  - **Clear**: Resets the grid by removing all the placed numbers and entities, restoring it to its default state.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-- **Help Menu**: The help menu provides detailed instructions on how to use the application, including explanations for each feature, how to place cells on the grid, and the purpose of each option.
+</div>
 
-## <ins>Code Functionality</ins>
+---
 
-- **Grid Interaction**: The user can select a specific option (obstacle, portal, laser, etc.) by left-clicking on the corresponding button, then left-click on any cell in the grid to place that entity in the chosen location.
-  
-- **Start Simulation**: Once all the necessary inputs are provided, the user can press the "Start" button to begin the simulation. The application checks if the inputs are valid (e.g., whether both start and end points are defined). If any errors are detected, the application will notify the user.
-  
-- **Algorithm Execution**: When the input is valid, the app runs Lee's algorithm, filling the matrix (referred to as `matr` in the [Main.java](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/src/sample/Main.java)) with symbols that distinguish between different types of cells:
-  - **Obstacle**: Marked with `X`.
-  - **Portal**: Marked with `O`.
-  - **Laser**: Marked with `+`.
-  - **Laser Portal**: Marked with `/`.
+## What It Does
 
-- **Real-time Animation**: As Lee's algorithm runs, the application simultaneously animates the grid, updating the visual elements in sync with the algorithm's progress. The animation is designed to complete in real-time alongside the algorithm to ensure a smooth user experience without delay. Although Lee's algorithm runs faster than the animation, the app adjusts so that the user observes both happening concurrently.
+Lee Visualizer is an educational tool for understanding the Lee algorithm (breadth-first search for shortest path finding) through interactive visualization. It allows you to build mazes, place obstacles, and watch the algorithm discover the optimal path in real-time.
 
-## <ins>Complexity Analysis</ins>
+**Core pathfinding features:**
+- **Lee's algorithm** - BFS-based shortest path finder (guarantees optimal path)
+- **Grid-based navigation** - 20x20 cell board for path planning
+- **Start/end placement** - define source and destination points
+- **Step-by-step visualization** - watch the algorithm explore nodes with animations
+- **Path reconstruction** - highlights final shortest path after completion
 
-- **Lee's Algorithm Complexity**: Lee's algorithm has a time-space complexity of approximately O(n * m), where `n` is the number of rows and `m` is the number of columns in the grid.
+**Advanced mechanics:**
+- **Obstacles** - impassable cells (walls) marked with 'X'
+- **Lasers** - directional barriers (horizontal `/`, vertical `/`, cross `+`)
+- **Teleports** - paired portals for instant travel between distant cells
+- **Movement modes:**
+  - Horizontal/Vertical (4-directional)
+  - Diagonal (8-directional)
+  - Knight moves (chess knight pattern)
+  - Any combination of the above
 
-- **Grid Animation and Clear Function**: Both the grid animation process and the clear action also have a time complexity of O(n * m), as they depend on the number of cells in the matrix.
+**What makes it educational:**
+- Real-time wave propagation visualization (see BFS expand)
+- Color-coded cells showing distance from start
+- Animated path tracing from end back to start
+- Help menu explaining all features
+- Error handling with clear messages for invalid configurations
 
-## <ins>Requirements</ins>
+This tool is perfect for students learning graph algorithms, computer science teachers demonstrating BFS, or game developers prototyping pathfinding systems.
 
-To run **Lee Visualizer**, ensure that you have Java JRE 15 or a later version installed on your system.
+---
 
+## Tech Stack
 
-## <ins>Illustration(s)</ins>
+**Language:** Java 11  
+**Framework:** JavaFX (Canvas for rendering, Timeline for animation)  
+**Algorithm:** Lee's Algorithm (BFS variant for grid-based pathfinding)  
+**UI:** FXML + Scene Builder for layout  
+**Data Structures:** 2D arrays for grid, Queue for BFS  
+**Build:** Standard Java compilation
 
-Help menu:
+### Architecture
 
-![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/helpMenu.png?raw=true)
+MVC pattern with animation framework:
 
-Lasers animation with knight moves:
-![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/Lasers.gif?raw=true)
+```
+Main (Application Controller)
+      ↓
+┌─────────────────────────────────┐
+│   Grid State Manager            │
+│   - 20x20 char matrix           │
+│   - Distance matrix (int[][])   │
+│   - Object positions            │
+└─────────────────────────────────┘
+      ↓
+Lee Algorithm (BFS):
+  1. Initialize queue with start position
+  2. While queue not empty:
+     ├─ Dequeue cell (i, j)
+     ├─ For each valid neighbor:
+     │    ├─ Check obstacles/lasers
+     │    ├─ Handle teleports
+     │    └─ Enqueue if unvisited
+     └─ Mark distance from start
+  3. Backtrack from end to start using distance matrix
+      ↓
+Visualization Layer:
+  ├─ Canvas rendering (40x40 cells)
+  ├─ Timeline animation (keyframes)
+  ├─ Color coding by distance
+  └─ Path highlighting
+```
 
-Portals' animation:
-![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/lasersAndTps.gif?raw=true)
+**Lee Algorithm Details:**
+```
+Input: grid, start (iStart, jStart), end (iFinish, jFinish)
+Output: shortest path or "no path"
 
-Lasers with tps(portals) animation:
-![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/lasersWithTps.gif?raw=true)
+matrLee[][] = -1 for obstacles, 0 for empty
+Queue Q
+Q.enqueue(start)
+matrLee[iStart][jStart] = 1
 
-Error message:
+while Q not empty:
+    (i, j) = Q.dequeue()
+    for each direction (di, dj):
+        ni = i + di, nj = j + dj
+        if valid(ni, nj) and matrLee[ni][nj] == 0:
+            matrLee[ni][nj] = matrLee[i][j] + 1
+            Q.enqueue(ni, nj)
+            if (ni, nj) == end:
+                reconstruct path and return
 
-![image](https://github.com/Rares8921/Projects/blob/master/2022/Lee%20Visualizer/errorMessage.png?raw=true)
+Path reconstruction:
+Start from end, move to neighbor with distance-1, repeat until start
+```
+
+**Key Implementation Details:**
+- **Grid Representation:** `char[][] matr` for objects, `int[][] matrLee` for distances
+- **Direction Arrays:** `di[]`, `dj[]` for 4-directional, 8-directional, knight moves
+- **Laser Logic:** Blocks movement if crossing horizontal/vertical/cross laser cells
+- **Teleport System:** Paired teleports stored in 3D array `s[i][j][2]` linking positions
+- **Animation:** JavaFX Timeline with KeyFrame delays showing wave progression
+- **Error Handling:** Validates start/end placement, direction selection, teleport pairing
+
+**Visual Encoding:**
+- Empty cell: white
+- Obstacle 'X': gray/black
+- Laser '/', '|', '+': red
+- Teleport 'O': blue
+- Start: green
+- End: red
+- Distance value: color gradient (lighter = farther)
+- Final path: yellow highlight
+
+---
+
+## Project Structure
+
+```
+Lee Visualizer/
+└── src/
+    ├── sample/
+    │   ├── Main.java              # Core algorithm + visualization (400+ lines)
+    │   ├── Controller.java        # UI event handlers
+    │   ├── Open.java             # Welcome screen
+    │   ├── HelpBox.java          # Help dialog
+    │   ├── ErrorBox.java         # Error messages
+    │   └── sample.fxml           # UI layout
+    ├── imgs/
+    │   ├── Knight.gif            # Knight move animation
+    │   ├── Lasers.gif            # Laser demo
+    │   ├── lasersWithTps.gif     # Combined demo
+    │   └── lasersAndTps.gif      # Feature showcase
+    ├── errorMessage.png          # Error icon
+    ├── helpMenu.png              # Help screen
+    └── Lee Visualizer.jar        # Compiled executable
+```
+
+---
+
+## Getting Started
+
+**Requirements:**
+- Java 11 or higher
+- JavaFX SDK 11+
+
+**Run the visualizer:**
+
+```bash
+# Option 1: JAR file
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar "Lee Visualizer.jar"
+
+# Option 2: Compile from source
+javac --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -d bin src/sample/*.java
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -cp bin sample.Main
+```
+
+**How to use:**
+
+1. **Setup:**
+   - Left-click to place start position (green)
+   - Right-click to place end position (red)
+   - Select movement modes (checkboxes: horizontal, vertical, diagonal, knight)
+
+2. **Add obstacles (optional):**
+   - Click "Obstacles" mode
+   - Click cells to place walls (X)
+
+3. **Add lasers (optional):**
+   - Select laser type (horizontal `/`, vertical `|`, cross `+`)
+   - Click cells to place laser barriers
+
+4. **Add teleports (optional):**
+   - Click "Teleport" mode
+   - Place two teleport portals (O) - they pair automatically
+
+5. **Run algorithm:**
+   - Click "Start" button
+   - Watch BFS wave propagate from start
+   - See shortest path highlighted at completion
+
+6. **Reset:**
+   - Click "Clear" to reset grid
+
+---
+
+## What's Next
+
+Future improvements being considered:
+- More algorithms: Dijkstra, A*, Greedy Best-First
+- Variable grid sizes (10x10, 30x30, 50x50)
+- Weighted cells (some terrain costs more to traverse)
+- Maze generation algorithms (Prim's, Kruskal's)
+- Export/import custom maps (JSON format)
+- Performance metrics (nodes explored, time taken)
+- 3D visualization option
+- Algorithm comparison mode (run multiple side-by-side)
+
+---
+
+## License
+
+This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.

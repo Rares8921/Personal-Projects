@@ -1,103 +1,171 @@
-# FlappyBird Game
+# FlappyBird
 
-## Description
+<div align="center">
 
-FlappyBird is a simple desktop game developed in Java using JavaFX. The game simulates a bird that must avoid pipes by flying through the gaps. The player controls the bird by clicking to make it fly higher, and the goal is to pass through as many pipes as possible without colliding with them. The game also features a high score system, an inventory menu, and a shop menu.
+![Java](https://img.shields.io/badge/Java-11-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-11-blue?style=for-the-badge&logo=java)
+![Game](https://img.shields.io/badge/Type-Game-red?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge)
 
-## Features
+**A fully-featured Flappy Bird clone with realistic physics, multiple bird skins, in-game shop, and high score tracking.**
 
-- **Bird Control**: The player can control the bird's movement using mouse clicks, making it ascend. Gravity will cause the bird to descend when no clicks are made.
-- **Pipes Obstacles**: Randomly generated pipes with gaps that the bird must fly through. The game ends if the bird collides with a pipe or the ground.
-- **Inventory and Shop Menu**: The game includes an inventory system for managing collected items and a shop where the player can purchase upgrades.
-- **Sound Control**: A sound settings menu allows the player to control in-game audio.
-- **Draggable Window**: The game window can be dragged around by the user, providing a flexible interface.
-- **High Score System**: The game tracks and displays the highest score achieved by the player.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-## Code Structure
+</div>
 
-### FlappyBird.java
-`FlappyBird.java` contains the main game loop and initializes all essential components, such as the bird and pipes, while also managing the game's state transitions (e.g., game start, game over). It acts as the controller for the gameplay.
+---
 
-#### Key Responsibilities:
-- **Game Initialization**: Initializes the bird, pipes, and the game window.
-- **Event Handling**: Captures mouse events, primarily for controlling the bird's movement.
-- **Main Game Loop**: Handles the continuous game update cycle (movement, collision detection, and rendering).
-- **Game Over Detection**: Checks whether the bird has collided with pipes or the ground and ends the game when a collision occurs.
-- **Score Update**: Tracks the player's progress through pipes and updates the score accordingly.
+## What It Does
 
-#### Key Methods:
-- `start()`: Initializes the game window and elements.
-- `updateGameState()`: Runs every frame to update the bird’s position, the pipe’s position, and handles game state changes (e.g., game over detection).
-- `handleMouseClick()`: Controls the bird’s ascent when the player clicks the mouse.
-- `checkCollision()`: Determines if the bird has collided with a pipe or the ground.
+This is a complete recreation of the classic Flappy Bird game with added features that make it more engaging. It's not just a basic clone - it includes a shop system, multiple bird skins, smooth animations, and persistent score tracking.
 
-### Bird.java
-`Bird.java` manages the properties and behaviors of the bird character. It is responsible for the bird’s movement, including ascending on mouse clicks and descending due to gravity. The class tracks the bird’s position and handles its interactions with the game world.
+**Core gameplay:**
+- **Gravity physics** - realistic falling motion with smooth acceleration
+- **Pipe obstacles** - randomly generated pipes with varying gaps
+- **Collision detection** - precise hitbox calculations for fair gameplay
+- **Score tracking** - earn points for passing pipes, track high scores
+- **Lives system** - collect coins to unlock new bird skins
 
-#### Key Responsibilities:
-- **Bird Movement**: Controls vertical movement of the bird based on physics (gravity) and player input (mouse click for upward thrust).
-- **Collision Box**: Defines the bird's boundaries for collision detection.
-- **Rendering**: Updates the bird's visual representation as it moves.
+**What makes it special:**
+- Three bird skins (red, blue, gold) unlockable via in-game currency
+- Smooth sprite animations for flapping and movement
+- Multiple background themes that change based on selected bird
+- Persistent data storage for high scores, coins, and inventory
+- Sound effects for jumping, scoring, collisions, and game over
+- Clean JavaFX UI with drag-to-move window support
+- Game over screen with restart functionality
 
-#### Key Methods:
-- `ascend()`: Moves the bird upwards in response to a mouse click.
-- `applyGravity()`: Causes the bird to fall gradually when no input is given, simulating gravity.
-- `getBounds()`: Returns the bird’s rectangular bounds used for collision detection.
-- `reset()`: Resets the bird’s position and velocity when the game restarts.
+The game loop runs at 60 FPS with AnimationTimer, physics calculations use delta time for consistent behavior across different frame rates, and all game state is automatically saved between sessions.
 
-### Pipe.java
-`Pipe.java` manages the generation and movement of pipes on the screen. The pipes are obstacles the bird must navigate through. Pipes are continuously generated at random intervals, and their position is updated every frame to move from right to left across the screen. This class is also responsible for detecting when the bird passes through the gap between pipes to increase the score.
+---
 
-#### Key Responsibilities:
-- **Pipe Generation**: Randomly generates pipes with variable gap heights for the bird to pass through.
-- **Movement**: Moves the pipes horizontally across the screen from right to left.
-- **Collision Detection**: Determines if the bird has collided with a pipe.
-- **Score Tracking**: Detects when the bird successfully passes through a pipe's gap and updates the score.
+## Tech Stack
 
-#### Key Methods:
-- `generatePipes()`: Creates new pipes with a random gap for the bird to fly through.
-- `movePipes()`: Moves the pipes leftward, giving the effect of the bird moving forward.
-- `getTopPipeBounds()`: Returns the collision boundaries for the top pipe.
-- `getBottomPipeBounds()`: Returns the collision boundaries for the bottom pipe.
-- `resetPipes()`: Resets the position of the pipes when the game restarts.
+**Language:** Java 11  
+**Framework:** JavaFX (Scene, Canvas, AnimationTimer)  
+**Audio:** Custom Sound class with clip playback  
+**Storage:** File I/O for persistence (high scores, coins, inventory)  
+**Build:** No build system required (standard Java compile)
 
-### Controller.java
-This class serves as the controller for the game's GUI. It handles interactions with menus (shop, inventory, sound settings) and allows the user to control the game window. Additionally, it reads and updates the high score from a file.
+### Architecture
 
-#### Key Methods:
-- `close()`: Closes the game window.
-- `minimize()`: Minimizes the game window.
-- `soundMenu()`: Opens the sound control menu.
-- `shopMenu()`: Opens the shop menu.
-- `inventoryMenu()`: Opens the inventory menu.
-- `setDraggable()`: Enables the user to drag the game window around the screen.
-- `setHighscore()`: Reads and displays the high score from a file.
+Classic game architecture with MVC influences:
 
-### InventoryBox.java
-This class handles the inventory menu for the game. The player can view and manage collected items. It provides a visual interface for selecting and using items in the game.
+```
+Main (Application Launcher)
+      ↓
+FlappyBird (Game Core)
+      ↓
+┌─────────────────────────────────┐
+│   Game Loop (AnimationTimer)    │
+│   - Physics Updates (60 FPS)    │
+│   - Collision Detection          │
+│   - Rendering                    │
+└─────────────────────────────────┘
+      ↓
+Components:
+  ├─ Bird (Sprite + Physics)
+  ├─ Pipe (ArrayList<Pipe>)
+  ├─ Sprite (Position + Velocity)
+  ├─ Sound (Audio Clips)
+  └─ Controller (Shop System)
+```
 
-#### Key Methods:
-- `display()`: Shows the inventory window to the user.
-- `selectItem()`: Allows the player to choose an item from the inventory.
+**Physics Implementation:**
+- Gravity: 400 units/s² constant acceleration
+- Jump velocity: -250 units/s instant upward impulse  
+- Bird rotation: dynamic angle based on vertical velocity
+- Collision: rectangular hitbox comparison between bird and pipes
 
-### BuyBox.java
-This class manages the shop menu where players can buy upgrades or new items. It interacts with the game's currency or points system to allow purchases.
+**Key Technical Details:**
+- **Game Loop:** Uses JavaFX's `AnimationTimer` with `System.nanoTime()` for delta time calculations
+- **Sprite System:** Custom `Sprite` class with position, velocity, and rendering methods
+- **Pipe Generation:** Pipes spawn at fixed intervals with randomized gap positions
+- **Score Calculation:** Incremented when bird's X position exceeds pipe's right edge (once per pipe)
+- **Persistence Layer:** Plain text files for `highscore.txt`, `coins.txt`, `inventory.txt`
+- **Sound Management:** Pre-loaded audio clips triggered by game events (no streaming)
 
-#### Key Methods:
-- `display()`: Opens the shop window.
-- `buyItem()`: Allows the player to purchase items or upgrades using in-game currency.
+**Animation Details:**
+- Bird sprite cycles through 3 frames for flapping animation
+- Floor scrolls horizontally using dual-sprite technique for seamless looping
+- Background parallax with 4 layered images moving at different speeds
+- Fade transitions for game over and start screens
 
-## Complexity Analysis
+---
 
-- **Main Game Loop**: The game loop updates the bird's position and checks for collisions with pipes at a time complexity of O(n), where n is the number of pipes. The pipes are stored in a list and updated every frame.
-- **Collision Detection**: The collision detection algorithm runs in O(1) per frame, checking if the bird collides with a pipe or the ground.
-- **Menu Interaction**: The inventory and shop menus have a low time complexity, as they only involve simple button interactions and data retrieval.
+## Project Structure
 
-## Requirements
+```
+FlappyBird/
+├── Main.java                  # JavaFX application launcher
+├── FlappyBird.java            # Core game logic + physics
+├── Bird.java                  # Bird entity with animation
+├── Pipe.java                  # Obstacle generation
+├── Controller.java            # Shop system + UI
+├── BuyBox.java               # Purchase confirmation dialog
+├── InventoryBox.java         # Skin selection UI
+├── Open.java                 # Landing page controller
+└── resources/
+    ├── game.fxml                # Main menu layout
+    ├── back{0-3}.png           # Background layers
+    ├── {red,blue,gold}Bird{1-3}.png  # Sprite sheets
+    ├── {up,down}_pipe{0-3}.png       # Pipe sprites
+    ├── floor.png                     # Ground texture
+    ├── game_over.png                 # Game over screen
+    ├── ready.png                     # Start indicator
+    ├── highscore.txt                 # Persistent high score
+    ├── coins.txt                     # Player currency
+    └── inventory.txt                 # Unlocked skins
+```
 
-- Java JRE 15 or later
-- JavaFX libraries for GUI components
+---
 
+## Getting Started
+
+**Requirements:**
+- Java 11 or higher
+- JavaFX SDK (if not bundled with JDK)
+
+**Running the game:**
+
+```bash
+# Compile (if needed)
+javac -d bin --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml sample/*.java
+
+# Run
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -cp bin sample.Main
+```
+
+**Or use your IDE:**
+1. Open project in IntelliJ IDEA / Eclipse / NetBeans
+2. Ensure JavaFX is configured in project settings
+3. Run `Main.java`
+
+**Controls:**
+- **SPACE** or **MOUSE CLICK** - Flap/Jump
+- **RIGHT CLICK** - Start game from menu
+- **Drag title bar** - Move window
+
+**First time playing:**
+- You start with the red bird unlocked
+- Earn coins by achieving high scores (score = coins earned)
+- Use coins to unlock blue bird (50 coins) and gold bird (100 coins)
+- High scores persist across game sessions
+
+---
+
+## What's Next
+
+Future improvements being considered:
+- Difficulty levels (adjust pipe gaps, bird speed)
+- Leaderboard with player names
+- Daily challenges with special rewards
+- Power-ups (shield, slow-motion, double points)
+- More bird skins with unique abilities
+- Online multiplayer race mode
+- Achievement system with unlock conditions
+
+---
 
 ## License
 

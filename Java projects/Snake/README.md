@@ -1,62 +1,194 @@
-# Snake Game Code Description
+# Snake
 
-## Code Summary
-The provided Java code implements the classic Snake game using JavaFX for the graphical interface and event handling. The game consists of a snake that grows in size as it "eats" food, with the goal of avoiding collisions with the edges of the screen or with the snake's own body. The snake is controlled via keyboard input, and the gameplay speeds up as the player progresses. The score is tracked, and the player can restart the game after losing by pressing the spacebar.
+<div align="center">
 
-## Program Description and Usage
-This Snake game uses the JavaFX framework to create a window with a graphical canvas on which the game is displayed. It features a responsive interface where the snake moves in four directions (up, down, left, and right) and grows longer as it consumes food items that randomly spawn on the canvas. The game ends when the snake either collides with the screen boundaries or runs into itself. 
+![Java](https://img.shields.io/badge/Java-JavaFX-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-17-blue?style=for-the-badge&logo=java)
+![Game](https://img.shields.io/badge/Game-Classic-green?style=for-the-badge&logo=gamepad)
 
-### Features:
-- **Keyboard Controls:** 
-  - Arrow keys or W, A, S, D control the snake's movement.
-  - Pressing the spacebar starts the game and pauses/resumes it. 
-- **Score Tracking:** The score increases each time the snake eats food. The high score is saved between game sessions.
-- **Randomized Food:** Each time food is consumed, new food is generated at a random location that is not occupied by the snake's body.
-- **Collision Detection:** The game handles collision with walls and the snake’s own body, ending the game upon such collisions.
-  
-### Running the Game:
-1. The game starts with a blank grid and a prompt to press the spacebar to start.
-2. Use the keyboard to navigate the snake to the food.
-3. The game automatically tracks the player's score and compares it to the saved high score.
-4. The game ends when the snake collides with itself or the border, displaying a "Game Over" message.
-5. Press the spacebar to restart the game after a loss.
+**The classic Snake game with a twist—9 different food types, increasing difficulty, and a polished JavaFX interface. Eat, grow, and try not to bite yourself.**
 
-## Components:
-- **Main Class:** This class handles the main game logic, including rendering the graphics, controlling the game state, and processing user input.
-- **Controller Class:** This class manages UI controls for minimizing and closing the game window, as well as enabling draggable functionality for the game window.
+[Features](#what-it-does) • [Tech Stack](#tech-stack) • [Quick Start](#getting-started)
 
-## Custom Components:
-- **Random Food Generation:** The `generateFood()` method ensures that food is not placed on the snake's body. A random image from a list of food images is assigned to each new food item.
-- **Graphical Rendering:** The game uses JavaFX’s `Canvas` to draw all elements (snake, food, grid, and text) on the screen. The snake and food are dynamically rendered as colored rectangles and images, respectively.
-- **Game State and Score Tracking:** The game tracks the score in real time and updates the high score if the player beats their previous record.
+</div>
 
-## Key Methods:
-- **`run(GraphicsContext gct)`**: The core game loop that handles snake movement, collision detection, and rendering.
-- **`gameOver()`**: Checks if the snake has collided with the walls or itself and sets the game state to over.
-- **`generateFood()`**: Randomly generates the food's position on the grid.
-- **`eatFood()`**: Checks if the snake's head has reached the food's position and adds a new segment to the snake’s body.
-- **`drawScore()`**: Renders the current score and high score on the canvas.
+---
 
-### Main Game Elements:
-- **Canvas and Graphics Context:** The game elements (snake, food, grid, and text) are drawn using the `GraphicsContext` object on a `Canvas` element. 
-- **Snake:** The snake is represented by a list of points (`ArrayList<Point>`), with each point corresponding to a square on the grid.
-- **Food:** Food is randomly generated at a location that does not intersect with the snake's body, and a random image is assigned to each food item from a set of images.
-- **Direction Control:** The snake's movement is determined by the current direction (right, left, up, down), and its speed increases after every collision with food.
+## What It Does
 
-## Time Complexity Analysis
-- **Snake Movement:** The snake moves in constant time `O(1)` for each game tick, as only the head position is updated, and the rest of the body follows the previous position.
-- **Collision Detection:** Checking for collisions with walls or itself involves scanning the body of the snake, which has a time complexity of `O(n)`, where `n` is the length of the snake.
-- **Food Generation:** Generating food involves finding a random position on the grid that is not occupied by the snake. In the worst case, this can be `O(n)`, where `n` is the number of points on the grid.
-- **Overall Time Complexity:** The overall time complexity per game tick is `O(n)`, where `n` is the length of the snake, as updating the snake and checking for collisions depends on its length.
+This is a modern take on the classic Snake game, built with JavaFX. Control a snake as it moves around the canvas, eating food to grow longer. But be careful—hitting walls or your own body ends the game. Speed increases as your score climbs, making it progressively harder.
 
-## Space Complexity Analysis
-- **Snake Representation:** The snake is stored as an `ArrayList` of `Point` objects, so the space complexity is `O(n)`, where `n` is the number of segments in the snake's body.
-- **Grid Representation:** The grid does not need to be stored explicitly since it is dynamically rendered each frame, but rendering the grid itself takes constant space, `O(1)`, relative to the grid's dimensions.
-- **Food Storage:** The food's position is stored as two integers (x and y coordinates), which takes constant space, `O(1)`.
+**Core features:**
+- **WASD + Arrow key controls** for smooth snake movement
+- **9 unique food types** with different graphics (apple, cherry, berry, coconut, peach, watermelon, etc.)
+- **Growing snake body** using ArrayList of Points
+- **Score tracking** with persistent high score storage
+- **Increasing speed**: Game gets faster as score increases
+- **Pause functionality**: Spacebar to pause/resume
+- **Collision detection**: Walls, self-collision, and food collection
+- **Custom FXML UI** with styled buttons and menu
 
-Overall, the space complexity of the game is `O(n)`, where `n` is the length of the snake.
+**Gameplay mechanics:**
+- Snake starts with length 1 and grows by 1 segment per food
+- Food spawns randomly on the 20x20 grid
+- Direction changes instantly on key press (no queued inputs)
+- Speed increases every X points
+- High score persists across sessions
 
+**Why it's engaging:**
+- Smooth 60 FPS animation with JavaFX Timeline
+- Varied food graphics keep it visually interesting
+- Progressive difficulty makes it challenging
+- Simple, intuitive controls
+
+The game uses JavaFX Canvas for rendering, ArrayList for the snake body, and a Timeline-based game loop for consistent frame timing.
+
+---
+
+## Tech Stack
+
+**Language:** Java (JavaFX 17+)  
+**UI Framework:** JavaFX (Canvas, FXML, CSS)  
+**Data Structures:** ArrayList (snake body), Point (coordinates)  
+**Game Loop:** JavaFX Timeline with 120ms intervals  
+**Persistence:** File I/O for high score storage  
+**Build:** Maven/Gradle (modular project)
+
+### Architecture
+
+Game loop with collision detection, rendering, and state management:
+
+```
+JavaFX Application
+      ↓
+FXML UI + Canvas Setup
+      ↓
+Game Loop (Timeline @ ~8 FPS)
+      ↓
+┌──────────────┬──────────────┬───────────────┐
+│   Input      │   Game       │   Rendering   │
+│  Handler     │   Logic      │   Engine      │
+└──────────────┴──────────────┴───────────────┘
+      ↓              ↓               ↓
+Key Events    Snake Movement   GraphicsContext
+Direction     Food Collision   (Canvas Drawing)
+              Self Collision
+              Wall Collision
+              Score Update
+```
+
+**How it works:**
+- **Snake Body**: ArrayList of Points, where head is at index 0
+- **Movement**: Each frame, new head position is calculated based on direction; tail is removed (unless food eaten)
+- **Food**: Random (x, y) coordinates; if head collides, snake grows and new food spawns
+- **Collision Detection**: Check if head hits walls (x < 0 || x >= 20) or any body segment
+- **Speed**: Timeline interval decreases as score increases
+- **High Score**: Written to file on game over, read on game start
+
+**Key Implementation Details:**
+- **Grid System**: 20x20 grid, each cell is 40px (800x800 canvas)
+- **Direction Control**: Integer constants (RIGHT=0, LEFT=1, UP=2, DOWN=3)
+- **Food Images**: Array of 9 PNG paths loaded dynamically
+- **Pause Logic**: Boolean flag stops Timeline when spacebar is pressed
+- **Score Calculation**: +10 per food item; displayed in real-time
+
+---
+
+## Project Structure
+
+```
+Snake/
+├── Controller.java             # FXML controller for UI interactions
+├── Main.java                   # Game logic, rendering, collision detection
+├── Open.java                   # Initial splash screen or menu
+├── sample.fxml                 # FXML layout for UI
+├── snake.css                   # Custom CSS styling
+├── imgs/                       # Food images (apple, cherry, berry, etc.)
+│   ├── orange.png
+│   ├── apple.png
+│   ├── cherry.png
+│   ├── berry.png
+│   ├── coconut.png
+│   ├── peach.png
+│   ├── watermelon.png
+│   ├── tomato.png
+│   └── pomegranate.png
+└── Snake.exe                   # Compiled executable
+```
+
+**Main components:**
+- `Main.java`: Game loop, snake movement, collision detection, rendering
+- `Controller.java`: Handles FXML button clicks (start, pause, restart)
+- Snake body: ArrayList of Points (head at index 0)
+- Food system: Random generation with 9 different sprites
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Java 17+** with JavaFX SDK
+- Maven or Gradle (optional, for building from source)
+
+### Running the Game
+
+**Option 1: Executable**
+```bash
+# Windows:
+.\Snake.exe
+
+# Or run from source:
+javac Main.java
+java sample.Main
+```
+
+**Option 2: Maven**
+```bash
+mvn clean javafx:run
+```
+
+**Option 3: From JAR**
+```bash
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar Snake.jar
+```
+
+### How to Play
+
+1. **Start**: Click the "Start" button or press Enter
+2. **Move**: Use Arrow keys or WASD to change direction
+3. **Goal**: Eat food to grow your snake and increase score
+4. **Avoid**: Don't hit walls or your own body
+5. **Pause**: Press Spacebar to pause/resume
+
+**Scoring:**
+- Each food item: +10 points
+- High score is saved automatically
+- Speed increases every 50 points
+
+**Controls:**
+- Arrow keys / WASD: Change direction
+- Spacebar: Pause/Resume
+- Enter: Start/Restart game
+
+---
+
+## What's Next
+
+**Potential improvements:**
+- Add difficulty levels (easy, medium, hard)
+- Special food items (bonus points, speed boost, slow-down)
+- Obstacles on the grid
+- Multiplayer mode (two snakes on same grid)
+- Level progression (walls, barriers, smaller grids)
+- Sound effects (eating, collision, level up)
+- Leaderboard with top 10 scores
+
+---
 
 ## License
 
-This code is proprietary and may not be copied, distributed, or modified without express written permission from the author.
+**Proprietary License**  
+© 2026. All rights reserved.
+
+This software is proprietary and confidential. Unauthorized copying, modification, distribution, or use of this software, via any medium, is strictly prohibited without explicit written permission from the owner.
