@@ -48,7 +48,7 @@ In these projects, I applied various advanced programming and software engineeri
 - Assembly Programs: **1**  
 - Artificial Intelligence: **2**
 - Artificial Intelligence: **3**
-- Done projects to add, few adjustments needed before: **12** - *Eye Tracking data analysis*, *Promodash*, *Joblyo*, *Disk Analyzer*, *Github Clone*, *Horizon Line*, *Aircraft cls*, *Enterprise RAG*, *Multimodal LLM*, *E comm template*
+- Done projects to add, few adjustments needed before: **10** - *Eye Tracking data analysis*, *Promodash*, *Joblyo*, *Disk Analyzer*, *Github Clone*, *Horizon Line*, *Aircraft cls*, *Enterprise RAG*, *Multimodal LLM*, *E comm template*
 - Total: 72
 
 ---
