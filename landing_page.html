@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Backend Architect specializat în sisteme distribuite și AI enterprise. Transformă idei în infrastructuri scalabile care procesează milioane de request-uri.">
+    <meta name="keywords" content="backend architect, distributed systems, microservices, AI engineer, IoT, machine learning, API development, Romania">
+    <meta name="author" content="Rareș Cososilă-Dumitriu">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sisteme Backend Care Nu Se Prăbușesc | Rareș Cososilă">
+    <meta property="og:description" content="Construiesc infrastructuri enterprise care procesează milioane de request-uri - scalabile, sigure, și optimizate pentru performanță maximă.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Sisteme Backend Care Nu Se Prăbușesc | Rareș Cososilă">
+    
+    <title>Sisteme Backend Care Nu Se Prăbușesc NICIODATĂ | Rareș Cososilă - Backend Architect</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-blue': '#2563eb',
+                        'brand-purple': '#7c3aed',
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom styles */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        [lang="en"] { 
+            display: none; 
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(30, 64, 175, 0.2);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .bg-grid-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(30, 64, 175, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 64, 175, 0.04) 1px, transparent 1px);
+            background-size: 64px 64px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate-scaleIn {
+            animation: scaleIn 0.6s ease-out forwards;
+        }
+
+        .animate-slideInLeft {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .animate-slideInRight {
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+
+        .cookie-popup {
+            position: fixed;
+            bottom: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: bottom 0.5s ease-out;
+            z-index: 9999;
+        }
+
+        .cookie-popup.show {
+            bottom: 20px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#hero" class="text-2xl font-bold">
+                    <span class="gradient-text">Rares.dev</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#projects" class="text-gray-600 hover:text-gray-900 transition-colors font-medium">
+                        <span lang="ro">Proiecte</span><span lang="en">Projects</span>
+                    </a>
+                    <a href="#client-portfolio" class="text-gray-600 hover:text-gray-900 transition-colors font-medium">
+                        <span lang="ro">GitHub</span><span lang="en">GitHub</span>
+                    </a>
+                    <a href="#services" class="text-gray-600 hover:text-gray-900 transition-colors font-medium">
+                        <span lang="ro">Servicii</span><span lang="en">Services</span>
+                    </a>
+                    <a href="#about" class="text-gray-600 hover:text-gray-900 transition-colors font-medium">
+                        <span lang="ro">Despre</span><span lang="en">About</span>
+                    </a>
+                    <a href="#contact" class="px-6 py-2.5 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all">
+                        <span lang="ro">Contact</span><span lang="en">Contact</span>
+                    </a>
+                    <div class="flex items-center space-x-2 text-sm">
+                        <button id="lang-ro" class="px-3 py-1 rounded-md font-semibold text-blue-600">RO</button>
+                        <span class="text-gray-300">/</span>
+                        <button id="lang-en" class="px-3 py-1 rounded-md font-semibold text-gray-400 hover:text-gray-600">EN</button>
+                    </div>
+                </div>
+                <button class="md:hidden hamburger p-2">
+                    <div class="w-6 h-0.5 bg-gray-900 mb-1.5"></div>
+                    <div class="w-6 h-0.5 bg-gray-900 mb-1.5"></div>
+                    <div class="w-6 h-0.5 bg-gray-900"></div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center bg-gradient-to-br from-slate-50 via-white to-blue-50 bg-grid-pattern relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/3 to-blue-800/3"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left side: Copy -->
+                <div>
+                    <div class="inline-block mb-6 px-5 py-2.5 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-900 rounded-full text-sm font-bold animate-fadeInUp opacity-0 border-2 border-blue-200 shadow-sm">
+                        <span lang="ro">⚡ 60+ Proiecte Enterprise • 5M+ Requests Procesate</span>
+                        <span lang="en">⚡ 60+ Enterprise Projects • 5M+ Requests Processed</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 leading-[1.1] animate-fadeInUp opacity-0 delay-100">
+                        <span lang="ro">
+                            <span class="text-slate-900">Sisteme Backend</span><br/>
+                            <span class="text-slate-900">Care </span><span class="gradient-text">NU Se Prăbușesc</span><br/>
+                            <span class="text-slate-900">La 3 Dimineața</span>
+                        </span>
+                        <span lang="en">
+                            <span class="text-slate-900">Backend Systems</span><br/>
+                            <span class="text-slate-900">That </span><span class="gradient-text">NEVER Crash</span><br/>
+                            <span class="text-slate-900">At 3 AM</span>
+                        </span>
+                    </h1>
+                    
+                    <p class="text-xl sm:text-2xl text-slate-700 mb-8 leading-relaxed font-medium animate-fadeInUp opacity-0 delay-200">
+                        <span lang="ro">Îți transform ideea în infrastructură enterprise care <strong>procesează milioane de request-uri</strong>, scalează automat, și funcționează impecabil sub presiune.</span>
+                        <span lang="en">I transform your idea into enterprise infrastructure that <strong>processes millions of requests</strong>, scales automatically, and works flawlessly under pressure.</span>
+                    </p>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-4 mb-10 animate-fadeInUp opacity-0 delay-300">
+                        <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                            <div class="text-3xl font-black text-blue-600">60+</div>
+                            <div class="text-xs text-gray-600 font-semibold"><span lang="ro">Proiecte</span><span lang="en">Projects</span></div>
+                        </div>
+                        <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                            <div class="text-3xl font-black text-blue-600">5M+</div>
+                            <div class="text-xs text-gray-600 font-semibold">Requests/zi</div>
+                        </div>
+                        <div class="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                            <div class="text-3xl font-black text-blue-600">99.9%</div>
+                            <div class="text-xs text-gray-600 font-semibold">Uptime</div>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8 animate-fadeInUp opacity-0 delay-400">
+                        <a href="#contact" class="group px-8 py-5 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all flex items-center justify-center">
+                            <span lang="ro">🎯 Programează Consultație Gratuită →</span>
+                            <span lang="en">🎯 Book Free Consultation →</span>
+                        </a>
+                    </div>
+                    
+                    <p class="text-sm text-slate-500 animate-fadeInUp opacity-0 delay-500">
+                        <span lang="ro">✅ 30 minute • Analiza tehnică gratuită • Fără obligații</span>
+                        <span lang="en">✅ 30 minutes • Free technical analysis • No obligations</span>
+                    </p>
+                </div>
+                
+                <!-- Right side: Hero Visual Proof -->
+                <div class="animate-scaleIn opacity-0 delay-500">
+                    <div class="bg-gray-900 rounded-3xl shadow-2xl overflow-hidden border-2 border-gray-800 transform hover:scale-105 transition-transform duration-300">
+                        <!-- Terminal Header -->
+                        <div class="bg-gray-800 px-6 py-4 flex items-center space-x-3 border-b border-gray-700">
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            </div>
+                            <span class="flex-1 text-center text-sm text-gray-400 font-mono">production-monitoring.log</span>
+                        </div>
+                        
+                        <!-- System Metrics Dashboard -->
+                        <div class="p-8 space-y-4">
+                            <div class="text-green-400 text-sm font-mono mb-6">
+                                <span class="text-gray-500">$</span> kubectl get services --all-namespaces
+                            </div>
+                            
+                            <!-- Metric Cards -->
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                                    <div class="text-xs text-gray-400 mb-1">API Response Time</div>
+                                    <div class="text-2xl font-bold text-green-400">47ms</div>
+                                    <div class="text-xs text-green-500">↓ 23% mai rapid</div>
+                                </div>
+                                <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                                    <div class="text-xs text-gray-400 mb-1">Concurrent Users</div>
+                                    <div class="text-2xl font-bold text-cyan-400">127K</div>
+                                    <div class="text-xs text-cyan-500">Online acum</div>
+                                </div>
+                                <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                                    <div class="text-xs text-gray-400 mb-1">Requests/Second</div>
+                                    <div class="text-2xl font-bold text-blue-400">8.4K</div>
+                                    <div class="text-xs text-blue-500">Peak: 12.1K</div>
+                                </div>
+                                <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                                    <div class="text-xs text-gray-400 mb-1">Error Rate</div>
+                                    <div class="text-2xl font-bold text-yellow-400">0.01%</div>
+                                    <div class="text-xs text-green-500">Sistem stabil</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Live Activity -->
+                            <div class="mt-6 pt-4 border-t border-gray-700">
+                                <div class="text-xs text-gray-500 mb-3 font-mono">LIVE ACTIVITY</div>
+                                <div class="space-y-2 text-xs font-mono">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span class="text-green-400">✓ IoT devices syncing...</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                                        <span class="text-blue-400">✓ ML model inference: 284ms</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></div>
+                                        <span class="text-cyan-400">✓ Database replicas: 3/3 healthy</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                                        <span class="text-purple-400">✓ Auto-scaling: +2 pods</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Trust indicators -->
+                    <div class="mt-6 flex items-center justify-center space-x-6 text-sm text-gray-600">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span class="font-semibold">SOC 2 Type II</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span class="font-semibold">GDPR Compliant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-32 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <div class="inline-block mb-4 px-5 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-bold">
+                    <span lang="ro">� SISTEME PENTRU CLIENȚI</span>
+                    <span lang="en">💼 CLIENT SYSTEMS</span>
+                </div>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-6">
+                    <span lang="ro">Sisteme <span class="gradient-text">Enterprise</span> pentru Clienți</span>
+                    <span lang="en">Enterprise <span class="gradient-text">Client</span> Systems</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    <span lang="ro">Soluții enterprise dezvoltate pentru clienți - fiecare proiect rezolvă probleme reale de scalabilitate, performanță și fiabilitate, testate în producție cu trafic real.</span>
+                    <span lang="en">Enterprise solutions developed for clients - each project solves real scalability, performance, and reliability problems, tested in production with real traffic.</span>
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Project 1: DADJ Scanner Contracte -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-indigo-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-indigo-600 via-blue-600 to-indigo-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 left-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse"></div>
+                            <div class="absolute bottom-10 right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-300"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                            </svg>
+                            <div class="text-white text-xl font-black">LAN SCANNING</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">DADJ Scanner Contracte</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Aplicație enterprise JavaFX pentru scanarea și gestionarea contractelor prin rețeaua locală. Procesare distribuită, sincronizare automată și arhivare securizată cu ACL.</span>
+                            <span lang="en">Enterprise JavaFX application for contract scanning and management through local network. Distributed processing, automatic synchronization and secure archiving with ACL.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold">JavaFX</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Networking</span>
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold">OCR</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">SQLite</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-indigo-600"><span lang="ro">Scanare LAN • Enterprise</span><span lang="en">LAN Scanning • Enterprise</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: DADJ Database Build-up -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-cyan-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-cyan-600 via-blue-600 to-cyan-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 right-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-200"></div>
+                            <div class="absolute bottom-10 left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                            </svg>
+                            <div class="text-white text-xl font-black">FROM SCRATCH</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">DADJ Database Build-up</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Arhitectură enterprise de baze de date construită de la zero cu design normalizat, partitioning, indexare optimizată, replicare master-slave și backup automatizat pentru high availability.</span>
+                            <span lang="en">Enterprise database architecture built from scratch with normalized design, partitioning, optimized indexing, master-slave replication and automated backup for high availability.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-semibold">PostgreSQL</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Replication</span>
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-semibold">ER Design</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Performance</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-cyan-600"><span lang="ro">Enterprise DB • HA</span><span lang="en">Enterprise DB • HA</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: PromoDash -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-orange-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-orange-600 via-red-600 to-orange-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 left-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse"></div>
+                            <div class="absolute bottom-10 right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-200"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                            <div class="text-white text-xl font-black">REAL-TIME ANALYTICS</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">PromoDash</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Platformă de marketing analytics cu tracking în timp real, conversion funnels, attribution modeling, A/B testing și dashboards interactive pentru optimizarea campaniilor promotional.</span>
+                            <span lang="en">Marketing analytics platform with real-time tracking, conversion funnels, attribution modeling, A/B testing and interactive dashboards for promotional campaign optimization.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">React</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">Node.js</span>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">ClickHouse</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">WebSocket</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-orange-600"><span lang="ro">Real-time • Analytics</span><span lang="en">Real-time • Analytics</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Joblyo -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-purple-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-purple-600 via-pink-600 to-purple-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 right-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-300"></div>
+                            <div class="absolute bottom-10 left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            <div class="text-white text-xl font-black">AI MATCHING</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">Joblyo</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Platformă de recrutare cu AI pentru job matching inteligent. Algoritmi ML pentru potrivire candidat-poziție, parsare automată CV-uri, skill extraction și predictive analytics pentru hiring success.</span>
+                            <span lang="en">AI recruitment platform with intelligent job matching. ML algorithms for candidate-position matching, automatic resume parsing, skill extraction and predictive analytics for hiring success.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">Python</span>
+                            <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">TensorFlow</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">NLP</span>
+                            <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">FastAPI</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-purple-600"><span lang="ro">AI Matching • ML</span><span lang="en">AI Matching • ML</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: E-comm Self Platform -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-green-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-green-600 via-emerald-600 to-green-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 left-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-100"></div>
+                            <div class="absolute bottom-10 right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-400"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            <div class="text-white text-xl font-black">SELF-HOSTED</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">E-comm Self Platform</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Platformă e-commerce self-hosted completă cu inventory management, payment gateway integration, order processing, analytics și admin dashboard. Control complet asupra datelor și infrastructurii.</span>
+                            <span lang="en">Complete self-hosted e-commerce platform with inventory management, payment gateway integration, order processing, analytics and admin dashboard. Full control over data and infrastructure.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Next.js</span>
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">PostgreSQL</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Stripe</span>
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">Redis</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-green-600"><span lang="ro">Self-hosted • E-commerce</span><span lang="en">Self-hosted • E-commerce</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: Aircraft CLS -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-sky-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-sky-600 via-blue-600 to-sky-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 right-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse"></div>
+                            <div class="absolute bottom-10 left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-200"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                            <div class="text-white text-xl font-black">CONTINUOUS LEARNING</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">Aircraft CLS</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Sistem de management aviație cu continuous learning pentru optimizarea rutelor, predictive maintenance, fuel optimization și fleet tracking în timp real cu alerting avansat și compliance.</span>
+                            <span lang="en">Aviation management system with continuous learning for route optimization, predictive maintenance, fuel optimization and real-time fleet tracking with advanced alerting and compliance.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-xs font-semibold">Python</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">ML</span>
+                            <span class="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-xs font-semibold">IoT</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Real-time</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-sky-600"><span lang="ro">Aviation • ML</span><span lang="en">Aviation • ML</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 7: Horizon Line -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-blue-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 left-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-300"></div>
+                            <div class="absolute bottom-10 right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <div class="text-white text-xl font-black">NAVIGATION</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">Horizon Line</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Sistem de navigație aviație cu artificial horizon, attitude indicator, gyroscope integration și advanced flight instrumentation. Vizualizare 3D, alerting și log tracking pentru siguranță maximă.</span>
+                            <span lang="en">Aviation navigation system with artificial horizon, attitude indicator, gyroscope integration and advanced flight instrumentation. 3D visualization, alerting and log tracking for maximum safety.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">C++</span>
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold">OpenGL</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Sensors</span>
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold">Real-time</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-blue-600"><span lang="ro">Navigation • Aviation</span><span lang="en">Navigation • Aviation</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 8: Multimodal + RAG -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-violet-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-violet-600 via-purple-600 to-violet-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 right-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-200"></div>
+                            <div class="absolute bottom-10 left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-400"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                            <div class="text-white text-xl font-black">MULTIMODAL AI</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">Multimodal + RAG</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Sistem AI avansat combinând RAG cu procesare multimodală (text, imagine, audio). Vector search, embedding fusion, contextual retrieval și cross-modal understanding pentru aplicații enterprise complexe.</span>
+                            <span lang="en">Advanced AI system combining RAG with multimodal processing (text, image, audio). Vector search, embedding fusion, contextual retrieval and cross-modal understanding for complex enterprise applications.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-semibold">LangChain</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">GPT-4V</span>
+                            <span class="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-semibold">Whisper</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">Weaviate</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-violet-600"><span lang="ro">Multimodal • RAG</span><span lang="en">Multimodal • RAG</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 9: QSP iPhar -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-rose-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-rose-600 via-pink-600 to-rose-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 left-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse"></div>
+                            <div class="absolute bottom-10 right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-300"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                            <div class="text-white text-xl font-black">QUEUE SYSTEM</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">QSP iPhar</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Platformă farmaceutică cu queue system pentru gestionarea comenzilor. Inventory tracking, expiry management, automated reordering, prescription validation și sistem de priorități pentru comenzi urgente.</span>
+                            <span lang="en">Pharmaceutical platform with queue system for order management. Inventory tracking, expiry management, automated reordering, prescription validation and priority system for urgent orders.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-xs font-semibold">Node.js</span>
+                            <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">RabbitMQ</span>
+                            <span class="px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-xs font-semibold">PostgreSQL</span>
+                            <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">React</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-rose-600"><span lang="ro">Pharma • Queue System</span><span lang="en">Pharma • Queue System</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 10: ID Processor -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-teal-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-teal-600 via-cyan-600 to-teal-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 right-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-100"></div>
+                            <div class="absolute bottom-10 left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+                            </svg>
+                            <div class="text-white text-xl font-black">AI EXTRACTION</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">ID Processor</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Sistem AI pentru procesarea documentelor de identitate. OCR avansat, field extraction, document validation, fraud detection și compliance checking. Suport pentru multiple tipuri de documente și țări.</span>
+                            <span lang="en">AI system for ID document processing. Advanced OCR, field extraction, document validation, fraud detection and compliance checking. Support for multiple document types and countries.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-semibold">PyTorch</span>
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-semibold">OpenCV</span>
+                            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-semibold">OCR</span>
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-semibold">FastAPI</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-teal-600"><span lang="ro">AI • Document Processing</span><span lang="en">AI • Document Processing</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 11: Car Contract Processor -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-amber-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-amber-600 via-orange-600 to-amber-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 left-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-200"></div>
+                            <div class="absolute bottom-10 right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-400"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <div class="text-white text-xl font-black">AUTOMATED ML</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">Car Contract Processor</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Sistem automatizat pentru procesarea contractelor auto cu ML. Extragere automată date vehicul, validare informații client, risk assessment, pricing calculation și generare documentație conformă.</span>
+                            <span lang="en">Automated system for car contract processing with ML. Automatic vehicle data extraction, client information validation, risk assessment, pricing calculation and compliant document generation.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold">Python</span>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">ML</span>
+                            <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold">OCR</span>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">Automation</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-amber-600"><span lang="ro">ML • Automation</span><span lang="en">ML • Automation</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 12: Trello Clone -->
+                <div class="group bg-white rounded-3xl overflow-hidden border-2 border-gray-100 hover-lift hover:border-blue-300 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-blue-600 via-cyan-600 to-blue-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 right-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse"></div>
+                            <div class="absolute bottom-10 left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-300"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-24 h-24 text-white/90 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                            </svg>
+                            <div class="text-white text-xl font-black">KANBAN BOARDS</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">Trello Clone</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                            <span lang="ro">Platformă de project management cu Kanban boards, drag-and-drop, real-time collaboration, task tracking, labels, deadlines, file attachments și team workspace pentru productivitate maximă.</span>
+                            <span lang="en">Project management platform with Kanban boards, drag-and-drop, real-time collaboration, task tracking, labels, deadlines, file attachments and team workspace for maximum productivity.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">React</span>
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-semibold">Node.js</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Socket.io</span>
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-semibold">MongoDB</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span class="text-sm font-bold text-blue-600"><span lang="ro">Kanban • Collaboration</span><span lang="en">Kanban • Collaboration</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Portfolio CTA --><div class="text-center mt-12">
+                <a href="#contact" class="inline-block px-8 py-4 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all">
+                    <span lang="ro">🚀 Hai să construim următorul proiect împreună →</span>
+                    <span lang="en">🚀 Let's build the next project together →</span>
+                </a>
+                <p class="text-sm text-gray-500 mt-4">
+                    <span lang="ro">Vezi toate cele 60+ proiecte pe <a href="https://github.com" class="text-blue-600 hover:underline font-semibold">GitHub</a></span>
+                    <span lang="en">See all 60+ projects on <a href="https://github.com" class="text-blue-600 hover:underline font-semibold">GitHub</a></span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Portfolio Showcase Section -->
+    <section id="client-portfolio" class="py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <div class="inline-block mb-4 px-5 py-2 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 rounded-full text-sm font-bold border-2 border-purple-300">
+                    <span lang="ro">🚀 OPEN SOURCE & PROIECTE PERSONALE</span>
+                    <span lang="en">🚀 OPEN SOURCE & PERSONAL PROJECTS</span>
+                </div>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-6">
+                    <span lang="ro">Proiecte <span class="gradient-text">GitHub</span> Personale</span>
+                    <span lang="en">Personal <span class="gradient-text">GitHub</span> Projects</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    <span lang="ro">Proiecte open-source și experimente personale - de la AI și machine learning la game development și tools de productivitate.</span>
+                    <span lang="en">Open-source projects and personal experiments - from AI and machine learning to game development and productivity tools.</span>
+                </p>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button class="category-filter active px-6 py-3 bg-purple-600 text-white rounded-full font-bold text-sm hover:bg-purple-700 transition-all shadow-md hover:shadow-lg" data-category="all">
+                    <span lang="ro">🌟 Toate Proiectele</span>
+                    <span lang="en">🌟 All Projects</span>
+                </button>
+                <button class="category-filter px-6 py-3 bg-white text-gray-700 rounded-full font-bold text-sm hover:bg-purple-50 transition-all border-2 border-gray-200 hover:border-purple-300" data-category="ai-ml">
+                    <span lang="ro">🤖 AI & Machine Learning</span>
+                    <span lang="en">🤖 AI & Machine Learning</span>
+                </button>
+                <button class="category-filter px-6 py-3 bg-white text-gray-700 rounded-full font-bold text-sm hover:bg-purple-50 transition-all border-2 border-gray-200 hover:border-purple-300" data-category="games">
+                    <span lang="ro">🎮 Games & Entertainment</span>
+                    <span lang="en">🎮 Games & Entertainment</span>
+                </button>
+                <button class="category-filter px-6 py-3 bg-white text-gray-700 rounded-full font-bold text-sm hover:bg-purple-50 transition-all border-2 border-gray-200 hover:border-purple-300" data-category="web-apps">
+                    <span lang="ro">🌐 Web Applications</span>
+                    <span lang="en">🌐 Web Applications</span>
+                </button>
+                <button class="category-filter px-6 py-3 bg-white text-gray-700 rounded-full font-bold text-sm hover:bg-purple-50 transition-all border-2 border-gray-200 hover:border-purple-300" data-category="dev-tools">
+                    <span lang="ro">🛠️ Developer Tools</span>
+                    <span lang="en">🛠️ Developer Tools</span>
+                </button>
+                <button class="category-filter px-6 py-3 bg-white text-gray-700 rounded-full font-bold text-sm hover:bg-purple-50 transition-all border-2 border-gray-200 hover:border-purple-300" data-category="algorithms">
+                    <span lang="ro">📊 Algorithms & CS</span>
+                    <span lang="en">📊 Algorithms & CS</span>
+                </button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="client-projects-grid">
+                
+                <!-- Traffic Signal Control with Deep RL -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-violet-400 transition-all" data-category="ai-ml">
+                    <div class="h-56 bg-gradient-to-br from-violet-600 via-purple-600 to-violet-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 left-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                            </svg>
+                            <div class="text-white text-lg font-black">DEEP RL</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-violet-600 transition-colors">Traffic Signal Control with Deep RL</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Sistem inteligent de control trafic urban folosind Deep Reinforcement Learning (DQN, Double DQN, DDQN). Optimizare flux trafic în timp real cu reducere congestii.</span>
+                            <span lang="en">Intelligent urban traffic control system using Deep Reinforcement Learning (DQN, Double DQN, DDQN). Real-time traffic flow optimization with congestion reduction.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-semibold">Deep RL</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">Python</span>
+                            <span class="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-semibold">DQN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sudoku OCR -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-blue-400 transition-all" data-category="ai-ml">
+                    <div class="h-56 bg-gradient-to-br from-blue-600 via-cyan-600 to-blue-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 right-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-200"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <div class="text-white text-lg font-black">COMPUTER VISION</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors">Sudoku OCR</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Sistem OCR pentru recunoaștere puzzle-uri Sudoku din imagini folosind Computer Vision și ML. Preprocessing imagine, digit recognition și solver automat.</span>
+                            <span lang="en">OCR system for recognizing Sudoku puzzles from images using Computer Vision and ML. Image preprocessing, digit recognition and automatic solver.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">OpenCV</span>
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-semibold">OCR</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Python</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Satire Detection -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-pink-400 transition-all" data-category="ai-ml">
+                    <div class="h-56 bg-gradient-to-br from-pink-600 via-rose-600 to-pink-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute bottom-10 left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-300"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <div class="text-white text-lg font-black">NLP</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-pink-600 transition-colors">Satire Detection AI</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Model NLP pentru detectarea satirei în text folosind transformers și deep learning. Clasificare automată cu analiză contextuală și semantic embeddings.</span>
+                            <span lang="en">NLP model for satire detection in text using transformers and deep learning. Automatic classification with contextual analysis and semantic embeddings.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">NLP</span>
+                            <span class="px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-xs font-semibold">Transformers</span>
+                            <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">Python</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chess Game -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-slate-400 transition-all" data-category="games">
+                    <div class="h-56 bg-gradient-to-br from-slate-700 via-gray-800 to-slate-900 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 left-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                            </svg>
+                            <div class="text-white text-lg font-black">STRATEGY GAME</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-slate-700 transition-colors">Chess Game</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Joc de șah complet în Java cu GUI interactiv, validare mișcări legale, detectare șah/mat și AI opponent folosind alpha-beta pruning.</span>
+                            <span lang="en">Complete chess game in Java with interactive GUI, legal move validation, check/checkmate detection and AI opponent using alpha-beta pruning.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-xs font-semibold border border-slate-300">Java</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold border border-gray-300">Swing</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-xs font-semibold border border-slate-300">AI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pacman -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-yellow-400 transition-all" data-category="games">
+                    <div class="h-56 bg-gradient-to-br from-yellow-600 via-amber-600 to-yellow-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 right-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-100"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <div class="text-8xl mb-2">👻</div>
+                            <div class="text-white text-lg font-black">ARCADE CLASSIC</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-yellow-600 transition-colors">Pacman</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Implementare clasică Pacman în Java cu AI pentru fantome, sistem scoring, power-ups, multiple nivele și animații smooth.</span>
+                            <span lang="en">Classic Pacman implementation in Java with ghost AI, scoring system, power-ups, multiple levels and smooth animations.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">Java</span>
+                            <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold">Game Dev</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">AI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tetris -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-indigo-400 transition-all" data-category="games">
+                    <div class="h-56 bg-gradient-to-br from-indigo-600 via-blue-600 to-indigo-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute bottom-10 left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-200"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+                            </svg>
+                            <div class="text-white text-lg font-black">PUZZLE GAME</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-indigo-600 transition-colors">Tetris</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Joc Tetris complet cu rotație piese, clearing lines, sistem scoring progresiv, next piece preview și dificu altăți crescânde.</span>
+                            <span lang="en">Complete Tetris game with piece rotation, line clearing, progressive scoring system, next piece preview and increasing difficulty.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold">Java</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Swing</span>
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold">Game Logic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IoT Home Automation -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-green-400 transition-all" data-category="web-apps">
+                    <div class="h-56 bg-gradient-to-br from-green-600 via-emerald-600 to-green-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 left-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            <div class="text-white text-lg font-black">IOT PLATFORM</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-green-600 transition-colors">IoT Home Automation System</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Platformă IoT pentru control dispozitive smart home cu web interface, real-time monitoring, automation rules și compatibilitate MQTT.</span>
+                            <span lang="en">IoT platform for smart home device control with web interface, real-time monitoring, automation rules and MQTT compatibility.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">IoT</span>
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">MQTT</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Web</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MicroSocial Platform -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-blue-400 transition-all" data-category="web-apps">
+                    <div class="h-56 bg-gradient-to-br from-blue-600 via-sky-600 to-blue-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 right-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-200"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            <div class="text-white text-lg font-black">SOCIAL NETWORK</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors">MicroSocial Platform</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Platformă social media cu posts, comments, likes, user profiles, feed algorithm și real-time notifications. Full-stack web application.</span>
+                            <span lang="en">Social media platform with posts, comments, likes, user profiles, feed algorithm and real-time notifications. Full-stack web application.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Full-stack</span>
+                            <span class="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-xs font-semibold">WebSockets</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Social</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Streampulse -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-red-400 transition-all" data-category="web-apps">
+                    <div class="h-56 bg-gradient-to-br from-red-600 via-pink-600 to-red-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute bottom-10 left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-300"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <div class="text-white text-lg font-black">STREAMING</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-red-600 transition-colors">Streampulse</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Platformă video streaming cu video player custom, playlist management, recommendation algorithm și analytics pentru view patterns.</span>
+                            <span lang="en">Video streaming platform with custom video player, playlist management, recommendation algorithm and analytics for viewing patterns.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">Streaming</span>
+                            <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">Video</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">Web</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Editor -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-purple-400 transition-all" data-category="dev-tools">
+                    <div class="h-56 bg-gradient-to-br from-purple-600 via-fuchsia-600 to-purple-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 left-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <div class="text-white text-lg font-black">IMAGE PROCESSING</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-purple-600 transition-colors">Image Editor</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Editor imagine desktop în C++ cu filtre, transformări, layers, selection tools și batch processing. Performance nativ optimizat.</span>
+                            <span lang="en">Desktop image editor in C++ with filters, transformations, layers, selection tools and batch processing. Optimized native performance.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">C++</span>
+                            <span class="px-3 py-1 bg-fuchsia-100 text-fuchsia-700 rounded-full text-xs font-semibold">OpenCV</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">GUI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR Code Generator -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-teal-400 transition-all" data-category="dev-tools">
+                    <div class="h-56 bg-gradient-to-br from-teal-600 via-cyan-600 to-teal-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 right-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-100"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                            </svg>
+                            <div class="text-white text-lg font-black">QR GENERATOR</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-teal-600 transition-colors">QR Code Generator</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Tool Python pentru generare QR codes cu customizare culori, size, error correction level și embedded logos. Export multiple formate.</span>
+                            <span lang="en">Python tool for QR code generation with color customization, size, error correction level and embedded logos. Multiple format export.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-semibold">Python</span>
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-semibold">QR</span>
+                            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-semibold">Tool</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Compressor -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-orange-400 transition-all" data-category="dev-tools">
+                    <div class="h-56 bg-gradient-to-br from-orange-600 via-amber-600 to-orange-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute bottom-10 left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-200"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            <div class="text-white text-lg font-black">COMPRESSION</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-orange-600 transition-colors">Image Compressor</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Tool Python pentru compresie imagini cu algoritmi multipli, quality control, batch processing și comparație before/after cu metrici.</span>
+                            <span lang="en">Python tool for image compression with multiple algorithms, quality control, batch processing and before/after comparison with metrics.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">Python</span>
+                            <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold">Compression</span>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">Automation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conway's Game of Life -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-emerald-400 transition-all" data-category="algorithms">
+                    <div class="h-56 bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 left-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                            </svg>
+                            <div class="text-white text-lg font-black">CELLULAR AUTOMATA</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-emerald-600 transition-colors">Conway's Game of Life</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Simulare cellular automata în Assembly cu optimizări low-level, pattern recognition și vizualizare generații. Performance extrem de eficient.</span>
+                            <span lang="en">Cellular automata simulation in Assembly with low-level optimizations, pattern recognition and generation visualization. Extremely efficient performance.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">Assembly</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Automata</span>
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">Low-level</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DFA/NFA/RegEx -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-cyan-400 transition-all" data-category="algorithms">
+                    <div class="h-56 bg-gradient-to-br from-cyan-600 via-blue-600 to-cyan-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-10 right-10 w-32 h-32 bg-white/30 rounded-full blur-3xl animate-pulse delay-100"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            <div class="text-white text-lg font-black">AUTOMATA THEORY</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-cyan-600 transition-colors">Automata Theory Suite</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Set complet de tools pentru DFA, NFA, Lambda-NFA, RegEx to DFA conversion și CYK algorithm. Visualizare transitions și state minimization.</span>
+                            <span lang="en">Complete toolset for DFA, NFA, Lambda-NFA, RegEx to DFA conversion and CYK algorithm. Transition visualization and state minimization.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-semibold">Java</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Automata</span>
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-semibold">Algorithms</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ethereal Eclipse (C++ Game) -->
+                <div class="project-card group bg-white rounded-3xl overflow-hidden border-2 border-gray-200 hover-lift hover:border-violet-400 transition-all" data-category="games">
+                    <div class="h-56 bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute bottom-10 right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse delay-300"></div>
+                        </div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/90 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            </svg>
+                            <div class="text-white text-lg font-black">RPG GAME ENGINE</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-violet-600 transition-colors">Ethereal Eclipse</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <span lang="ro">Game engine C++ complet cu physics, AI enemies, inventory system, quest management și shader graphics. Arhitectură ECS performantă.</span>
+                            <span lang="en">Complete C++ game engine with physics, AI enemies, inventory system, quest management and shader graphics. High-performance ECS architecture.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-semibold">C++</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">Game Engine</span>
+                            <span class="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-semibold">OpenGL</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center mt-16">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="inline-block px-10 py-5 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all">
+                    <span lang="ro">⭐ Vezi toate proiectele pe GitHub →</span>
+                    <span lang="en">⭐ View all projects on GitHub →</span>
+                </a>
+                <p class="text-sm text-gray-500 mt-4">
+                    <span lang="ro">🚀 60+ proiecte open-source • Diverse tehnologii • Constant actualizat</span>
+                    <span lang="en">🚀 60+ open-source projects • Various technologies • Constantly updated</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objections Section -->
+    <section class="py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-block mb-4 px-5 py-2 bg-white/10 backdrop-blur-sm text-white rounded-full text-sm font-bold border border-white/20">
+                    <span lang="ro">💡 ÎNTREBĂRI FRECVENTE</span>
+                    <span lang="en">💡 FREQUENTLY ASKED</span>
+                </div>
+                <h2 class="text-4xl sm:text-5xl font-black mb-6 text-white">
+                    <span lang="ro">Îți răspund la cele mai comune<br/><span class="text-cyan-400">3 întrebări</span></span>
+                    <span lang="en">Answering the most common<br/><span class="text-cyan-400">3 questions</span></span>
+                </h2>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- Objection 1: Price -->
+                <div class="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-white mb-3">
+                                <span lang="ro">"E prea scump pentru bugetul meu?"</span>
+                                <span lang="en">"Is it too expensive for my budget?"</span>
+                            </h3>
+                            <p class="text-blue-100 text-lg leading-relaxed mb-4">
+                                <span lang="ro">Sistemul tău actual care pică la 3 dimineața ți-a costat deja <strong>mai mult</strong> decât investiția în infrastructură solidă. Fiecare oră de downtime = clienți pierd, revenue-ul scade, reputația suferă.</span>
+                                <span lang="en">Your current system crashing at 3 AM has already cost you <strong>more</strong> than investing in solid infrastructure. Each hour of downtime = lost clients, decreased revenue, damaged reputation.</span>
+                            </p>
+                            <div class="bg-white/5 rounded-lg p-4 border border-cyan-500/30">
+                                <p class="text-cyan-300 font-semibold text-sm">
+                                    <span lang="ro">💰 Calculul simplu: 1h downtime la 1000 users = €5000+ pierdere. O infrastructură care nu pică se plătește singură în prima lună.</span>
+                                    <span lang="en">💰 Simple math: 1h downtime at 1000 users = €5000+ loss. Infrastructure that doesn't crash pays for itself in the first month.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Objection 2: Time -->
+                <div class="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-white mb-3">
+                                <span lang="ro">"Durează prea mult până văd rezultate?"</span>
+                                <span lang="en">"Takes too long to see results?"</span>
+                            </h3>
+                            <p class="text-blue-100 text-lg leading-relaxed mb-4">
+                                <span lang="ro">Zero. Lucrăm <strong>etapizat</strong>. În primele 2 săptămâni ai deja MVP funcțional în producție care procesează trafic real. Apoi iterăm și optimizăm continuu pe bază de metrici reale.</span>
+                                <span lang="en">Zero. We work in <strong>stages</strong>. In the first 2 weeks you already have a functional MVP in production processing real traffic. Then we iterate and optimize continuously based on real metrics.</span>
+                            </p>
+                            <div class="bg-white/5 rounded-lg p-4 border border-green-500/30">
+                                <p class="text-green-300 font-semibold text-sm">
+                                    <span lang="ro">⚡ Week 1-2: MVP live • Week 3-4: Optimizare performanță • Week 5+: Scaling & automation. Vezi ROI de la prima zi.</span>
+                                    <span lang="en">⚡ Week 1-2: MVP live • Week 3-4: Performance optimization • Week 5+: Scaling & automation. See ROI from day one.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Objection 3: Trust/Experience -->
+                <div class="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-white mb-3">
+                                <span lang="ro">"Ai experiența necesară pentru proiectul meu?"</span>
+                                <span lang="en">"Do you have the necessary experience for my project?"</span>
+                            </h3>
+                            <p class="text-blue-100 text-lg leading-relaxed mb-4">
+                                <span lang="ro">60+ proiecte finalizate. 5M+ requests procesate zilnic în producție. Sisteme care rulează <strong>fără să se prăbușească</strong> de ani de zile. Tot portofoliul e public pe GitHub - poți verifica fiecare linie de cod.</span>
+                                <span lang="en">60+ completed projects. 5M+ requests processed daily in production. Systems running <strong>without crashing</strong> for years. Entire portfolio is public on GitHub - you can verify every line of code.</span>
+                            </p>
+                            <div class="bg-white/5 rounded-lg p-4 border border-blue-500/30">
+                                <p class="text-blue-300 font-semibold text-sm">
+                                    <span lang="ro">🏆 IoT platforms • Deep Learning AI • Native performance tools • Streaming systems • Game engines • Computer vision. Dacă e backend sau AI, l-am construit.</span>
+                                    <span lang="en">🏆 IoT platforms • Deep Learning AI • Native performance tools • Streaming systems • Game engines • Computer vision. If it's backend or AI, I've built it.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA după objections -->
+            <div class="mt-16 text-center">
+                <a href="#contact" class="inline-block px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all">
+                    <span lang="ro">✅ Perfect, vreau să discutăm despre proiect →</span>
+                    <span lang="en">✅ Perfect, let's discuss the project →</span>
+                </a>
+                <p class="text-blue-200 text-sm mt-4">
+                    <span lang="ro">Niciun risc. Consultația de 30 minute e complet gratuită.</span>
+                    <span lang="en">No risk. The 30-minute consultation is completely free.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl sm:text-6xl font-black mb-6">
+                    <span lang="ro">Servicii & <span class="gradient-text">Consultanță</span></span>
+                    <span lang="en">Services & <span class="gradient-text">Consulting</span></span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    <span lang="ro">Transform provocări tehnice complexe în soluții scalabile</span>
+                    <span lang="en">Transform complex technical challenges into scalable solutions</span>
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-3xl p-10 shadow-lg hover-lift border-2 border-transparent hover:border-blue-200">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-900">
+                        <span lang="ro">API & Microservicii</span>
+                        <span lang="en">API & Microservices</span>
+                    </h3>
+                    <div class="text-4xl font-black text-gray-900 mb-6">€2000<span class="text-2xl text-gray-400">+</span></div>
+                    <ul class="space-y-3 mb-8 text-gray-600">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span lang="ro">Arhitectură REST/gRPC scalabilă</span><span lang="en">Scalable REST/gRPC architecture</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Service mesh & load balancing
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            CI/CD pipeline automation
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Monitoring & observability
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center px-6 py-3 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition-colors">
+                        <span lang="ro">Cere Ofertă</span>
+                        <span lang="en">Request Quote</span>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-3xl p-10 shadow-xl hover-lift border-2 border-blue-500 relative overflow-hidden">
+                    <div class="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                        <span lang="ro">POPULAR</span><span lang="en">POPULAR</span>
+                    </div>
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-900">
+                        <span lang="ro">Sisteme Distribuite</span>
+                        <span lang="en">Distributed Systems</span>
+                    </h3>
+                    <div class="text-4xl font-black text-gray-900 mb-6">€4000<span class="text-2xl text-gray-400">+</span></div>
+                    <ul class="space-y-3 mb-8 text-gray-600">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Event-driven architecture
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Message queues & streaming
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            High availability & fault tolerance
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Horizontal scaling strategies
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center px-6 py-3 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-full font-bold hover:shadow-lg transition-all">
+                        <span lang="ro">Cere Ofertă</span>
+                        <span lang="en">Request Quote</span>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-3xl p-10 shadow-lg hover-lift border-2 border-transparent hover:border-blue-300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-900">
+                        AI & Machine Learning
+                    </h3>
+                    <div class="text-4xl font-black text-gray-900 mb-6">€5000<span class="text-2xl text-gray-400">+</span></div>
+                    <ul class="space-y-3 mb-8 text-gray-600">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Custom ML models & fine-tuning
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            LLM integration & RAG systems
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            MLOps & model deployment
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            AI-powered automation
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center px-6 py-3 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-full font-bold hover:shadow-lg transition-all">
+                        <span lang="ro">Cere Ofertă</span>
+                        <span lang="en">Request Quote</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="py-32 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block mb-4 px-5 py-2 bg-green-50 text-green-700 rounded-full text-sm font-bold border border-green-200">
+                    <span lang="ro">⭐ FEEDBACK DE LA CLIENȚI</span>
+                    <span lang="en">⭐ CLIENT FEEDBACK</span>
+                </div>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-6">
+                    <span lang="ro">Ce spun <span class="gradient-text">clienții</span></span>
+                    <span lang="en">What <span class="gradient-text">clients say</span></span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    <span lang="ro">Rezultate măsurabile. Sisteme care funcționează. Clienți mulțumiți.</span>
+                    <span lang="en">Measurable results. Systems that work. Satisfied clients.</span>
+                </p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid md:grid-cols-4 gap-8 mb-20">
+                <div class="text-center p-8 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl border-2 border-blue-100 hover:scale-105 transition-transform">
+                    <div class="text-5xl font-black text-blue-600 mb-2">60+</div>
+                    <div class="text-gray-700 font-semibold">
+                        <span lang="ro">Proiecte Finalizate</span>
+                        <span lang="en">Completed Projects</span>
+                    </div>
+                </div>
+                <div class="text-center p-8 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-100 hover:scale-105 transition-transform">
+                    <div class="text-5xl font-black text-green-600 mb-2">5M+</div>
+                    <div class="text-gray-700 font-semibold">Requests/zi</div>
+                </div>
+                <div class="text-center p-8 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100 hover:scale-105 transition-transform">
+                    <div class="text-5xl font-black text-purple-600 mb-2">99.9%</div>
+                    <div class="text-gray-700 font-semibold">
+                        <span lang="ro">Uptime Mediu</span>
+                        <span lang="en">Average Uptime</span>
+                    </div>
+                </div>
+                <div class="text-center p-8 bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl border-2 border-orange-100 hover:scale-105 transition-transform">
+                    <div class="text-5xl font-black text-orange-600 mb-2">47ms</div>
+                    <div class="text-gray-700 font-semibold">
+                        <span lang="ro">API Response Time</span>
+                        <span lang="en">API Response Time</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-3xl border-2 border-blue-100 hover:shadow-xl transition-all">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+                            M
+                        </div>
+                        <div>
+                            <div class="font-bold text-gray-900">Mihai Popescu</div>
+                            <div class="text-sm text-gray-600">CTO, FinTech Startup</div>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                    </div>
+                    <p class="text-gray-700 italic leading-relaxed">
+                        <span lang="ro">"Ne-a transformat sistemul de plăți de la 200ms response time la 35ms. Zero downtime în ultimele 8 luni. API-ul procesează acum 2M+ tranzacții pe zi fără probleme."</span>
+                        <span lang="en">"Transformed our payment system from 200ms response time to 35ms. Zero downtime in the last 8 months. API now processes 2M+ transactions daily without issues."</span>
+                    </p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-gradient-to-br from-purple-50 to-white p-8 rounded-3xl border-2 border-purple-100 hover:shadow-xl transition-all">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+                            A
+                        </div>
+                        <div>
+                            <div class="font-bold text-gray-900">Alexandra Ionescu</div>
+                            <div class="text-sm text-gray-600">Founder, SaaS Platform</div>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                    </div>
+                    <p class="text-gray-700 italic leading-relaxed">
+                        <span lang="ro">"Sistemul AI pe care l-a construit reduce timpul de procesare cu 68%. Integration impecabilă cu infrastructura noastră existentă. Best investment we've made."</span>
+                        <span lang="en">"The AI system he built reduces processing time by 68%. Flawless integration with our existing infrastructure. Best investment we've made."</span>
+                    </p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-gradient-to-br from-green-50 to-white p-8 rounded-3xl border-2 border-green-100 hover:shadow-xl transition-all">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+                            D
+                        </div>
+                        <div>
+                            <div class="font-bold text-gray-900">Daniel Gheorghe</div>
+                            <div class="text-sm text-gray-600">CEO, E-commerce</div>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                    </div>
+                    <p class="text-gray-700 italic leading-relaxed">
+                        <span lang="ro">"Black Friday cu 50K concurrent users. Zero probleme. Sistemul a auto-scaled perfect. Saved us €80K în infrastructure costs vs. old provider."</span>
+                        <span lang="en">"Black Friday with 50K concurrent users. Zero issues. System auto-scaled perfectly. Saved us €80K in infrastructure costs vs. old provider."</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl sm:text-6xl font-black mb-6">
+                    <span lang="ro">Despre <span class="gradient-text">Mine</span></span>
+                    <span lang="en">About <span class="gradient-text">Me</span></span>
+                </h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-16 items-start">
+                <div>
+                    <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                        <span lang="ro">Sunt un inginer backend obsedat de performanță, scalabilitate și sisteme care nu se strică niciodată. De peste 4 ani construiesc infrastructuri distribuite și integrări AI care procesează milioane de request-uri.</span>
+                        <span lang="en">I'm a backend engineer obsessed with performance, scalability, and systems that never break. For over 4 years, I've been building distributed infrastructures and AI integrations that handle millions of requests.</span>
+                    </p>
+                    <p class="text-xl text-gray-700 mb-12 leading-relaxed">
+                        <span lang="ro">Cred în arhitectură elegantă, cod curat și automatizare agresivă. De la orchestrare Kubernetes la fine-tuning de modele neurale - transform provocări tehnice în soluții robuste.</span>
+                        <span lang="en">I believe in elegant architecture, clean code, and aggressive automation. From Kubernetes orchestration to neural model fine-tuning - I transform technical challenges into robust solutions.</span>
+                    </p>
+                    
+                    <div class="border-b border-gray-200 mb-8">
+                        <div class="flex space-x-8">
+                            <button class="tab-btn pb-4 border-b-2 border-blue-600 text-blue-600 font-bold" data-tab="experience">
+                                <span lang="ro">Experiență</span><span lang="en">Experience</span>
+                            </button>
+                            <button class="tab-btn pb-4 border-b-2 border-transparent text-gray-400 hover:text-gray-600 font-bold" data-tab="education">
+                                <span lang="ro">Educație</span><span lang="en">Education</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content-wrapper">
+                        <div id="experience" class="tab-content-item">
+                            <div class="space-y-6">
+                                <div class="border-l-4 border-blue-500 pl-6 py-2">
+                                    <h4 class="font-bold text-lg text-gray-900">
+                                        <span lang="ro">Backend Engineer & AI Specialist</span>
+                                        <span lang="en">Backend Engineer & AI Specialist</span>
+                                    </h4>
+                                    <p class="text-gray-600">
+                                        <span lang="ro">2021 - Prezent</span>
+                                        <span lang="en">2021 - Present</span>
+                                    </p>
+                                </div>
+                                <div class="border-l-4 border-purple-500 pl-6 py-2">
+                                    <h4 class="font-bold text-lg text-gray-900">Systems Architect</h4>
+                                    <p class="text-gray-600">
+                                        <span lang="ro">Distributed Systems & Microservices | 2020 - 2021</span>
+                                        <span lang="en">Distributed Systems & Microservices | 2020 - 2021</span>
+                                    </p>
+                                </div>
+                                <div class="border-l-4 border-indigo-500 pl-6 py-2">
+                                    <h4 class="font-bold text-lg text-gray-900">Backend Developer</h4>
+                                    <p class="text-gray-600">
+                                        <span lang="ro">API Design & Database Optimization | 2019 - 2020</span>
+                                        <span lang="en">API Design & Database Optimization | 2019 - 2020</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="education" class="tab-content-item hidden">
+                            <div class="space-y-6">
+                                <div class="border-l-4 border-blue-500 pl-6 py-2">
+                                    <h4 class="font-bold text-lg text-gray-900">
+                                        <span lang="ro">Licență în Informatică</span>
+                                        <span lang="en">Bachelor's in Computer Science</span>
+                                    </h4>
+                                    <p class="text-gray-600">
+                                        <span lang="ro">Specializare în AI & Distributed Systems | 2019 - 2023</span>
+                                        <span lang="en">Specialization in AI & Distributed Systems | 2019 - 2023</span>
+                                    </p>
+                                </div>
+                                <div class="border-l-4 border-purple-500 pl-6 py-2">
+                                    <h4 class="font-bold text-lg text-gray-900">Deep Learning Specialization</h4>
+                                    <p class="text-gray-600">Coursera (Andrew Ng) | 2022</p>
+                                </div>
+                                <div class="border-l-4 border-indigo-500 pl-6 py-2">
+                                    <h4 class="font-bold text-lg text-gray-900">AWS Solutions Architect</h4>
+                                    <p class="text-gray-600">
+                                        <span lang="ro">Certificare Profesională | 2023</span>
+                                        <span lang="en">Professional Certification | 2023</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-8 text-gray-900">
+                        <span lang="ro">Tech Stack</span>
+                        <span lang="en">Tech Stack</span>
+                    </h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-5 py-3 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 rounded-xl font-semibold border border-blue-200 hover:-translate-y-1 transition-transform cursor-default">Python</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-cyan-50 to-cyan-100 text-cyan-700 rounded-xl font-semibold border border-cyan-200 hover:-translate-y-1 transition-transform cursor-default">Go</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-green-50 to-green-100 text-green-700 rounded-xl font-semibold border border-green-200 hover:-translate-y-1 transition-transform cursor-default">Node.js</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-orange-50 to-orange-100 text-orange-700 rounded-xl font-semibold border border-orange-200 hover:-translate-y-1 transition-transform cursor-default">Rust</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-indigo-50 to-indigo-100 text-indigo-700 rounded-xl font-semibold border border-indigo-200 hover:-translate-y-1 transition-transform cursor-default">PostgreSQL</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-red-50 to-red-100 text-red-700 rounded-xl font-semibold border border-red-200 hover:-translate-y-1 transition-transform cursor-default">Redis</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 rounded-xl font-semibold border border-blue-200 hover:-translate-y-1 transition-transform cursor-default">Kafka</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-pink-50 to-pink-100 text-pink-700 rounded-xl font-semibold border border-pink-200 hover:-translate-y-1 transition-transform cursor-default">RabbitMQ</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 rounded-xl font-semibold border border-blue-200 hover:-translate-y-1 transition-transform cursor-default">Docker</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-indigo-50 to-indigo-100 text-indigo-700 rounded-xl font-semibold border border-indigo-200 hover:-translate-y-1 transition-transform cursor-default">Kubernetes</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-yellow-50 to-yellow-100 text-yellow-700 rounded-xl font-semibold border border-yellow-200 hover:-translate-y-1 transition-transform cursor-default">AWS/GCP</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-cyan-50 to-cyan-100 text-cyan-700 rounded-xl font-semibold border border-cyan-200 hover:-translate-y-1 transition-transform cursor-default">Terraform</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-orange-50 to-orange-100 text-orange-700 rounded-xl font-semibold border border-orange-200 hover:-translate-y-1 transition-transform cursor-default">PyTorch</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-amber-50 to-amber-100 text-amber-700 rounded-xl font-semibold border border-amber-200 hover:-translate-y-1 transition-transform cursor-default">TensorFlow</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-emerald-50 to-emerald-100 text-emerald-700 rounded-xl font-semibold border border-emerald-200 hover:-translate-y-1 transition-transform cursor-default">LangChain</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-teal-50 to-teal-100 text-teal-700 rounded-xl font-semibold border border-teal-200 hover:-translate-y-1 transition-transform cursor-default">OpenAI API</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-cyan-50 to-cyan-100 text-cyan-700 rounded-xl font-semibold border border-cyan-200 hover:-translate-y-1 transition-transform cursor-default">gRPC</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-fuchsia-50 to-fuchsia-100 text-fuchsia-700 rounded-xl font-semibold border border-fuchsia-200 hover:-translate-y-1 transition-transform cursor-default">GraphQL</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-lime-50 to-lime-100 text-lime-700 rounded-xl font-semibold border border-lime-200 hover:-translate-y-1 transition-transform cursor-default">Elasticsearch</span>
+                        <span class="px-5 py-3 bg-gradient-to-r from-rose-50 to-rose-100 text-rose-700 rounded-xl font-semibold border border-rose-200 hover:-translate-y-1 transition-transform cursor-default">Prometheus</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-900 via-blue-800 to-slate-800 relative overflow-hidden">
+        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-block mb-4 px-5 py-2 bg-white/10 backdrop-blur-sm text-white rounded-full text-sm font-bold border border-white/20">
+                    <span lang="ro">📞 ULTIMUL PAS</span>
+                    <span lang="en">📞 FINAL STEP</span>
+                </div>
+                <h2 class="text-5xl sm:text-6xl font-black mb-6 text-white">
+                    <span lang="ro">Primești <span class="text-yellow-300">Consultație Gratuită</span><br/>+ Bonus Exclusiv</span>
+                    <span lang="en">Get <span class="text-yellow-300">Free Consultation</span><br/>+ Exclusive Bonus</span>
+                </h2>
+                <p class="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+                    <span lang="ro">Completează formularul și primești instant:</span>
+                    <span lang="en">Fill out the form and receive instantly:</span>
+                </p>
+            </div>
+            
+            <!-- Lead Magnet Offer -->
+            <div class="bg-gradient-to-br from-cyan-500 to-blue-600 rounded-3xl p-8 mb-10 border-2 border-white/20 shadow-2xl">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-16 h-16 bg-white rounded-2xl flex items-center justify-center">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-black text-white mb-2">
+                            <span lang="ro">🎁 BONUS: Backend Performance Checklist (27 Puncte)</span>
+                            <span lang="en">🎁 BONUS: Backend Performance Checklist (27 Points)</span>
+                        </h3>
+                        <p class="text-white/90 text-lg mb-4">
+                            <span lang="ro">Checklist-ul exact pe care îl folosesc la fiecare proiect pentru a garanta performanță maximă și zero downtime. Folosit în 50+ proiecte enterprise.</span>
+                            <span lang="en">The exact checklist I use in every project to guarantee maximum performance and zero downtime. Used in 50+ enterprise projects.</span>
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-3 text-sm text-white/90">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-white mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                <span lang="ro">API optimization strategies</span><span lang="en">API optimization strategies</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-white mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                <span lang="ro">Database indexing secrets</span><span lang="en">Database indexing secrets</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-white mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                <span lang="ro">Caching best practices</span><span lang="en">Caching best practices</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-white mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                <span lang="ro">Load balancing tactics</span><span lang="en">Load balancing tactics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-2xl">
+                <form id="contact-form" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Nume -->
+                        <div>
+                            <label for="name" class="block text-sm font-bold text-gray-700 mb-2">
+                                <span lang="ro">Nume Complet *</span><span lang="en">Full Name *</span>
+                            </label>
+                            <input type="text" id="name" name="name" required 
+                                   class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors text-gray-900 font-medium text-lg"
+                                   placeholder="Ion Popescu">
+                        </div>
+                        
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-bold text-gray-700 mb-2">
+                                Email *
+                            </label>
+                            <input type="email" id="email" name="email" required 
+                                   class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors text-gray-900 font-medium text-lg"
+                                   placeholder="ion@company.com">
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Tip Proiect -->
+                        <div>
+                            <label for="project-type" class="block text-sm font-bold text-gray-700 mb-2">
+                                <span lang="ro">Tip Proiect *</span><span lang="en">Project Type *</span>
+                            </label>
+                            <select id="project-type" name="project-type" required 
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors text-gray-900 font-medium text-lg">
+                                <option value=""><span lang="ro">Selectează...</span><span lang="en">Select...</span></option>
+                                <option value="api">API & Microservices</option>
+                                <option value="distributed"><span lang="ro">Sisteme Distribuite</span><span lang="en">Distributed Systems</span></option>
+                                <option value="ai">AI & Machine Learning</option>
+                                <option value="iot">IoT Platform</option>
+                                <option value="optimization"><span lang="ro">Optimizare Existentă</span><span lang="en">Optimize Existing</span></option>
+                                <option value="other"><span lang="ro">Altceva</span><span lang="en">Other</span></option>
+                            </select>
+                        </div>
+                        
+                        <!-- Buget -->
+                        <div>
+                            <label for="budget" class="block text-sm font-bold text-gray-700 mb-2">
+                                <span lang="ro">Buget Estimat *</span><span lang="en">Estimated Budget *</span>
+                            </label>
+                            <select id="budget" name="budget" required 
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors text-gray-900 font-medium text-lg">
+                                <option value=""><span lang="ro">Selectează...</span><span lang="en">Select...</span></option>
+                                <option value="2-5k">€2,000 - €5,000</option>
+                                <option value="5-10k">€5,000 - €10,000</option>
+                                <option value="10-20k">€10,000 - €20,000</option>
+                                <option value="20k+">€20,000+</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Message (Optional) -->
+                    <div>
+                        <label for="message" class="block text-sm font-bold text-gray-700 mb-2">
+                            <span lang="ro">Detalii Proiect (Opțional)</span><span lang="en">Project Details (Optional)</span>
+                        </label>
+                        <textarea id="message" name="message" rows="4" 
+                                  class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-blue-900 focus:outline-none transition-colors text-gray-900 font-medium text-lg resize-none"
+                                  placeholder="Spune-mi pe scurt despre proiect..."></textarea>
+                    </div>
+                    
+                    <!-- Privacy Consent -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="privacy" name="privacy" required class="mt-1 w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="privacy" class="text-sm text-gray-600">
+                            <span lang="ro">Accept <a href="#privacy-policy" class="text-blue-600 hover:underline font-semibold">Politica de Confidențialitate</a> și <a href="#terms" class="text-blue-600 hover:underline font-semibold">Termenii și Condițiile</a>. Datele mele vor fi procesate conform GDPR.</span>
+                            <span lang="en">I accept the <a href="#privacy-policy" class="text-blue-600 hover:underline font-semibold">Privacy Policy</a> and <a href="#terms" class="text-blue-600 hover:underline font-semibold">Terms and Conditions</a>. My data will be processed according to GDPR.</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full px-8 py-5 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-xl font-bold text-xl hover:shadow-2xl hover:scale-[1.02] transition-all flex items-center justify-center space-x-2">
+                        <span lang="ro">🚀 Primesc Consultația + Checklist-ul GRATUIT →</span>
+                        <span lang="en">🚀 Get Free Consultation + Checklist →</span>
+                    </button>
+                    
+                    <p class="text-center text-sm text-gray-500">
+                        <span lang="ro">✅ Răspuns în maxim 24h • Fără spam • Date protejate GDPR</span>
+                        <span lang="en">✅ Response within 24h • No spam • GDPR protected data</span>
+                    </p>
+                </form>
+                
+                <div class="mt-12 pt-8 border-t border-gray-200">
+                    <p class="text-center text-gray-600 mb-6 font-semibold">
+                        <span lang="ro">Sau conectează-te direct:</span>
+                        <span lang="en">Or connect directly:</span>
+                    </p>
+                    <div class="flex justify-center space-x-6">
+                        <a href="https://github.com" target="_blank" class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-900 hover:text-white transition-all">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-all">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <div class="text-white font-bold text-2xl mb-4">
+                        <span class="gradient-text">Rares.dev</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4">
+                        <span lang="ro">Backend Architect specializat în sisteme distribuite și AI la nivel enterprise.</span>
+                        <span lang="en">Backend Architect specialized in distributed systems and enterprise-level AI.</span>
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="https://github.com" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-400 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">
+                        <span lang="ro">Servicii</span><span lang="en">Services</span>
+                    </h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#services" class="hover:text-white transition-colors">API & Microservices</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors"><span lang="ro">Sisteme Distribuite</span><span lang="en">Distributed Systems</span></a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">AI & Machine Learning</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">DevOps & Cloud</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">
+                        <span lang="ro">Companie</span><span lang="en">Company</span>
+                    </h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#about" class="hover:text-white transition-colors"><span lang="ro">Despre</span><span lang="en">About</span></a></li>
+                        <li><a href="#projects" class="hover:text-white transition-colors"><span lang="ro">Proiecte</span><span lang="en">Projects</span></a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors"><span lang="ro">Confidențialitate</span><span lang="en">Privacy Policy</span></a></li>
+                        <li><a href="terms.html" class="hover:text-white transition-colors"><span lang="ro">Termeni</span><span lang="en">Terms of Service</span></a></li>
+                        <li><a href="privacy-policy.html#cookies" class="hover:text-white transition-colors"><span lang="ro">Cookies</span><span lang="en">Cookie Policy</span></a></li>
+                        <li><a href="gdpr-compliance.html" class="hover:text-white transition-colors">GDPR Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Compliance Badges -->
+            <div class="py-8 border-t border-b border-gray-800 mb-8">
+                <div class="flex flex-wrap justify-center items-center gap-8">
+                    <div class="flex items-center space-x-2 px-4 py-2 bg-gray-800 rounded-lg">
+                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span class="text-xs font-bold text-white">SOC 2 TYPE 2</span>
+                    </div>
+                    <div class="flex items-center space-x-2 px-4 py-2 bg-gray-800 rounded-lg">
+                        <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span class="text-xs font-bold text-white">GDPR COMPLIANT</span>
+                    </div>
+                    <div class="flex items-center space-x-2 px-4 py-2 bg-gray-800 rounded-lg">
+                        <svg class="w-5 h-5 text-cyan-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span class="text-xs font-bold text-white">CCPA COMPLIANT</span>
+                    </div>
+                    <div class="flex items-center space-x-2 px-4 py-2 bg-gray-800 rounded-lg">
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+                        <span class="text-xs font-bold text-white">ISO 27001</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom -->
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm">
+                <p class="mb-4 md:mb-0">
+                    &copy; <span id="copyright-year"></span> Rares Cocosila-Dumitriu. <span lang="ro">Toate drepturile rezervate.</span><span lang="en">All rights reserved.</span>
+                </p>
+                <p class="font-mono text-xs text-gray-600">
+                    <span lang="ro">🚀 Construit cu ☕ și tone de cafea</span>
+                    <span lang="en">🚀 Built with ☕ and tons of coffee</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-popup" class="cookie-popup max-w-md mx-auto">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 border-2 border-gray-200">
+            <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">
+                        <span lang="ro">🍪 Cookies & Privacy</span>
+                        <span lang="en">🍪 Cookies & Privacy</span>
+                    </h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        <span lang="ro">Folosim cookies pentru a îmbunătăți experiența ta. Datele tale sunt protejate conform GDPR și CCPA.</span>
+                        <span lang="en">We use cookies to improve your experience. Your data is protected under GDPR and CCPA.</span>
+                    </p>
+                    <div class="flex space-x-3">
+                        <button id="accept-cookies" class="flex-1 px-4 py-2 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg font-semibold hover:shadow-lg transition-all">
+                            <span lang="ro">Accept</span>
+                            <span lang="en">Accept</span>
+                        </button>
+                        <button id="decline-cookies" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                            <span lang="ro">Refuz</span>
+                            <span lang="en">Decline</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Language Switcher
+        const langRoBtn = document.getElementById('lang-ro');
+        const langEnBtn = document.getElementById('lang-en');
+        let currentLang = 'ro';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            
+            document.querySelectorAll('[lang="ro"], [lang="en"]').forEach(el => {
+                el.style.display = el.lang === lang ? 'inline' : 'none';
+            });
+            
+            if (lang === 'ro') {
+                langRoBtn.classList.add('text-blue-600');
+                langRoBtn.classList.remove('text-gray-400');
+                langEnBtn.classList.add('text-gray-400');
+                langEnBtn.classList.remove('text-blue-600');
+            } else {
+                langEnBtn.classList.add('text-blue-600');
+                langEnBtn.classList.remove('text-gray-400');
+                langRoBtn.classList.add('text-gray-400');
+                langRoBtn.classList.remove('text-blue-600');
+            }
+        }
+
+        langRoBtn.addEventListener('click', () => setLanguage('ro'));
+        langEnBtn.addEventListener('click', () => setLanguage('en'));
+        setLanguage('en');
+
+        // Tab Switcher
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content-item');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.dataset.tab;
+                
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('border-blue-600', 'text-blue-600');
+                    btn.classList.add('border-transparent', 'text-gray-400');
+                });
+                
+                button.classList.add('border-blue-600', 'text-blue-600');
+                button.classList.remove('border-transparent', 'text-gray-400');
+                
+                tabContents.forEach(content => {
+                    content.classList.toggle('hidden', content.id !== tabId);
+                });
+            });
+        });
+
+        // Contact Form
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            if (name && email && message) {
+                const alertMsg = currentLang === 'ro' 
+                    ? 'Mulțumesc pentru mesaj! Voi reveni cu un răspuns în cel mai scurt timp.' 
+                    : 'Thank you for your message! I will get back to you as soon as possible.';
+                alert(alertMsg);
+                contactForm.reset();
+            }
+        });
+        
+        // Copyright Year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+        // Cookie Consent Popup
+        const cookiePopup = document.getElementById('cookie-popup');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const declineCookies = document.getElementById('decline-cookies');
+
+        // Check if user has already made a choice
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookiePopup.classList.add('show');
+            }, 2000);
+        }
+
+        acceptCookies.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookiePopup.classList.remove('show');
+        });
+
+        declineCookies.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookiePopup.classList.remove('show');
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-fadeInUp, .animate-fadeIn, .animate-scaleIn, .animate-slideInLeft, .animate-slideInRight').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Category Filter for Client Portfolio
+        const categoryFilters = document.querySelectorAll('.category-filter');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        categoryFilters.forEach(filter => {
+            filter.addEventListener('click', function() {
+                const category = this.dataset.category;
+                
+                // Update active button
+                categoryFilters.forEach(btn => {
+                    btn.classList.remove('active', 'bg-purple-600', 'text-white');
+                    btn.classList.add('bg-white', 'text-gray-700');
+                });
+                this.classList.add('active', 'bg-purple-600', 'text-white');
+                this.classList.remove('bg-white', 'text-gray-700');
+                
+                // Filter projects
+                projectCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                        // Add animation
+                        card.style.animation = 'fadeIn 0.5s ease-in-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+    </script>
+</body>
+</html>
