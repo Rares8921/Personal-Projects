@@ -44,10 +44,10 @@ In these projects, I applied various advanced programming and software engineeri
 - C++ Projects: **3**  
 - Java Projects & codes: **37**  
 - Python Scripts: **14**  
-- Web Development: **5**  
+- Web Development: **6**  
 - Assembly Programs: **1**  
 - Artificial Intelligence: **3**
-- Done projects to add, few adjustments needed before: **9** - *Eye Tracking data analysis*, *Promodash*, *Joblyo*, *Github Clone*, *Horizon Line*, *Aircraft cls*, *Enterprise RAG*, *Multimodal LLM*, *E comm template*
+- Done projects to add, few adjustments needed before: **8** - *Eye Tracking data analysis*, *Promodash*, *Joblyo*, *Github Clone*, *Horizon Line*, *Aircraft cls*, *Enterprise RAG*, *Multimodal LLM*,
 - Total: 72
 
 ---
