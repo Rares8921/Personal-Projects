@@ -1,0 +1,132 @@
+@import 'src/assets/scss/variables';
+
+.stats-container {
+  padding: 2rem;
+  color: #e6edf3;
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+
+    .metric-card {
+      background: rgba(13, 17, 23, 0.8);
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+
+      &:hover {
+        transform: translateY(-5px);
+        border-color: #58a6ff;
+      }
+
+      .label {
+        display: block;
+        color: #8b949e;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+      }
+
+      .value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #58a6ff;
+        font-family: 'JetBrains Mono', monospace;
+      }
+    }
+  }
+
+  .activity-section {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1.5rem;
+
+    h3 {
+      margin-top: 0;
+      color: #f0f6fc;
+      border-bottom: 1px solid #30363d;
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .commit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .commit-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 6px;
+
+        .commit-info {
+          .msg { font-weight: 600; color: #c9d1d9; }
+          .meta { font-size: 0.8rem; color: #8b949e; margin-top: 0.2rem; }
+        }
+
+        .commit-date {
+          font-size: 0.85rem;
+          color: #58a6ff;
+          font-family: 'JetBrains Mono', monospace;
+        }
+      }
+    }
+  }
+}
+
+/* repo-statistics.component.scss */
+
+.heatmap-section {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+
+  h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #8b949e;
+  }
+
+  .heatmap-grid {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 1rem;
+
+    .day-cell {
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      cursor: crosshair;
+      transition: outline 0.1s;
+
+      &:hover {
+        outline: 2px solid #58a6ff;
+      }
+    }
+  }
+
+  .heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    color: #8b949e;
+
+    .legend-cell {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+    }
+  }
+}

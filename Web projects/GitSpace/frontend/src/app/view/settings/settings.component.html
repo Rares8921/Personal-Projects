@@ -1,0 +1,131 @@
+<div class="settings-container">
+
+  <div class="settings-header">
+    <h2>Account Settings</h2>
+    <p>Manage your profile and security preferences.</p>
+  </div>
+
+  <div class="settings-layout">
+
+    <aside class="settings-sidebar">
+      <div class="menu-item"
+           [class.active]="activeTab === 'profile'"
+           (click)="activeTab = 'profile'">
+        <i class="pi pi-user"></i> Profile
+      </div>
+
+      <div class="menu-item"
+           [class.active]="activeTab === 'security'"
+           (click)="activeTab = 'security'">
+        <i class="pi pi-shield"></i> Security
+      </div>
+    </aside>
+
+    <main class="settings-content">
+
+      <section class="settings-card" *ngIf="activeTab === 'profile'">
+        <h3>Public Profile</h3>
+
+        <div class="avatar-section">
+          <div class="avatar-preview">
+            <img [src]="avatarUrl" alt="Avatar">
+            <div *ngIf="uploadingAvatar" class="overlay-loader">
+              <i class="pi pi-spin pi-spinner"></i>
+            </div>
+          </div>
+          <div class="avatar-actions">
+            <label class="btn-tech-sm btn-upload">
+              Upload New
+              <input type="file" (change)="onFileSelected($event)" accept="image/*" hidden>
+            </label>
+            <p class="hint">Recommended: 400x400px.</p>
+          </div>
+        </div>
+
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Full Name</label>
+              <input type="text" formControlName="fullName" class="cyber-input">
+            </div>
+            <div class="form-group flex-1">
+              <label>Location</label>
+              <input type="text" formControlName="location" class="cyber-input">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Bio</label>
+            <textarea formControlName="bio" rows="3" class="cyber-input" placeholder="Tell us about yourself"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Website</label>
+            <input type="text" formControlName="website" class="cyber-input" placeholder="https://...">
+          </div>
+
+          <div>
+            <h3>Appearance</h3>
+
+            <div class="theme-switch-wrapper">
+              <label class="switch">
+                <input type="checkbox" [checked]="!isDarkMode" (change)="toggleTheme()">
+                <span class="slider round"></span>
+              </label>
+              <span>{{ 'Light Mode' }}</span>
+            </div>
+          </div>
+
+          <div>
+            <h3>Privacy</h3>
+            <div class="privacy-box">
+              <div class="info">
+                <h4>Private Account</h4>
+                <p>When your account is private, only people you approve can see your activity and repositories.</p>
+              </div>
+              <div class="theme-switch-wrapper">
+                  <label class="switch">
+                    <input type="checkbox" formControlName="isPublic">
+                    <span class="slider round"></span>
+                  </label>
+                  <span>{{'Is public' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-tech" [disabled]="loading || profileForm.invalid">
+              {{ loading ? 'Saving...' : 'Update Profile' }}
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="settings-card" *ngIf="activeTab === 'security'">
+        <h3>Security</h3>
+
+        <div class="security-row">
+          <div class="sec-info">
+            <h4>Password</h4>
+            <p>To change your password, we will send you a secure link.</p>
+          </div>
+          <button (click)="requestPasswordReset()" class="btn-tech-outline">Request Reset Link</button>
+        </div>
+
+        <hr class="divider">
+
+        <div class="security-row">
+          <div class="sec-info">
+            <h4>Personal Access Token (CLI)</h4>
+            <p>Use this token for Git operations (git push/pull).</p>
+          </div>
+          <div class="token-box">
+            <code class="token">{{ cliToken }}</code>
+            <button (click)="regenerateToken()" class="btn-tech-sm">Regenerate</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="card-header">
+      <div class="brand-badge">GitSpace</div>
+      <h2>Initialize Account</h2>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label>Username</label>
+        <div class="input-wrapper">
+          <input type="text" class="form-control" formControlName="username" placeholder="dev_handle" />
+        </div>
+        <div *ngIf="f.username.touched && f.username.errors" class="error-msg">
+          Min 4 chars required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Protocol</label>
+        <div class="input-wrapper">
+          <input type="email" class="form-control" formControlName="email" placeholder="user@domain.com" />
+        </div>
+        <div *ngIf="f.email.touched && f.email.errors" class="error-msg">
+          Valid email syntax required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Security Key</label>
+        <div class="input-wrapper has-icon">
+          <input [type]="hidePassword ? 'password' : 'text'" class="form-control" formControlName="password" placeholder="********" />
+          <span class="toggle-icon" (click)="togglePassword()">
+            {{ hidePassword ? '👁' : '✕' }}
+          </span>
+        </div>
+        <div *ngIf="f.password.touched && f.password.errors?.required" class="error-msg">
+          Password is required.
+        </div>
+        <div *ngIf="f.password.touched && f.password.errors?.pattern" class="error-msg">
+          Weak password! Needs 8+ chars, 1 digit, 1 special char.
+        </div>
+      </div>
+
+      <div class="form-group captcha-group">
+        <label>Human Verification: <span>{{ num1 }} + {{ num2 }} = ?</span></label>
+        <input type="number" class="form-control captcha-input" formControlName="captcha" />
+      </div>
+
+      <button type="submit" class="btn-tech" [disabled]="loading">
+        <span *ngIf="!loading">REGISTRATION</span>
+        <span *ngIf="loading">PROCESSING...</span>
+      </button>
+
+      <div *ngIf="error" class="alert-box error">{{ error }}</div>
+      <div *ngIf="successMessage" class="alert-box success">{{ successMessage }}</div>
+
+    </form>
+
+    <div class="card-footer">
+      Already have an account? <a routerLink="/login" class="tech-link">Sign in</a>.
+    </div>
+
+  </div>
+</div>

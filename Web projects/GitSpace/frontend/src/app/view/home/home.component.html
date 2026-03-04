@@ -1,0 +1,107 @@
+<div class="home-container">
+
+  <div class="landing-wrapper" *ngIf="!currentUser">
+    
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="glitch-text" data-text="BUILD. COMMIT. DEPLOY.">BUILD. COMMIT. DEPLOY.</h1>
+        <p class="subtitle">
+          The next-generation version control system for the industrial age. 
+          Secure, decentralized, and built for performance.
+        </p>
+        <div class="cta-group">
+          <a routerLink="/register" class="btn-hero primary">Register <i class="pi pi-arrow-right"></i></a>
+          <a routerLink="/login" class="btn-hero outline">System Login</a>
+        </div>
+      </div>
+      <div class="hero-graphic">
+        <div class="node node-1"></div>
+        <div class="node node-2"></div>
+        <div class="node node-3"></div>
+        <div class="connection line-1"></div>
+        <div class="connection line-2"></div>
+      </div>
+    </section>
+
+    <section class="features-grid">
+      <div class="feature-card">
+        <i class="pi pi-lock"></i>
+        <h3>Encrypted Core</h3>
+        <p>Your source code is protected by military-grade encryption algorithms at rest and in transit.</p>
+      </div>
+      <div class="feature-card">
+        <i class="pi pi-bolt"></i>
+        <h3>Zero Latency</h3>
+        <p>Experience lightning-fast pushes and pulls with our optimized backend architecture.</p>
+      </div>
+      <div class="feature-card">
+        <i class="pi pi-users"></i>
+        <h3>Neural Sync</h3>
+        <p>Real-time collaboration tools designed for distributed engineering teams.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="community-wrapper" *ngIf="currentUser">
+    
+    <div class="feed-column">
+      <div class="section-header">
+        <h2><i class="pi pi-compass"></i> Your Feed</h2>
+        <p>Updates from repositories and people you follow.</p>
+      </div>
+
+      <div *ngIf="loadingFeed" class="loading-state">
+        <i class="pi pi-spin pi-spinner"></i> Synchronizing stream...
+      </div>
+
+      <div class="activity-list" *ngIf="!loadingFeed">
+        
+        <div *ngFor="let act of feed" class="feed-card">
+          <div class="feed-icon">
+            <i [class]="getActivityIcon(act.type)"></i>
+          </div>
+          <div class="feed-content">
+            <div class="feed-user">
+              <a [routerLink]="['/user', act.actorUsername]">{{ act.actorUsername }}</a>
+              <span class="timestamp">{{ act.timestamp | date:'shortTime' }}</span>
+            </div>
+            <div class="feed-desc">
+              {{ act.description }} 
+              <span *ngIf="act.repoName"> in 
+                <a [routerLink]="['/repo', act.actorUsername, act.repoName]" class="repo-link">{{ act.repoName }}</a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="feed.length === 0" class="empty-feed">
+          <i class="pi pi-wifi-off"></i>
+          <h3>Quiet Signal</h3>
+          <p>Follow more users or star repositories to populate your feed.</p>
+          <a routerLink="/repositories" class="btn-tech-sm">Explore Repos</a>
+        </div>
+      </div>
+    </div>
+
+    <aside class="discovery-column">
+      
+      <div class="widget-card">
+        <h3><i class="pi pi-code"></i> Trending Snippets</h3>
+        <ul class="snippet-list">
+          <li *ngFor="let snip of trendingSnippets">
+            <a [routerLink]="['/snippets', snip.id]" class="snip-link">
+              <span class="fname">{{ snip.filename }}</span>
+              <span class="author">by {{ snip.authorUsername }}</span>
+            </a>
+          </li>
+          <li *ngIf="trendingSnippets.length === 0" class="no-data">No public snippets yet.</li>
+        </ul>
+        <a routerLink="/snippets" class="widget-footer">View all snippets &rarr;</a>
+      </div>
+
+    </aside>
+
+  </div>
+
+</div>

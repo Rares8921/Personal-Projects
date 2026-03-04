@@ -1,0 +1,56 @@
+<div class="stats-container" *ngIf="!loading">
+
+    <div class="heatmap-section">
+        <h3>Contribution Radar</h3>
+        <div class="heatmap-grid">
+            <div *ngFor="let day of days" class="day-cell" [style.background-color]="getHeatmapColor(day)"
+                [title]="day + ': ' + contributionData[day] + ' commits'">
+            </div>
+        </div>
+        <div class="heatmap-legend">
+            <span>Less</span>
+            <div class="legend-cell" style="background: #161b22"></div>
+            <div class="legend-cell" style="background: #0e4429"></div>
+            <div class="legend-cell" style="background: #006d32"></div>
+            <div class="legend-cell" style="background: #39d353"></div>
+            <span>More</span>
+        </div>
+    </div>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <span class="label"><i class="pi pi-history"></i> Total Commits</span>
+            <span class="value">{{ stats.totalCommits }}</span>
+        </div>
+        <div class="metric-card">
+            <span class="label"><i class="pi pi-users"></i> Contributors</span>
+            <span class="value">{{ stats.contributors }}</span>
+        </div>
+        <div class="metric-card">
+            <span class="label"><i class="pi pi-database"></i> Code Size</span>
+            <span class="value">{{ stats.size }} B </span>
+        </div>
+    </div>
+
+    <div class="activity-section">
+        <h3><i class="pi pi-chart-bar"></i> Recent Activity Flow</h3>
+
+        <div class="commit-list">
+            <div *ngFor="let commit of stats.activity" class="commit-item">
+                <div class="commit-info">
+                    <div class="msg">{{ commit.shortMessage }}</div>
+                    <div class="meta">by <strong>{{ commit.authorName }}</strong> ({{ commit.authorEmail }})</div>
+                </div>
+                <div class="commit-date">
+                    {{ commit.timestamp }}
+                    <div style="font-size: 0.7rem; color: #444;">{{ commit.hash.substring(0,7) }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loading-area" *ngIf="loading">
+    <div class="cyber-loader"></div>
+    <p>Calculating repository insights...</p>
+</div>

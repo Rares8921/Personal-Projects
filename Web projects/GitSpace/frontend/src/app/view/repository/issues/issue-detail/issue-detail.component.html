@@ -1,0 +1,97 @@
+<div class="detail-container" *ngIf="issue; else loadingTpl">
+  
+  <div class="issue-head">
+    <div class="title-row">
+      <h1>{{ issue.title }} <span class="num">#{{ issue.number }}</span></h1>
+      <button *ngIf="false" class="btn-edit">Edit</button>
+    </div>
+    <div class="meta-row">
+      <span class="status-badge" [class.open]="issue.isOpen" [class.closed]="!issue.isOpen">
+        <i class="pi" [ngClass]="issue.isOpen ? 'pi-exclamation-circle' : 'pi-check-circle'"></i>
+        {{ issue.isOpen ? 'Open' : 'Closed' }}
+      </span>
+      <span class="meta-text">
+        <strong><a [routerLink]="['/user', issue.authorUsername]" class="user-link">{{ issue.authorUsername }}</a></strong> opened this on {{ issue.createdAt | date:'mediumDate' }} · {{ comments.length }} comments
+      </span>
+    </div>
+  </div>
+
+  <div class="timeline">
+    
+    <div class="timeline-item">
+      <div class="avatar-col">
+        <a [routerLink]="['/user', issue.authorUsername]" class="avatar-link">
+          <div class="avatar">{{ issue.authorUsername.charAt(0) | uppercase }}</div>
+        </a>
+      </div>
+      <div class="content-box">
+        <div class="box-header">
+          <strong><a [routerLink]="['/user', issue.authorUsername]" class="user-link">{{ issue.authorUsername }}</a></strong> commented on {{ issue.createdAt | date }}
+        </div>
+        <div class="box-body">
+          <div [innerHTML]="markdownService.render(issue.body || 'No description provided.')"></div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngFor="let comment of comments" class="timeline-item">
+      <div class="avatar-col">
+        <a [routerLink]="['/user', comment.authorUsername]" class="avatar-link">
+          <div class="avatar">{{ comment.authorUsername.charAt(0) | uppercase }}</div>
+        </a>
+      </div>
+      <div class="content-box">
+        <div class="box-header">
+          <strong><a [routerLink]="['/user', comment.authorUsername]" class="user-link">{{ comment.authorUsername }}</a></strong> commented on {{ comment.createdAt | date }}
+        </div>
+        <div class="box-body">
+          <div [innerHTML]="markdownService.render(comment.body)"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="avatar-col"></div>
+      <div class="content-box form-box">
+        <form [formGroup]="commentForm" (ngSubmit)="postComment()">
+          <div class="box-header">Add a comment</div>
+          <div class="box-body no-pad">
+            <div class="comment-tabs">
+              <button type="button" 
+                      class="tab-btn" 
+                      [class.active]="!commentPreviewMode" 
+                      (click)="toggleCommentPreview()">
+                Write
+              </button>
+              <button type="button" 
+                      class="tab-btn" 
+                      [class.active]="commentPreviewMode" 
+                      (click)="toggleCommentPreview()">
+                Preview
+              </button>
+            </div>
+            
+            <div *ngIf="!commentPreviewMode">
+              <textarea formControlName="body" placeholder="Write your comment (supports Markdown)..." rows="6"></textarea>
+            </div>
+            
+            <div *ngIf="commentPreviewMode" class="comment-preview">
+              <div [innerHTML]="getCommentPreviewContent()"></div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="button" class="btn-tech-outline" (click)="toggleStatus()">
+              {{ issue.isOpen ? 'Close Issue' : 'Reopen Issue' }}
+            </button>
+            <button type="submit" class="btn-tech" [disabled]="commentForm.invalid">Comment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="loading-area"><div class="cyber-loader-sm"></div> Loading issue...</div>
+</ng-template>

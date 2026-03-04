@@ -1,0 +1,89 @@
+<div class="repo-layout-container" *ngIf="repo; else loadingOrError">
+
+  <header class="repo-header">
+    <div class="header-top">
+
+      <div class="repo-identity">
+        <i class="pi" [ngClass]="repo.isPublic ? 'pi-book' : 'pi-lock'"></i>
+        <a [routerLink]="['/user', repo.ownerUsername]" class="author-link">{{ repo.ownerUsername }}</a>
+        <span class="divider">/</span>
+        <a [routerLink]="['/repo', repo.ownerUsername, repo.name]" class="repo-link">{{ repo.name }}</a>
+        <span class="badge-public" *ngIf="repo.isPublic">Public</span>
+        <span class="badge-private" *ngIf="!repo.isPublic">Private</span>
+      </div>
+
+      <div class="archived-banner" *ngIf="repo.isArchived">
+        <i class="pi pi-info-circle"></i> 
+        This repository has been archived by the owner. It is now read-only.
+      </div>
+
+      <div class="repo-controls">
+        <div class="btn-group">
+          <button class="btn-tech-outline" (click)="toggleStar()">
+            <i class="pi pi-star"></i> Star
+            <span class="count">{{ repo.starsCount }}</span>
+          </button>
+          <button class="btn-tech-outline">
+            <i class="pi pi-code"></i> Fork
+            <span class="count">{{ repo.forksCount }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="repo-description" *ngIf="repo.description">
+      {{ repo.description }}
+    </div>
+
+    <nav class="repo-tabs">
+      <a [routerLink]="['./']"
+         [routerLinkActiveOptions]="{exact: true}"
+         routerLinkActive="active"
+         class="tab-item">
+        <i class="pi pi-code"></i> Code
+      </a>
+
+      <a [routerLink]="['issues']"
+         routerLinkActive="active"
+         class="tab-item">
+        <i class="pi pi-exclamation-circle"></i> Issues
+      </a>
+
+      <a [routerLink]="['pulls']"
+         routerLinkActive="active"
+         class="tab-item">
+        <i class="pi pi-sitemap"></i> Pull Requests
+      </a>
+
+      <a [routerLink]="['activity']"
+        routerLinkActive="active"
+        class="tab-item"
+        *ngIf="canViewStats()"> <i class="pi pi-chart-line"></i> Insights
+      </a>
+
+      <a [routerLink]="['settings']"
+         routerLinkActive="active"
+         class="tab-item"
+         *ngIf="currentUser === repo.ownerUsername">
+        <i class="pi pi-cog"></i> Settings
+      </a>
+    </nav>
+  </header>
+
+  <main class="repo-content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>
+
+<ng-template #loadingOrError>
+  <div class="center-msg" *ngIf="loading">
+    <div class="cyber-loader"></div>
+    <p>Loading repository data...</p>
+  </div>
+  <div class="center-msg error" *ngIf="!loading && error">
+    <i class="pi pi-ban"></i>
+    <h2>{{ error }}</h2>
+    <a routerLink="/" class="btn-tech">Return Home</a>
+  </div>
+</ng-template>

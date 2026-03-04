@@ -1,0 +1,112 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: gitclone_db
+    environment:
+      POSTGRES_USER: gituser
+      POSTGRES_PASSWORD: gitpassword
+      POSTGRES_DB: gitclone
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - gitclone-net
+    labels:
+      - "logging=promtail"
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: gitclone_backend
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/gitclone
+      SPRING_DATASOURCE_USERNAME: gituser
+      SPRING_DATASOURCE_PASSWORD: gitpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      GIT_STORAGE_PATH: /git-storage
+    volumes:
+      - git_repos_data:/git-storage
+    networks:
+      - gitclone-net
+    labels:
+      - "logging=promtail"
+      - "service=backend"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gitclone_frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - gitclone-net
+    labels:
+      - "logging=promtail"
+      - "service=frontend"
+
+  loki:
+    image: grafana/loki:2.9.0
+    container_name: gitclone_loki
+    user: "0"
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./monitoring/loki/loki-config.yml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - gitclone-net
+    restart: unless-stopped
+
+  promtail:
+    image: grafana/promtail:2.9.0
+    container_name: gitclone_promtail
+    volumes:
+      - ./monitoring/promtail/promtail-config.yml:/etc/promtail/config.yml
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    command: -config.file=/etc/promtail/config.yml
+    depends_on:
+      - loki
+    networks:
+      - gitclone-net
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:10.2.0
+    container_name: gitclone_grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - loki
+    networks:
+      - gitclone-net
+    restart: unless-stopped
+
+networks:
+  gitclone-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  git_repos_data:
+  loki_data:
+  grafana_data:

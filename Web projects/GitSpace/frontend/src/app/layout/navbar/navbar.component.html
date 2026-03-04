@@ -1,0 +1,63 @@
+<nav class="pixel-nav">
+  <div class="nav-section start">
+    <div class="brand">
+      <span class="icon">⚡</span> GitSpace
+    </div>
+
+    <div class="nav-links">
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+
+      <ng-container *ngIf="currentUser$ | async as user">
+        <a routerLink="/repositories" routerLinkActive="active">Repositories</a>
+        <a routerLink="/snippets" routerLinkActive="active">Snippets</a>
+        <a routerLink="/invitations" routerLinkActive="active">
+          <i class="pi pi-envelope"></i> Invitations
+        </a>
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/settings" routerLinkActive="active">Settings</a>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="nav-section center">
+    <div class="search-wrapper">
+        <i class="pi pi-search search-icon"></i>
+        <input type="text"
+               class="pixel-input"
+               placeholder="Search users..."
+               [(ngModel)]="searchQuery"
+               (keyup.enter)="onSearch()">
+    </div>
+  </div>
+
+  <div class="nav-section end">
+    <div *ngIf="currentUser$ | async as user; else loggedOut" class="auth-controls">
+
+      <div class="user-profile">
+        <a [routerLink]="['/user', user.username]" class="username-link">
+            <span class="username">{{ user.username }}</span>
+        </a>
+
+        <a [routerLink]="['/user', user.username]" class="avatar-link">
+          <img
+            [src]="user.avatarUrl || 'assets/static/default-avatar.jpg'"
+            class="avatar-mini"
+            alt="User"
+          >
+        </a>
+
+        <button (click)="logout()" class="pixel-btn logout">
+          <i class="pi pi-sign-out"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <ng-template #loggedOut>
+      <div class="guest-controls">
+        <a routerLink="/login" class="pixel-link">Log In</a>
+        <a routerLink="/register" class="pixel-btn primary">Sign Up</a>
+      </div>
+    </ng-template>
+  </div>
+</nav>

@@ -1,0 +1,54 @@
+<div class="snippets-container">
+  
+  <div class="header-section">
+    <div class="text-content">
+      <h2>Public Snippets</h2>
+      <p>Discover code fragments shared by the community.</p>
+    </div>
+    <a routerLink="/snippets/new" class="btn-tech">Create Snippet</a>
+  </div>
+
+  <div *ngIf="loading" class="loading-area">
+    <div class="cyber-loader-sm"></div> Loading stream...
+  </div>
+
+  <div class="snippet-grid" *ngIf="!loading">
+    <div *ngFor="let snip of displayedSnippets" class="snippet-card">
+      <div class="card-top">
+        <div class="file-info">
+          <i class="pi pi-file-code"></i>
+          <a [routerLink]="['/snippets', snip.id]" class="filename">{{ snip.filename }}</a>
+        </div>
+        <span class="author">by <a [routerLink]="['/user', snip.authorUsername]">{{ snip.authorUsername }}</a></span>
+      </div>
+      
+      <div class="card-desc">
+        {{ snip.description || 'No description provided.' }}
+      </div>
+      
+      <div class="card-footer">
+        <span class="meta">Created on {{ snip.createdAt | date }}</span>
+        <a [routerLink]="['/snippets', snip.id]" class="btn-view">View Code</a>
+      </div>
+    </div>
+
+    <div *ngIf="allSnippets.length === 0" class="empty-state">
+      <i class="pi pi-code"></i>
+      <h3>No snippets found.</h3>
+      <p>Be the first to share a code snippet!</p>
+    </div>
+  </div>
+
+  <div class="pagination-controls" *ngIf="!loading && allSnippets.length > pageSize">
+    <button (click)="prevPage()" [disabled]="currentPage === 1" class="btn-tech-outline sm">
+      <i class="pi pi-chevron-left"></i> Prev
+    </button>
+    
+    <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+    
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="btn-tech-outline sm">
+      Next <i class="pi pi-chevron-right"></i>
+    </button>
+  </div>
+
+</div>

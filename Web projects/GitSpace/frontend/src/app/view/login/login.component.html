@@ -1,0 +1,47 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="card-header">
+      <div class="brand-badge">GitSpace</div>
+      <h2>System Access</h2>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label>Identity</label>
+        <div class="input-wrapper">
+          <input type="text" class="form-control" formControlName="username" placeholder="Username" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label-row">
+          <label>Security Key</label>
+          <a routerLink="/forgot-password" class="tech-link-sm">LOST KEY?</a>
+        </div>
+        <div class="input-wrapper has-icon">
+          <input [type]="hidePassword ? 'password' : 'text'" class="form-control" formControlName="password" />
+          <span class="toggle-icon" (click)="togglePassword()">
+            {{ hidePassword ? '👁' : '✕' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group captcha-group" *ngIf="showCaptcha">
+        <label class="warn-text">Unusual activity detected.</label>
+        <label>Verify: {{ num1 }} + {{ num2 }} = ?</label>
+        <input type="number" class="form-control captcha-input" formControlName="captcha" />
+      </div>
+
+      <button type="submit" class="btn-tech" [disabled]="loading">
+        AUTHENTICATE
+      </button>
+
+      <div *ngIf="error" class="alert-box error">{{ error }}</div>
+    </form>
+
+    <div class="card-footer">
+      New to GitSpace? <a routerLink="/register" class="tech-link">Create an account</a>.
+    </div>
+  </div>
+</div>

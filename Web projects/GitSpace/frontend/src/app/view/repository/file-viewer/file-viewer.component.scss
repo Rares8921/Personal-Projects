@@ -1,0 +1,450 @@
+@import 'src/assets/scss/variables';
+
+.file-view-container {
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  background: $bg-subtle;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.file-header {
+  padding: 12px 16px;
+  background: $bg-canvas;
+  border-bottom: 1px solid $border-default;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  .path-segments {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: $text-secondary;
+
+    .repo-root {
+      font-weight: 600;
+      color: $primary;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      &:hover { opacity: 0.8; }
+    }
+
+    .divider { margin: 0 8px; opacity: 0.4; }
+
+    .file-name { font-weight: 500; color: $text-primary; }
+  }
+
+  .file-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .file-size {
+      font-size: 0.8rem;
+      color: $text-secondary;
+      padding: 4px 8px;
+      background: rgba($border-default, 0.3);
+      border-radius: $radius-sm;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+  }
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  i { font-size: 0.85rem; }
+
+  &.edit {
+    background: transparent;
+    border: 1px solid $border-default;
+    color: $text-primary;
+    &:hover {
+      background: rgba($primary, 0.1);
+      border-color: $primary;
+      color: $primary;
+    }
+  }
+
+  &.delete {
+    background: transparent;
+    border: 1px solid $border-default;
+    color: $text-primary;
+    &:hover {
+      background: rgba($danger, 0.1);
+      border-color: $danger;
+      color: $danger;
+    }
+  }
+
+  &.cancel {
+    background: transparent;
+    border: 1px solid $border-default;
+    color: $text-secondary;
+    &:hover {
+      background: rgba($text-secondary, 0.1);
+      color: $text-primary;
+    }
+  }
+
+  &.save {
+    background: $success;
+    color: $text-inverse;
+    &:hover:not(:disabled) {
+      background: $success-hover;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.create-header {
+  padding: 24px 20px;
+  border-bottom: 1px solid $border-default;
+  background: $bg-canvas;
+
+  .create-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+
+    i {
+      font-size: 1.5rem;
+      color: $primary;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: $text-primary;
+    }
+  }
+
+  .create-subtitle {
+    margin: 0;
+    font-size: 0.9rem;
+    color: $text-secondary;
+
+    strong { color: $text-primary; }
+  }
+}
+
+.create-form {
+  padding: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $text-secondary;
+  }
+}
+
+.filename-input-wrapper {
+  margin-bottom: 20px;
+}
+
+.filename-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 14px;
+  background: $bg-input;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  color: $text-primary;
+  font-size: 0.9rem;
+  font-family: 'JetBrains Mono', monospace;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+  }
+
+  &::placeholder {
+    color: $text-secondary;
+    opacity: 0.6;
+  }
+}
+
+.editor-wrapper {
+  margin-bottom: 20px;
+
+  ngx-monaco-editor {
+    border: 1px solid $border-default;
+    border-radius: $radius-sm;
+    overflow: hidden;
+  }
+}
+
+.commit-section {
+  margin-top: 20px;
+  padding: 16px;
+  background: $bg-canvas;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+
+  h3 {
+    margin: 0 0 12px 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $text-primary;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    i { color: $primary; font-size: 0.9rem; }
+  }
+}
+
+.commit-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: $bg-input;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  color: $text-primary;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+  }
+
+  &::placeholder {
+    color: $text-secondary;
+    opacity: 0.6;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid $border-default;
+}
+
+.code-box {
+  display: flex;
+  background: $bg-canvas;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.line-numbers {
+  padding: 16px 12px;
+  text-align: right;
+  background: rgba($bg-subtle, 0.5);
+  border-right: 1px solid $border-default;
+  color: $text-secondary;
+  opacity: 0.5;
+  user-select: none;
+  min-width: 45px;
+}
+
+.code-content {
+  padding: 16px;
+  color: $text-primary;
+  width: 100%;
+
+  pre { margin: 0; }
+  code {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+}
+
+.editor-box {
+  padding: 16px;
+
+  ngx-monaco-editor {
+    border: 1px solid $border-default;
+    border-radius: $radius-sm;
+    overflow: hidden;
+  }
+}
+
+.loading-area {
+  padding: 50px;
+  text-align: center;
+  color: $text-secondary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.image-box {
+  padding: 60px;
+  text-align: center;
+  background: repeating-linear-gradient(
+    45deg,
+    $bg-subtle,
+    $bg-subtle 10px,
+    $bg-canvas 10px,
+    $bg-canvas 20px
+  );
+
+  .img-placeholder {
+    color: $text-secondary;
+    i { font-size: 3rem; margin-bottom: 12px; opacity: 0.5; }
+    p { margin: 0; }
+  }
+}
+
+.error-msg {
+  padding: 24px;
+  color: $danger;
+  text-align: center;
+  background: rgba($danger, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cyber-loader-sm {
+  width: 18px;
+  height: 18px;
+  border: 2px solid $primary;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  background: $bg-subtle;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  animation: slideIn 0.2s ease;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid $border-default;
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-primary;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    i { color: $danger; }
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    color: $text-secondary;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
+
+    &:hover { color: $text-primary; }
+  }
+}
+
+.modal-body {
+  padding: 20px;
+
+  p {
+    margin: 0 0 8px 0;
+    color: $text-primary;
+    font-size: 0.95rem;
+
+    strong { color: $primary; }
+  }
+
+  .warning-text {
+    color: $danger;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+
+  .input-group {
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: $text-secondary;
+    }
+  }
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid $border-default;
+  background: rgba($bg-canvas, 0.5);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

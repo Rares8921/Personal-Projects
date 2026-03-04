@@ -1,0 +1,157 @@
+<div class="file-view-container">
+
+  <div class="file-header" *ngIf="!isCreateMode">
+    <div class="file-info">
+      <span class="path-segments">
+        <span class="repo-root" (click)="router.navigate(['../../'], {relativeTo: route})">{{ repoName }}</span>
+        <span class="divider">/</span>
+        <span *ngIf="!isCreateMode" class="filename">{{ filePath }}</span>
+      </span>
+    </div>
+
+    <div class="file-meta">
+      <span class="file-size">{{ fileSize }} Bytes</span>
+      <div class="actions">
+        <ng-container *ngIf="!isEditing">
+          <button class="btn-action edit" (click)="isEditing = true">
+            <i class="pi pi-pencil"></i> Edit
+          </button>
+          <button class="btn-action delete" (click)="openDeleteModal()">
+            <i class="pi pi-trash"></i> Delete
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="isEditing">
+          <button class="btn-action cancel" (click)="isEditing = false" [disabled]="isSaving">
+            <i class="pi pi-times"></i> Cancel
+          </button>
+          <button class="btn-action save" (click)="saveChanges()" [disabled]="isSaving || !commitMessage">
+            <i class="pi pi-check"></i> {{ isSaving ? 'Saving...' : 'Commit' }}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="create-header" *ngIf="isCreateMode">
+    <div class="create-title">
+      <i class="pi pi-file-plus"></i>
+      <h2>Create new file</h2>
+    </div>
+    <p class="create-subtitle">Add a new file to <strong>{{ repoName }}</strong> on branch <strong>{{ branch }}</strong></p>
+  </div>
+
+  <div *ngIf="loading && !isCreateMode" class="loading-area">
+    <div class="cyber-loader-sm"></div> Loading content...
+  </div>
+
+  <div *ngIf="error" class="error-msg">
+    <i class="pi pi-times-circle"></i> {{ error }}
+  </div>
+
+  <div class="create-form" *ngIf="isCreateMode">
+    <div class="filename-input-wrapper">
+      <label for="fileName">File name</label>
+      <input
+        type="text"
+        id="fileName"
+        [(ngModel)]="newFileName"
+        placeholder="example.txt"
+        class="filename-input"
+        autocomplete="off">
+    </div>
+
+    <div class="editor-wrapper">
+      <label>File content</label>
+      <ngx-monaco-editor
+          style="height: 400px;"
+          [options]="{theme: 'vs-dark', language: 'plaintext', minimap: {enabled: false}}"
+          [(ngModel)]="content">
+      </ngx-monaco-editor>
+    </div>
+
+    <div class="commit-section">
+      <h3><i class="pi pi-bookmark"></i> Commit changes</h3>
+      <input
+        type="text"
+        [(ngModel)]="commitMessage"
+        [placeholder]="'Create ' + (newFileName || 'new file')"
+        class="commit-input">
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-action cancel" (click)="cancelCreate()">
+        <i class="pi pi-times"></i> Cancel
+      </button>
+      <button class="btn-action save" (click)="createFile()" [disabled]="isSaving || !newFileName || !commitMessage">
+        <i class="pi pi-check"></i> {{ isSaving ? 'Creating...' : 'Commit new file' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="code-box" *ngIf="!loading && !error && !isImage && !isEditing && !isCreateMode">
+    <div class="line-numbers">
+      <div *ngFor="let num of lineNumbers">{{ num }}</div>
+    </div>
+    <div class="code-content">
+      <pre><code>{{ content }}</code></pre>
+    </div>
+  </div>
+
+  <div class="editor-box" *ngIf="isEditing && !isCreateMode">
+    <ngx-monaco-editor
+        style="height: 450px;"
+        [options]="{theme: 'vs-dark', language: 'plaintext', minimap: {enabled: false}}"
+        [(ngModel)]="content">
+    </ngx-monaco-editor>
+
+    <div class="commit-section">
+      <h3><i class="pi pi-bookmark"></i> Commit changes</h3>
+      <input
+        type="text"
+        [(ngModel)]="commitMessage"
+        [placeholder]="'Update ' + filePath"
+        class="commit-input">
+    </div>
+  </div>
+
+  <div class="image-box" *ngIf="!loading && !error && isImage && !isCreateMode">
+    <div class="img-placeholder">
+      <i class="pi pi-image"></i>
+      <p>Binary image view not implemented yet via API.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3><i class="pi pi-trash"></i> Delete file</h3>
+      <button class="modal-close" (click)="closeDeleteModal()">
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete <strong>{{ filePath }}</strong>?</p>
+      <p class="warning-text">This action cannot be undone.</p>
+      <div class="input-group">
+        <label>Commit message</label>
+        <input
+          type="text"
+          [(ngModel)]="deleteCommitMessage"
+          class="commit-input"
+          placeholder="Delete file...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-action cancel" (click)="closeDeleteModal()" [disabled]="isDeleting">
+        <i class="pi pi-times"></i> Cancel
+      </button>
+      <button class="btn-action delete" (click)="confirmDelete()" [disabled]="isDeleting || !deleteCommitMessage">
+        <i class="pi pi-trash"></i> {{ isDeleting ? 'Deleting...' : 'Delete file' }}
+      </button>
+    </div>
+  </div>
+
+</div>

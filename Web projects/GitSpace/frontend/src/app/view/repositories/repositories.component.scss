@@ -1,0 +1,201 @@
+@import 'src/assets/scss/variables';
+
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px; 
+  margin: 0 auto;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid $border-default;
+  padding-bottom: 15px;
+
+  h3 {
+    margin: 0;
+    font-weight: 700; 
+    font-size: 1.75rem;
+    color: $text-primary;
+  }
+}
+
+.new-repo-btn {
+  background-color: $primary;
+  color: $text-primary;
+  border: none; 
+  padding: 10px 24px;
+  border-radius: $radius-sm;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none; 
+  display: inline-block;
+  
+  &:hover {
+    background-color: $primary-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba($primary, 0.3);
+  }
+}
+
+.repo-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem; 
+  
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.repo-card {
+  background-color: $bg-subtle;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  padding: 2rem; 
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+
+  &:hover {
+      transform: translateY(-3px);
+      border-color: $primary;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    margin-bottom: 1rem;
+    gap: 10px;
+  }
+
+  .repo-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    a {
+      font-size: 1.25rem;
+      color: $text-primary;
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.2s;
+      word-break: break-all;
+
+      &:hover {
+        color: $primary; 
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .badge {
+    border: 1px solid $border-default;
+    background-color: rgba($primary, 0.1);
+    color: $primary;
+    border-radius: 4px; 
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    
+    &.public {
+      background-color: rgba($text-secondary, 0.1);
+      color: $text-secondary;
+      border-color: $border-default;
+    }
+  }
+
+  .star-btn {
+    background: transparent;
+    border: 1px solid $border-default;
+    color: $text-secondary;
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    white-space: nowrap;
+    border-radius: $radius-sm;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &:hover {
+      border-color: $text-primary;
+      color: $text-primary;
+      background-color: rgba(255,255,255, 0.05);
+    }
+  }
+
+  .description {
+    color: $text-secondary;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: $text-secondary-dim;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba($border-default, 0.5);
+
+    .stat {
+      margin-right: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      &.date {
+        margin-left: auto;
+        margin-right: 0;
+        font-family: monospace;
+      }
+    }
+
+    .lang-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      background-color: $danger; 
+    }
+  }
+}
+
+.loading-state, .empty-state {
+  text-align: center;
+  padding: 40px;
+  color: $text-secondary;
+  background: $bg-subtle;
+  border-radius: $radius-sm;
+  border: 1px dashed $border-default;
+  
+  i {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    display: block;
+    color: $primary;
+  }
+}

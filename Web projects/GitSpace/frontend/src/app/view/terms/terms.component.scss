@@ -1,0 +1,52 @@
+@import 'src/assets/scss/variables';
+
+.legal-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  min-height: calc(100vh - 60px);
+}
+
+.legal-card {
+  background: $bg-subtle;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+
+  h1 {
+    color: $primary;
+    margin: 0 0 5px 0;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .version {
+    display: block;
+    color: $text-secondary;
+    font-family: monospace;
+    font-size: 0.8rem;
+    margin-bottom: 30px;
+    border-bottom: 1px solid $border-default;
+    padding-bottom: 20px;
+  }
+
+  .content {
+    section {
+      margin-bottom: 30px;
+      
+      h3 {
+        color: $text-primary;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+      
+      p {
+        color: $text-primary-dim;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+    }
+  }
+}

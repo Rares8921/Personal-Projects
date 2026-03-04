@@ -1,0 +1,66 @@
+@import 'assets/scss/variables';
+@import "primeicons/primeicons.css";
+
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: $bg-canvas;
+  color: $text-primary;
+  font-family: $font-stack;
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+}
+
+* { box-sizing: border-box; }
+
+input.form-control {
+  width: 100%;
+  padding: 8px 12px;
+  background-color: $bg-canvas;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  color: $text-primary;
+  font-size: 14px;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.3);
+  }
+}
+
+// Butoane
+.btn {
+  display: inline-block;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &.btn-primary {
+    background-color: $success;
+    color: $text-primary;
+    &:hover { background-color: $success-hover; }
+  }
+  
+  &.btn-block { width: 100%; text-align: center; }
+}
+
+a { color: $primary; text-decoration: none; &:hover { text-decoration: underline; } }
+
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// Firefox
+input[type=number] {
+  -moz-appearance: textfield;
+}

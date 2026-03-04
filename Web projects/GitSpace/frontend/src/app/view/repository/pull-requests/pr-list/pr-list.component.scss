@@ -1,0 +1,177 @@
+@import 'src/assets/scss/variables';
+
+.pr-container {
+  max-width: 100%;
+}
+
+.pr-toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  .search-box {
+    position: relative;
+    width: 60%;
+
+    i {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-secondary;
+    }
+
+    .filter-input {
+      width: 100%;
+      background: $bg-subtle;
+      border: 1px solid $border-default;
+      color: $text-primary;
+      padding: 8px 10px 8px 35px;
+      border-radius: $radius-sm;
+      font-size: 0.9rem;
+
+      &:focus {
+        border-color: $primary;
+        outline: none;
+      }
+    }
+  }
+}
+
+.list-header {
+  background: $bg-subtle;
+  border: 1px solid $border-default;
+  border-bottom: none;
+  padding: 15px;
+  border-radius: $radius-sm $radius-sm 0 0;
+
+  .states {
+    display: flex;
+    gap: 15px;
+    color: $text-secondary;
+    font-size: 0.9rem;
+
+    .state {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      &:hover {
+        color: $text-primary;
+      }
+
+      &.active {
+        color: $text-primary;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.pr-list {
+  border: 1px solid $border-default;
+  border-radius: 0 0 $radius-sm $radius-sm;
+  background: $bg-canvas;
+}
+
+.pr-row {
+  display: flex;
+  padding: 12px 15px;
+  border-bottom: 1px solid rgba($border-default, 0.5);
+  gap: 12px;
+  transition: background 0.15s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: rgba($bg-subtle, 0.5);
+  }
+
+  .icon-col {
+    padding-top: 4px;
+    font-size: 1.1rem;
+
+    .open-icon {
+      color: $success;
+    }
+
+    .closed-icon {
+      color: $danger;
+    }
+
+    .merged-icon {
+      color: #a371f7;
+    }
+
+  }
+
+  .content-col {
+    flex-grow: 1;
+
+    .pr-title {
+      display: block;
+      font-weight: 600;
+      color: $text-primary;
+      text-decoration: none;
+      font-size: 1rem;
+      margin-bottom: 6px;
+
+      &:hover {
+        color: $primary;
+      }
+    }
+
+    .pr-meta {
+      font-size: 0.8rem;
+      color: $text-secondary;
+
+      .branches {
+        margin-left: 8px;
+        background: rgba($text-secondary, 0.1);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'Fira Code', monospace; 
+        font-size: 0.75rem;
+        color: $text-primary;
+
+        i {
+          font-size: 0.7rem;
+          margin: 0 4px;
+          color: $text-secondary;
+        }
+      }
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: $text-secondary;
+
+  i {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+    color: $text-primary;
+  }
+
+  h3 {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+}
+
+.loading-area {
+  padding: 40px;
+  text-align: center;
+  color: $text-secondary;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}

@@ -1,0 +1,146 @@
+<div class="pr-detail-container" *ngIf="pr; else loadingTpl">
+  
+  <div class="pr-header">
+    <div class="title-row">
+      <h1>{{ pr.title }} <span class="num">#{{ pr.prNumber }}</span></h1>
+      <a [routerLink]="['../../new']" class="btn-tech-outline sm">New PR</a>
+    </div>
+    
+    <div class="pr-meta">
+      <span class="status-badge" [ngClass]="pr.state.toLowerCase()">
+        <i class="pi" [ngClass]="{
+          'pi-sitemap': pr.state === 'OPEN', 
+          'pi-check-circle': pr.state === 'MERGED',
+          'pi-times-circle': pr.state === 'CLOSED'
+        }"></i> {{ pr.state }}
+      </span>
+      <span class="branch-info">
+        <strong>{{ pr.authorUsername }}</strong> wants to merge into 
+        <code class="branch">{{ pr.toBranch }}</code> from <code class="branch">{{ pr.fromBranch }}</code>
+      </span>
+    </div>
+  </div>
+
+  <div class="pr-tabs">
+    <button class="tab-btn" [class.active]="activeTab === 'conversation'" (click)="activeTab = 'conversation'">
+      <i class="pi pi-comments"></i> Conversation
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'files'" (click)="activeTab = 'files'">
+      <i class="pi pi-file"></i> Files Changed <span class="badge">{{ files.length }}</span>
+    </button>
+  </div>
+
+  <div class="tab-content conversation" *ngIf="activeTab === 'conversation'">
+    
+    <div class="comment-box initial-comment">
+      <div class="header">
+        <strong>{{ pr.authorUsername }}</strong> commented on {{ pr.createdAt | date:'medium' }}
+      </div>
+      <div class="body">{{ pr.description || 'No description provided.' }}</div>
+    </div>
+
+    <div *ngFor="let comment of comments">
+      <div class="comment-box" *ngIf="!comment.lineNumber">
+        <div class="header"><strong>{{ comment.authorUsername }}</strong> commented on {{ comment.createdAt | date }}</div>
+        <div class="body">{{ comment.body }}</div>
+      </div>
+    </div>
+
+    <div class="review-footer" *ngIf="pr.state === 'OPEN'">
+      <form [formGroup]="reviewForm" (ngSubmit)="postGeneralComment()">
+        <textarea formControlName="body" placeholder="Leave a comment or review..."></textarea>
+        <div class="actions">
+          <button type="submit" class="btn-tech">Comment</button>
+          <button type="button" (click)="approvePR()" class="btn-tech-success">Approve PR</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="timeline-separator"></div>
+
+    <div class="merge-section" *ngIf="pr.state === 'OPEN'">
+      
+      <div class="merge-box success" *ngIf="!pr.hasConflicts">
+        <div class="icon-area"><div class="circle-check"><i class="pi pi-check"></i></div></div>
+        <div class="content-area">
+          <h4>This branch has no conflicts with the base branch</h4>
+          <p>Merging can be performed automatically.</p>
+        </div>
+        <div class="action-area">
+          <button class="btn-tech-success" (click)="merge()" [disabled]="merging">
+            {{ merging ? 'Merging...' : 'Merge pull request' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="merge-box danger" *ngIf="pr.hasConflicts">
+        <div class="icon-area"><div class="circle-times"><i class="pi pi-exclamation-triangle"></i></div></div>
+        <div class="content-area">
+          <h4>This branch has conflicts that must be resolved</h4>
+          <p>Use the command line to resolve conflicts before merging.</p>
+        </div>
+        <div class="action-area">
+          <button class="btn-disabled" disabled>Merge pull request</button>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="merged-msg" *ngIf="pr.state === 'MERGED'">
+      <div class="merged-badge"><i class="pi pi-check-circle"></i> Merged</div>
+      <p>Pull request successfully merged and closed.</p>
+    </div>
+  </div>
+
+  <div class="tab-content files" *ngIf="activeTab === 'files'">
+    <div *ngFor="let file of files" class="diff-card">
+      <div class="diff-header">
+        <div class="file-info">
+          <span class="arrow"><i class="pi pi-angle-down"></i></span>
+          <span class="filename">{{ file.filePath }}</span>
+        </div>
+        <div class="file-stats">
+          <span class="change-type" [ngClass]="file.changeType">{{ file.changeType }}</span>
+        </div>
+      </div>
+      
+      <div class="diff-body">
+        <div class="code-lines">
+          <div *ngFor="let line of getDiffLines(file.diff); let i = index" class="diff-line-wrapper">
+            <div class="diff-line" [ngClass]="getLineClass(line)" (click)="openInlineComment(file.filePath, i)">
+              <span class="marker">{{ line.marker }}</span>
+              <span class="code">{{ line.content }}</span>
+              <i class="pi pi-plus-circle add-comment-icon"></i>
+            </div>
+
+            <div class="inline-comments" *ngIf="getCommentsForLine(file.filePath, i).length > 0">
+              <div class="inline-comment" *ngFor="let ic of getCommentsForLine(file.filePath, i)">
+                <strong>{{ ic.authorUsername }}:</strong> {{ ic.body }}
+              </div>
+            </div>
+
+            <div class="inline-comment-form" *ngIf="activeInlineCell?.file === file.filePath && activeInlineCell?.line === i">
+              <form [formGroup]="inlineCommentForm" (ngSubmit)="postInlineComment()">
+                <textarea formControlName="body" placeholder="Actionable feedback..."></textarea>
+                <button type="submit" class="btn-tech sm">Add comment</button>
+                <button type="button" (click)="activeInlineCell = null" class="btn-tech-outline sm">Cancel</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="files.length === 0" class="empty-diff">
+      <p>No changes detected or binary files.</p>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #loadingTpl>
+  <div class="loading-center">
+    <div class="cyber-loader"></div>
+    <p>Loading Pull Request...</p>
+  </div>
+</ng-template>

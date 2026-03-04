@@ -1,0 +1,39 @@
+<div class="create-pr-wrapper">
+  <div class="form-container">
+    <h3>Open a Pull Request</h3>
+    
+    <form [formGroup]="prForm" (ngSubmit)="submit()">
+      <div class="branch-selection">
+        <div class="form-group half">
+          <label>Source Branch</label>
+          <select formControlName="fromBranch" class="cyber-input">
+            <option *ngFor="let b of branches" [value]="b">{{ b }}</option>
+          </select>
+        </div>
+        
+        <div class="arrow"><i class="pi pi-arrow-right"></i></div>
+        
+        <div class="form-group half">
+          <label>Target Branch</label>
+          <select formControlName="toBranch" class="cyber-input">
+            <option *ngFor="let b of branches" [value]="b">{{ b }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" formControlName="title" placeholder="Title" class="cyber-input title-input">
+      </div>
+      
+      <div class="form-group">
+        <textarea formControlName="description" placeholder="Describe your changes..." class="cyber-input body-input" rows="8"></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn-tech" [disabled]="loading || prForm.invalid">
+          Create Pull Request
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

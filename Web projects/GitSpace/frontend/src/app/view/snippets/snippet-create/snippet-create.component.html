@@ -1,0 +1,49 @@
+<div class="create-wrapper">
+  <div class="form-card">
+    <h3>New Snippet</h3>
+    
+    <form [formGroup]="snippetForm" (ngSubmit)="submit()">
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label>Filename (incl. extension)</label>
+          <input 
+            type="text" 
+            formControlName="filename" 
+            placeholder="example.js" 
+            class="cyber-input"
+          >
+          <small style="color: #888; display: block; margin-top: 4px;">
+            Language: {{ editorOptions.language }}
+          </small>
+        </div>
+        
+        <div class="form-group flex-2">
+          <label>Description</label>
+          <input 
+            type="text" 
+            formControlName="description" 
+            placeholder="What does this code do?" 
+            class="cyber-input"
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Code</label>
+        <ngx-monaco-editor 
+          class="code-editor"
+          style="height: 400px; display: block; border: 1px solid #333;" 
+          [options]="editorOptions" 
+          formControlName="content">
+        </ngx-monaco-editor>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-tech-outline" routerLink="/snippets">Cancel</button>
+        <button type="submit" class="btn-tech" [disabled]="loading || snippetForm.invalid">
+          {{ loading ? 'Saving...' : 'Create Snippet' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

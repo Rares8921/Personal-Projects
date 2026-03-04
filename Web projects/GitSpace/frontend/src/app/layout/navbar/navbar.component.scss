@@ -1,0 +1,173 @@
+@import 'src/assets/scss/variables';
+
+.pixel-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 24px;
+  background-color: $bg-subtle;
+  border-bottom: 1px solid $border-default;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.nav-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  &.center { flex-grow: 1; justify-content: center; max-width: 500px; }
+  &.end { justify-content: flex-end; }
+}
+
+.brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: $text-primary;
+  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  .icon { color: $primary; }
+}
+
+.nav-links {
+  display: flex;
+  gap: 5px;
+
+  a {
+    color: $text-secondary;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: $radius-sm;
+    transition: all 0.2s;
+
+    &:hover {
+      color: $text-primary;
+      background-color: rgba(255,255,255, 0.05);
+    }
+
+    &.active {
+      color: $text-primary;
+      font-weight: 600;
+    }
+  }
+}
+
+.search-wrapper {
+    position: relative;
+    width: 100%;
+    
+    .search-icon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $text-secondary;
+        font-size: 0.8rem;
+    }
+
+    .pixel-input {
+        width: 100%;
+        background-color: $bg-canvas;
+        border: 1px solid $border-default;
+        border-radius: $radius-sm;
+        padding: 6px 10px 6px 32px; // Loc pt icon
+        color: $text-primary;
+        font-size: 0.85rem;
+        
+        &:focus {
+            border-color: $border-active;
+            outline: none;
+        }
+    }
+}
+
+// Butoane si controale
+.pixel-link {
+    color: $text-primary;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-right: 15px;
+    &:hover { color: $primary; }
+}
+
+.pixel-btn {
+    padding: 6px 16px;
+    border-radius: $radius-sm;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+
+    &.primary {
+        background-color: $primary;
+        color: $text-primary;
+        &:hover { background-color: $primary-hover; box-shadow: 0 0 10px rgba($primary, 0.4); }
+    }
+
+    &.logout {
+        background-color: transparent;
+        border: 1px solid $border-default;
+        color: $danger;
+        padding: 6px 10px;
+        
+        &:hover { 
+            background-color: rgba($danger, 0.1); 
+            border-color: $danger;
+        }
+    }
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .username-link {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: $primary;
+        }
+    }
+
+    .username {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: $text-primary;
+    }
+
+    .avatar-link {
+        text-decoration: none;
+        display: block;
+        transition: transform 0.2s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        .avatar-mini {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid $border-default;
+            transition: border-color 0.2s ease;
+
+            &:hover {
+                border-color: $primary;
+            }
+        }
+    }
+}

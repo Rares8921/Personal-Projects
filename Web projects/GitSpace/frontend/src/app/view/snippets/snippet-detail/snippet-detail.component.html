@@ -1,0 +1,27 @@
+<div class="snippet-detail-container" *ngIf="snippet; else loadingTpl">
+  
+  <div class="detail-header">
+    <div class="title-area">
+      <h1>{{ snippet.filename }}</h1>
+      <p class="desc">{{ snippet.description }}</p>
+    </div>
+    <div class="meta-area">
+      <div class="author-box">
+        Created by <strong>{{ snippet.authorUsername }}</strong> on {{ snippet.createdAt | date }}
+      </div>
+      <div class="actions">
+        <button class="btn-tech-sm">Raw</button>
+        <button class="btn-tech-sm">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-viewer">
+    <pre><code>{{ snippet.content }}</code></pre>
+  </div>
+
+</div>
+
+<ng-template #loadingTpl>
+  <div class="loading-area"><div class="cyber-loader-sm"></div> Fetching snippet...</div>
+</ng-template>

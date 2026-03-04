@@ -1,0 +1,45 @@
+<div class="issues-container">
+  
+  <div class="issues-toolbar">
+    <div class="search-box">
+      <i class="pi pi-search"></i>
+      <input type="text" placeholder="is:issue is:open" class="filter-input">
+    </div>
+    <a [routerLink]="['new']" class="btn-tech">New Issue</a>
+  </div>
+
+  <div class="list-header">
+    <div class="states">
+      <span class="state active"><i class="pi pi-exclamation-circle"></i> Open</span>
+      <span class="state"><i class="pi pi-check"></i> Closed</span>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-area">
+    <div class="cyber-loader-sm"></div> Loading issues...
+  </div>
+
+  <div class="issue-list" *ngIf="!loading">
+    <div *ngFor="let issue of issues" class="issue-row">
+      <div class="icon-col">
+        <i class="pi pi-exclamation-circle open-icon" *ngIf="issue.isOpen"></i>
+        <i class="pi pi-check-circle closed-icon" *ngIf="!issue.isOpen"></i>
+      </div>
+      <div class="content-col">
+        <a [routerLink]="[issue.number]" class="issue-title">{{ issue.title }}</a>
+        <div class="issue-meta">
+          #{{ issue.number }} opened on {{ issue.createdAt | date }} by <a class="user-link">{{ issue.authorUsername }}</a>
+        </div>
+      </div>
+      <div class="comments-col" *ngIf="issue.commentsCount">
+        <i class="pi pi-comments"></i> {{ issue.commentsCount }}
+      </div>
+    </div>
+
+    <div *ngIf="issues.length === 0" class="empty-issues">
+      <i class="pi pi-inbox"></i>
+      <h3>Welcome to Issues!</h3>
+      <p>Issues are used to track todos, bugs, feature requests, and more.</p>
+    </div>
+  </div>
+</div>

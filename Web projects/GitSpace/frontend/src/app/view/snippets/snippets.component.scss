@@ -1,0 +1,154 @@
+@import 'src/assets/scss/variables';
+
+.snippets-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  border-bottom: 1px solid $border-default;
+  padding-bottom: 20px;
+
+  h2 {
+    margin: 0 0 5px 0;
+    font-size: 1.8rem;
+    color: $text-primary;
+  }
+
+  p {
+    margin: 0;
+    color: $text-secondary;
+  }
+}
+
+.snippet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.snippet-card {
+  background: $bg-subtle;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, border-color 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: $primary;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+
+    .file-info {
+      i {
+        color: $primary;
+        margin-right: 8px;
+      }
+
+      .filename {
+        font-family: monospace;
+        font-weight: 600;
+        color: $text-primary;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .author {
+      font-size: 0.8rem;
+      color: $text-secondary;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  .card-desc {
+    flex-grow: 1;
+    color: $text-secondary;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba($border-default, 0.5);
+    padding-top: 15px;
+
+    .meta {
+      font-size: 0.75rem;
+      color: $text-secondary-dim;
+    }
+
+    .btn-view {
+      font-size: 0.85rem;
+      color: $primary;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+  color: $text-secondary;
+
+  i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+  }
+}
+
+.loading-area {
+  text-align: center;
+  padding: 40px;
+  color: $text-secondary;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+  padding-bottom: 20px;
+
+  .page-info {
+    font-family: 'JetBrains Mono', monospace;
+    color: $text-secondary;
+    font-size: 0.9rem;
+  }
+}

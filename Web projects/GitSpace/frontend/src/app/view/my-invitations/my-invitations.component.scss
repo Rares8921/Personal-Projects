@@ -1,0 +1,226 @@
+.invitations-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+
+    h2 {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 2rem;
+        margin: 0 0 0.5rem 0;
+        color: var(--primary-color, #00d9ff);
+
+        i {
+            font-size: 1.75rem;
+        }
+    }
+
+    .subtitle {
+        color: var(--text-secondary, #a0a0a0);
+        margin: 0;
+    }
+}
+
+.loading-state,
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+
+    i {
+        font-size: 4rem;
+        color: var(--text-secondary, #a0a0a0);
+        margin-bottom: 1rem;
+    }
+
+    h3 {
+        color: var(--text-primary, #ffffff);
+        margin: 1rem 0 0.5rem 0;
+    }
+
+    p {
+        color: var(--text-secondary, #a0a0a0);
+    }
+}
+
+.cyber-loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(0, 217, 255, 0.2);
+    border-top-color: var(--primary-color, #00d9ff);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.invitations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.invitation-card {
+    background: var(--surface-card, #1a1a1a);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: var(--primary-color, #00d9ff);
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.1);
+    }
+}
+
+.invitation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.repo-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex: 1;
+
+    >i {
+        font-size: 1.5rem;
+        color: var(--primary-color, #00d9ff);
+        margin-top: 0.25rem;
+    }
+}
+
+.repo-details {
+    h4 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.25rem;
+        color: var(--text-primary, #ffffff);
+    }
+
+    .invited-by {
+        margin: 0;
+        color: var(--text-secondary, #a0a0a0);
+        font-size: 0.9rem;
+
+        strong {
+            color: var(--primary-color, #00d9ff);
+        }
+    }
+}
+
+.role-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+
+    &.badge-admin {
+        background: rgba(255, 59, 48, 0.15);
+        color: #ff3b30;
+        border: 1px solid rgba(255, 59, 48, 0.3);
+    }
+
+    &.badge-write {
+        background: rgba(0, 217, 255, 0.15);
+        color: #00d9ff;
+        border: 1px solid rgba(0, 217, 255, 0.3);
+    }
+
+    &.badge-read {
+        background: rgba(160, 160, 160, 0.15);
+        color: #a0a0a0;
+        border: 1px solid rgba(160, 160, 160, 0.3);
+    }
+}
+
+.invitation-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color, #333);
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary, #a0a0a0);
+    font-size: 0.9rem;
+
+    i {
+        color: var(--primary-color, #00d9ff);
+    }
+}
+
+.invitation-actions {
+    display: flex;
+    gap: 0.75rem;
+
+    button {
+        flex: 1;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        border: none;
+
+        i {
+            font-size: 1rem;
+        }
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+    }
+
+    .btn-danger-outline {
+        background: transparent;
+        color: #ef4444;
+        border: 1px solid #ef4444;
+
+        &:hover {
+            background: rgba(239, 68, 68, 0.1);
+            transform: translateY(-2px);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .invitation-header {
+        flex-direction: column;
+    }
+
+    .invitation-actions {
+        flex-direction: column;
+
+        button {
+            width: 100%;
+        }
+    }
+}

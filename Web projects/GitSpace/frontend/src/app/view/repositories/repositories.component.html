@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="header-row">
+    <h3>Repositories List</h3>
+    <button class="new-repo-btn" routerLink="/new">New Repository</button>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">
+    <i class="pi pi-spin pi-spinner"></i> Loading data streams...
+  </div>
+
+  <div *ngIf="!loading && repositories.length === 0" class="empty-state">
+    <i class="pi pi-box"></i>
+    <p>No repositories found. Initialize your first project.</p>
+  </div>
+
+  <div class="repo-grid" *ngIf="!loading && repositories.length > 0">
+    <div class="repo-card" *ngFor="let repo of repositories">
+      <div class="card-top">
+        <div class="repo-title">
+          <a [routerLink]="['/repo', repo.ownerUsername, repo.name]">
+            {{ repo.ownerUsername }} / {{ repo.name }}
+          </a>
+          <span class="badge" *ngIf="!repo.isPublic">Private</span>
+          <span class="badge public" *ngIf="repo.isPublic">Public</span>
+        </div>
+        
+        <button class="star-btn">
+          <i class="pi pi-star"></i> Star
+        </button>
+      </div>
+
+      <p class="description">{{ repo.description || 'No description provided.' }}</p>
+
+      <div class="card-footer">
+        <div class="stat" *ngIf="repo.language">
+          <span class="lang-dot" [style.backgroundColor]="getLanguageColor(repo.language)"></span>
+          {{ repo.language }}
+        </div>
+        <div class="stat">
+          ★ {{ repo.starsCount | number }}
+        </div>
+        <div class="stat">
+          ⑂ {{ repo.forksCount | number }}
+        </div>
+        <div class="stat date">
+          Updated {{ repo.updatedAt | date:'MMM d, y' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

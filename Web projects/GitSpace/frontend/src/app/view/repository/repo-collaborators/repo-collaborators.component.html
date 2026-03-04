@@ -1,0 +1,126 @@
+<div class="collaborators-wrapper">
+  <p-toast></p-toast>
+  <p-confirmDialog styleClass="custom-confirm-dialog"></p-confirmDialog>
+
+  <div class="page-header">
+    <div class="header-content">
+      <h2>Collaborators</h2>
+      <p class="subtitle">Manage who has access to this repository</p>
+    </div>
+    <button class="btn-primary" (click)="showInviteDialog()">
+      <i class="pi pi-user-plus"></i>
+      <span>Add people</span>
+    </button>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h3>{{ collaborators.length }} collaborator{{ collaborators.length !== 1 ? 's' : '' }}</h3>
+    </div>
+
+    <div *ngIf="loading" class="loading-state">
+      <i class="pi pi-spin pi-spinner"></i>
+      <p>Loading collaborators...</p>
+    </div>
+
+    <div *ngIf="!loading && collaborators.length === 0" class="empty-state">
+      <i class="pi pi-users"></i>
+      <p>No collaborators yet</p>
+      <span>Invite people to collaborate on this repository</span>
+    </div>
+
+    <div *ngIf="!loading && collaborators.length > 0" class="collaborator-list">
+      <div *ngFor="let collaborator of collaborators" class="collaborator-item">
+        <img [src]="collaborator.avatarUrl || 'assets/static/default-avatar.jpg'" [alt]="collaborator.username" class="avatar">
+        <div class="collaborator-details">
+          <div class="name-row">
+            <span class="username">{{ collaborator.username }}</span>
+            <span class="role-badge" [attr.data-role]="collaborator.role.toLowerCase()">
+              {{ collaborator.role }}
+            </span>
+          </div>
+          <div class="meta-row">
+            <span class="full-name">{{ collaborator.fullName }}</span>
+            <span class="separator">•</span>
+            <span class="joined-date">Joined {{ collaborator.acceptedAt | date:'mediumDate' }}</span>
+          </div>
+        </div>
+        <button class="btn-icon" (click)="removeCollaborator(collaborator)" title="Remove collaborator">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" *ngIf="pendingInvitations.length > 0">
+    <div class="section-header">
+      <h3>{{ pendingInvitations.length }} pending invitation{{ pendingInvitations.length !== 1 ? 's' : '' }}</h3>
+    </div>
+
+    <div class="collaborator-list">
+      <div *ngFor="let invitation of pendingInvitations" class="collaborator-item pending">
+        <img [src]="invitation.avatarUrl || 'assets/static/default-avatar.jpg'" [alt]="invitation.username" class="avatar">
+        <div class="collaborator-details">
+          <div class="name-row">
+            <span class="username">{{ invitation.username }}</span>
+            <span class="role-badge" [attr.data-role]="invitation.role.toLowerCase()">
+              {{ invitation.role }}
+            </span>
+            <span class="status-badge">Pending</span>
+          </div>
+          <div class="meta-row">
+            <span class="full-name">{{ invitation.fullName }}</span>
+            <span class="separator">•</span>
+            <span class="invited-date">Invited {{ invitation.invitedAt | date:'mediumDate' }}</span>
+          </div>
+        </div>
+        <button class="btn-icon" (click)="revokeInvitation(invitation)" title="Revoke invitation">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <p-dialog [(visible)]="displayInviteDialog" [modal]="true" [style]="{width: '480px'}" [draggable]="false"
+            [resizable]="false" styleClass="invite-dialog">
+
+    <ng-template pTemplate="header">
+      <div class="dialog-header">
+        <h3>Invite a collaborator</h3>
+      </div>
+    </ng-template>
+
+    <div class="invite-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" [(ngModel)]="inviteUsername" placeholder="Enter username" class="form-input">
+      </div>
+
+      <div class="form-group">
+        <label>Choose a role</label>
+        <div class="role-selector">
+          <label *ngFor="let option of roleOptions" class="role-option"
+                 [class.selected]="selectedRole === option.value">
+            <input type="radio" [value]="option.value" [(ngModel)]="selectedRole" name="role">
+            <div class="role-content">
+              <span class="role-name">{{ option.label }}</span>
+              <span class="role-desc">{{ option.description }}</span>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="dialog-footer">
+        <button class="btn-secondary" (click)="displayInviteDialog = false" [disabled]="inviting">
+          Cancel
+        </button>
+        <button class="btn-primary" (click)="inviteCollaborator()" [disabled]="inviting">
+          <i class="pi pi-spin pi-spinner" *ngIf="inviting"></i>
+          <span>{{ inviting ? 'Sending...' : 'Send invitation' }}</span>
+        </button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="CONSOLE_JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdcKeyName>traceId</includeMdcKeyName>
+            <includeMdcKeyName>spanId</includeMdcKeyName>
+            <includeMdcKeyName>userId</includeMdcKeyName>
+            <customFields>{"application":"gitclone-backend","environment":"${SPRING_PROFILES_ACTIVE:-default}"}</customFields>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- dev -->
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="main.backend" level="DEBUG"/>
+        <logger name="org.springframework.security" level="DEBUG"/>
+    </springProfile>
+
+    <!-- test -->
+    <springProfile name="test">
+        <root level="WARN">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <!-- staging/prod -->
+    <springProfile name="staging,prod,docker">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE_JSON"/>
+        </root>
+        <logger name="main.backend" level="INFO"/>
+        <logger name="org.springframework.security" level="WARN"/>
+        <logger name="org.hibernate.SQL" level="WARN"/>
+    </springProfile>
+
+    <!-- dlefault -->
+    <springProfile name="default">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE_JSON"/>
+        </root>
+    </springProfile>
+</configuration>

@@ -1,0 +1,42 @@
+<div class="create-issue-wrapper">
+  <div class="form-container">
+    <h3>Create New Issue</h3>
+    
+    <form [formGroup]="issueForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <input type="text" formControlName="title" placeholder="Title" class="cyber-input title-input">
+      </div>
+      
+      <div class="form-group">
+        <div class="editor-tabs">
+          <button type="button" 
+                  class="tab-btn" 
+                  [class.active]="!previewMode" 
+                  (click)="togglePreview()">
+            Write
+          </button>
+          <button type="button" 
+                  class="tab-btn" 
+                  [class.active]="previewMode" 
+                  (click)="togglePreview()">
+            Preview
+          </button>
+        </div>
+        
+        <div *ngIf="!previewMode">
+          <textarea formControlName="body" placeholder="Leave a comment (supports Markdown)" class="cyber-input body-input" rows="8"></textarea>
+        </div>
+        
+        <div *ngIf="previewMode" class="preview-container">
+          <div [innerHTML]="getPreviewContent()"></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn-tech" [disabled]="loading || issueForm.invalid">
+          Submit new issue
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

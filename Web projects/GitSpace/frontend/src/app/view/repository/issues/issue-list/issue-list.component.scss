@@ -1,0 +1,115 @@
+@import 'src/assets/scss/variables';
+
+.issues-container {
+  max-width: 100%;
+}
+
+.issues-toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  .search-box {
+    position: relative;
+    width: 60%;
+    
+    i {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-secondary;
+    }
+
+    .filter-input {
+      width: 100%;
+      background: $bg-subtle;
+      border: 1px solid $border-default;
+      color: $text-primary;
+      padding: 8px 10px 8px 35px;
+      border-radius: $radius-sm;
+      font-size: 0.9rem;
+      &:focus { border-color: $primary; outline: none; }
+    }
+  }
+}
+
+.list-header {
+  background: $bg-subtle;
+  border: 1px solid $border-default;
+  border-bottom: none;
+  padding: 15px;
+  border-radius: $radius-sm $radius-sm 0 0;
+  
+  .states {
+    display: flex;
+    gap: 15px;
+    color: $text-secondary;
+    font-size: 0.9rem;
+    
+    .state {
+      cursor: pointer;
+      &:hover { color: $text-primary; }
+      &.active { color: $text-primary; font-weight: bold; }
+    }
+  }
+}
+
+.issue-list {
+  border: 1px solid $border-default;
+  border-radius: 0 0 $radius-sm $radius-sm;
+  background: $bg-canvas;
+}
+
+.issue-row {
+  display: flex;
+  padding: 12px 15px;
+  border-bottom: 1px solid rgba($border-default, 0.5);
+  gap: 10px;
+  
+  &:last-child { border-bottom: none; }
+  &:hover { background: rgba($bg-subtle, 0.5); }
+
+  .icon-col {
+    padding-top: 2px;
+    .open-icon { color: $success; }
+    .closed-icon { color: $danger; } 
+  }
+
+  .content-col {
+    flex-grow: 1;
+    
+    .issue-title {
+      display: block;
+      font-weight: 600;
+      color: $text-primary;
+      text-decoration: none;
+      font-size: 1rem;
+      margin-bottom: 4px;
+      &:hover { color: $primary; }
+    }
+    
+    .issue-meta {
+      font-size: 0.75rem;
+      color: $text-secondary;
+      .user-link { color: $text-secondary; &:hover { color: $primary; text-decoration: underline; } }
+    }
+  }
+
+  .comments-col {
+    font-size: 0.8rem;
+    color: $text-secondary;
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
+
+.empty-issues {
+  text-align: center;
+  padding: 50px 20px;
+  color: $text-secondary;
+  i { font-size: 2rem; margin-bottom: 10px; opacity: 0.5; }
+}
+
+.loading-area { padding: 30px; text-align: center; color: $text-secondary; }

@@ -1,0 +1,163 @@
+@import 'src/assets/scss/variables';
+
+.settings-wrapper {
+    max-width: 800px;
+
+    h3 {
+        border-bottom: 1px solid $border-default;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+        color: $text-primary;
+    }
+}
+
+.settings-card {
+    border: 1px solid $border-default;
+    border-radius: $radius-sm;
+    padding: 25px;
+    margin-bottom: 30px;
+
+    h4 {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    &.danger-zone {
+        border-color: $danger;
+
+        h4 {
+            color: $danger;
+        }
+    }
+}
+
+.form-group {
+    margin-bottom: 20px;
+
+    label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: $text-primary;
+    }
+
+    .hint {
+        font-size: 0.8rem;
+        color: $text-secondary;
+        margin: 5px 0 0 0;
+    }
+
+    &.checkbox {
+        input {
+            margin-right: 10px;
+        }
+    }
+}
+
+.visibility-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.visibility-option {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    border: 2px solid $border-default;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: $primary;
+        background: rgba($primary, 0.05);
+    }
+
+    &.selected {
+        border-color: $primary;
+        background: rgba($primary, 0.1);
+    }
+
+    input[type="radio"] {
+        margin-right: 15px;
+        margin-top: 4px;
+        cursor: pointer;
+    }
+
+    .option-content {
+        flex: 1;
+
+        strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: $text-primary;
+        }
+
+        p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: $text-secondary;
+            line-height: 1.4;
+        }
+    }
+}
+
+.cyber-input {
+    width: 100%;
+    padding: 10px;
+    background: $bg-canvas;
+    border: 1px solid $border-default;
+    color: $text-primary;
+    border-radius: $radius-sm;
+
+    &:focus {
+        border-color: $primary;
+        outline: none;
+    }
+
+    &.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+.btn-tech {
+    padding: 10px 20px;
+    background: $primary;
+    color: $text-primary;
+    border: none;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.danger-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .info {
+        p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: $text-secondary;
+        }
+    }
+}
+
+.btn-danger {
+    background: transparent;
+    border: 1px solid $danger;
+    color: $danger;
+    padding: 8px 16px;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    font-weight: 600;
+
+    &:hover {
+        background: $danger;
+        color: $text-primary;
+    }
+}

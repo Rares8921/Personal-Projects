@@ -1,0 +1,45 @@
+@import 'src/assets/scss/variables';
+
+.snippet-detail-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  background: $bg-subtle;
+  padding: 20px;
+  border-radius: $radius-sm;
+  border: 1px solid $border-default;
+
+  h1 { margin: 0 0 5px 0; color: $primary; font-family: monospace; }
+  .desc { margin: 0; color: $text-secondary; }
+
+  .meta-area {
+    text-align: right;
+    .author-box { font-size: 0.85rem; color: $text-secondary; margin-bottom: 10px; }
+    .actions { display: flex; gap: 10px; justify-content: flex-end; }
+  }
+}
+
+.code-viewer {
+  background: $bg-canvas;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  padding: 20px;
+  overflow-x: auto;
+
+  pre { margin: 0; }
+  code { 
+    font-family: 'Courier New', Courier, monospace; 
+    color: $text-primary; 
+    font-size: 0.95rem; 
+    line-height: 1.5;
+  }
+}
+
+.loading-area { text-align: center; padding: 50px; color: $text-secondary; }

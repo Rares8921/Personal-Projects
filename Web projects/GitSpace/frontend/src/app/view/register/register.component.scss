@@ -1,0 +1,196 @@
+@import 'src/assets/scss/variables';
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, $bg-canvas 0%, $bg-subtle 100%);
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background-color: $bg-subtle; 
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  box-shadow: $shadow-card; 
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .brand-badge {
+    display: inline-block;
+    background-color: $bg-canvas; 
+    color: $primary;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    border: 1px solid $border-default;
+    margin-bottom: 10px;
+    font-family: monospace;
+  }
+
+  h2 {
+    color: $text-primary;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+
+  label {
+    display: block;
+    color: $text-secondary;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.input-wrapper {
+  position: relative;
+  
+  &.has-icon {
+    input { padding-right: 40px; }
+  }
+
+  .toggle-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: $text-secondary;
+    font-size: 1.2rem;
+    user-select: none;
+    
+    &:hover { color: $primary; }
+  }
+}
+
+.form-control {
+  width: 100%;
+  background-color: $bg-input;
+  border: 1px solid $border-default;
+  color: $text-primary;
+  padding: 10px 12px;
+  border-radius: $radius-sm;
+  transition: all 0.2s;
+  font-family: inherit;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 2px $border-active; 
+    outline: none;
+  }
+  
+  &.ng-touched.ng-invalid {
+    border-color: $danger;
+  }
+}
+
+.error-msg {
+  color: $danger;
+  font-size: 0.75rem;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  &::before { content: "⚠ "; margin-right: 4px; }
+}
+
+.captcha-group {
+  background-color: $bg-canvas; 
+  padding: 10px;
+  border: 1px dashed $border-default;
+  border-radius: $radius-sm;
+  
+  label span { color: $primary; font-weight: bold; font-family: monospace; font-size: 1.1em; }
+  .warn-text { color: $danger; font-weight: bold; margin-bottom: 5px; }
+}
+
+.btn-tech {
+  width: 100%;
+  padding: 12px;
+  background-color: $primary;
+  color: $text-primary; 
+  border: none;
+  border-radius: $radius-sm;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.2s, transform 0.1s;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+
+  &:hover {
+    background-color: $primary-hover;
+    box-shadow: 0 0 10px $border-active;
+  }
+
+  &:active { transform: scale(0.98); }
+  &:disabled { background-color: $border-default; color: $text-secondary; cursor: not-allowed; }
+}
+
+.tech-link {
+  color: $primary;
+  font-family: monospace;
+  font-weight: bold;
+  text-decoration: none;
+  &:hover { text-decoration: underline; color: $primary-hover; }
+}
+
+.tech-link-sm {
+  @extend .tech-link;
+  font-size: 0.75rem;
+}
+
+.card-footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: $text-secondary;
+  border-top: 1px solid $border-default;
+  padding-top: 1rem;
+}
+
+.alert-box {
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: $radius-sm;
+  font-size: 0.85rem;
+  text-align: center;
+  
+  &.error {
+    background-color: $bg-input;
+    border: 1px solid $danger;
+    color: $danger;
+  }
+  
+  &.success {
+    background-color: $bg-input;
+    border: 1px solid $success;
+    color: $success;
+  }
+}

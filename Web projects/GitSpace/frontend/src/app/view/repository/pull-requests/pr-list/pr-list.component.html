@@ -1,0 +1,45 @@
+<div class="pr-container">
+  
+  <div class="pr-toolbar">
+    <div class="search-box">
+      <i class="pi pi-search"></i>
+      <input type="text" placeholder="is:pr is:open" class="filter-input">
+    </div>
+    <a [routerLink]="['new']" class="btn-tech">New Pull Request</a>
+  </div>
+
+  <div class="list-header">
+    <div class="states">
+      <span class="state active"><i class="pi pi-sitemap"></i> Open</span>
+      <span class="state"><i class="pi pi-check"></i> Closed</span>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-area">
+    <div class="cyber-loader-sm"></div> Loading pull requests...
+  </div>
+
+  <div class="pr-list" *ngIf="!loading">
+    <div *ngFor="let pr of prs" class="pr-row">
+      <div class="icon-col">
+        <i class="pi pi-sitemap open-icon" *ngIf="pr.state === 'OPEN'"></i>
+        <i class="pi pi-check-circle merged-icon" *ngIf="pr.state === 'MERGED'"></i>
+        <i class="pi pi-times-circle closed-icon" *ngIf="pr.state === 'CLOSED'"></i>
+      </div>
+      <div class="content-col">
+        <a [routerLink]="[pr.prNumber]" class="pr-title">{{ pr.title }}</a>
+        <div class="pr-meta">
+          #{{ pr.prNumber }} opened on {{ pr.createdAt | date }} by {{ pr.authorUsername }} 
+          <span class="branches">
+            ({{ pr.fromBranch }} <i class="pi pi-arrow-right"></i> {{ pr.toBranch }})
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="prs.length === 0" class="empty-state">
+      <i class="pi pi-sitemap"></i>
+      <h3>No pull requests found.</h3>
+    </div>
+  </div>
+</div>

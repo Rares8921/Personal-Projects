@@ -1,0 +1,195 @@
+<div class="browser-container">
+
+  <div class="browser-controls">
+    <div class="branch-picker">
+      <button class="btn-branch" (click)="toggleBranchDropdown()">
+        <i class="pi pi-share-alt"></i> {{ branch }}
+        <i class="pi pi-chevron-down" [ngClass]="{'rotated': showBranchDropdown}"></i>
+      </button>
+      <div class="branch-dropdown" *ngIf="showBranchDropdown">
+        <div class="branch-option"
+             *ngFor="let branchOption of branches"
+             [ngClass]="{'active': branchOption === branch}"
+             (click)="selectBranch(branchOption)">
+          {{ branchOption }}
+        </div>
+      </div>
+    </div>
+
+    <div class="path-breadcrumbs">
+      <span class="root-link" (click)="router.navigate(['./'], {relativeTo: route.parent})">{{ repoName }}</span>
+      <span class="divider">/</span>
+      <span class="current-path">{{ currentPath || '' }}</span>
+    </div>
+
+    <div class="file-actions">
+      <a [routerLink]="['./new-file']" class="btn-add-file">
+          <i class="pi pi-plus"></i> Add File
+      </a>
+      <div class="code-dropdown-wrapper">
+        <button class="btn-code" (click)="toggleCodeDropdown()">
+          <i class="pi pi-code"></i> Code
+          <i class="pi pi-chevron-down" [ngClass]="{'rotated': showCodeDropdown}"></i>
+        </button>
+        <div class="code-dropdown" *ngIf="showCodeDropdown">
+          <div class="dropdown-header">
+            <i class="pi pi-clone"></i>
+            <span>Clone</span>
+          </div>
+          <div class="clone-section">
+            <div class="clone-tabs">
+              <button
+                class="clone-tab"
+                [ngClass]="{'active': cloneType === 'https'}"
+                (click)="cloneType = 'https'">
+                HTTPS
+              </button>
+              <button
+                class="clone-tab"
+                [ngClass]="{'active': cloneType === 'ssh'}"
+                (click)="cloneType = 'ssh'">
+                SSH
+              </button>
+            </div>
+            <div class="clone-url-box">
+              <input
+                type="text"
+                [value]="getCloneUrl()"
+                readonly
+                class="clone-url-input"
+                #cloneUrlInput>
+              <button
+                class="copy-btn"
+                (click)="copyCloneUrl(cloneUrlInput)"
+                [ngClass]="{'copied': copySuccess}">
+                <i class="pi" [ngClass]="copySuccess ? 'pi-check' : 'pi-copy'"></i>
+              </button>
+            </div>
+            <p class="clone-hint">Use Git CLI to clone this repository.</p>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-action" (click)="downloadZip()">
+            <i class="pi pi-download"></i>
+            Download ZIP
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">
+    <div class="cyber-loader-sm"></div>
+    <span>Fetching tree...</span>
+  </div>
+
+  <div *ngIf="error" class="error-msg">
+    <i class="pi pi-times-circle"></i> {{ error }}
+  </div>
+
+  <div class="file-card" *ngIf="!loading && !error">
+    <div class="file-header-meta">
+      <div class="last-commit">
+        <span class="user">{{ lastCommitAuthor || username }}</span>
+        <span class="msg">{{ lastCommitMessage || 'Initial commit' }}</span>
+        <span class="time">{{ lastCommitTime || '' }}</span>
+      </div>
+      <div class="history-link" (click)="goToCommits()">
+        <i class="pi pi-history"></i> <strong>{{ commitsCount }}</strong> {{ commitsCount === 1 ? 'commit' : 'commits' }}
+      </div>
+    </div>
+
+    <table class="file-table">
+      <tbody>
+        <tr *ngIf="currentPath" class="row-up">
+          <td class="icon-col"><i class="pi pi-ellipsis-h"></i></td>
+          <td class="name-col"><a (click)="goUp()" class="link-up">..</a></td>
+          <td class="msg-col"></td>
+          <td class="meta-col"></td>
+        </tr>
+
+        <tr *ngFor="let file of files" class="file-row">
+          <td class="icon-col">
+            <i class="pi" [ngClass]="file.type === 'tree' ? 'pi-folder folder-icon' : 'pi-file file-icon'"></i>
+          </td>
+          <td class="name-col">
+            <a (click)="navigate(file)" class="file-link">{{ file.name }}</a>
+          </td>
+          <td class="msg-col">
+            <span class="commit-msg-placeholder">Update {{ file.name }}</span>
+          </td>
+          <td class="meta-col">
+            {{ file.type === 'blob' ? formatSize(file.size) : '' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="readme-container" *ngIf="readmeContent">
+  
+  <div class="readme-header">
+    <i class="pi pi-book"></i> README.md
+  </div>
+
+  <div class="readme-content">
+    
+    <div class="toc-box" *ngIf="toc.length > 0">
+      <h4>Table of Contents</h4>
+      <ul>
+        <li *ngFor="let item of toc" [style.padding-left.px]="(item.level - 1) * 15">
+          <a href="#" (click)="scrollToAnchor(item.anchor, $event)">
+            {{ item.text }}
+          </a>
+        </li>
+      </ul>
+      <hr class="toc-divider">
+    </div>
+
+    <markdown [data]="readmeContent"></markdown>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !error && files.length === 0 && !isEmptyRepo" class="empty-folder">
+    <h3>This folder is empty.</h3>
+    <p>Navigate back or add files to this directory.</p>
+  </div>
+
+  <div *ngIf="isEmptyRepo && repo" class="empty-repo-container">
+    <h3>Quick setup — using your Custom Git CLI</h3>
+
+    <div class="code-block-wrapper">
+      <p><strong>Option 1: Create a new repository</strong></p>
+      <pre class="code-block">
+# 1. Initialize
+java -jar git-cli.jar init
+
+# 2. Create a file
+echo "# {{repo.name}}" > README.md
+
+# 3. Snapshot the directory (Copy the output HASH!)
+java -jar git-cli.jar write-tree
+# Output example: a1b2c3...
+
+# 4. Create Commit (Paste the TREE_HASH from above)
+java -jar git-cli.jar commit-tree &lt;TREE_HASH&gt; -m "Initial commit"
+
+# 5. Push (Requires Login first)
+java -jar git-cli.jar login
+java -jar git-cli.jar push {{repo.cloneUrlHttp}} master
+      </pre>
+
+      <p><strong>Option 2: Push existing folder</strong></p>
+      <pre class="code-block">
+# Assuming you are in the project folder
+java -jar git-cli.jar login
+
+# Snapshot and Commit
+java -jar git-cli.jar write-tree
+java -jar git-cli.jar commit-tree &lt;TREE_HASH&gt; -m "Push existing"
+
+# Push to this remote
+java -jar git-cli.jar push {{repo.cloneUrlHttp}} master
+      </pre>
+    </div>
+  </div>
+</div>

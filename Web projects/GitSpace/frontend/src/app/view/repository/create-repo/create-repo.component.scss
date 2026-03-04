@@ -1,0 +1,180 @@
+@import 'src/assets/scss/variables';
+
+.create-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: calc(100vh - 60px);
+}
+
+.create-card {
+  width: 100%;
+  max-width: 600px;
+  
+  .card-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid $border-default;
+    padding-bottom: 10px;
+    
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: $text-primary;
+      margin-bottom: 5px;
+    }
+    p {
+      color: $text-secondary;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.owner-repo-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  .slash {
+    font-size: 1.5rem;
+    color: $text-secondary;
+    padding-bottom: 8px; 
+  }
+
+  .form-group {
+    flex: 1;
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      color: $text-primary;
+    }
+  }
+
+  .owner {
+    flex: 0 0 auto;
+    .static-input {
+      background: $bg-subtle;
+      border: 1px solid $border-default;
+      padding: 10px 15px;
+      border-radius: $radius-sm;
+      color: $text-primary;
+      font-family: monospace;
+      height: 42px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+  
+  label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: $text-primary;
+    
+    .optional {
+      font-weight: 400;
+      color: $text-secondary;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.cyber-input {
+  width: 100%;
+  background: $bg-canvas;
+  border: 1px solid $border-default;
+  color: $text-primary;
+  padding: 10px 12px;
+  border-radius: $radius-sm;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 2px rgba($primary, 0.2);
+    outline: none;
+  }
+}
+
+.error-text {
+  color: $danger;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid $border-default;
+  margin: 25px 0;
+}
+
+.visibility-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+
+  .radio-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: $radius-sm;
+    transition: background 0.2s;
+
+    &:hover { background: rgba($bg-subtle, 0.5); }
+    &.selected { 
+      background: rgba($primary, 0.05); 
+      .icon { color: $primary; }
+    }
+
+    input[type="radio"] { margin-top: 4px; }
+
+    .icon {
+      font-size: 1.5rem;
+      color: $text-secondary;
+    }
+
+    .details {
+      .title { display: block; font-weight: 600; color: $text-primary; }
+      .desc { font-size: 0.85rem; color: $text-secondary; }
+    }
+  }
+}
+
+.alert-error {
+  padding: 10px;
+  background: rgba($danger, 0.1);
+  border: 1px solid rgba($danger, 0.3);
+  color: $primary-hover;
+  border-radius: $radius-sm;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.btn-tech {
+  background: $success;
+  color: $text-primary;
+  border: none;
+  padding: 10px 20px;
+  border-radius: $radius-sm;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+
+  &.large { padding: 12px; font-size: 1rem; }
+
+  &:hover { background: $success-hover; box-shadow: 0 0 15px rgba($success, 0.3); }
+  &:disabled { background: $border-default; color: $text-secondary; cursor: not-allowed; box-shadow: none; }
+}

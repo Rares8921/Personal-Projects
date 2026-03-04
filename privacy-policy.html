@@ -8,15 +8,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        [lang]:not([lang="ro"]):not([lang="en"]) { display: none; }
+    </style>
 </head>
 <body class="bg-gray-50 font-sans">
     <!-- Navigation -->
     <nav class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-gray-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <a href="landing_page.html" class="text-xl font-bold text-blue-600 hover:text-blue-700">
-                    ← Înapoi la pagina principală
+                <a href="index.html" class="text-xl font-bold text-blue-600 hover:text-blue-700">
+                    <span lang="ro">← Înapo la pagina principală</span>
+                    <span lang="en">← Back to main page</span>
                 </a>
+                <div class="relative">
+                    <select id="language-selector" class="px-4 py-2 bg-white border-2 border-gray-200 rounded-lg font-semibold text-gray-700 hover:border-blue-500 focus:border-blue-600 focus:outline-none transition-colors cursor-pointer appearance-none pr-10">
+                        <option value="ro">🇷🇴 Română</option>
+                        <option value="en">🇬🇧 English</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="fr">🇫🇷 Français</option>
+                        <option value="de">🇩🇪 Deutsch</option>
+                        <option value="it">🇮🇹 Italiano</option>
+                        <option value="pt">🇵🇹 Português</option>
+                        <option value="pl">🇵🇱 Polski</option>
+                        <option value="hu">🇭🇺 Magyar</option>
+                        <option value="cs">🇨🇿 Čeština</option>
+                    </select>
+                    <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
             </div>
         </div>
     </nav>
@@ -25,8 +46,14 @@
     <div class="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
             <div class="bg-white rounded-2xl shadow-lg p-8 sm:p-12">
-                <h1 class="text-4xl font-black text-gray-900 mb-4">Politica de Confidențialitate</h1>
-                <p class="text-sm text-gray-500 mb-8">Ultima actualizare: 1 Martie 2026</p>
+                <h1 class="text-4xl font-black text-gray-900 mb-4">
+                    <span lang="ro">Politica de Confidențialitate</span>
+                    <span lang="en">Privacy Policy</span>
+                </h1>
+                <p class="text-sm text-gray-500 mb-8">
+                    <span lang="ro">Ultima actualizare: 1 Martie 2026</span>
+                    <span lang="en">Last updated: March 1, 2026</span>
+                </p>
                 
                 <div class="prose prose-lg max-w-none">
                     <section class="mb-8">
@@ -183,13 +210,55 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-8 px-4">
         <div class="max-w-4xl mx-auto text-center text-sm">
-            <p>&copy; 2026 Rareș Cososilă-Dumitriu. Toate drepturile rezervate.</p>
+            <p>&copy; 2026 Rareș Cososilă-Dumitriu. <span lang="ro">Toate drepturile rezervate.</span><span lang="en">All rights reserved.</span></p>
             <div class="mt-4 space-x-4">
-                <a href="landing_page.html" class="hover:text-white transition-colors">Pagina Principală</a>
-                <a href="terms.html" class="hover:text-white transition-colors">Termeni și Condiții</a>
+                <a href="index.html" class="hover:text-white transition-colors"><span lang="ro">Pagina Principală</span><span lang="en">Home</span></a>
+                <a href="terms.html" class="hover:text-white transition-colors"><span lang="ro">Termeni și Condiții</span><span lang="en">Terms & Conditions</span></a>
                 <a href="gdpr-compliance.html" class="hover:text-white transition-colors">GDPR Compliance</a>
             </div>
         </div>
     </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const languageSelector = document.getElementById('language-selector');
+        const supportedLangs = ['ro', 'en'];
+        let currentLang = localStorage.getItem('preferredLanguage') || 'en';
+        
+        // Fallback to English if selected language is not supported for this page
+        if (!supportedLangs.includes(currentLang)) {
+            currentLang = 'en';
+        }
+
+        const pageTitles = {
+            ro: 'Politica de Confidențialitate | Rareș Cososilă - Backend Architect',
+            en: 'Privacy Policy | Rareș Cososilă - Backend Architect'
+        };
+
+        function setLanguage(lang) {
+            // Use fallback for unsupported languages
+            const effectiveLang = supportedLangs.includes(lang) ? lang : 'en';
+            currentLang = effectiveLang;
+            document.documentElement.lang = effectiveLang;
+            
+            // Save original selection to localStorage
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // Update page title
+            document.title = pageTitles[effectiveLang] || pageTitles.en;
+            
+            // Show/hide elements based on language
+            document.querySelectorAll('[lang]').forEach(el => {
+                el.style.display = el.lang === effectiveLang ? 'inline' : 'none';
+            });
+            
+            // Update selector value to show original selection
+            languageSelector.value = lang;
+        }
+
+        languageSelector.addEventListener('change', (e) => setLanguage(e.target.value));
+        setLanguage(currentLang);
+    });
+    </script>
 </body>
 </html>

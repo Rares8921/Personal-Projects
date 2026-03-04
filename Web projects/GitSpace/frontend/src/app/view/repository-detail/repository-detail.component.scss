@@ -1,0 +1,187 @@
+@import 'src/assets/scss/variables';
+
+.repo-layout-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: calc(100vh - 60px);
+}
+
+.repo-header {
+  margin-bottom: 20px;
+  background-color: $bg-subtle;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  padding: 20px 20px 0 20px;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.repo-identity {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  color: $text-secondary;
+
+  i {
+    margin-right: 10px;
+  }
+
+  a {
+    color: $primary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .repo-link {
+    font-weight: 700;
+    color: $text-primary;
+  }
+
+  .divider {
+    margin: 0 5px;
+    color: $text-secondary;
+    opacity: 0.6;
+  }
+
+  .badge-public,
+  .badge-private {
+    margin-left: 15px;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 1px solid $border-default;
+    color: $text-secondary;
+  }
+}
+
+.repo-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .btn-group {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-tech-outline {
+    background: transparent;
+    border: 1px solid $border-default;
+    color: $text-primary;
+    padding: 5px 12px;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+
+    .count {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+    }
+
+    &:hover {
+      border-color: $text-secondary;
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+.repo-description {
+  color: $text-secondary;
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+}
+
+.repo-tabs {
+  display: flex;
+  gap: 25px;
+  border-top: 1px solid rgba($border-default, 0.5);
+
+  .tab-item {
+    padding: 12px 5px;
+    color: $text-secondary;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+
+    &:hover {
+      color: $text-primary;
+    }
+
+    &.active {
+      color: $text-primary;
+      font-weight: 600;
+      border-bottom-color: $primary;
+
+      i {
+        color: $primary;
+      }
+    }
+  }
+}
+
+.repo-content {
+  margin-top: 20px;
+  // router-outlet
+}
+
+.center-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  color: $text-secondary;
+
+  &.error {
+    color: $danger;
+  }
+
+  .cyber-loader {
+    width: 40px;
+    height: 40px;
+    border: 3px solid $primary;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.archived-banner {
+  background: rgba(210, 153, 34, 0.1);
+  border: 1px solid #d29922;
+  color: #d29922;
+  padding: 10px;
+  text-align: center;
+  border-radius: 6px;
+  margin-top: 10px;
+}

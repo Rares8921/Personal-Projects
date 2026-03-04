@@ -1,0 +1,74 @@
+<div class="settings-wrapper" *ngIf="repo">
+  <h3>Repository Settings</h3>
+
+  <div class="settings-card">
+    <h4>General</h4>
+    <form [formGroup]="settingsForm" (ngSubmit)="updateRepo()">
+
+      <div class="form-group">
+        <label>Repository Name</label>
+        <input type="text" [value]="repo?.name" disabled class="cyber-input disabled">
+        <p class="hint">Repository names cannot be changed at this time.</p>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" formControlName="description" class="cyber-input">
+      </div>
+
+      <div class="form-group">
+        <label>Visibility</label>
+        <div class="visibility-options">
+          <label class="visibility-option" [class.selected]="settingsForm.get('isPublic')?.value === true">
+            <input type="radio" [value]="true" formControlName="isPublic">
+            <div class="option-content">
+              <strong> Public</strong>
+              <p>Anyone on the internet can see this repository. You choose who can commit.</p>
+            </div>
+          </label>
+          <label class="visibility-option" [class.selected]="settingsForm.get('isPublic')?.value === false">
+            <input type="radio" [value]="false" formControlName="isPublic">
+            <div class="option-content">
+              <strong> Private</strong>
+              <p>Only you and collaborators you explicitly grant access can see this repository.</p>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-tech" [disabled]="loading">Update Settings</button>
+    </form>
+  </div>
+
+  <div class="settings-card">
+    <h4>Collaborators</h4>
+    <p>Manage who has access to this repository.</p>
+    <a [routerLink]="['./collaborators']" class="btn-tech-outline">
+      <i class="pi pi-users"></i> Manage Collaborators
+    </a>
+  </div>
+
+  <div class="settings-card danger-zone">
+    <h3>Archive Repository</h3>
+    <p>Marking a repository as archived makes it read-only.</p>
+    
+    <button *ngIf="!repo.isArchived" (click)="toggleArchive(true)" class="btn-danger">
+      <i class="pi pi-archive"></i> Archive this repository
+    </button>
+    
+    <button *ngIf="repo.isArchived" (click)="toggleArchive(false)" class="btn-danger">
+      <i class="pi pi-refresh"></i> Unarchive repository
+    </button>
+  </div>
+
+  <div class="settings-card danger-zone">
+    <h4>Danger Zone</h4>
+    <div class="danger-row">
+      <div class="info">
+        <strong>Delete this repository</strong>
+        <p>Once you delete a repository, there is no going back. Please be certain.</p>
+      </div>
+      <button type="button" class="btn-danger" (click)="deleteRepo()">Delete Repository</button>
+    </div>
+  </div>
+</div>

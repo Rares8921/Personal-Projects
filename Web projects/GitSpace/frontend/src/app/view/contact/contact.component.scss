@@ -1,0 +1,100 @@
+@import 'src/assets/scss/variables';
+
+.contact-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  width: 100%;
+  background: $bg-subtle;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.info-panel {
+  background: $bg-canvas;
+  padding: 40px;
+  border-right: 1px solid $border-default;
+  
+  h2 { font-size: 2rem; color: $primary; margin: 0 0 10px 0; }
+  .subtitle { color: $text-secondary; margin-bottom: 40px; line-height: 1.5; }
+
+  .info-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    
+    i { 
+      font-size: 1.5rem; 
+      color: $primary; 
+      background: rgba($primary, 0.1); 
+      width: 50px; height: 50px; 
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+    }
+
+    div {
+      span { display: block; font-weight: 700; color: $text-primary; font-size: 0.9rem; margin-bottom: 5px; }
+      p { margin: 0; color: $text-secondary; font-family: monospace; font-size: 0.9rem; }
+    }
+  }
+}
+
+.form-panel {
+  padding: 40px;
+  
+  .form-group {
+    margin-bottom: 20px;
+    label { display: block; margin-bottom: 8px; font-weight: 600; color: $text-primary; font-size: 0.9rem; }
+    .error-hint { color: $danger; font-size: 0.8rem; margin-top: 5px; }
+  }
+
+  .cyber-input {
+    width: 100%;
+    background: $bg-canvas-hover;
+    border: 1px solid $border-default;
+    color: $text-primary;
+    padding: 12px;
+    border-radius: $radius-sm;
+    &:focus { border-color: $primary; outline: none; }
+  }
+
+  .btn-tech {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    background: $primary;
+    color: $text-primary;
+    border: none;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    &:hover { background: $text-primary-dim; }
+    &:disabled { background: $border-default; cursor: not-allowed; }
+  }
+}
+
+.success-message {
+  text-align: center;
+  padding: 40px;
+  
+  i { font-size: 4rem; color: $success; margin-bottom: 20px; }
+  h3 { color: $text-primary; margin-bottom: 10px; }
+  p { color: $text-secondary; margin-bottom: 30px; }
+}

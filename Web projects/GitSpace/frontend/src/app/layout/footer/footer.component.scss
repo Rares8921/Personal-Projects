@@ -1,0 +1,144 @@
+@import 'src/assets/scss/variables';
+
+:host {
+  display: block;
+  margin-top: auto; 
+}
+
+.app-footer {
+  background-color: $bg-subtle;
+  border-top: 1px solid $border-default;
+  padding: 30px 0;
+  font-size: 0.9rem;
+  color: $text-secondary;
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.brand-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $text-primary;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    
+    i { color: $primary; }
+  }
+
+  .copyright {
+    margin: 0;
+    font-size: 0.75rem;
+    opacity: 0.6;
+  }
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: $bg-canvas; 
+  padding: 6px 12px;
+  border: 1px solid $border-default;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.8rem;
+
+  .label {
+    color: $text-secondary;
+    font-weight: 600;
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: $success; 
+    
+    .led-light {
+      width: 8px;
+      height: 8px;
+      background-color: $success;
+      border-radius: 50%;
+      box-shadow: 0 0 5px rgba($success, 0.6); 
+      animation: pulse 2s infinite;
+    }
+
+    .status-text {
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+
+  a {
+    color: $text-secondary;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    position: relative;
+
+    &:hover {
+      color: $primary;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: $primary;
+      transition: width 0.2s;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; box-shadow: 0 0 2px rgba($success, 0.2); }
+  50% { opacity: 1; box-shadow: 0 0 8px rgba($success, 0.8); }
+  100% { opacity: 0.5; box-shadow: 0 0 2px rgba($success, 0.2); }
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 25px;
+  }
+
+  .brand-section, .system-status, .footer-links {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

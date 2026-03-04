@@ -1,0 +1,91 @@
+:root {
+  --bg-canvas: #050b14;
+  --bg-canvas-hover: #0a0e14; 
+  
+  --bg-subtle: #0f1623;
+  --bg-input:  #080c11;
+
+  --border-default: #1e2a3b;
+  --border-active: #3b82f6;
+
+  --text-primary: #e2e8f0;
+  --text-primary-dim: #94a3b8; 
+  
+  --text-secondary: #94a3b8;
+  --text-secondary-dim: #475569;
+  
+  --text-inverse: #ffffff;
+
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8; 
+  
+  --danger: #f85149;
+  --danger-hover: #fca5a5;
+
+  --success: #238636;
+  --success-hover: #2ea043;
+
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-canvas: #ffffff;
+  --bg-canvas-hover: #f1f5f9;
+  
+  --bg-subtle: #f8fafc;
+  --bg-input:  #ffffff;
+
+  --border-default: #e2e8f0;
+  --border-active: #2563eb;
+
+  --text-primary: #0f172a;
+  --text-primary-dim: #334155;
+
+  --text-secondary: #64748b;
+  --text-secondary-dim: #94a3b8;
+  
+  --text-inverse: #ffffff;
+
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+
+  --danger: #ef4444;
+  --danger-hover: #f87171;
+
+  --success: #22c55e;
+  --success-hover: #16a34a;
+
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+}
+
+$bg-canvas: var(--bg-canvas);
+$bg-canvas-hover: var(--bg-canvas-hover);
+
+$bg-subtle: var(--bg-subtle);
+$bg-input:  var(--bg-input);
+
+$border-default: var(--border-default);
+$border-active: var(--border-active);
+
+$text-primary: var(--text-primary);
+$text-primary-dim: var(--text-primary-dim);
+
+$text-secondary: var(--text-secondary);
+$text-secondary-dim: var(--text-secondary-dim);
+
+$text-inverse: var(--text-inverse);
+
+$primary: var(--primary);
+$primary-hover: var(--primary-hover);
+
+$danger: var(--danger);
+$danger-hover: var(--danger-hover);
+
+$success: var(--success);
+$success-hover: var(--success-hover);
+
+$radius-sm: 4px;
+$radius-md: 8px;
+$shadow-card: var(--shadow-card);
+
+$font-stack: 'JetBrains Mono', 'Segoe UI', monospace, sans-serif;

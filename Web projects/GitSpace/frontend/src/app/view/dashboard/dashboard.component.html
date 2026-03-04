@@ -1,0 +1,101 @@
+<div class="dashboard-wrapper">
+  
+  <aside class="dash-sidebar left">
+    
+    <div class="profile-card" *ngIf="currentUser">
+      <div class="avatar-container">
+        <a [routerLink]="['/user', currentUser.username]" class="avatar-link">
+          <img [src]="currentUser.avatarUrl || 'assets/static/default-avatar.jpg'" alt="Avatar">
+        </a>
+      </div>
+      <div class="profile-info">
+        <a [routerLink]="['/user', currentUser.username]" class="username-link">
+          <span class="username">{{ currentUser.username }}</span>
+        </a>
+        <a routerLink="/settings" class="edit-link">Settings</a>
+      </div>
+    </div>
+
+    <div class="repo-panel">
+      <div class="panel-header">
+        <h3>Repositories</h3>
+        <a routerLink="/new" class="btn-icon-new" title="Create New Repository">
+          <i class="pi pi-plus"></i>
+        </a>
+      </div>
+
+      <div class="filter-box">
+        <input type="text" [(ngModel)]="repoFilter" placeholder="Filter..." class="cyber-input-sm">
+      </div>
+
+      <div *ngIf="loadingRepos" class="loading-state">
+        <i class="pi pi-spin pi-spinner"></i> Syncing...
+      </div>
+
+      <ul class="repo-list" *ngIf="!loadingRepos">
+        <li *ngFor="let repo of filteredRepos">
+          <div class="repo-item">
+            <div class="repo-icon">
+              <i class="pi" [ngClass]="repo.isPublic ? 'pi-book' : 'pi-lock'"></i>
+            </div>
+            <div class="repo-details">
+              <a [routerLink]="['/repo', repo.ownerUsername, repo.name]" class="repo-link">
+                {{ repo.ownerUsername }} / <strong>{{ repo.name }}</strong>
+              </a>
+              <span class="repo-meta" *ngIf="repo.language">
+                <span class="lang-dot"></span> {{ repo.language }}
+              </span>
+            </div>
+          </div>
+        </li>
+        <li *ngIf="filteredRepos.length === 0 && !loadingRepos" class="empty-list">
+          No repositories found.
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="dash-feed">
+    <div class="feed-header">
+      <h2>System Activity Log</h2>
+      <span class="live-indicator">LIVE</span>
+    </div>
+
+    <div *ngIf="loadingActivity" class="loading-container">
+      <div class="cyber-loader"></div>
+      <p>Retrieving data stream...</p>
+    </div>
+
+    <div *ngIf="!loadingActivity && activities.length === 0" class="empty-feed">
+      <i class="pi pi-inbox"></i>
+      <p>No recent activity detected in your network.</p>
+    </div>
+
+    <div class="activity-stream" *ngIf="!loadingActivity && activities.length > 0">
+      <div *ngFor="let act of activities" class="activity-entry">
+        <div class="act-icon">
+          <i [class]="getActivityIcon(act.type)"></i>
+        </div>
+        <div class="act-content">
+          <div class="act-header">
+            <a [routerLink]="['/user', act.actorUsername]" class="actor-link">{{ act.actorUsername }}</a>
+            <span class="action-desc">{{ act.description }}</span>
+          </div>
+          <div class="act-target">
+            in <a class="target-link">{{ act.repoName }}</a>
+          </div>
+          <div class="act-time">{{ act.timestamp | date:'medium' }}</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="dash-sidebar right">
+    <div class="info-panel">
+      <h3>Explore</h3>
+      <p class="desc-text">Discover public snippets and repositories from the community.</p>
+      <a routerLink="/snippets" class="cyber-link">>> Browse Snippets</a>
+    </div>
+  </aside>
+
+</div>

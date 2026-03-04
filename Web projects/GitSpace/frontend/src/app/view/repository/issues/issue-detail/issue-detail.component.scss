@@ -1,0 +1,350 @@
+@import 'src/assets/scss/variables';
+
+.detail-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.issue-head {
+  border-bottom: 1px solid $border-default;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+
+  h1 { 
+    margin: 0 0 10px 0; 
+    font-size: 1.8rem; 
+    color: $text-primary;
+    .num { color: $text-secondary; font-weight: 300; }
+  }
+
+  .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    color: $text-primary;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    
+    &.open { background: $success; }
+    &.closed { background: $danger; }
+  }
+
+  .meta-text { color: $text-secondary; font-size: 0.9rem; }
+}
+
+.timeline {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px; 
+    width: 2px;
+    background: $border-default;
+    z-index: 0;
+  }
+}
+
+.timeline-item {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 1;
+
+  .avatar-col {
+    flex: 0 0 40px;
+    .avatar {
+      width: 40px;
+      height: 40px;
+      background: $bg-subtle;
+      border: 1px solid $border-default;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: $primary;
+    }
+  }
+
+  .content-box {
+    flex: 1;
+    background: $bg-canvas;
+    border: 1px solid $border-default;
+    border-radius: $radius-sm;
+    
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: -6px;
+      width: 10px;
+      height: 10px;
+      background: $bg-subtle; 
+      border-left: 1px solid $border-default;
+      border-bottom: 1px solid $border-default;
+      transform: rotate(45deg);
+    }
+
+    .box-header {
+      background: $bg-subtle;
+      padding: 10px 15px;
+      border-bottom: 1px solid $border-default;
+      font-size: 0.85rem;
+      color: $text-secondary;
+      strong { color: $text-primary; }
+    }
+
+    .box-body {
+      padding: 15px;
+      color: $text-primary;
+      font-size: 0.95rem;
+      white-space: pre-wrap;
+      
+      &.no-pad { padding: 0; }
+      
+      textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        padding: 15px;
+        color: $text-primary;
+        resize: vertical;
+        &:focus { outline: none; }
+      }
+    }
+
+    .box-footer {
+      padding: 10px 15px;
+      border-top: 1px solid $border-default;
+      background: $bg-subtle;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+  }
+}
+
+// Markdown rendering styles
+.box-body {
+  :global {
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    h1 { font-size: 1.5em; border-bottom: 1px solid $border-default; padding-bottom: 0.3em; }
+    h2 { font-size: 1.25em; border-bottom: 1px solid $border-default; padding-bottom: 0.3em; }
+    h3 { font-size: 1.1em; }
+    h4 { font-size: 1em; }
+    h5 { font-size: 0.9em; }
+    h6 { font-size: 0.8em; color: $text-secondary; }
+
+    p { margin: 0.5em 0; }
+
+    ul, ol {
+      margin: 0.5em 0;
+      padding-left: 2em;
+    }
+
+    li { margin: 0.25em 0; }
+
+    code {
+      background: $bg-subtle;
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.9em;
+    }
+
+    pre {
+      background: $bg-subtle;
+      padding: 1em;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 1em 0;
+
+      code {
+        background: none;
+        padding: 0;
+        border-radius: 0;
+      }
+    }
+
+    blockquote {
+      border-left: 4px solid $border-default;
+      padding-left: 1em;
+      margin: 1em 0;
+      color: $text-secondary;
+      font-style: italic;
+    }
+
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+
+    a {
+      color: $primary;
+      text-decoration: none;
+
+      &:hover { text-decoration: underline; }
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 1em 0;
+      width: 100%;
+
+      th, td {
+        border: 1px solid $border-default;
+        padding: 0.5em 1em;
+        text-align: left;
+      }
+
+      th {
+        background: $bg-subtle;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.comment-tabs {
+  display: flex;
+  border-bottom: 1px solid $border-default;
+  margin-bottom: 10px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: $text-secondary;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+
+  &:hover {
+    color: $text-primary;
+  }
+
+  &.active {
+    color: $primary;
+    border-bottom-color: $primary;
+  }
+}
+
+.comment-preview {
+  min-height: 120px;
+  padding: 10px;
+  background: $bg-canvas;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  // Include markdown styles for comments
+  :global {
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1em;
+      margin-bottom: 0.25em;
+      font-weight: 600;
+      line-height: 1.25;
+      font-size: 0.9em;
+    }
+
+    p { margin: 0.25em 0; }
+
+    ul, ol {
+      margin: 0.25em 0;
+      padding-left: 1.5em;
+    }
+
+    li { margin: 0.125em 0; }
+
+    code {
+      background: $bg-subtle;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.8em;
+    }
+
+    pre {
+      background: $bg-subtle;
+      padding: 0.5em;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+
+      code {
+        background: none;
+        padding: 0;
+        border-radius: 0;
+      }
+    }
+
+    blockquote {
+      border-left: 3px solid $border-default;
+      padding-left: 0.75em;
+      margin: 0.5em 0;
+      color: $text-secondary;
+      font-style: italic;
+      font-size: 0.9em;
+    }
+
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+
+    a {
+      color: $primary;
+      text-decoration: none;
+
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+// Clickable avatars and user links
+.avatar-link {
+  text-decoration: none;
+  display: block;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .avatar {
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+.user-link {
+  color: $text-primary;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $primary;
+    text-decoration: underline;
+  }
+}

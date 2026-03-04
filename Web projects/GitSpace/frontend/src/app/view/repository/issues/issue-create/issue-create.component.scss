@@ -1,0 +1,138 @@
+@import 'src/assets/scss/variables';
+
+.create-issue-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.form-container {
+  background: $bg-subtle;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  padding: 20px;
+
+  h3 { margin-top: 0; color: $text-primary; border-bottom: 1px solid $border-default; padding-bottom: 15px; }
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.cyber-input {
+  width: 100%;
+  background: $bg-canvas;
+  border: 1px solid $border-default;
+  color: $text-primary;
+  padding: 10px;
+  border-radius: $radius-sm;
+  
+  &:focus { border-color: $primary; outline: none; }
+  
+  &.title-input { font-size: 1.1rem; font-weight: 600; }
+  &.body-input { font-family: monospace; font-size: 0.9rem; }
+}
+
+.actions {
+  text-align: right;
+}
+
+.editor-tabs {
+  display: flex;
+  border-bottom: 1px solid $border-default;
+  margin-bottom: 10px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: $text-secondary;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+
+  &:hover {
+    color: $text-primary;
+  }
+
+  &.active {
+    color: $primary;
+    border-bottom-color: $primary;
+  }
+}
+
+.preview-container {
+  min-height: 200px;
+  padding: 15px;
+  background: $bg-canvas;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  // Include markdown styles
+  :global {
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    h1 { font-size: 1.5em; border-bottom: 1px solid $border-default; padding-bottom: 0.3em; }
+    h2 { font-size: 1.25em; border-bottom: 1px solid $border-default; padding-bottom: 0.3em; }
+    h3 { font-size: 1.1em; }
+    h4 { font-size: 1em; }
+    h5 { font-size: 0.9em; }
+    h6 { font-size: 0.8em; color: $text-secondary; }
+
+    p { margin: 0.5em 0; }
+
+    ul, ol {
+      margin: 0.5em 0;
+      padding-left: 2em;
+    }
+
+    li { margin: 0.25em 0; }
+
+    code {
+      background: $bg-subtle;
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.9em;
+    }
+
+    pre {
+      background: $bg-subtle;
+      padding: 1em;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 1em 0;
+
+      code {
+        background: none;
+        padding: 0;
+        border-radius: 0;
+      }
+    }
+
+    blockquote {
+      border-left: 4px solid $border-default;
+      padding-left: 1em;
+      margin: 1em 0;
+      color: $text-secondary;
+      font-style: italic;
+    }
+
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+
+    a {
+      color: $primary;
+      text-decoration: none;
+
+      &:hover { text-decoration: underline; }
+    }
+  }
+}

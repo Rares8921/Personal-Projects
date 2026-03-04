@@ -1,0 +1,73 @@
+<div class="contact-wrapper">
+  <div class="contact-grid">
+    
+    <div class="info-panel">
+      <h2>Contact Us</h2>
+      <p class="subtitle">Have questions or need support? Initialize a communication channel.</p>
+      
+      <div class="info-item">
+        <i class="pi pi-map-marker"></i>
+        <div>
+          <span>Headquarters</span>
+          <p>Sector 1, Bucharest, Romania</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <i class="pi pi-envelope"></i>
+        <div>
+          <span>Email</span>
+          <p>support@dacia-git.internal</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <i class="pi pi-globe"></i>
+        <div>
+          <span>Network</span>
+          <p>intranet.dacia.local</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-panel">
+      
+      <div *ngIf="sent" class="success-message">
+        <i class="pi pi-check-circle"></i>
+        <h3>Message Transmitted</h3>
+        <p>Our support droids will analyze your request shortly.</p>
+        <button class="btn-tech-outline" (click)="sent = false">Send Another</button>
+      </div>
+
+      <form [formGroup]="contactForm" (ngSubmit)="submit()" *ngIf="!sent">
+        <div class="form-group">
+          <label>Identity (Name)</label>
+          <input type="text" formControlName="name" class="cyber-input">
+        </div>
+
+        <div class="form-group">
+          <label>Communication Frequency (Email)</label>
+          <input type="email" formControlName="email" class="cyber-input">
+        </div>
+
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" formControlName="subject" class="cyber-input">
+        </div>
+
+        <div class="form-group">
+          <label>Directive (Message)</label>
+          <textarea formControlName="message" rows="5" class="cyber-input"></textarea>
+          <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="error-hint">
+            Minimum 20 characters required.
+          </div>
+        </div>
+
+        <button type="submit" class="btn-tech" [disabled]="contactForm.invalid || loading">
+          {{ loading ? 'Transmitting...' : 'Send Message' }}
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>

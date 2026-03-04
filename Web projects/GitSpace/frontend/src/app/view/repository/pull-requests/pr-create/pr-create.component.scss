@@ -1,0 +1,56 @@
+@import 'src/assets/scss/variables';
+
+.create-pr-wrapper { 
+    max-width: 900px; 
+    margin: 0 auto; 
+    padding: 20px 0; 
+}
+
+.form-container { 
+    background: $bg-subtle; 
+    border: 1px solid $border-default; 
+    border-radius: $radius-sm; 
+    padding: 20px; 
+}
+
+.cyber-input { 
+    width: 100%; 
+    background: $bg-canvas; 
+    border: 1px solid $border-default; 
+    color: $text-primary; 
+    padding: 10px; 
+    border-radius: $radius-sm; 
+}
+
+.actions { 
+    text-align: right; 
+    margin-top: 15px; 
+}
+
+.branch-selection {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  background: $bg-canvas;
+  padding: 15px;
+  border-radius: $radius-sm;
+  border: 1px solid $border-default;
+
+    .form-group { 
+        margin-bottom: 0; 
+        flex: 1; 
+    }
+    .arrow {
+        color: $text-secondary;
+        font-size: 1.2rem;
+        margin-top: 20px; 
+    } // aliniat cu input
+  
+    label { 
+        display: block;
+        font-size: 0.8rem;
+        color: $text-secondary;
+        margin-bottom: 5px;
+    }
+}

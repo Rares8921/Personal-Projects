@@ -1,0 +1,76 @@
+<div class="create-wrapper">
+  <div class="create-card">
+    <div class="card-header">
+      <h2>Initialize Repository</h2>
+      <p>Create a new Git repository to host your project.</p>
+    </div>
+
+    <form [formGroup]="repoForm" (ngSubmit)="onSubmit()">
+      
+      <div class="owner-repo-group">
+        <div class="form-group owner">
+          <label>Owner</label>
+          <div class="static-input">{{ (authService.currentUser$ | async)?.username }}</div>
+        </div>
+        <span class="slash">/</span>
+        <div class="form-group repo-name">
+          <label>Repository Name</label>
+          <input type="text" class="cyber-input" formControlName="name" placeholder="my-awesome-project">
+          <div *ngIf="f.name.touched && f.name.invalid" class="error-text">
+            Required. Use alphanumeric, hyphens, or underscores.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Description <span class="optional">(optional)</span></label>
+        <input type="text" class="cyber-input" formControlName="description" placeholder="Brief project overview...">
+      </div>
+
+      <hr class="divider">
+
+      <div class="form-group">
+        <label>Add a license <span class="optional">(optional)</span></label>
+        <p class="field-desc">A license tells others what they can and can't do with your code.</p>
+        <select class="cyber-input" formControlName="license">
+          <option value="None">None</option>
+          <option value="MIT">MIT License</option>
+          <option value="GPL-3.0">GNU GPLv3</option>
+          <option value="Apache-2.0">Apache License 2.0</option>
+        </select>
+      </div>
+
+      <div class="visibility-group">
+        <label class="radio-option" [class.selected]="f.isPublic.value === true">
+          <input type="radio" formControlName="isPublic" [value]="true">
+          <div class="icon"><i class="pi pi-book"></i></div>
+          <div class="details">
+            <span class="title">Public</span>
+            <span class="desc">Anyone on the internet can see this repository. You choose who can commit.</span>
+          </div>
+        </label>
+
+        <label class="radio-option" [class.selected]="f.isPublic.value === false">
+          <input type="radio" formControlName="isPublic" [value]="false">
+          <div class="icon"><i class="pi pi-lock"></i></div>
+          <div class="details">
+            <span class="title">Private</span>
+            <span class="desc">You choose who can see and commit to this repository.</span>
+          </div>
+        </label>
+      </div>
+
+      <div *ngIf="error" class="alert-error">
+        {{ error }}
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn-tech large" [disabled]="loading || repoForm.invalid">
+          <span *ngIf="!loading">Create Repository</span>
+          <span *ngIf="loading"><i class="pi pi-spin pi-spinner"></i> Initializing...</span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

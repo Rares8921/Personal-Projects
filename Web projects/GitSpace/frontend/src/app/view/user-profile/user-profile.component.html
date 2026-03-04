@@ -1,0 +1,83 @@
+<div class="profile-container" *ngIf="profile; else loadingTpl">
+  
+  <aside class="profile-sidebar">
+    <div class="avatar-box">
+      <img [src]="profile.avatarUrl || 'assets/static/default-avatar.jpg'" alt="Avatar">
+    </div>
+    
+    <div class="names">
+      <h1>{{ profile.fullName }}</h1>
+      <span class="username">{{ profile.username }}</span>
+    </div>
+
+    <div class="bio" *ngIf="profile.bio">{{ profile.bio }}</div>
+
+    <div class="meta-list">
+      <div class="meta-item" *ngIf="profile.location">
+        <i class="pi pi-map-marker"></i> {{ profile.location }}
+      </div>
+      <div class="meta-item" *ngIf="profile.website">
+        <i class="pi pi-link"></i> <a [href]="profile.website" target="_blank">{{ profile.website }}</a>
+      </div>
+      <div class="meta-item">
+        <i class="pi pi-users"></i> 
+        <strong>{{ profile.followers }}</strong> followers · 
+        <strong>{{ profile.following }}</strong> following
+      </div>
+    </div>
+    
+      <button *ngIf="currentUser !== profile.username" 
+            class="btn-tech-outline full-width"
+            [class.active]="profile.isFollowing || profile.isPending"
+            [disabled]="actionLoading"
+            (click)="onFollowAction()">
+      <i class="pi" [ngClass]="actionLoading ? 'pi-spin pi-spinner' : (profile.isFollowing ? 'pi-check' : 'pi-user-plus')"></i>
+      {{ getButtonText() }}
+    </button>
+  </aside>
+
+  <main class="profile-content">
+    <div class="tabs">
+      <span class="tab active">Repositories <span class="badge">{{ profile.repos.length }}</span></span>
+    </div>
+
+    <div class="repo-list">
+      <div class="repo-card-mini" *ngFor="let repo of profile.repos">
+        <div class="top-row">
+          <a [routerLink]="['/repo', profile.username, repo.name]" class="repo-name">{{ repo.name }}</a>
+          <span class="visibility-badge">{{ repo.isPublic ? 'Public' : 'Private' }}</span>
+        </div>
+        
+        <p class="desc">{{ repo.description }}</p>
+        
+        <div class="bottom-row">
+          <span class="lang" *ngIf="repo.language">
+            <span class="dot" [style.backgroundColor]="getLanguageColor(repo.language)"></span> 
+            {{ repo.language }}
+          </span>
+          <span class="stars" *ngIf="repo.starsCount > 0"><i class="pi pi-star"></i> {{ repo.starsCount }}</span>
+          <span class="updated">Updated on {{ repo.updatedAt | date }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="profile.repos.length === 0" class="empty-state">
+        <p>This user doesn't have any public repositories yet.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="loading-screen">
+    <div *ngIf="!error; else errorState">
+      <i class="pi pi-spin pi-spinner"></i> Accessing user database...
+    </div>
+    <ng-template #errorState>
+      <div class="error-msg">
+        <i class="pi pi-ban"></i>
+        <h3>User not found</h3>
+        <a routerLink="/" class="btn-tech-sm">Return to base</a>
+      </div>
+    </ng-template>
+  </div>
+</ng-template>

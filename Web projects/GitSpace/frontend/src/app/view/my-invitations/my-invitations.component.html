@@ -1,0 +1,55 @@
+<div class="invitations-container">
+    <header class="page-header">
+        <h2><i class="pi pi-envelope"></i> My Invitations</h2>
+        <p class="subtitle">Manage your repository collaboration invitations</p>
+    </header>
+
+    <div class="invitations-content">
+        <div *ngIf="loading" class="loading-state">
+            <div class="cyber-loader"></div>
+            <p>Loading invitations...</p>
+        </div>
+
+        <div *ngIf="!loading && invitations.length === 0" class="empty-state">
+            <i class="pi pi-inbox"></i>
+            <h3>No pending invitations</h3>
+            <p>You don't have any pending collaboration invitations at the moment.</p>
+        </div>
+
+        <div *ngIf="!loading && invitations.length > 0" class="invitations-list">
+            <div class="invitation-card" *ngFor="let invitation of invitations">
+                <div class="invitation-header">
+                    <div class="repo-info">
+                        <i class="pi pi-book"></i>
+                        <div class="repo-details">
+                            <h4>{{ invitation.repositoryName }}</h4>
+                            <p class="invited-by">Invited by <strong>{{ invitation.invitedByUsername }}</strong></p>
+                        </div>
+                    </div>
+                    <span class="role-badge" [ngClass]="getRoleBadgeClass(invitation.role)">
+                        {{ invitation.role }}
+                    </span>
+                </div>
+
+                <div class="invitation-meta">
+                    <span class="meta-item">
+                        <i class="pi pi-calendar"></i>
+                        Invited {{ invitation.invitedAt | date:'short' }}
+                    </span>
+                </div>
+
+                <div class="invitation-actions">
+                    <button class="btn-success" (click)="acceptInvitation(invitation)">
+                        <i class="pi pi-check"></i> Accept
+                    </button>
+                    <button class="btn-danger-outline" (click)="rejectInvitation(invitation)">
+                        <i class="pi pi-times"></i> Reject
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-toast position="top-right"></p-toast>
+<p-confirmDialog styleClass="custom-confirm-dialog"></p-confirmDialog>
